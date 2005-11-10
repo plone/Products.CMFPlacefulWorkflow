@@ -1,0 +1,63 @@
+[TODO]
+
+* Uninstallation of the configlet
+
+* Add mutli workflow support in UI
+
+* Fallback to workflow tool chain if no chain is defined for a type in a policy
+
+* Support of aquiring policy from another
+
+[CVS - ]
+
+* remove unused toolbox import from Testcase (thanks to huron)
+
+* write missing dependancies in INSTALL.TXT
+
+[v0.4 - 20050829]
+
+* add global_contentmenu_2_1 for Plone 2.1 compatibility.
+
+* Support for workflow chains
+
+* Minor fixes on page templates
+
+* Use '(Default)' chain from Michael Davis' patch
+
+* Add a Customization Policy
+
+* Make testcase zopectl test compatible
+
+* Factory tool fix for Plone 2.0.x
+
+[v0.3 - 20050413]
+
+* Cleaned up the interface.
+
+* Added mini-howto to Readme.txt
+
+* Simplified Workflow Policy interface
+
+* Fixed a bug when adding a workflow policy through the Placeful Workflow
+  interface in Plone Setup thanks to a patch by Edward Muller.
+
+* Simplified access to the configuration from the policy action in the
+  workflow state menu in the case of a non-folderish object.
+
+* Installs fine in Plone 2.1 now.
+
+* Installation of a configlet
+
+* Installing a patch of getChainFor in Plone's WorkflowTool.py
+
+* It is no more necessary to replace workflow_tool
+
+* Removed content_status_history.cpt which had been added accidentally
+
+[v0.2 - 20041102]
+
+* Checking isPrincipiaFolderish to see if we can add a configuration locally
+
+[v0.1 - 20041102]
+
+* Initial version

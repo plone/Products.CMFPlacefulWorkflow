@@ -1,0 +1,169 @@
+<tal:block replace="nothing">
+-*- coding: utf-8 -*-
+## CMFPlacefulWorkflow
+## Copyright (C)2005 Ingeniweb
+
+## This program is free software; you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by
+## the Free Software Foundation; either version 2 of the License, or
+## (at your option) any later version.
+
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+
+## You should have received a copy of the GNU General Public License
+## along with this program; see the file COPYING. If not, write to the
+## Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+CMFPlacefulWorkflow configuration panel
+
+# $Source: /cvsroot/ingeniweb/CMFPlacefulWorkflow/skins/CMFPlacefulWorkflow/prefs_workflow_localpolicies_form.pt,v $
+# $Id$
+</tal:block>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/prefs_main_template/macros/master"
+      i18n:domain="plone">
+
+<metal:block metal:fill-slot="top_slot"
+             tal:define="dummy python:request.set('disable_border',1)" />
+
+<body>
+
+<div metal:fill-slot="prefs_configlet_main"
+     tal:define="errors python:request.get('errors', {})">
+
+
+    <h1 i18n:translate="">Placeful Workflow</h1>
+
+    <a href=""
+       class="link-parent"
+       tal:attributes="href string: $portal_url/plone_control_panel"
+       i18n:translate="label_up_to_plone_setup">
+    Up to Plone Setup
+    </a>
+
+    <p i18n:translate="">
+        Workflow policy setup for Plone.
+    </p>
+
+<!-- ugly way of simulating real actions on the groups/user pages until we have
+     real objects. -->
+
+<ul tal:condition="python:0" id="contentTabs">
+  <li class="selected">
+    <a href="prefs_workflow_basic"
+       i18n:translate="label_workflow_default">Default workflow configuration</a>
+  </li>
+  <li class="">
+    <a href="prefs_workflow_advanced"
+       i18n:translate="">Global Content Type to Workflow Mapping</a>
+  </li>
+  <li class="">
+    <a href="prefs_workflow_localpolicies_form"
+       i18n:translate="">Local Content Type to Workflow Mapping</a>
+  </li>
+</ul>
+<div id="contentBar" tal:condition="python:0">&nbsp;</div>
+<!-- End of tabs -->
+
+    <form action=""
+          name=""
+          method="post"
+          tal:attributes="action string:prefs_workflow_localpolicies_set"
+          tal:define="wfp python:here.portal_placeful_workflow;">
+
+        <fieldset>
+            <legend i18n:translate="">Workflow Policies</legend>
+
+            <div tal:repeat="wfpid python:wfp.getWorkflowPolicyIds()"
+                 class="field">
+
+                <tal:wfp tal:define="wfp python:wfp.getWorkflowPolicyById(wfpid)">
+
+                <input type="checkbox" 
+                       class="noborder"
+                       id="policy_id"
+                       name="policy_ids:list"
+                       tal:attributes="id wfpid; value wfpid" />
+
+                <label i18n:translate=""
+                       for="policy_id"
+                       tal:attributes="for wfpid">
+                    <a href="prefs_workflow_policy_mapping"
+                       tal:attributes="href python:'prefs_workflow_policy_mapping?wfpid='+wfpid"
+                       tal:content="python:wfp.getId()">
+                        Title of the policy mapping
+                    </a>
+                    <span href="prefs_workflow_policy_mapping"
+                          tal:condition="python:wfp.getTitle()"
+                          tal:content="python:'('+wfp.getTitle().strip()+')'">
+                        Title of the policy mapping
+                    </span>
+                </label>
+
+                <div class="formHelp"
+                     i18n:translate=""
+                     tal:content="python:wfp.getDescription()">
+                    Description of the policy mapping
+                </div>
+
+                </tal:wfp>
+
+            </div>
+
+            <div class="formControls"
+                 tal:condition="python:wfp.getWorkflowPolicyIds()">
+                <input class="context"
+                       tabindex=""
+                       type="submit"
+                       name="delete"
+                       value="Delete"
+                       i18n:attributes="value"
+                       tal:attributes="tabindex tabindex/next;"
+                       />
+            </div>
+
+            <div class="field"
+                 tal:define="error errors/policy_id | nothing;"
+                 tal:attributes="class python:test(error, 'field error', 'field')">
+    
+                <label i18n:translate="">New policy</label>
+    
+                <div class="formHelp" id=""
+                     i18n:translate="">
+                     Add new policies here
+                </div>
+    
+                <div tal:content="error">Validation error output</div>
+    
+                <input name="policy_id"
+                       value=""
+                       size="30"
+                       tabindex=""
+                       tal:attributes="tabindex tabindex/next;" />
+            </div>
+
+            <div class="formControls">
+                <input class="context"
+                       tabindex=""
+                       type="submit"
+                       name="add"
+                       value="Add"
+                       i18n:attributes="value"
+                       tal:attributes="tabindex tabindex/next;"
+                       />
+            </div>
+    
+        <input type="hidden" name="form_submitted" value="1" tal:attributes="value template/id" />
+      </fieldset>
+    </form>
+
+</div>
+
+</body>
+</html>
+
+

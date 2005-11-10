@@ -1,0 +1,163 @@
+<tal:block replace="nothing">
+-*- coding: utf-8 -*-
+## CMFPlacefulWorkflow
+## Copyright (C)2005 Ingeniweb
+
+## This program is free software; you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by
+## the Free Software Foundation; either version 2 of the License, or
+## (at your option) any later version.
+
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+
+## You should have received a copy of the GNU General Public License
+## along with this program; see the file COPYING. If not, write to the
+## Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+Workflow policy configuration template
+
+# $Source: /cvsroot/ingeniweb/CMFPlacefulWorkflow/skins/CMFPlacefulWorkflow/placeful_workflow_configuration.pt,v $
+# $Id$
+</tal:block>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+  <body>
+
+    <div metal:fill-slot="main"
+         tal:define="type_list python:here.portal_types.listTypeInfo();
+                     wf_list python:here.portal_workflow.objectIds();
+                     policy_config python:here.portal_placeful_workflow.getWorkflowPolicyConfig(here);
+                     container_policy_config python:here.portal_placeful_workflow.getWorkflowPolicyConfig(container);">
+
+      <h1>Workflow policies</h1>
+
+      <p tal:condition="python:policy_config">
+          Set your workflow policies for this folder and below.
+      </p>
+
+      <p tal:condition="python:not policy_config and here.isPrincipiaFolderish">
+          <a href="placeful_workflow_configuration_add">Add a workflow policy in the <span tal:content="python:here.portal_type" /></a>
+      </p>
+
+      <p tal:condition="python:not here.isPrincipiaFolderish and not container_policy_config">
+          <a href="" tal:attributes="href python:container.absolute_url()+'/placeful_workflow_configuration_add'">Add Workflow policy</a>
+      </p>
+
+      <p tal:condition="python:not here.isPrincipiaFolderish and container_policy_config">
+          <span tal:define="dummy python:context.REQUEST.RESPONSE.redirect(container.absolute_url()+'/placeful_workflow_configuration')" />
+      </p>
+<form id="edit_form"
+      name="edit_form"
+      method="post"
+      action="placeful_workflow_configuration_set"
+      tal:condition="policy_config">
+
+    <fieldset tal:define="policies python:here.portal_placeful_workflow.getWorkflowPolicies();
+                          policy_in python:policy_config.getPolicyIn();
+                          policy_in_id python:policy_config.getPolicyInId();
+                          policy_below python:policy_config.getPolicyBelow();
+                          policy_below_id python:policy_config.getPolicyBelowId()">
+
+        <legend i18n:translate="legend_publishing_details">Workflow policy</legend>
+
+        <strong>In</strong> this Folder
+
+        <div class="field">
+
+            <tal:policy tal:repeat="policy python:policies">
+
+                <input type="radio"
+                       class="noborder"
+                       name="policy_in"
+                       value="policy"
+                       id="cb_policy"
+                       tabindex=""
+                       tal:attributes="id python:'cb_policy_' + policy.id;
+                                       value python:policy.id;
+                                       tabindex tabindex;
+                                       checked python:policy.id==policy_in_id"/>
+                <label for="cb_policy" tal:attributes="for python:'cb_'+policy.id" tal:content="python:policy.getTitle()">Policy Label</label>
+                <br />
+                <span class="formHelp" tal:content="python:policy.getDescription()">Workflow policy description</span>
+                <br />
+            </tal:policy>
+
+            <input type="radio"
+                   class="noborder"
+                   name="policy_in"
+                   id="cb_default_policy"
+                   title=""
+                   checked="1"
+                   tal:attributes="tabindex tabindex;
+                                   value python:'';
+                                   checked python:not policy_in"/>
+            <label for="cb_default_policy">Default Policy</label>
+            <br />
+            <span class="formHelp">The default workflow policy.</span>
+            <br />
+        </div>
+
+        <strong>Below</strong> this Folder
+
+        <div class="field">
+
+            <tal:policy tal:repeat="policy python:policies">
+
+                <input type="radio"
+                       class="noborder"
+                       name="policy_below"
+                       value="policy"
+                       id="cb_policy"
+                       tabindex=""
+                       tal:attributes="id python:'cb_policy_' + policy.id;
+                                       value python:policy.id;
+                                       tabindex tabindex;
+                                       checked python:policy.id==policy_below_id"/>
+                <label for="cb_policy" tal:attributes="for python:'cb_'+policy.id" tal:content="python:policy.getTitle()">Policy Label</label>
+                <br />
+                <span class="formHelp" tal:content="python:policy.getDescription()">Workflow policy description</span>
+                <br />
+            </tal:policy>
+
+            <input type="radio"
+                   class="noborder"
+                   name="policy_below"
+                   id="cb_default_policy"
+                   title=""
+                   checked="1"
+                   tal:attributes="tabindex tabindex;
+                                   value python:'';
+                                   checked python:not policy_below"/>
+            <label for="cb_default_policy">Default Policy</label>
+            <br />
+            <span class="formHelp">The default workflow policy.</span>
+            <br />
+        </div>
+
+        <div class="formControls">
+            <input class="context"
+                   type="submit"
+                   name="submit"
+                   value="Save">
+            <input class="standalone"
+                   type="submit"
+                   name="submit"
+                   value="Cancel"/>
+        </div>
+    </fieldset>
+</form>
+
+      <div metal:use-macro="here/document_byline/macros/byline">
+        Get the byline - contains details about author and modification date.
+      </div>
+
+    </div>
+
+  </body>
+</html>
