@@ -24,7 +24,6 @@ __version__ = "$Revision$"
 __docformat__ = 'restructuredtext'
 
 # Zope imports
-from Products.CMFCore import CMFCorePermissions
 from Products.CMFCore.utils import getToolByName
 from Acquisition import aq_parent, aq_inner
 from AccessControl.Permission import Permission
@@ -32,26 +31,24 @@ from AccessControl.Permission import Permission
 # Plone imports
 from Products.CMFPlone.FactoryTool import FactoryTool, FACTORY_INFO, TempFolder, ListType
 
-from Products.CMFPlacefulWorkflow.global_symbols import *
+from Products.CMFPlacefulWorkflow.global_symbols import Log, LOG_DEBUG
 
 def _getTempFolder(self, type_name):
     """
     monkey-patched by CMFPlacefulWorkflow to backport fix from Plone 2.1 to 2.0
     """
-    AP = CMFCorePermissions.AddPortalContent
-    
     factory_info = self.REQUEST.get(FACTORY_INFO, {})
     tempFolder = factory_info.get(type_name, None)
     if tempFolder:
         tempFolder = aq_inner(tempFolder).__of__(self)
         return tempFolder
-    
+
     # make sure we can add an object of this type to the temp folder
     types_tool = getToolByName(self, 'portal_types')
     if not type_name in types_tool.TempFolder.allowed_content_types:
         # update allowed types for tempfolder
         types_tool.TempFolder.allowed_content_types = (types_tool.listContentTypes())
-        
+
     tempFolder = TempFolder(type_name).__of__(self)
     intended_parent = aq_parent(self)
     portal = getToolByName(self, 'portal_url').getPortalObject()
