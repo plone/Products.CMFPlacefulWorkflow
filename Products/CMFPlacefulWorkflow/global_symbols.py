@@ -54,5 +54,5 @@ placeful_prefs_configlet = {
     'action': 'string:$portal_url/prefs_workflow_localpolicies_form',
     'category': 'Products',
     'permission': (CMFCorePermissions.ManagePortal,),
-    'imageUrl': 'site_icon.gif',
+    'imageUrl': 'placefulworkflow_icon.png',
     }
