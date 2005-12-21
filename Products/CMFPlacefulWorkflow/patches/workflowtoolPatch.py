@@ -44,13 +44,23 @@ def getChainFor(self, ob):
     if pt is None:
         return ()
 
-    if type(ob) != type('') and pt!=None:
+    # Take some extra care when ob is a string
+    is_policy_container=0
+    objectids=[]
+    try:
+       objectids = ob.objectIds()
+    except:
+       pass
+    if WorkflowPolicyConfig_id in objectids:
+        is_policy_container=1
+
+    if type(ob) != type('') and pt!=None and not is_policy_container:
         # Inspired by implementation in CPSWorkflowTool.py of CPSCore 3.9.0
         wfpolicyconfig = getattr(ob, WorkflowPolicyConfig_id, None)
         if wfpolicyconfig is not None:
             # Was it here or did we acquire?
             start_here = hasattr(aq_base(aq_parent(aq_inner(ob))), WorkflowPolicyConfig_id)
-            chain = wfpolicyconfig.getPlacefulChainFor(pt, start_here=start_here)
+            chain = wfpolicyconfig.getPlacefulChainFor(ob, pt, start_here=start_here)
             if chain is not None:
                 return chain
 

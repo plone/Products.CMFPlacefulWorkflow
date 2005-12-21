@@ -23,27 +23,13 @@ __version__ = "$Revision$"
 # $Id$
 __docformat__ = 'restructuredtext'
 
-# Python imports
-import os
-import time
-import Globals
-
 # Zope imports
 from Testing import ZopeTestCase
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import noSecurityManager
-from Acquisition import aq_base
-
-# CMF imports
-from Products.CMFCore.utils import getToolByName
 
 # Plone imports
 from Products.PloneTestCase import PloneTestCase
-
-# Products imports
-from Products.Archetypes.tests import ArchetypesTestCase
-from Products.ATContentTypes.Extensions.Install import install as installATCT
-from Products.ATContentTypes.Extensions.toolbox import isSwitchedToATCT
 
 
 class CMFPlacefulWorkflowTestCase(PloneTestCase.PloneTestCase):
@@ -84,36 +70,6 @@ class CMFPlacefulWorkflowTestCase(PloneTestCase.PloneTestCase):
         perms = self.portal.permissionsOfRole(role)
         return [p['name'] for p in perms if p['selected']]
 
-def setupCMFPlacefulWorkflow(app, id=ArchetypesTestCase.portal_name, quiet=0):
-    get_transaction().begin()
-    _start = time.time()
-    portal = app[id]
-    
-    if not quiet: ZopeTestCase._print('Installing CMFPlacefulWorkflowSite ... ')
-
-    # Login as manager
-    user = app.acl_users.getUserById('portal_owner').__of__(app.acl_users)
-    newSecurityManager(None, user)
-    qi_tool = getToolByName(portal, 'portal_quickinstaller', None)
-
-    ## Add ATCT
-    #if hasattr(aq_base(portal), 'switchCMF2ATCT'):
-        #ZopeTestCase._print('ATCT already installed ... ')
-    #else:
-        #qi_tool.installProduct('ATContentTypes')
-        #get_transaction().commit(1)
-
-    #if not isSwitchedToATCT(portal):
-        ## Switch to ATCT
-        #ZopeTestCase._print('switching to ATCT mode ... ')
-        #portal.switchCMF2ATCT()
-        #get_transaction().commit(1)
-
-    # Log out
-    noSecurityManager()
-    get_transaction().commit()
-    if not quiet: ZopeTestCase._print('done (%.3fs)\n' % (time.time()-_start,))
-
 # Install CMFPlacefulWorkflow
 ZopeTestCase.installProduct('MimetypesRegistry')
 ZopeTestCase.installProduct('PythonScripts')
@@ -125,11 +81,8 @@ ZopeTestCase.installProduct('CMFPlacefulWorkflow')
 
 # Setup Plone site
 PloneTestCase.setupPloneSite(products=[
-    'Archetypes',
-    'ATContentTypes',
     'CMFPlacefulWorkflow',
     ])
 
 app = ZopeTestCase.app()
-setupCMFPlacefulWorkflow(app)
 ZopeTestCase.close(app)

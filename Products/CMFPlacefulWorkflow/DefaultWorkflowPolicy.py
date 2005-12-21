@@ -125,9 +125,14 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
             types_info.append({'id': id,
                                'title': title,
                                'chain': chain})
+                               
+        if self._default_chain == None:
+            default_chain = ""
+        else:
+            default_chain = ', '.join(self._default_chain)
         return self._manage_defineLocalWorkflowPolicy(
             REQUEST,
-            default_chain=', '.join(self._default_chain),
+            default_chain=default_chain,
             types_info=types_info,
             management_view='Workflows',
             manage_tabs_message=manage_tabs_message)

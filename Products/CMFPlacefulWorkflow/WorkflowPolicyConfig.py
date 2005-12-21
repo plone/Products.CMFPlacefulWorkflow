@@ -103,7 +103,7 @@ class WorkflowPolicyConfig(SimpleItem):
             raise ValueError, "Policy must be a string"
         self.workflow_policy_below = policy
 
-    def getPlacefulChainFor(self, portal_type, start_here=1):
+    def getPlacefulChainFor(self, ob, portal_type, start_here=1):
         """Get the chain for the given portal_type.
 
         Returns None if no placeful chain is found.
@@ -121,6 +121,10 @@ class WorkflowPolicyConfig(SimpleItem):
         chain=None
         if wfp != None:
             chain = wfp.getChainFor(portal_type)
+        if chain:
+            pass
+        else:
+            chain= wfp.getDefaultChain(ob)
         return chain
 
 InitializeClass( WorkflowPolicyConfig )

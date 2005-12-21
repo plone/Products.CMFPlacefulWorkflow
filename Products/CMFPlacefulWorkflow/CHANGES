@@ -8,7 +8,17 @@
 
 * Support of aquiring policy from another
 
+* Test for Bugfix: Default workflow policy chain is now taken into account (MR)
+
+* Test for Bugfix: Policy Container does not apply contained workflow policies (MR)
+
+* Test the case where a container itself is subject to a workflow policy
+
 [CVS - ]
+
+* Bugfix: Policy Container does not apply contained workflow policies (MR)
+
+* Bugfix: Default workflow policy chain is now taken into account (MR)
 
 * remove unused toolbox import from Testcase (thanks to huron)
 

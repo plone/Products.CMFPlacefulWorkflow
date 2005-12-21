@@ -23,27 +23,13 @@ __version__ = "$Revision$"
 # $Id$
 __docformat__ = 'restructuredtext'
 
-import os, sys
-if __name__ == '__main__':
-    execfile(os.path.join(sys.path[0], 'framework.py'))
-
 
 from Products.PloneTestCase import PloneTestCase
 from Testing import ZopeTestCase
 
-from Acquisition import aq_base
-
-#Security/Permission
-from AccessControl.Permissions import change_images_and_files, view_management_screens
-from AccessControl.SecurityManagement import newSecurityManager, noSecurityManager, getSecurityManager
-from AccessControl import Unauthorized
-from Products.CMFCore.CMFCorePermissions import *
-from AccessControl.User import UnrestrictedUser
-
-# Get global vars
-from Products.CMFPlacefulWorkflow.global_symbols import *
 
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
+from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase
 
 try:
    _standard_permissions = ZopeTestCase._standard_permissions
@@ -56,18 +42,14 @@ _all_permissions      = _edit_permissions
 PloneTestCase.installProduct('CMFPlacefulWorkflow')
 PloneTestCase.setupPloneSite()
 
-from Acquisition import aq_base, aq_parent, aq_inner
-
 # Other imports
 from Products.CMFCore.utils import getToolByName
-
-from Products.CMFCore.interfaces.DublinCore import DublinCore
-from common import *
 
 # Set log options if Log module is available
 # This is done to set LOG_PROCESSORs to file logs instead of Zope logs
 try:
     import Log
+    import os
 
     Log.LOG_LEVEL = Log.LOG_DEBUG
 
@@ -80,8 +62,7 @@ try:
         Log.LOG_DEBUG: Log.logFile,
         }
 
-    from Log import *
-    Log(LOG_NOTICE, "Starting %s at %d debug level" % (os.path.dirname(__file__), LOG_LEVEL, ))
+    Log.Log(Log.LOG_NOTICE, "Starting %s at %d debug level" % (os.path.dirname(__file__), Log.LOG_LEVEL, ))
 
 except:
     print "Log module not available"
@@ -94,7 +75,7 @@ except:
         pass
     raise
 
-class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase.CMFPlacefulWorkflowTestCase):
+class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
     """ Testing all add-on and modified method for workflow stuff """
 
     def createMember(self, id, pw, email, roles=('Member',)):
@@ -478,7 +459,3 @@ def test_suite():
     suite = TestSuite()
     suite.addTest(makeSuite(TestPlacefulWorkflow))
     return suite
-
-if __name__ == '__main__':
-    framework()
-
