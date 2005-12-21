@@ -50,9 +50,6 @@ DirectoryView.registerDirectory('skins', globals())
 # Initialization method
 def initialize(context):
 
-    import CustomizationPolicy
-    CustomizationPolicy.register(context,install_globals)
-
     registerIcon( DefaultWorkflowPolicy.DefaultWorkflowPolicyDefinition
                 , 'images/workflow_policy.gif'
                 , globals()
