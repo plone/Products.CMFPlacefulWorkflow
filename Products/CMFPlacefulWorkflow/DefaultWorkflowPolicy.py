@@ -125,7 +125,7 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
             types_info.append({'id': id,
                                'title': title,
                                'chain': chain})
-                               
+
         if self._default_chain == None:
             default_chain = ""
         else:
