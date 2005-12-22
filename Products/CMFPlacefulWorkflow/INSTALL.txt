@@ -2,12 +2,11 @@ Dependancies
 
     CMF 1.4.7 or CMF 1.5 series
 
-    ATContentTypes 0.2 or more for CustomizationPolicy
-
 Installation
 
-    Installation was tested with Plone 2.0.5. Just use the Plone
-    Installation configlet to install CMFPlacefulWorkflow.
+    Installation was tested with Plone 2.0.5 and Plone 2.1.1.
+    Just use the Plone Installation configlet to install
+    CMFPlacefulWorkflow.
 
     We are patching Plone's Workflow Tool automatically when 
     Zope starts. 

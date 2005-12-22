@@ -2,19 +2,25 @@
 
 * Uninstallation of the configlet
 
-* Add mutli workflow support in UI
+* Add mutli workflow support in UI ( LinesWidget ? )
 
 * Fallback to workflow tool chain if no chain is defined for a type in a policy
 
 * Support of aquiring policy from another
+
+[CVS - ]
+
+* Better icon for configlet (ED)
+
+* Unit tests cleaning (ED)
+
+* Removing Custom Policy (ED)
 
 * Test for Bugfix: Default workflow policy chain is now taken into account (MR)
 
 * Test for Bugfix: Policy Container does not apply contained workflow policies (MR)
 
 * Test the case where a container itself is subject to a workflow policy
-
-[CVS - ]
 
 * Bugfix: Policy Container does not apply contained workflow policies (MR)
 
