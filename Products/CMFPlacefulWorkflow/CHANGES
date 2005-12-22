@@ -8,7 +8,9 @@
 
 * Support of aquiring policy from another
 
-[CVS - ]
+[SVN - UNRELEASED]
+
+* fix unit test 7 and 10 (ED)
 
 * Better icon for configlet (ED)
 
