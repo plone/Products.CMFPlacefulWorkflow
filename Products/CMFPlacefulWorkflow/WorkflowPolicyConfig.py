@@ -23,8 +23,7 @@ __version__ = "$Revision$"
 # $Id$
 __docformat__ = 'restructuredtext'
 
-from Globals import Persistent, DTMLFile, InitializeClass
-from AccessControl.Role import RoleManager
+from Globals import DTMLFile, InitializeClass
 from OFS.SimpleItem import SimpleItem
 
 from AccessControl import ClassSecurityInfo
@@ -121,13 +120,10 @@ class WorkflowPolicyConfig(SimpleItem):
         chain=None
         if wfp != None:
             chain = wfp.getChainFor(portal_type)
-        if chain:
-            pass
-        else:
+
+        if chain is None:
             chain= wfp.getDefaultChain(ob)
+
         return chain
 
 InitializeClass( WorkflowPolicyConfig )
-
-
-
