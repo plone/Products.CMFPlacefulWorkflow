@@ -24,6 +24,9 @@
 
 * Test the case where a container itself is subject to a workflow policy
 
+* Bugfix: When getting the chain for a type the config must handle the case 
+  where there is no appropriate policy.
+
 * Bugfix: Policy Container does not apply contained workflow policies (MR)
 
 * Bugfix: Default workflow policy chain is now taken into account (MR)
