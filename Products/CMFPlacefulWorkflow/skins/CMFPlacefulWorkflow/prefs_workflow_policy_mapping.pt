@@ -1,5 +1,4 @@
 <tal:block replace="nothing">
--*- coding: utf-8 -*-
 ## CMFPlacefulWorkflow
 ## Copyright (C)2005 Ingeniweb
 
@@ -37,12 +36,12 @@ Workflow policy mapping template
                  type_list python: sequence.sort(type_list, (('Title', 'nocase', 'asc'),));
                  wfpid python:request.get('wfpid');
                  wf_policy python:here.portal_placeful_workflow.getWorkflowPolicyById(wfpid);
-                 wf_list here/portal_workflow/objectIds">
+                 wf_list python:[''] + here.portal_workflow.objectIds();
+                 type_wf_list python:['(Default)'] + wf_list;">
 
 <!-- ugly way of simulating real actions on the groups/user pages until we have
      real objects. -->
-
-<ul tal:condition="python:0" id="contentTabs">
+<ul tal:condition="python:False" id="contentTabs">
   <li class="selected">
     <a href="prefs_workflow_basic"
        i18n:translate="label_workflow_default">Default workflow configuration</a>
@@ -131,7 +130,7 @@ Workflow policy mapping template
                             <div>
                                 <select id="select_workflow" name="workflow_id"
                                         tal:attributes="name python:'wf.' + ctype.getId() + ':record'" >
-                                    <option tal:repeat="wf python:['', '(Default)'] + wf_list"
+                                    <option tal:repeat="wf type_wf_list"
                                             tal:attributes="value wf;
                                                             selected python:test((wf,)==wf_policy.getChainFor(ctype.getId(), managescreen=True), 'selected', None)"
                                             tal:content="wf">workflow_id</option>
