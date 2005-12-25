@@ -1,7 +1,5 @@
 [TODO]
 
-* Uninstallation of the configlet
-
 * Add mutli workflow support in UI ( LinesWidget ? )
 
 * Fallback to workflow tool chain if no chain is defined for a type in a policy
@@ -9,6 +7,16 @@
 * Support of aquiring policy from another
 
 [SVN - UNRELEASED]
+
+* Let user choose an empty default workflow in a policy (ED)
+
+* Cleaning installation schema (ED)
+
+* Uninstallation of the configlet (ED)
+
+* Fix reintallation looses defined policies (ED)
+
+* Code cleaning (ED)
 
 * fix unit test 7 and 10 (ED)
 
