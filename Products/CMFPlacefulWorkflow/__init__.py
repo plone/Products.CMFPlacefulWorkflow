@@ -32,15 +32,7 @@ import WorkflowPolicyConfig
 
 from Products.CMFCore import utils, DirectoryView
 
-from global_symbols import *
-
-from AccessControl.Permissions import *
-
 install_globals = globals()          # Used only in the Extensions/Install.py script
-
-from Products.CMFCore.utils import registerIcon
-
-from Products.CMFCore import utils
 
 tools = (PlacefulWorkflowTool.PlacefulWorkflowTool, )
 
@@ -50,10 +42,10 @@ DirectoryView.registerDirectory('skins', globals())
 # Initialization method
 def initialize(context):
 
-    registerIcon( DefaultWorkflowPolicy.DefaultWorkflowPolicyDefinition
-                , 'images/workflow_policy.gif'
-                , globals()
-                )
+    utils.registerIcon(
+        DefaultWorkflowPolicy.DefaultWorkflowPolicyDefinition,
+        'images/workflow_policy.gif',
+        globals())
 
     context.registerClass(
         PlacefulWorkflowTool.PlacefulWorkflowTool,
