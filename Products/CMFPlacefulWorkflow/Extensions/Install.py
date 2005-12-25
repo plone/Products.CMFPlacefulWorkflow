@@ -23,35 +23,55 @@ __version__ = "$Revision$"
 # $Id$
 __docformat__ = 'restructuredtext'
 
+import string
 from Products.CMFPlacefulWorkflow import install_globals
-from Products.CMFPlacefulWorkflow.global_symbols import *
-from Products.CMFPlacefulWorkflow.Installation import Installation
-from OFS.Cache import Cache
+from Products.CMFPlacefulWorkflow.global_symbols import placeful_prefs_configlet
 from Products.CMFCore.utils import getToolByName
 from cStringIO import StringIO
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addPlacefulWorkflowTool
-import string
 from Products.CMFCore.DirectoryView import addDirectoryViews
-
-#perms_list = (PlacefulWorkflowPolicy_editPermission, )
 
 skin_name = 'CMFPlacefulWorkflow'
 
 def setupTools(self):
     tool = 'Placeful Workflow Tool'
     id = "portal_placeful_workflow"
-    found=0
+    found = False
     for obj in self.objectValues():
-        if obj.meta_type == tool:
-            self.manage_delObjects([id, ])
-    addPlacefulWorkflowTool(self)
+        if obj.getId() == id:
+            if obj.meta_type == tool:
+                found = True
+            else:
+                raise NameError, "The tool id is already taken"
 
-def install(self):
-    installation=Installation(self)
-    addDirectoryViews(installation.skinsTool, 'skins', install_globals)
-    installation.installSubSkin(skin_name)
-#    installation.setPermissions(perms_list)
+    if not found:
+        addPlacefulWorkflowTool(self)
+
+def installSubSkin(self, skinFolder, out):
+    """ Install a subskin, i.e. a folder/directoryview.
+    """
+    skins_tool = getToolByName(self, 'portal_skins')
+    addDirectoryViews(skins_tool, 'skins', install_globals)
+    for skin in skins_tool.getSkinSelections():
+        path = skins_tool.getSkinPath(skin)
+        path = map( string.strip, string.split( path,',' ) )
+        if not skinFolder in path:
+            try:
+                path.insert( path.index( 'custom')+1, skinFolder )
+            except ValueError:
+                path.append(skinFolder)
+            path = string.join( path, ', ' )
+            skins_tool.addSkinSelection( skin, path )
+            out.write('*** Subskin installed into %s.\n' % skin) 
+        else:
+            out.write('*** Subskin was already installed into %s.\n' % skin) 
+
+def install(self, out=None):
+    if out is None:
+        out = StringIO()
+
     setupTools(self)
+    installSubSkin(self, skin_name, out)
 
     # Install configlet
     cptool = getToolByName(self, 'portal_controlpanel')
@@ -63,11 +83,13 @@ def install(self):
         cptool.registerConfiglet(**placeful_prefs_configlet)
     except:
         pass
-    return installation.report()
+    return out.getvalue()
 
-def uninstall(self):
-    out = StringIO()
-    
+
+def uninstall(self, out=None):
+    if out is None:
+        out = StringIO()
+
     # uninstall configlets
     try:
         cptool = getToolByName(self, 'portal_controlpanel')
@@ -75,5 +97,5 @@ def uninstall(self):
         out.write('Removing CMFPlacefulWorkflow Configlet')
     except:
         out.write('Failed to remove CMFPlacefulWorkflow Configlet')
-        
+
     return out.getvalue()
