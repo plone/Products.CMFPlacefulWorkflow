@@ -25,6 +25,7 @@ __docformat__ = 'restructuredtext'
 
 from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass, PersistentMapping, DTMLFile
+from Acquisition import aq_base
 
 from Products.CMFCore.utils import SimpleItemWithProperties
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addWorkflowPolicyFactory
