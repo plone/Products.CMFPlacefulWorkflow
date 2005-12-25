@@ -1,5 +1,6 @@
 ##parameters=submit, wfpid, title, description, wf, default_workflow_id
 ##title=set local workflow policy mapping
+#-*- coding: utf-8 -*-
 
 from Products.CMFCore.utils import getToolByName
 
