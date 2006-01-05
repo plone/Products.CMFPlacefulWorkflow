@@ -34,7 +34,7 @@ pot: dtmlextract
 # a dtml extraction hack, should integrate with i18nextract
 dtmlextract: 
 	echo '<div i18n:domain="plone">' >skins/dtmlmessages.pt
-	find dtml -name "*.dtml" | xargs perl -n -e '/<dtml-translate domain="?zwiki"?>(.*?)<\/dtml-translate>/ and print "<span i18n:translate=\"\">$$1<\/span>\n";' >>skins/dtmlmessages.pt
+	find dtml -name "*.dtml" | xargs perl -n -e '/<dtml-translate domain="?plone"?>(.*?)<\/dtml-translate>/ and print "<span i18n:translate=\"\">$$1<\/span>\n";' >>skins/dtmlmessages.pt
 	echo '</div>' >>skins/dtmlmessages.pt
 
 po:
@@ -52,3 +52,22 @@ mo:
 	 msgfmt --statistics CMFPlacefulWorkflow-plone-$$L.po -o CMFPlacefulWorkflow-plone-$$L.mo; \
 	 done; \
 	rm -f *.mo
+
+i18n:
+# sync po files with pot
+	i18ndude sync --pot i18n/CMFPlacefulWorkflow-plone.pot \
+        i18n/CMFPlacefulWorkflow-plone-[a-z][a-z].po \
+        i18n/CMFPlacefulWorkflow-plone-[a-z][a-z]_[A-Z][A-Z].po
+
+i18n-en:
+# add untranslated msgstrs from the English translations
+	for pofile in i18n/*.po; do \
+        i18ndude admix $$pofile i18n/CMFPlacefulWorkflow-plone-en.po > i18n/temp-po; \
+        mv -f i18n/temp-po $$pofile; \
+    done
+
+i18nchart:
+# draw a chart
+	i18ndude chart -o i18n/i18nchart.png --pot i18n/CMFPlacefulWorkflow-plone.pot \
+        i18n/CMFPlacefulWorkflow-plone-[a-z][a-z].po \
+        i18n/CMFPlacefulWorkflow-plone-[a-z][a-z]_[A-Z][A-Z].po
