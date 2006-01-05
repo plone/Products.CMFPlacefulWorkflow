@@ -8,393 +8,144 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone\n"
 "Generated-By: zope/app/locales/extract.py\n"
 "Language-code: xx\n"
 "Language-name: X\n"
 "Preferred-encodings: utf-8 latin1\n"
-"Domain: plone\n"
-"Language-code: xx\n"
-"Language-name: X\n"
-"Preferred-encodings: utf-8 latin1\n"
-"Domain: plone\n"
-"Language-code: xx\n"
-"Language-name: X\n"
-"Preferred-encodings: utf-8 latin1\n"
-"Domain: plone\n"
 
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu.pt:103
-msgid "Add new items to this folder"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu.pt:108
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:122
-#. Default: "Add New Item"
-msgid "label_add_new_item"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu.pt:42
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu.pt:85
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:48
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:66
-#. Default: "State"
-msgid "label_state"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu.pt:69
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:88
-#. Default: "Advanced"
-msgid "label_advanced"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu.pt:75
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:94
-#. Default: "Policy"
-msgid "workflow_policy"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:122
-#. Default: "Add new items inside this item"
-msgid "title_add_new_items_inside_item"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:129
-#. Default: "Add new items in the same folder as this item"
-msgid "title_add_new_items_inside_folder"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:129
-#. Default: "Add to folder"
-msgid "label_add_new_item_in_folder"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:152
-#. Default: "Show all available content types"
-msgid "title_show_all_content_types"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:155
-#. Default: "More&hellip;"
-msgid "folder_add_more"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:161
-#. Default: "Configure which content types can be added here"
-msgid "title_configure_addable_content_types"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:164
-#. Default: "Settings&hellip;"
-msgid "folder_add_settings"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:191
-#. Default: "Add ${type}"
-msgid "label_add_type"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:195
-#. Default: "Add ${type} to folder"
-msgid "label_add_type_to_folder"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:219
-#. Default: "Display"
-msgid "label_disabled_display_menu"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:219
-#. Default: "Delete or rename the index_html item to gain full control over how this folder is displayed."
-msgid "title_remove_index_html_for_display_control"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:227
-#. Default: "Display"
-msgid "label_choose_template"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:227
-#. Default: "Choose default view"
-msgid "title_choose_default_view"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:240
-#. Default: "Folder display"
-msgid "label_current_folder_views"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:274
-#. Default: "Select an item to be used as default view in this folder"
-msgid "title_select_default_view_item"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:274
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:349
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:384
-#. Default: "Choose content item<br />&nbsp;&nbsp;as default view&hellip;"
-msgid "label_choose_item"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:286
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:361
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:396
-#. Default: "Item: ${contentitem}"
-msgid "label_item_selected"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:291
-#. Default: "Change the item used as default view in this folder"
-msgid "title_change_default_view_item"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:291
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:366
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:401
-#. Default: "Change content item<br />&nbsp;&nbsp;as default view&hellip;"
-msgid "label_change_item"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:305
-#. Default: "Item display"
-msgid "label_current_item_views"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:349
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:384
-#. Default: "Select an item to be used as default view in this folder"
-msgid "title_select_default_page"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:366
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:401
-#. Default: "Change default page"
-msgid "title_change_default_page"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:423
-#. Default: "Actions"
-msgid "label_actions_menu"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:423
-#. Default: "Actions"
-msgid "title_actions_menu"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:61
-#. Default: "Change the state of this item"
-msgid "title_change_state_of_item"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:79
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:142
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:176
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:182
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:259
 #: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:325
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:335
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:439
-#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:451
 msgid "${DYNAMIC_CONTENT}"
 msgstr ""
 
-#: w/skins/CMFPlacefulWorkflow/placeful_workflow_configuration.pt:67
-#. Default: "Workflow policy"
-msgid "legend_publishing_details"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_advanced.pt:38
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:38
-msgid "Workflow Setup"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_advanced.pt:40
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_localpolicies_form.pt:41
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:40
-#. Default: "Up to Plone Setup"
-msgid "label_up_to_plone_setup"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_advanced.pt:47
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:47
-msgid "Workflow setup for Plone."
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_advanced.pt:79
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:78
-#. Default: "Global content type to workflow mapping"
-msgid "heading_select_workflow"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_advanced.pt:81
-#. Default: "Select the workflow you want for each content type."
-msgid "description_select_workflow"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_advanced.pt:92
-#. Default: "Content types"
-msgid "legend_contenttypes"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:111
-#. Default: "Community workflow"
-msgid "label_community_workflow"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:112
-#. Default: ""
-#.  "if you want to have all the contents immediately available for everyone,\n"
-#.  "    but you also want to have a review process you should use this!"
-msgid "description_workflow_community"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:122
-msgid "${workflow}"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:82
-#. Default: "Workflows let you manage the publication process in your site. Plone ships with 4 common workflows:"
-msgid "description_workflow_common"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:88
-#. Default: "One step publication workflow"
-msgid "label_one_step_workflow"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:89
-#. Default: ""
-#.  "if you want to have all the contents immediately available for everyone,\n"
-#.  "      without having any review process you should use this One step publication."
-msgid "description_workflow_one_step"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:93
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:116
-#. Default: "You can also change the starting state of all documents:"
-msgid "label_workflow_default_state"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:96
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:119
-#. Default: "Select"
-msgid "label_select"
-msgstr ""
 
 #: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:99
 msgid "${label_pubdraft}"
 msgstr ""
 
+
+#: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:122
+msgid "${workflow}"
+msgstr ""
+
+
 #: w/skins/CMFPlacefulWorkflow/prefs_workflow_localpolicies_form.pt:100
 msgid "<a href=\"${DYNAMIC_CONTENT}\">${DYNAMIC_CONTENT}</a> <span href=\"prefs_workflow_policy_mapping\">${DYNAMIC_CONTENT}</span>"
 msgstr ""
 
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_localpolicies_form.pt:119
-msgid "Delete"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_localpolicies_form.pt:133
-msgid "New policy"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_localpolicies_form.pt:135
-msgid "Add new policies here"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_localpolicies_form.pt:150
-msgid "Add"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_localpolicies_form.pt:39
-msgid "Placeful Workflow"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_localpolicies_form.pt:48
-msgid "Workflow policy setup for Plone."
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_localpolicies_form.pt:79
-msgid "Workflow Policies"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:100
-msgid "Default workflow for content types."
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:111
-msgid "Workflows by type"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:113
-msgid "You can assign a workflow for all content type."
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:146
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_advanced.pt:135
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:130
-msgid "Save"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:46
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_advanced.pt:56
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_localpolicies_form.pt:57
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:56
-#. Default: "Default workflow configuration"
-msgid "label_workflow_default"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:50
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_advanced.pt:60
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_localpolicies_form.pt:61
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:60
-msgid "Global Content Type to Workflow Mapping"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:54
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_advanced.pt:64
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_localpolicies_form.pt:65
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:64
-msgid "Local Content Type to Workflow Mapping"
-msgstr ""
 
 #: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:61
 msgid "<span>${DYNAMIC_CONTENT}</span> <span>(<span>${DYNAMIC_CONTENT}</span>)</span>"
 msgstr ""
 
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:63
-msgid "Up to Placeful Workflow"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:70
-msgid "Custom workflow policy mapping content types to workflows."
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:78
-msgid "Workflow Policy Details"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:80
-#. Default: "Title"
-msgid "label_title"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:81
-#. Default: "(Required)"
-msgid "label_required"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:81
-msgid "Required"
-msgstr ""
-
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:89
-#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:98
-#. Default: "Description"
-msgid "label_description"
-msgstr ""
 
 #: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:91
 msgid "A brief description of the workflow policy."
 msgstr ""
 
 
+#: w/skins/CMFPlacefulWorkflow/prefs_workflow_localpolicies_form.pt:150
+msgid "Add"
+msgstr ""
+
+
+#: w/skins/CMFPlacefulWorkflow/global_contentmenu.pt:103
+msgid "Add new items to this folder"
+msgstr ""
+
+
+#: w/skins/CMFPlacefulWorkflow/prefs_workflow_localpolicies_form.pt:135
+msgid "Add new policies here"
+msgstr ""
+
+
+#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:70
+msgid "Custom workflow policy mapping content types to workflows."
+msgstr ""
+
+
+#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:100
+msgid "Default workflow for content types."
+msgstr ""
+
+
+#: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:60
+msgid "Global Content Type to Workflow Mapping"
+msgstr ""
+
+
+#: w/skins/CMFPlacefulWorkflow/prefs_workflow_advanced.pt:64
+msgid "Local Content Type to Workflow Mapping"
+msgstr ""
+
+
+#: w/skins/CMFPlacefulWorkflow/prefs_workflow_localpolicies_form.pt:133
+msgid "New policy"
+msgstr ""
+
+
+#: w/skins/CMFPlacefulWorkflow/prefs_workflow_localpolicies_form.pt:39
+msgid "Placeful Workflow"
+msgstr ""
+
+
+#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:81
+msgid "Required"
+msgstr ""
+
+
+#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:146
+msgid "Save"
+msgstr ""
+
+
+#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:63
+msgid "Up to Placeful Workflow"
+msgstr ""
+
+
+#: w/skins/CMFPlacefulWorkflow/prefs_workflow_localpolicies_form.pt:79
+msgid "Workflow Policies"
+msgstr ""
+
+
+#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:78
+msgid "Workflow Policy Details"
+msgstr ""
+
+
+#: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:38
+msgid "Workflow Setup"
+msgstr ""
+
+
+#: w/skins/CMFPlacefulWorkflow/prefs_workflow_localpolicies_form.pt:48
+msgid "Workflow policy setup for Plone."
+msgstr ""
+
+
+#: w/skins/CMFPlacefulWorkflow/prefs_workflow_basic.pt:47
+msgid "Workflow setup for Plone."
+msgstr ""
+
+
+#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:111
+msgid "Workflows by type"
+msgstr ""
+
+
+#: w/skins/CMFPlacefulWorkflow/prefs_workflow_policy_mapping.pt:113
+msgid "You can assign a workflow for all content type."
+msgstr ""
+
+
+#: w/skins/CMFPlacefulWorkflow/global_contentmenu.pt:75
+#: w/skins/CMFPlacefulWorkflow/global_contentmenu_2_1.pt:94
+#. Default: "Policy"
+msgid "workflow_policy"
+msgstr ""
 
