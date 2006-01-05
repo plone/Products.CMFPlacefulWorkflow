@@ -34,7 +34,33 @@ CMFPlacefulWorkflow configuration panel
 
 <div metal:fill-slot="prefs_configlet_main"
      tal:define="errors python:request.get('errors', {})">
+<div  id="content" class="documentEditable"
+        tal:condition="python:checkPermission('Manage users', here)">
 
+  <!-- ugly way of simulating real actions on placeful workflow pages until we have real objects. -->
+  <ul class="contentViews">
+    <li class="">
+      <a href="prefs_workflow_basic"
+         i18n:translate="label_workflow_default">Default workflow configuration</a>
+    </li>
+    <li class="">
+      <a href="prefs_workflow_advanced"
+         i18n:translate="">Global Content Type to Workflow Mapping</a>
+    </li>
+    <li class="selected">
+      <a href="prefs_workflow_localpolicies_form"
+         i18n:translate="">Local Content Type to Workflow Mapping</a>
+    </li>
+  </ul>
+
+  <div class="contentActions">
+    &nbsp;
+  </div>
+  <!-- End of tabs -->
+
+
+  <div id="region-content">
+    <a name="documentContent"></a>
 
     <h1 i18n:translate="">Placeful Workflow</h1>
 
@@ -48,26 +74,6 @@ CMFPlacefulWorkflow configuration panel
     <p i18n:translate="">
         Workflow policy setup for Plone.
     </p>
-
-<!-- ugly way of simulating real actions on the groups/user pages until we have
-     real objects. -->
-
-<ul tal:condition="python:0" id="contentTabs">
-  <li class="selected">
-    <a href="prefs_workflow_basic"
-       i18n:translate="label_workflow_default">Default workflow configuration</a>
-  </li>
-  <li class="">
-    <a href="prefs_workflow_advanced"
-       i18n:translate="">Global Content Type to Workflow Mapping</a>
-  </li>
-  <li class="">
-    <a href="prefs_workflow_localpolicies_form"
-       i18n:translate="">Local Content Type to Workflow Mapping</a>
-  </li>
-</ul>
-<div id="contentBar" tal:condition="python:0">&nbsp;</div>
-<!-- End of tabs -->
 
     <form action=""
           name=""
@@ -160,6 +166,13 @@ CMFPlacefulWorkflow configuration panel
         <input type="hidden" name="form_submitted" value="1" tal:attributes="value template/id" />
       </fieldset>
     </form>
+  </div>
+  </div>
+
+<div id="content" class="documentEditable"
+     tal:condition="python:not checkPermission('Manage users', here)">
+  <tal:block replace="here/raiseUnauthorized" />
+</div>
 
 </div>
 
