@@ -452,6 +452,46 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         config = pwt.getWorkflowPolicyConfig(self.portal.folder.folder2.document2)
         self.assertEqual(config, None)
 
+    def test_15_wft_getChainFor_placeful_with_strange_wrapper(self):
+        self.logout()
+        self.loginAsPortalOwner()
+        wft = self.portal.portal_workflow
+        self.portal.invokeFactory('Folder', id='folder')
+        self.portal.folder.invokeFactory('Document', id='document')
+        self.portal.invokeFactory('Folder', id='folder2')
+        self.portal.folder2.invokeFactory('Document', id='document2')
+
+        # Create a policy
+        pwt = self.portal.portal_placeful_workflow
+        pwt.manage_addWorkflowPolicy(id = 'foo_bar_policy' \
+                                    , workflow_policy_type = 'default_workflow_policy'+\
+                                    ' (Simple Policy)')
+
+        # And redefine the chain for Document
+        gsp1 = pwt.getWorkflowPolicyById('foo_bar_policy')
+        gsp1.setChainForPortalTypes(['Document'], ['folder_workflow'])
+
+        # Add a config to the folder using the policy
+        self.portal.folder.manage_addProduct['CMFPlacefulWorkflow'].manage_addWorkflowPolicyConfig()
+
+        # Set the policy for the config
+        pc = getattr(self.portal.folder, WorkflowPolicyConfig_id)
+        pc.setPolicyIn('foo_bar_policy')
+        pc.setPolicyBelow('foo_bar_policy')
+
+        chain = wft.getChainFor(self.portal.folder2.document2)
+        self.assertEqual(tuple(chain), ('plone_workflow',))
+
+        # What if we acquired the doc from the wrong place
+        wrapped_doc = self.portal.folder2.document2.__of__(self.portal.folder)
+        chain = wft.getChainFor(wrapped_doc)
+        self.assertEqual(tuple(chain), ('plone_workflow',))
+
+        # What if we acquired the container from the wrong place
+        wrapped_doc = self.portal.folder2.__of__(self.portal.folder).document2
+        chain = wft.getChainFor(wrapped_doc)
+        self.assertEqual(tuple(chain), ('plone_workflow',))
+
 # What if the "in" and/or the "below" policy of a .config is empty?
 
 def test_suite():

@@ -57,6 +57,8 @@ def getChainFor(self, ob):
     if type(ob) != type('') and pt!=None and not is_policy_container:
         # Inspired by implementation in CPSWorkflowTool.py of CPSCore 3.9.0
         # Workflow needs to be determined by containment not context
+        # XXX: just doing aq_inner isn't enough we need to make sure none of
+        # the parents were wrapped.
         wfpolicyconfig = getattr(aq_inner(ob), WorkflowPolicyConfig_id, None)
         if wfpolicyconfig is not None:
             # Was it here or did we acquire?
