@@ -49,14 +49,15 @@ def getChainFor(self, ob):
     objectids=[]
     try:
        objectids = ob.objectIds()
-    except:
+    except AttributeError, TypeError:
        pass
     if WorkflowPolicyConfig_id in objectids:
         is_policy_container=1
 
     if type(ob) != type('') and pt!=None and not is_policy_container:
         # Inspired by implementation in CPSWorkflowTool.py of CPSCore 3.9.0
-        wfpolicyconfig = getattr(ob, WorkflowPolicyConfig_id, None)
+        # Workflow needs to be determined by containment not context
+        wfpolicyconfig = getattr(aq_inner(ob), WorkflowPolicyConfig_id, None)
         if wfpolicyconfig is not None:
             # Was it here or did we acquire?
             start_here = hasattr(aq_base(aq_parent(aq_inner(ob))), WorkflowPolicyConfig_id)

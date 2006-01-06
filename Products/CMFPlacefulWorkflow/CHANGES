@@ -8,6 +8,10 @@
 
 [SVN - UNRELEASED]
 
+* Determine workflow policy only via containment not context (AM)
+
+* Removed bare except (AM)
+
 * Let user choose an empty default workflow in a policy (ED)
 
 * Cleaning installation schema (ED)
