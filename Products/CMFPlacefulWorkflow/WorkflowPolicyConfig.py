@@ -120,7 +120,7 @@ class WorkflowPolicyConfig(SimpleItem):
         chain=None
         if wfp != None:
             chain = wfp.getChainFor(portal_type)
-            if chain is None:
+            if chain is None or chain==():
                 chain= wfp.getDefaultChain(ob)
 
         return chain
