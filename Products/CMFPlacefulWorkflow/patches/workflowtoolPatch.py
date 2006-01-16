@@ -64,7 +64,7 @@ def getChainFor(self, ob):
             # Was it here or did we acquire?
             start_here = hasattr(aq_base(aq_parent(aq_inner(ob))), WorkflowPolicyConfig_id)
             chain = wfpolicyconfig.getPlacefulChainFor(ob, pt, start_here=start_here)
-            if chain is not None:
+            if chain is not None and chain!= ():
                 return chain
 
     chain = None
