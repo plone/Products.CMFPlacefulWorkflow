@@ -1,1 +1,0 @@
-""" CMFPlacefulWorflow.interfaces package """
