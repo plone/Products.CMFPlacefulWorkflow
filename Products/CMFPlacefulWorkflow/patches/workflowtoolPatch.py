@@ -63,7 +63,7 @@ def getChainFor(self, ob):
         wfpolicyconfig = None
         current_ob = aq_inner(ob)
         portal = aq_base(getToolByName(self, 'portal_url').getPortalObject())
-        while wfpolicyconfig is None:
+        while wfpolicyconfig is None and current_ob is not None:
             if base_hasattr(current_ob, WorkflowPolicyConfig_id):
                 wfpolicyconfig = getattr(current_ob, WorkflowPolicyConfig_id)
             elif aq_base(current_ob) is portal:
