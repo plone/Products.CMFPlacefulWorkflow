@@ -226,7 +226,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         gsp.setChainForPortalTypes(['Document'], ['folder_workflow'])
 
         # Try getting the new chain directly
-        self.failUnless(gsp.getChainFor('Document')==('folder_workflow',) )
+        self.assertEqual(gsp.getChainFor('Document'), ('folder_workflow',) )
 
         # Add a config at the root that will use the new policy
         self.portal.manage_addProduct['CMFPlacefulWorkflow'].manage_addWorkflowPolicyConfig()
@@ -237,16 +237,16 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         pc.setPolicyIn('foo_bar_policy')
         pc.setPolicyBelow('foo_bar_policy')
 
-        self.failUnless(pc.getPlacefulChainFor(None, 'Document', start_here=1) == ('folder_workflow',))
+        self.assertEqual(pc.getPlacefulChainFor(None, 'Document', start_here=1), ('folder_workflow',))
 
         self.portal.invokeFactory('Document', id='doc', text='foo bar baz')
 
         # The chain should be different now
         # Workflow tool should look for policy definition and return
         # the chain of the correct policy
-        self.failUnless(pw.getChainFor(self.portal.doc)==('folder_workflow',) )
+        self.assertEqual(pw.getChainFor(self.portal.doc), ('folder_workflow',) )
         # The chain for the first document should have changed now
-        self.failUnless(pw.getChainFor(self.portal.doc_before)==('folder_workflow',) )
+        self.assertEqual(pw.getChainFor(self.portal.doc_before), ('folder_workflow',) )
 
     def test_08_getChainFor(self,):
         # Let's see what the chain is before

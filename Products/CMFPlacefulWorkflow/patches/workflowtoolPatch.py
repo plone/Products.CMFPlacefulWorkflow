@@ -26,6 +26,8 @@ __docformat__ = 'restructuredtext'
 from Products.CMFPlone.WorkflowTool import WorkflowTool
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
 from Acquisition import aq_base, aq_parent, aq_inner
+from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import base_hasattr
 
 def getChainFor(self, ob):
     """
@@ -56,13 +58,21 @@ def getChainFor(self, ob):
 
     if type(ob) != type('') and pt!=None and not is_policy_container:
         # Inspired by implementation in CPSWorkflowTool.py of CPSCore 3.9.0
-        # Workflow needs to be determined by containment not context
-        # XXX: just doing aq_inner isn't enough we need to make sure none of
-        # the parents were wrapped.
-        wfpolicyconfig = getattr(aq_inner(ob), WorkflowPolicyConfig_id, None)
+        # Workflow needs to be determined by true containment not context
+        # so we loop over the actual containers
+        wfpolicyconfig = None
+        current_ob = aq_inner(ob)
+        portal = aq_base(getToolByName(self, 'portal_url').getPortalObject())
+        while wfpolicyconfig is None:
+            if base_hasattr(current_ob, WorkflowPolicyConfig_id):
+                wfpolicyconfig = getattr(current_ob, WorkflowPolicyConfig_id)
+            elif aq_base(current_ob) is portal:
+                break
+            current_ob = aq_inner(aq_parent(current_ob))
+
         if wfpolicyconfig is not None:
             # Was it here or did we acquire?
-            start_here = hasattr(aq_base(aq_parent(aq_inner(ob))), WorkflowPolicyConfig_id)
+            start_here = base_hasattr(aq_parent(aq_inner(ob)), WorkflowPolicyConfig_id)
             chain = wfpolicyconfig.getPlacefulChainFor(ob, pt, start_here=start_here)
             if chain is not None and chain!= ():
                 return chain

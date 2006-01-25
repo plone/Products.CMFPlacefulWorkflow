@@ -25,6 +25,7 @@ __docformat__ = 'restructuredtext'
 
 # Zope imports
 from Testing import ZopeTestCase
+from zope.app.tests.placelesssetup import setUp, tearDown
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import noSecurityManager
 
@@ -45,12 +46,14 @@ class CMFPlacefulWorkflowTestCase(PloneTestCase.PloneTestCase):
             self[key] = value
 
     def _setup(self):
+        setUp()
         PloneTestCase.PloneTestCase._setup(self)
         self.app.REQUEST['SESSION'] = self.Session()
 
     def beforeTearDown(self):
         # logout
         noSecurityManager()
+        tearDown()
     
     def loginAsPortalMember(self):
         '''Use if you need to manipulate site as a member.'''
@@ -80,9 +83,6 @@ ZopeTestCase.installProduct('PloneInstallation')
 ZopeTestCase.installProduct('CMFPlacefulWorkflow')
 
 # Setup Plone site
-PloneTestCase.setupPloneSite(products=[
-    'CMFPlacefulWorkflow',
-    ])
-
-app = ZopeTestCase.app()
-ZopeTestCase.close(app)
+setUp()
+PloneTestCase.setupPloneSite(products=['CMFPlacefulWorkflow'])
+tearDown()
