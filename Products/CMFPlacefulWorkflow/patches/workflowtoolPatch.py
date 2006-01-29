@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 ## CMFPlacefulWorkflow
-## Copyright (C)2005 Ingeniweb
+## A CMF/Plone product for locally changing the workflow of content types
+## Copyright (C)2006 Ingeniweb
 
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
