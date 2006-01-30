@@ -97,7 +97,7 @@ Additional tools
 PLIP
 ----
 
-  http://plone.org/Members/maikroeder/52
+  http://plone.org/products/plone/roadmap/52
 
   Our goal is to be able to say that in a given folder, a different
   workflow (or workflow chain) should be used for certain content types. 
