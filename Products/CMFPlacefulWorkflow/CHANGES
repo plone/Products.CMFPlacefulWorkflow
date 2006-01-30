@@ -8,6 +8,8 @@
 
 [SVN - UNRELEASED]
 
+* Synced prefs templates with current Plone 2.5 ones. (hannosch)
+
 * Cleaned up all templates and added missing i18n statements. (hannosch)
 
 * Determine workflow policy only via containment not context (AM)

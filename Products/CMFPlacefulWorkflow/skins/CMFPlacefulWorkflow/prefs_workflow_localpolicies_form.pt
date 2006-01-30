@@ -33,26 +33,27 @@ CMFPlacefulWorkflow configuration panel
     <body>
 
         <div metal:fill-slot="prefs_configlet_main"
-             tal:define="errors python:request.get('errors', {})">
+             tal:define="errors python:request.get('errors', {})"
+             class="configlet">
 
             <div id="content" class="documentEditable"
                  tal:condition="python:checkPermission('Manage users', here)">
 
                 <!-- ugly way of simulating real actions on placeful workflow pages until we have real objects. -->
                 <ul class="contentViews">
-                    <li class="">
+                    <li id="contentview-workflow-basic" class="plain">
                         <a href="prefs_workflow_basic"
                            i18n:translate="label_workflow_default">
                             Default workflow configuration
                         </a>
                     </li>
-                    <li class="">
+                    <li id="contentview-workflow-advanced" class="plain">
                         <a href="prefs_workflow_advanced"
                            i18n:translate="label_workflow_global_type_mapping">
                             Global Content Type to Workflow Mapping
                         </a>
                     </li>
-                    <li class="selected">
+                    <li id="contentview-workflow-localpolicies" class="selected">
                         <a href="prefs_workflow_localpolicies_form"
                            i18n:translate="label_workflow_local_type_mapping">
                             Local Content Type to Workflow Mapping
@@ -65,9 +66,13 @@ CMFPlacefulWorkflow configuration panel
                 </div>
                 <!-- End of tabs -->
 
-                <div id="region-content">
+                <div class="documentContent" id="region-content">
 
                     <a name="documentContent"></a>
+
+                    <div metal:use-macro="here/global_statusmessage/macros/portal_message">
+                        Portal status message
+                    </div>
 
                     <h1 i18n:translate="heading_placeful_workflow">
                         Placeful Workflow
