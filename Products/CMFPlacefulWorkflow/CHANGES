@@ -8,6 +8,8 @@
 
 [SVN - UNRELEASED]
 
+* Cleaned up all templates and added missing i18n statements. (hannosch)
+
 * Determine workflow policy only via containment not context (AM)
 
 * Removed bare except (AM)

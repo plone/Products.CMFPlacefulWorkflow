@@ -18,7 +18,7 @@ policy.setDefaultChain(default_chain=(default_workflow_id,))
 wf_tool = getToolByName(context, 'portal_workflow')
 wf_tool.updateRoleMappings()
 
-psm = "Changes to criteria saved."
+psm = context.translate('Changes to criteria saved.', domain='cmfplacefulworkflow')
 if request:
     request.RESPONSE.redirect('prefs_workflow_policy_mapping?wfpid=%s&portal_status_message=%s' % (wfpid, psm))
 

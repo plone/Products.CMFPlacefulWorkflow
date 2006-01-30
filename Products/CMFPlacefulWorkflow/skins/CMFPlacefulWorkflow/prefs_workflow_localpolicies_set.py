@@ -11,12 +11,12 @@ pwt = context.portal_placeful_workflow
 msg="No action"
 
 if delete and policy_ids:
-    msg = 'Deleting Local Workflow Policy'
+    msg = context.translate('Deleted Local Workflow Policy.', domain='cmfplacefulworkflow')
     for policy_id in policy_ids:
         if policy_id in pwt.objectIds():
             pwt.manage_delObjects([policy_id,])
     context.REQUEST.RESPONSE.redirect('prefs_workflow_localpolicies_form?portal_status_message=' + msg)
 elif add and policy_id:
-    msg = 'Local Workflow Policy added'
+    msg = context.translate('Local Workflow Policy added.', domain='cmfplacefulworkflow')
     pwt.manage_addWorkflowPolicy(id = policy_id)
     context.REQUEST.RESPONSE.redirect('prefs_workflow_policy_mapping?wfpid='+policy_id+'&portal_status_message=' + msg)

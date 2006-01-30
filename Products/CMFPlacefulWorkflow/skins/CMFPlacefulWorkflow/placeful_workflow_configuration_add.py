@@ -4,6 +4,6 @@
 
 context.manage_addProduct['CMFPlacefulWorkflow'].manage_addWorkflowPolicyConfig()
 
-msg = "Workflow policy configuration added"
+msg = context.translate('Workflow policy configuration added', domain='cmfplacefulworkflow')
 
 context.REQUEST.RESPONSE.redirect('placeful_workflow_configuration?portal_status_message=' + msg)

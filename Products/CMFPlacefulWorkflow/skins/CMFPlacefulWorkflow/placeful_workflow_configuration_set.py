@@ -7,7 +7,7 @@ request = context.REQUEST
 config = getToolByName(context, 'portal_placeful_workflow').getWorkflowPolicyConfig(context)
 
 if not config:
-    psm = "No config in this folder"
+    psm = context.translate('No config in this folder.', domain='cmfplacefulworkflow')
 else:
     if context.portal_placeful_workflow.getWorkflowPolicyById(policy_in):
         config.setPolicyIn(policy=policy_in)
@@ -23,7 +23,7 @@ else:
     else:
         raise str(policy_below)
 
-    psm="Changed policies"
+    psm = context.translate('Changed policies.', domain='cmfplacefulworkflow')
     getToolByName(context, 'portal_workflow').updateRoleMappings()
 
 request.RESPONSE.redirect('placeful_workflow_configuration?portal_status_message=%s' % psm)

@@ -46,6 +46,6 @@ Working with the product
 
 Roadmap:
 
-    The product will be integrated in Plone 2.2. See the Roadmap:
+    The product will be integrated in Plone 2.5. See the Roadmap:
 
     http://plone.org/development/roadmap

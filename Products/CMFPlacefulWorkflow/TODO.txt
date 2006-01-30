@@ -14,7 +14,6 @@ Priority 2:
 
   For configlets: ba aware af the fact that a type can be in several workflows
 
-  Make a good Makefile for i18n update
 
 
 Priority 3:
