@@ -70,10 +70,6 @@ Override plone prefs_workflow_basic template for adding policy stuff
 
                     <a name="documentContent"></a>
 
-                    <div metal:use-macro="here/global_statusmessage/macros/portal_message">
-                        Portal status message
-                    </div>
-
                     <h1 i18n:translate="heading_workflow_setup">
                         Workflow Setup
                     </h1>
