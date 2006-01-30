@@ -123,8 +123,9 @@ Override plone prefs_workflow_basic template for adding policy stuff
                             process you should use this One step publication.
                         </p>
 
-                        <span i18n:translate="label_workflow_default_state">
-                            You can also change the starting state of all documents:
+                        <span i18n:translate="label_workflow_default_new_types">
+                            You can also change the default workflow for new
+                            content types:
                         </span>
 
                         <select id="select_default_state" name="default_state">
@@ -140,7 +141,7 @@ Override plone prefs_workflow_basic template for adding policy stuff
                                         tal:attributes="value wf"
                                         tal:content="wf"
                                         i18n:translate="">
-                                    public draft
+                                    folder workflow
                                 </option>
                             </metal:block>
                         </select>
@@ -165,8 +166,9 @@ Override plone prefs_workflow_basic template for adding policy stuff
                             review process you should use this.
                         </p>
 
-                        <span i18n:translate="label_workflow_default_state">
-                            You can also change the starting state of all documents:
+                        <span i18n:translate="label_workflow_default_new_types">
+                            You can also change the default workflow for new
+                            content types:
                         </span>
 
                         <select id="select_default_state" name="default_state">
@@ -182,7 +184,7 @@ Override plone prefs_workflow_basic template for adding policy stuff
                                         tal:attributes="value wf"
                                         tal:content="wf"
                                         i18n:translate="">
-                                    public draft
+                                    folder workflows
                                 </option>
                             </metal:block>
                         </select>
