@@ -24,9 +24,8 @@ __version__ = "$Revision$"
 __docformat__ = 'restructuredtext'
 
 
-from Products.PloneTestCase import PloneTestCase
 from Testing import ZopeTestCase
-
+from Products.PloneTestCase import PloneTestCase
 
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
 from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase
