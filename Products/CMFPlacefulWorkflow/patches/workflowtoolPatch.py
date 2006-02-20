@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 ## CMFPlacefulWorkflow
-## A CMF/Plone product for locally changing the workflow of content types
-## Copyright (C)2006 Ingeniweb
+## Copyright (C)2005 Ingeniweb
 
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -27,6 +26,8 @@ __docformat__ = 'restructuredtext'
 from Products.CMFPlone.WorkflowTool import WorkflowTool
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
 from Acquisition import aq_base, aq_parent, aq_inner
+from Products.CMFCore.utils import getToolByName
+from Products.Archetypes.utils import shasattr
 
 def getChainFor(self, ob):
     """
@@ -45,13 +46,34 @@ def getChainFor(self, ob):
     if pt is None:
         return ()
 
-    if type(ob) != type('') and pt!=None:
+    # Take some extra care when ob is a string
+    is_policy_container=0
+    objectids=[]
+    try:
+       objectids = ob.objectIds()
+    except AttributeError, TypeError:
+       pass
+    if WorkflowPolicyConfig_id in objectids:
+        is_policy_container=1
+
+    if type(ob) != type('') and pt!=None and not is_policy_container:
         # Inspired by implementation in CPSWorkflowTool.py of CPSCore 3.9.0
-        wfpolicyconfig = getattr(ob, WorkflowPolicyConfig_id, None)
+        # Workflow needs to be determined by true containment not context
+        # so we loop over the actual containers
+        wfpolicyconfig = None
+        current_ob = aq_inner(ob)
+        portal = aq_base(getToolByName(self, 'portal_url').getPortalObject())
+        while wfpolicyconfig is None and current_ob is not None:
+            if shasattr(current_ob, WorkflowPolicyConfig_id):
+                wfpolicyconfig = getattr(current_ob, WorkflowPolicyConfig_id)
+            elif aq_base(current_ob) is portal:
+                break
+            current_ob = aq_inner(aq_parent(current_ob))
+
         if wfpolicyconfig is not None:
             # Was it here or did we acquire?
-            start_here = hasattr(aq_base(aq_parent(aq_inner(ob))), WorkflowPolicyConfig_id)
-            chain = wfpolicyconfig.getPlacefulChainFor(pt, start_here=start_here)
+            start_here = shasattr(aq_parent(aq_inner(ob)), WorkflowPolicyConfig_id)
+            chain = wfpolicyconfig.getPlacefulChainFor(ob, pt, start_here=start_here)
             if chain is not None:
                 return chain
 

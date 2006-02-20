@@ -42,15 +42,16 @@ from Products.CMFCore.utils import getToolByName
 from Products.PloneTestCase import PloneTestCase
 
 # Products imports
-from Products.Archetypes.tests import ArchetypesTestCase
+#from Products.Archetypes.tests import ArchetypesTestCase
 from Products.ATContentTypes.Extensions.Install import install as installATCT
 from Products.ATContentTypes.Extensions.toolbox import isSwitchedToATCT
 
+PORTAL_ID = 'plone'
 
 class CMFPlacefulWorkflowTestCase(PloneTestCase.PloneTestCase):
 
     # Globals
-    portal_name = 'portal'
+    portal_name = PORTAL_ID
     portal_owner = 'portal_owner'
     user_name = PloneTestCase.default_user
     user_password = PloneTestCase.default_password
@@ -63,6 +64,21 @@ class CMFPlacefulWorkflowTestCase(PloneTestCase.PloneTestCase):
         PloneTestCase.PloneTestCase._setup(self)
         self.app.REQUEST['SESSION'] = self.Session()
 
+    def afterSetUp(self,):
+        """
+        afterSetUp(self) => This method is called to create an empty PloneArticle.
+        It also joins three users called 'user1', 'user2' and 'user3'.
+        """
+        #some usefull properties/tool
+        self.catalog = getToolByName(self.portal, 'portal_catalog')
+        self.workflow = getToolByName(self.portal, 'portal_workflow')
+        self.membershipTool = getToolByName(self.portal, 'portal_membership')
+        self.memberdataTool = getToolByName(self.portal, 'portal_memberdata')
+
+        self.placefulworkflowTool = getToolByName(self.portal, 'portal_placeful_workflow')
+
+        self.loginAsPortalMember()
+
     def beforeTearDown(self):
         # logout
         noSecurityManager()
@@ -70,8 +86,8 @@ class CMFPlacefulWorkflowTestCase(PloneTestCase.PloneTestCase):
     def loginAsPortalMember(self):
         '''Use if you need to manipulate site as a member.'''
         self._setupUser()
-        self.mtool.createMemberarea(self.user_name)
-        member = self.mtool.getMemberById(self.user_name)
+        self.membershipTool.createMemberarea(self.user_name)
+        member = self.membershipTool.getMemberById(self.user_name)
         member.setMemberProperties({'fullname': self.user_name.capitalize(), 'email': 'test@example.com',})
         self.login()
 
@@ -85,7 +101,7 @@ class CMFPlacefulWorkflowTestCase(PloneTestCase.PloneTestCase):
         perms = self.portal.permissionsOfRole(role)
         return [p['name'] for p in perms if p['selected']]
 
-def setupCMFPlacefulWorkflow(app, id=ArchetypesTestCase.portal_name, quiet=0):
+def setupCMFPlacefulWorkflow(app, id=PORTAL_ID, quiet=0):
     get_transaction().begin()
     _start = time.time()
     portal = app[id]
@@ -97,18 +113,8 @@ def setupCMFPlacefulWorkflow(app, id=ArchetypesTestCase.portal_name, quiet=0):
     newSecurityManager(None, user)
     qi_tool = getToolByName(portal, 'portal_quickinstaller', None)
 
-    ## Add ATCT
-    #if hasattr(aq_base(portal), 'switchCMF2ATCT'):
-        #ZopeTestCase._print('ATCT already installed ... ')
-    #else:
-        #qi_tool.installProduct('ATContentTypes')
-        #get_transaction().commit(1)
-
-    #if not isSwitchedToATCT(portal):
-        ## Switch to ATCT
-        #ZopeTestCase._print('switching to ATCT mode ... ')
-        #portal.switchCMF2ATCT()
-        #get_transaction().commit(1)
+    qi_tool.installProduct('CMFPlacefulWorkflow')
+    get_transaction().commit(1)
 
     # Log out
     noSecurityManager()
@@ -125,12 +131,12 @@ ZopeTestCase.installProduct('PloneInstallation')
 ZopeTestCase.installProduct('CMFPlacefulWorkflow')
 
 # Setup Plone site
-PloneTestCase.setupPloneSite(products=[
+PloneTestCase.setupPloneSite(id=PORTAL_ID, products=[
     'Archetypes',
     'ATContentTypes',
     'CMFPlacefulWorkflow',
     ])
 
 app = ZopeTestCase.app()
-setupCMFPlacefulWorkflow(app)
+#setupCMFPlacefulWorkflow(app)
 ZopeTestCase.close(app)

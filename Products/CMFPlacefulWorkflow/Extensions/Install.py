@@ -24,57 +24,44 @@ __version__ = "$Revision$"
 # $Id$
 __docformat__ = 'restructuredtext'
 
-from Products.CMFPlacefulWorkflow import install_globals
 from Products.CMFPlacefulWorkflow.global_symbols import *
-from Products.CMFPlacefulWorkflow.Installation import Installation
-from OFS.Cache import Cache
-from Products.CMFCore.utils import getToolByName
-from cStringIO import StringIO
-from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addPlacefulWorkflowTool
-import string
-from Products.CMFCore.DirectoryView import addDirectoryViews
 
-#perms_list = (PlacefulWorkflowPolicy_editPermission, )
+from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import PlacefulWorkflowTool
+from Products.CMFPlacefulWorkflow.installers.utils import InstallationRunner, InstallationContext
+from Products.CMFPlacefulWorkflow.installers.ToolInstaller import ToolInstaller
+from Products.CMFPlacefulWorkflow.installers.SkinLayersInstaller import SkinLayersInstaller
+from Products.CMFPlacefulWorkflow.installers.ConfigletsInstaller import ConfigletsInstaller
 
-skin_name = 'CMFPlacefulWorkflow'
+def getRunners():
 
-def setupTools(self):
-    tool = 'Placeful Workflow Tool'
-    id = "portal_placeful_workflow"
-    found=0
-    for obj in self.objectValues():
-        if obj.meta_type == tool:
-            self.manage_delObjects([id, ])
-    addPlacefulWorkflowTool(self)
+    installers = []
+
+    sti = ToolInstaller(PlacefulWorkflowTool)
+    installers.append(sti)
+
+    si = SkinLayersInstaller()
+    installers.append(si)
+
+    ci = ConfigletsInstaller(placeful_prefs_configlet)
+    installers.append(ci)
+
+    return InstallationRunner(*tuple(installers))
 
 def install(self):
-    installation=Installation(self)
-    addDirectoryViews(installation.skinsTool, 'skins', install_globals)
-    installation.installSubSkin(skin_name)
-#    installation.setPermissions(perms_list)
-    setupTools(self)
 
-    # Install configlet
-    cptool = getToolByName(self, 'portal_controlpanel')
-    try:
-        cptool.unregisterConfiglet(placeful_prefs_configlet['id'])
-    except:
-        pass
-    try:
-        cptool.registerConfiglet(**placeful_prefs_configlet)
-    except:
-        pass
-    return installation.report()
+    # Always start with the creation of the InstallationContext
+    ic = InstallationContext(self, GLOBALS)
+
+    # Runs the installation and return the report
+    report = getRunners().install(ic, auto_reorder=True)
+    return report
 
 def uninstall(self):
-    out = StringIO()
-    
-    # uninstall configlets
-    try:
-        cptool = getToolByName(self, 'portal_controlpanel')
-        cptool.unregisterConfiglet(placeful_prefs_configlet['id'])
-        out.write('Removing CMFPlacefulWorkflow Configlet')
-    except:
-        out.write('Failed to remove CMFPlacefulWorkflow Configlet')
-        
-    return out.getvalue()
+
+    # Always start with the creation of the InstallationContext
+    ic = InstallationContext(self, GLOBALS)
+
+    # Runs the uninstallation and return the report
+    report = getRunners().uninstall(ic, auto_reorder=True)
+
+    return report
