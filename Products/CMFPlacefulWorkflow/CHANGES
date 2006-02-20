@@ -1,14 +1,19 @@
 [TODO]
 
-* Uninstallation of the configlet
-
-* Add mutli workflow support in UI
-
 * Fallback to workflow tool chain if no chain is defined for a type in a policy
 
 * Support of aquiring policy from another
 
 [CVS - ]
+
+* Add the good icon for configlet
+
+* Unit tests refactoring: 
+
+  Cleaning base Plone Test installation
+  Backport test form Plone 2.5                          
+
+* Installer refactoring: use Ploneinstallation installers
 
 * remove unused toolbox import from Testcase (thanks to huron)
 
