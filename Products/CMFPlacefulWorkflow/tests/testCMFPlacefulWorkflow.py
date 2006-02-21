@@ -236,7 +236,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         pc.setPolicyIn('foo_bar_policy')
         pc.setPolicyBelow('foo_bar_policy')
 
-        self.assertEqual(pc.getPlacefulChainFor(None, 'Document', start_here=1), ('folder_workflow',))
+        self.assertEqual(pc.getPlacefulChainFor('Document', start_here=1), ('folder_workflow',))
 
         self.portal.invokeFactory('Document', id='doc', text='foo bar baz')
 
