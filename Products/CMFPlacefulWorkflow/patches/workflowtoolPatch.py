@@ -37,13 +37,13 @@ def getChainFor(self, ob):
     cbt = self._chains_by_type
 
     if type(ob) == type(''):
-        pt = ob
+        portal_type = ob
     elif hasattr(aq_base(ob), '_getPortalTypeName'):
-        pt = ob._getPortalTypeName()
+        portal_type = ob._getPortalTypeName()
     else:
-        pt = None
+        portal_type = None
 
-    if pt is None:
+    if portal_type is None:
         return ()
 
     # Take some extra care when ob is a string
@@ -56,7 +56,7 @@ def getChainFor(self, ob):
     if WorkflowPolicyConfig_id in objectids:
         is_policy_container=1
 
-    if type(ob) != type('') and pt!=None and not is_policy_container:
+    if type(ob) != type('') and portal_type != None and not is_policy_container:
         # Inspired by implementation in CPSWorkflowTool.py of CPSCore 3.9.0
         # Workflow needs to be determined by true containment not context
         # so we loop over the actual containers
@@ -73,13 +73,13 @@ def getChainFor(self, ob):
         if wfpolicyconfig is not None:
             # Was it here or did we acquire?
             start_here = base_hasattr(aq_parent(aq_inner(ob)), WorkflowPolicyConfig_id)
-            chain = wfpolicyconfig.getPlacefulChainFor(ob, pt, start_here=start_here)
+            chain = wfpolicyconfig.getPlacefulChainFor(portal_type, start_here=start_here)
             if chain is not None:
                 return chain
 
     chain = None
     if cbt is not None:
-        chain = cbt.get(pt, None)
+        chain = cbt.get(portal_type, None)
         # Note that if chain is not in cbt or has a value of
         # None, we use a default chain.
     if chain is None:
