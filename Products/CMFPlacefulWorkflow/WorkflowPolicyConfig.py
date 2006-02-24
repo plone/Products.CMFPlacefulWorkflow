@@ -104,24 +104,34 @@ class WorkflowPolicyConfig(SimpleItem):
             raise ValueError, "Policy must be a string"
         self.workflow_policy_below = policy
 
-    def getPlacefulChainFor(self, portal_type, start_here=1):
+    def getPlacefulChainFor(self, portal_type, start_here=False):
         """Get the chain for the given portal_type.
 
         Returns None if no placeful chain is found.
         Does _not_ acquire from parent configurations.
+
+        Usecases:
+        If the policy config is in the object that request the chain we cannot
+        take the 'below' policy.
+        In other case we test the 'below' policy first and, if there's no chain
+        found, the 'in' policy.
         """
-        pwt = getToolByName(self, 'portal_placeful_workflow')
+        workflow_tool = getToolByName(self, 'portal_placeful_workflow')
 
-        if start_here:
-            wfp = pwt.getWorkflowPolicyById(self.getPolicyInId())
-            # print "start here:", start_here, "type", portal_type, "wfp", wfp
-        else:
-            wfp = pwt.getWorkflowPolicyById(self.getPolicyBelowId())
-            # print "start here:", start_here, "type", portal_type, "wfp", wfp
+        chain = None
+        policy = None
+        if not start_here:
+            policy = workflow_tool.getWorkflowPolicyById(self.getPolicyBelowId())
+            # print "start here:", start_here, "type", portal_type, "policy", policy
+            if policy != None:
+                chain = policy.getChainFor(portal_type)
 
-        chain=None
-        if wfp != None:
-            chain = wfp.getChainFor(portal_type)
+        policy = workflow_tool.getWorkflowPolicyById(self.getPolicyInId())
+        # print "start here:", start_here, "type", portal_type, "policy", policy
+
+        if chain == None and policy != None:
+            chain = policy.getChainFor(portal_type)
+
         return chain
 
 InitializeClass( WorkflowPolicyConfig )

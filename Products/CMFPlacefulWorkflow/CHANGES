@@ -1,10 +1,18 @@
 [TODO]
 
+* Add old action's condition patch
+
 * Fallback to workflow tool chain if no chain is defined for a type in a policy
 
-* Support of aquiring policy from another
+[ Critical ]
 
-[CVS - ]
+* Below must work on the object too
+
+* Write test for copy/paste bug
+
+[SVN - ]
+
+* Support of aquiring policy from another
 
 * Add the good icon for configlet
 
