@@ -110,7 +110,9 @@ Override plone prefs_workflow_advanced template for adding policy stuff
                             </legend>
 
                             <div>
-                            <table class="field">
+                            <table class="field"
+                                   summary="Workflow to content type mapping."
+                                   i18n:attributes="summary summary_workflow_type_mapping;">
                                 <metal:ctype tal:repeat="ctype allowedContentTypes">
                                 <tr tal:define="Title ctype/Title;
                                                 Id ctype/getId;

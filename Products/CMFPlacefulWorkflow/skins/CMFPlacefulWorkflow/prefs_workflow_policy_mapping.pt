@@ -175,7 +175,10 @@ Workflow policy mapping template
                 You can assign a workflow for all content types.
             </div>
 
-            <table class="field">
+            <table class="field"
+                   summary="Workflow to content type mapping."
+                   i18n:attributes="summary summary_workflow_type_mapping;">
+
                 <metal:ctype tal:repeat="ctype type_list">
                     <tr tal:define="Title ctype/Title;
                                     Id ctype/getId;
