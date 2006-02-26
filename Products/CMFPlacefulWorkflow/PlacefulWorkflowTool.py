@@ -31,7 +31,7 @@ from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass, DTMLFile, package_home
 
 from Products.CMFCore.utils import UniqueObject
-from Products.CMFCore.CMFCorePermissions import ManagePortal
+from Products.CMFCore.permissions import ManagePortal
 from Products.CMFCore.ActionProviderBase import ActionProviderBase
 from Products.CMFPlone.migrations.migration_util import safeEditProperty
 

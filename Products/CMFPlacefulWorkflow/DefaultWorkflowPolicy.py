@@ -30,7 +30,7 @@ from Acquisition import aq_base
 from Products.CMFCore.utils import SimpleItemWithProperties
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addWorkflowPolicyFactory
 
-from Products.CMFCore.CMFCorePermissions import ManagePortal
+from Products.CMFCore.permissions import ManagePortal
 
 from Products.CMFPlacefulWorkflow.interfaces.portal_placeful_workflow \
         import WorkflowPolicyDefinition as IWorkflowPolicyDefinition

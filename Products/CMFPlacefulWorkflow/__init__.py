@@ -63,6 +63,5 @@ def initialize(context):
 
     utils.ToolInit( 'CMF Placeful Workflow Tool'
                   , tools=tools
-                  , product_name='CMFPlacefulWorkflow'
                   , icon='tool.gif'
                   ).initialize( context )

@@ -45,7 +45,7 @@ Log(LOG_NOTICE, "Starting %s at %d debug level" % (os.path.dirname(__file__), LO
 PROJECTNAME = "CMFPlacefulWorkflow"
 #PlacefulWorkflowPolicy_editPermission = "CMFPlacefulWorkflow: Edit Policies"
 
-from Products.CMFCore import CMFCorePermissions
+from Products.CMFCore.permissions import ManagePortal
 
 placeful_prefs_configlet = {
     'id': 'placefulworkflow',
@@ -53,6 +53,6 @@ placeful_prefs_configlet = {
     'name': 'Placeful Workflow',
     'action': 'string:$portal_url/prefs_workflow_localpolicies_form',
     'category': 'Products',
-    'permission': (CMFCorePermissions.ManagePortal,),
+    'permission': (ManagePortal,),
     'imageUrl': 'placefulworkflow_icon.png',
     }
