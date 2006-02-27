@@ -310,6 +310,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         # And redefine the chain for Document
         gsp1 = pwt.getWorkflowPolicyById('foo_bar_policy')
         gsp1.setChainForPortalTypes(['Document'], ['plone_workflow'])
+        gsp1.setChainForPortalTypes(['Folder'], ['plone_workflow'])
 
         # Create a policy
         pwt = self.placefulworkflowTool
@@ -318,8 +319,9 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
                                     ' (Simple Policy)')
 
         # And redefine the chain for Document
-        gsp1 = pwt.getWorkflowPolicyById('foo_bar_policy2')
-        gsp1.setChainForPortalTypes(['Document'], ['folder_workflow'])
+        gsp2 = pwt.getWorkflowPolicyById('foo_bar_policy2')
+        gsp2.setChainForPortalTypes(['Document'], ['folder_workflow'])
+        gsp2.setChainForPortalTypes(['Folder'], ['folder_workflow'])
 
         # Add a config to the folder using the policy
         self.portal.folder.manage_addProduct['CMFPlacefulWorkflow'].manage_addWorkflowPolicyConfig()
@@ -339,9 +341,61 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         chain = wft.getChainFor(self.portal.folder.folder2.document2)
         self.assertEqual(tuple(chain), ('folder_workflow',))
 
-        # A document in folder 1 should have plone_workflow
+        # Folder 2 should have folder_workflow
         chain = wft.getChainFor(self.portal.folder.document)
+        self.assertEqual(tuple(chain), ('folder_workflow',))
+
+        # A document in folder 1 should have folder_workflow
+        chain = wft.getChainFor(self.portal.folder.document)
+        self.assertEqual(tuple(chain), ('folder_workflow',))
+
+        # Folder 1 should have plone_workflow
+        chain = wft.getChainFor(self.portal.folder)
         self.assertEqual(tuple(chain), ('plone_workflow',))
+
+    def test_11_copy_paste(self):
+        """ Test security after a copy/paste
+        """
+        self.logout()
+        self.loginAsPortalOwner()
+        wft = self.portal.portal_workflow
+        self.portal.invokeFactory('Document', id='document')
+        self.portal.invokeFactory('Folder', id='folder')
+
+        # Create a policy
+        pwt = self.placefulworkflowTool
+        pwt.manage_addWorkflowPolicy(id = 'foo_bar_policy' \
+                                    , workflow_policy_type = 'default_workflow_policy'+\
+                                    ' (Simple Policy)')
+
+        # And redefine the chain for Document
+        gsp1 = pwt.getWorkflowPolicyById('foo_bar_policy')
+        gsp1.setChainForPortalTypes(['Document'], ['folder_workflow'])
+
+        # Add a config to the folder using the policy
+        self.portal.folder.manage_addProduct['CMFPlacefulWorkflow'].manage_addWorkflowPolicyConfig()
+
+        # Set the policy for the config
+        pc = getattr(self.portal.folder, WorkflowPolicyConfig_id)
+
+        # In folder, we want to have folder_workflow
+        # We set PolicyIn to the first policy in folder
+        pc.setPolicyIn('foo_bar_policy')
+
+        cb = self.portal.manage_copyObjects(['document'])
+        self.portal.folder.manage_pasteObjects(cb_copy_data=cb)
+
+        # A document in plone root should have plone_workflow
+        chain = wft.getChainFor(self.portal.document)
+        self.assertEqual(tuple(chain), ('plone_workflow',))
+
+        # Folder should have folder_workflow
+        chain = wft.getChainFor(self.portal.folder)
+        self.assertEqual(tuple(chain), ('folder_workflow',))
+
+        # A document in folder should have folder_workflow
+        chain = wft.getChainFor(self.portal.folder.document)
+        self.assertEqual(tuple(chain), ('folder_workflow',))
 
     def test_11_getWorkflowPolicyById_edge_cases(self):
         pwt = self.placefulworkflowTool
@@ -442,8 +496,6 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         wrapped_doc = self.portal.folder2.__of__(self.portal.folder).document2
         chain = wft.getChainFor(wrapped_doc)
         self.assertEqual(tuple(chain), ('plone_workflow',))
-
-# What if the "in" and/or the "below" policy of a .config is empty?
 
 def test_suite():
     from unittest import TestSuite, makeSuite

@@ -2,24 +2,26 @@
 
 * Add old action's condition patch
 
-* Fallback to workflow tool chain if no chain is defined for a type in a policy
+* Add option to configlet: 'use default as policy creation'
 
-[ Critical ]
-
-* Below must work on the object too
-
-* Write test for copy/paste bug
+* Policy: show only types that are concerned by the policy
 
 [SVN - ]
+
+* Fallback to workflow tool chain if no chain is defined for a type in a policy
+
+* In must work on the object too
+
+* Write test for copy/paste bug
 
 * Support of aquiring policy from another
 
 * Add the good icon for configlet
 
-* Unit tests refactoring: 
+* Unit tests refactoring:
 
   Cleaning base Plone Test installation
-  Backport test form Plone 2.5                          
+  Backport test form Plone 2.5
 
 * Installer refactoring: use Ploneinstallation installers
 
