@@ -40,11 +40,13 @@ def getChainFor(self, ob):
     3. if there's no chain for the type the we loop on the parent
     4. if the parent is the portal object or None we stop and we ask to portal_workflow
 
-    Hint: if ob was a string, ask directly portal_worlfow\n\n"""
+    Hint:
+    If ob was a string, ask directly portal_worlfow\n\n"""
 
     cbt = self._chains_by_type
 
     if type(ob) == type(''):
+        # We are not in an object, then we can only get default from portal_workflow
         portal_type = ob
         if cbt is not None:
             chain = cbt.get(portal_type, None)
@@ -52,6 +54,7 @@ def getChainFor(self, ob):
         if chain is None:
             chain = self.getDefaultChainFor(ob)
             if chain is None:
+                # CMFCore default
                 return ()
 
     elif hasattr(aq_base(ob), '_getPortalTypeName'):
@@ -92,13 +95,14 @@ def getChainFor(self, ob):
         start_here = False
         current_ob = aq_inner(aq_parent(current_ob))
 
+    # Note that if chain is not in cbt or has a value of None, we use a default chain.
     if cbt is not None:
         chain = cbt.get(portal_type, None)
-        # Note that if chain is not in cbt or has a value of None, we use a default chain.
 
     if chain is None:
         chain = self.getDefaultChainFor(ob)
         if chain is None:
+            # CMFCore default
             return ()
 
     return chain
