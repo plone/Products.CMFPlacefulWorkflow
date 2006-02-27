@@ -364,9 +364,8 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
 
         # Create a policy
         pwt = self.placefulworkflowTool
-        pwt.manage_addWorkflowPolicy(id = 'foo_bar_policy' \
-                                    , workflow_policy_type = 'default_workflow_policy'+\
-                                    ' (Simple Policy)')
+        pwt.manage_addWorkflowPolicy(id='foo_bar_policy',
+                                     workflow_policy_type='default_workflow_policy (Simple Policy)')
 
         # And redefine the chain for Document
         gsp1 = pwt.getWorkflowPolicyById('foo_bar_policy')
