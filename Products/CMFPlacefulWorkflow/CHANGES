@@ -6,7 +6,7 @@
 
 * Policy: show only types that are concerned by the policy
 
-[SVN - ]
+[0.4.1 - 20060303] 
 
 * Fallback to workflow tool chain if no chain is defined for a type in a policy
 
