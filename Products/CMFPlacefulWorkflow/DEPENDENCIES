@@ -1,0 +1,58 @@
+0.4.1 - 2006-03-03
+==================
+
+This version has been tested successfuly with the following products.
+It may not depend on all those products but if you experience problems you may track this down.
+
+  * ATContentTypes 0.2.0-final (CVS/Unreleased)
+  * ATReferenceBrowserWidget 1.0.1
+  * Archetypes 1.3.7-final
+  * AttachmentField 1.3.3
+  * BTreeFolder2 BTreeFolder2-1.0.1
+  * CMFActionIcons 0.9
+  * CMFCalendar CMF-1.4.7
+  * CMFCore CMF-1.4.7
+  * CMFDefault CMF-1.4.7
+  * CMFFormController 1.0.4
+  * CMFPlacefulWorkflow 0.4.1
+  * CMFPlone 2.0.5
+  * CMFQuickInstallerTool 1.5.1
+  * CMFTopic CMF-1.4.7
+  * CMFUid 1.5.0.2 (functionality of the upcoming CMF-1.5.1, http://cvs.zope.org/CMF/CMFUid/?only_with_tag=CMF-1_5-branch)
+  * DCWorkflow CMF-1.4.7
+  * DCWorkflowDump 1.1
+  * DCWorkflowGraph 0.3
+  * DataGridField 1.0 beta 3
+  * DocFinderTab 0.5.2
+  * Epoz 0.8.5
+  * ExtendedPathIndex 2.1
+  * ExternalEditor 0.8
+  * FileSystemStorage 2.5 RDF branch
+  * Formulator Formulator 1.6.2
+  * GroupUserFolder 3.4
+  * MimetypesRegistry 1.3.8-final02
+  * MountFolder 1.1
+  * PVSForPlone2 0.1.2 alpha
+  * PlacelessFavorites 1.2.0b1
+  * PlacelessTranslationService 1.0
+  * PloneArticle 3.18 CVS/Unreleased HEAD
+  * PloneErrorReporting 0.11
+  * PloneExFile 3.2.0 CVS/SVN (UNRELEASED)
+  * PloneI18NResources 1.0
+  * PloneInstallation 0.2 (CVS HEAD/Unreleased)
+  * PloneLanguageTool 0.5
+  * PloneMaintenance 1.2 CVS/SVN (UNRELEASED)
+  * PloneSiteMap 2.54
+  * PloneSubscription 1.2.1 CVS/SVN (UNRELEASED)
+  * PortalTransforms 1.3.9-final02
+  * TimerService 0.2
+  * VerboseSecurity VerboseSecurity-0.6
+  * ZWiki ZWiki-0-51-0
+  * ZopeLog 1.0
+  * ZopeScheduler 0.2
+  * generator 1.3.2-final04
+  * kupu kupu 1.3.3
+  * validation 1.3.4-final02
+
+
+
