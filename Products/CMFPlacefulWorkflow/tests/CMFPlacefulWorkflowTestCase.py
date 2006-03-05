@@ -25,13 +25,11 @@ __docformat__ = 'restructuredtext'
 
 # Zope imports
 from Testing import ZopeTestCase
-from zope.app.tests.placelesssetup import setUp, tearDown
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import noSecurityManager
 
 # Plone imports
 from Products.PloneTestCase import PloneTestCase
-
 
 class CMFPlacefulWorkflowTestCase(PloneTestCase.PloneTestCase):
 
@@ -46,14 +44,12 @@ class CMFPlacefulWorkflowTestCase(PloneTestCase.PloneTestCase):
             self[key] = value
 
     def _setup(self):
-        setUp()
         PloneTestCase.PloneTestCase._setup(self)
         self.app.REQUEST['SESSION'] = self.Session()
 
     def beforeTearDown(self):
         # logout
         noSecurityManager()
-        tearDown()
     
     def loginAsPortalMember(self):
         '''Use if you need to manipulate site as a member.'''
@@ -73,16 +69,3 @@ class CMFPlacefulWorkflowTestCase(PloneTestCase.PloneTestCase):
         perms = self.portal.permissionsOfRole(role)
         return [p['name'] for p in perms if p['selected']]
 
-# Install CMFPlacefulWorkflow
-ZopeTestCase.installProduct('MimetypesRegistry')
-ZopeTestCase.installProduct('PythonScripts')
-ZopeTestCase.installProduct('PortalTransforms')
-ZopeTestCase.installProduct('Archetypes')
-ZopeTestCase.installProduct('ATContentTypes')
-ZopeTestCase.installProduct('PloneInstallation')
-ZopeTestCase.installProduct('CMFPlacefulWorkflow')
-
-# Setup Plone site
-setUp()
-PloneTestCase.setupPloneSite(products=['CMFPlacefulWorkflow'])
-tearDown()
