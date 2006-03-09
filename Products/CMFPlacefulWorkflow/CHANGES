@@ -8,6 +8,8 @@
 
 [SVN - UNRELEASED]
 
+* Converted python scripts to use new MessageID / status messages. (hannosch)
+
 * Synced prefs templates with current Plone 2.5 ones. (hannosch)
 
 * Cleaned up all templates and added missing i18n statements. (hannosch)

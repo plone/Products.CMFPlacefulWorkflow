@@ -3,6 +3,7 @@
 #-*- coding: utf-8 -*-
 
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlacefulWorkflow import CMFPlacefulWorkflowMessageFactory as _
 
 request = context.REQUEST
 policy = getToolByName(context, 'portal_placeful_workflow').getWorkflowPolicyById(wfpid)
@@ -18,8 +19,8 @@ policy.setDefaultChain(default_chain=(default_workflow_id,))
 wf_tool = getToolByName(context, 'portal_workflow')
 wf_tool.updateRoleMappings()
 
-psm = context.translate('Changes to criteria saved.', domain='cmfplacefulworkflow')
+context.plone_utils.addPortalMessage(_(u'Changes to criteria saved.'))
 if request:
-    request.RESPONSE.redirect('prefs_workflow_policy_mapping?wfpid=%s&portal_status_message=%s' % (wfpid, psm))
+    request.RESPONSE.redirect('prefs_workflow_policy_mapping?wfpid=%s' % wfpid)
 
 return request
