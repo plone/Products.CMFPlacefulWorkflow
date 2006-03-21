@@ -6,7 +6,7 @@
 
 * Support of aquiring policy from another
 
-[SVN - UNRELEASED]
+[ 2006-03-21 - 0.5alpha2 ]
 
 * Converted python scripts to use new MessageID / status messages. (hannosch)
 
