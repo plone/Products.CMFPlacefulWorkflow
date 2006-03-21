@@ -1,1 +1,2 @@
-0.5alpha1 CVS/SVN (UNRELEASED)
+0.5alpha2
+
