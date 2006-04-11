@@ -133,22 +133,23 @@ def LogFile(level, label, data, stack):
     LOG_OUTPUT.flush()
 
 
-import zLOG
+import logging
+logger = logging.getLogger('CMFPlacefulWorkflow')
 
 zLogLevelConverter = {
-    LOG_NONE: zLOG.TRACE,
-    LOG_CRITICAL: zLOG.PANIC,
-    LOG_ERROR: zLOG.ERROR,
-    LOG_WARNING: zLOG.PROBLEM,
-    LOG_NOTICE: zLOG.INFO,
-    LOG_DEBUG: zLOG.DEBUG,
+    LOG_NONE: logging.NOTSET,
+    LOG_CRITICAL: logging.CRITICAL,
+    LOG_ERROR: logging.ERROR,
+    LOG_WARNING: logging.WARNING,
+    LOG_NOTICE: logging.INFO,
+    LOG_DEBUG: logging.DEBUG,
     }
 
 def LogzLog(level, label, data, stack):
     """
     LogzLog : writes data though Zope's logging facility
     """
-    zLOG.LOG("IngeniWeb", zLogLevelConverter[level], "", data + "\n", )
+    logger.log(zLogLevelConverter[level], data)
 
     
 
