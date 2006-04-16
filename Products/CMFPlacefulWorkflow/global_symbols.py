@@ -39,11 +39,8 @@ else:
     Log.LOG_LEVEL = Log.LOG_NOTICE
 
 from Log import *
-Log = Log
-Log(LOG_NOTICE, "Starting %s at %d debug level" % (os.path.dirname(__file__), LOG_LEVEL, ))
 
 PROJECTNAME = "CMFPlacefulWorkflow"
-#PlacefulWorkflowPolicy_editPermission = "CMFPlacefulWorkflow: Edit Policies"
 
 from Products.CMFCore.permissions import ManagePortal
 
