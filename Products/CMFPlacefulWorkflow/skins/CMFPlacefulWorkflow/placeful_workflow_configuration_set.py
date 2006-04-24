@@ -12,14 +12,14 @@ if not config:
 else:
     if context.portal_placeful_workflow.getWorkflowPolicyById(policy_in):
         config.setPolicyIn(policy=policy_in)
-    elif policy_in=='':
+    elif policy_in == '':
         config.setPolicyIn(policy='')
     else:
         raise str(policy_in)
 
     if context.portal_placeful_workflow.getWorkflowPolicyById(policy_below):
         config.setPolicyBelow(policy=policy_below)
-    elif policy_below=='':
+    elif policy_below == '':
         config.setPolicyBelow(policy='')
     else:
         raise str(policy_below)
