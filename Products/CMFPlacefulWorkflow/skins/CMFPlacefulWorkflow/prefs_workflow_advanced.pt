@@ -27,8 +27,7 @@ Override plone prefs_workflow_advanced template for adding policy stuff
       metal:use-macro="here/prefs_main_template/macros/master"
       i18n:domain="cmfplacefulworkflow">
 
-    <metal:block fill-slot="top_slot"
-                 tal:define="dummy python:request.set('disable_border',1)" />
+    <metal:block fill-slot="top_slot" />
 
     <body>
 
@@ -74,8 +73,7 @@ Override plone prefs_workflow_advanced template for adding policy stuff
                         Workflow Setup
                     </h1>
 
-                    <a href=""
-                       class="link-parent"
+                    <a class="link-parent" href=""
                        tal:attributes="href string: $portal_url/plone_control_panel"
                        i18n:domain="plone"
                        i18n:translate="label_up_to_plone_setup">
@@ -99,8 +97,8 @@ Override plone prefs_workflow_advanced template for adding policy stuff
                         Select the workflow you want for each content type.
                     </p>
 
-                    <form name="change_workflow" 
-                          action="prefs_workflow_advanced_edit" 
+                    <form name="change_workflow"
+                          action="prefs_workflow_advanced_edit"
                           method="post">
 
                         <fieldset tal:define="allowedContentTypes allowedSortedContentTypes|here/allowedContentTypes">
@@ -109,21 +107,35 @@ Override plone prefs_workflow_advanced template for adding policy stuff
                                 Content types
                             </legend>
 
+                            <div class="field" summary="Default workflow"
+                                 tal:define="default_wf python:wtool.getChainForPortalType('Plone Site')"
+                                 i18n:attributes="summary summary_default_workflow;">
+                                <label i18n:translate="summary summary_default_workflow;">Default workflow</label>
+                                <select id="select_workflow" name="wf.default_workflow:record" tabindex="" alt="">
+                                    <metal:block tal:repeat="wf workflow_list">
+                                        <option value="wf"
+                                                tal:attributes="value wf;
+                                                                selected python: wf == default_wf and 'selected' or None;"
+                                                tal:content="wf"
+                                                i18n:translate="">
+                                            Simple workflow
+                                        </option>
+                                    </metal:block>
+                                </select>
+                            </div>
+
                             <div>
-                            <table class="field"
-                                   summary="Workflow to content type mapping."
+                            <table class="field" summary="Workflow to content type mapping."
+                                   tal:define="full_workflow_list python:workflow_list + ['(Default)'];"
                                    i18n:attributes="summary summary_workflow_type_mapping;">
                                 <metal:ctype tal:repeat="ctype allowedContentTypes">
                                 <tr tal:define="Title ctype/Title;
                                                 Id ctype/getId;
-                                                current_wf_list python:wtool.getChainForPortalType(Id)">
+                                                current_wf_list python:wtool.getChainForPortalType(Id);">
 
                                     <td valign="top">
-                                        <img src=""
-                                            alt=""
-                                            width="16"
-                                            height="16"
-                                            tal:attributes="src string:$portal_url/${ctype/getIcon}" />
+                                        <img src="" alt="" width="16" height="16"
+                                             tal:attributes="src string:$portal_url/${ctype/getIcon};" />
 
                                         <label tal:content="Title">Title</label>
                                     </td>
@@ -131,20 +143,13 @@ Override plone prefs_workflow_advanced template for adding policy stuff
                                     <td valign="top">
                                         <div tal:repeat="current_wf current_wf_list">
 
-                                            <select id="select_workflow"
-                                                    name="workflow_id"
-                                                    tabindex=""
-                                                    alt=""
+                                            <select id="select_workflow" name="workflow_id" tabindex="" alt=""
                                                     tal:attributes="name python:'wf.' + ctype.getId() + ':record'" >
 
-                                                <option value="current"
-                                                        tal:attributes="value current_wf">
-                                                    <span tal:replace="current_wf"/>
-                                                </option>
-
-                                                <metal:block tal:repeat="wf workflow_list">
+                                                <metal:block tal:repeat="wf full_workflow_list">
                                                     <option value="wf"
-                                                            tal:attributes="value wf"
+                                                            tal:attributes="value wf;
+                                                                            selected python: wf == current_wf and 'selected' or None;"
                                                             tal:content="wf"
                                                             i18n:translate="">
                                                         Simple workflow
@@ -160,11 +165,7 @@ Override plone prefs_workflow_advanced template for adding policy stuff
                             </div>
 
                             <div class="formControls">
-                                <input class="context"
-                                       tabindex=""
-                                       type="submit"
-                                       name="Change"
-                                       value="Save"
+                                <input class="context" tabindex="" type="submit" name="Change" value="Save"
                                        i18n:domain="plone"
                                        i18n:attributes="value label_save;"
                                        tal:attributes="tabindex tabindex/next;" />
