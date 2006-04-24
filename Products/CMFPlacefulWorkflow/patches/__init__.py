@@ -25,6 +25,3 @@ __docformat__ = 'restructuredtext'
 
 # Make getChainFor method look for placeful workflow configuration
 import workflowtoolPatch
-
-# Backport _getTempFolder from Plone 2.1 for Plone 2.0
-import FactoryToolPatch
