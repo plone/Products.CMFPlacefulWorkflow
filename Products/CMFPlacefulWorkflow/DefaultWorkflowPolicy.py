@@ -126,14 +126,9 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
             types_info.append({'id': id,
                                'title': title,
                                'chain': chain})
-
-        if self._default_chain == None:
-            default_chain = ""
-        else:
-            default_chain = ', '.join(self._default_chain)
         return self._manage_defineLocalWorkflowPolicy(
             REQUEST,
-            default_chain=default_chain,
+            default_chain=', '.join(self._default_chain),
             types_info=types_info,
             management_view='Workflows',
             manage_tabs_message=manage_tabs_message)
@@ -196,9 +191,10 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
 
     security.declareProtected( ManagePortal, 'getChainFor')
     def getChainFor(self, ob, managescreen=False):
-        """ Returns the chain that applies to the object.
+        """Returns the chain that applies to the object.
 
-        If chain doesn't exist we return () according to CMFCore
+        If chain doesn't exist we return None to get a fallback from portal_workflow.
+        We never return emtpy tuple that is good value for a chain.
         """
 
         cbt = self._chains_by_type
@@ -210,14 +206,14 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
             pt = None
 
         if pt is None:
-            return ()
+            return None
 
         chain = None
         if cbt is not None:
             chain = cbt.get(pt, None)
 
         if chain is None:
-            return ()
+            return None
         elif len(chain) == 1 and chain[0] == DEFAULT_CHAIN:
             default = self.getDefaultChain(ob)
             if default:
@@ -226,7 +222,7 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
                 else:
                     return default
             else:
-                return ()
+                return None
 
         return chain
 
