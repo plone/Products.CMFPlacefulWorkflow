@@ -35,17 +35,17 @@ Workflow policy configuration template
                          policy_config python:here.portal_placeful_workflow.getWorkflowPolicyConfig(here);
                          container_policy_config python:here.portal_placeful_workflow.getWorkflowPolicyConfig(container);">
 
-            <h1 i18n:translate="heading_workflow_policies">Workflow policies</h1>
+            <h1 i18n:translate="heading_workflow_policies">Workflow policies' local configuration</h1>
 
             <p tal:condition="python:policy_config"
                i18n:translate="description_workflow_policies">
-                Set your workflow policies for this folder and below.
+                Set your workflow policies' local configuration for this folder and below.
             </p>
 
             <p tal:condition="python:not policy_config and here.isPrincipiaFolderish">
                 <a href="placeful_workflow_configuration_add"
                    i18n:translate="description_add_workflow_policy_for_type">
-                    Add a workflow policy in the
+                    Add a workflow policy's local configuration in the
                     <span tal:content="python:here.translate(here.portal_type)"
                           i18n:name="portal_type">
                         portal type
@@ -57,7 +57,7 @@ Workflow policy configuration template
                 <a href=""
                    tal:attributes="href python:container.absolute_url()+'/placeful_workflow_configuration_add'"
                    i18n:translate="description_add_workflow_policy">
-                    Add Workflow policy
+                    Add Workflow policy's local configuration
                 </a>
             </p>
 
