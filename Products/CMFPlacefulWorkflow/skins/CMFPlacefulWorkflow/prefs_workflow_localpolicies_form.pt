@@ -41,22 +41,16 @@ CMFPlacefulWorkflow configuration panel
 
                 <!-- ugly way of simulating real actions on placeful workflow pages until we have real objects. -->
                 <ul class="contentViews">
-                    <li id="contentview-workflow-basic" class="plain">
-                        <a href="prefs_workflow_basic"
-                           i18n:translate="label_workflow_default">
-                            Default workflow configuration
-                        </a>
-                    </li>
                     <li id="contentview-workflow-advanced" class="plain">
                         <a href="prefs_workflow_advanced"
                            i18n:translate="label_workflow_global_type_mapping">
-                            Global Content Type to Workflow Mapping
+                            Global Workflow configuration
                         </a>
                     </li>
                     <li id="contentview-workflow-localpolicies" class="selected">
                         <a href="prefs_workflow_localpolicies_form"
                            i18n:translate="label_workflow_local_type_mapping">
-                            Local Content Type to Workflow Mapping
+                            Workflow policies configuration
                         </a>
                     </li>
                 </ul>
@@ -83,7 +77,12 @@ CMFPlacefulWorkflow configuration panel
                     </a>
 
                     <p i18n:translate="description_workflow_policy_setup">
-                        Workflow policy setup for Plone.
+                        Workflow policies setup for Plone.<br/>
+                        Here you will create and configure your workflow policies.
+                        A policy modify workflows for your documents in or below
+                        a folderish type. To apply a policy you have to add in a
+                        folderish a workflow polices local configuration in the
+                        workflow dropdown menu.
                     </p>
 
                     <form action=""
@@ -103,7 +102,7 @@ CMFPlacefulWorkflow configuration panel
 
                             <tal:wfp tal:define="wfp python:wfp.getWorkflowPolicyById(wfpid)">
 
-                                <input type="checkbox" 
+                                <input type="checkbox"
                                        class="noborder"
                                        id="policy_id"
                                        name="policy_ids:list"
@@ -150,19 +149,19 @@ CMFPlacefulWorkflow configuration panel
                             <div class="field"
                                  tal:define="error errors/policy_id | nothing;"
                                  tal:attributes="class python:test(error, 'field error', 'field')">
-    
+
                                 <label i18n:translate="label_new_policy">
                                     New policy
                                 </label>
-    
+
                                 <div class="formHelp"
                                      id=""
                                      i18n:translate="help_add_new_policies">
                                     Add new policies here
                                 </div>
-    
+
                                 <div tal:content="error">Validation error output</div>
-    
+
                                 <input name="policy_id"
                                        value=""
                                        size="30"
@@ -179,7 +178,7 @@ CMFPlacefulWorkflow configuration panel
                                        i18n:attributes="value label_add;"
                                        tal:attributes="tabindex tabindex/next;" />
                             </div>
-    
+
                             <input type="hidden"
                                    name="form_submitted"
                                    value="1"

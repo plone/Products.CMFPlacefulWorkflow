@@ -41,12 +41,6 @@ Workflow policy mapping template
 
             <!-- ugly way of simulating real actions on the groups/user pages until we have real objects. -->
             <ul tal:condition="python:False" id="contentTabs">
-                <li class="selected">
-                    <a href="prefs_workflow_basic"
-                       i18n:translate="label_workflow_default">
-                        Default workflow configuration
-                    </a>
-                </li>
                 <li class="">
                     <a href="prefs_workflow_advanced"
                        i18n:translate="label_workflow_global_type_mapping">

@@ -40,12 +40,6 @@ Override plone prefs_workflow_advanced template for adding policy stuff
 
                 <!-- ugly way of simulating real actions on placeful workflow pages until we have real objects. -->
                 <ul class="contentViews">
-                    <li id="contentview-workflow-basic" class="plain">
-                        <a href="prefs_workflow_basic"
-                           i18n:translate="label_workflow_default">
-                            Default workflow configuration
-                        </a>
-                    </li>
                     <li id="contentview-workflow-advanced" class="selected">
                         <a href="prefs_workflow_advanced"
                            i18n:translate="label_workflow_global_type_mapping">
