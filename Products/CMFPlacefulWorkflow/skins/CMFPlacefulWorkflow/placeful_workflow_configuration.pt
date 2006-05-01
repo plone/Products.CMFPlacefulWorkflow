@@ -46,7 +46,7 @@ Workflow policy configuration template
                 <a href="placeful_workflow_configuration_add"
                    i18n:translate="description_add_workflow_policy_for_type">
                     Add a workflow policy in the
-                    <span tal:content="python:here.portal_type"
+                    <span tal:content="python:here.translate(here.portal_type)"
                           i18n:name="portal_type">
                         portal type
                     </span>
