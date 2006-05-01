@@ -131,7 +131,7 @@ Override plone prefs_workflow_advanced template for adding policy stuff
                                         <img src="" alt="" width="16" height="16"
                                              tal:attributes="src string:$portal_url/${ctype/getIcon};" />
 
-                                        <label tal:content="Title">Title</label>
+                                        <label tal:content="python:here.translate(Title)">Title</label>
                                     </td>
 
                                     <td valign="top">
