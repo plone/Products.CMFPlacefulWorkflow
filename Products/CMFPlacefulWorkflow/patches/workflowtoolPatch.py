@@ -30,81 +30,62 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import base_hasattr
 
 def getChainFor(self, ob):
-    """Monkey-patched by CMFPlacefulWorkflow to look for placeful workflow configurations.
-
-    Goal: find a workflow chain in a policy
-
-    Steps:
-    1. ask the object if it contains a policy
-    2. if it does, ask him for a chain
-    3. if there's no chain for the type the we loop on the parent
-    4. if the parent is the portal object or None we stop and we ask to portal_workflow
-
-    Hint:
-    If ob was a string, ask directly portal_worlfow\n\n"""
-
+    """
+    monkey-patched by CMFPlacefulWorkflow to look for placeful workflow
+    configurations.
+    """
     cbt = self._chains_by_type
 
     if type(ob) == type(''):
-        # We are not in an object, then we can only get default from portal_workflow
         portal_type = ob
-        if cbt is not None:
-            chain = cbt.get(portal_type, None)
-            # Note that if chain is not in cbt or has a value of None, we use a default chain.
-        if chain is None:
-            chain = self.getDefaultChainFor(ob)
-            if chain is None:
-                # CMFCore default
-                return ()
-
     elif hasattr(aq_base(ob), '_getPortalTypeName'):
         portal_type = ob._getPortalTypeName()
     else:
         portal_type = None
 
-    if portal_type is None or not ob:
+    if portal_type is None:
         return ()
 
     # Take some extra care when ob is a string
-    is_policy_container = False
-    objectids = []
+    is_policy_container=0
+    objectids=[]
     try:
        objectids = ob.objectIds()
     except AttributeError, TypeError:
        pass
     if WorkflowPolicyConfig_id in objectids:
-        is_policy_container = True
+        is_policy_container=1
 
-    # Inspired by implementation in CPSWorkflowTool.py of CPSCore 3.9.0
-    # Workflow needs to be determined by true containment not context
-    # so we loop over the actual containers
-    chain = None
-    wfpolicyconfig = None
-    current_ob = aq_inner(ob)
-    start_here = True
-    portal = aq_base(getToolByName(self, 'portal_url').getPortalObject())
-    while chain is None and current_ob is not None:
-        if base_hasattr(current_ob, WorkflowPolicyConfig_id):
-            wfpolicyconfig = getattr(current_ob, WorkflowPolicyConfig_id)
+    if type(ob) != type('') and portal_type != None and not is_policy_container:
+        # Inspired by implementation in CPSWorkflowTool.py of CPSCore 3.9.0
+        # Workflow needs to be determined by true containment not context
+        # so we loop over the actual containers
+        wfpolicyconfig = None
+        current_ob = aq_inner(ob)
+        portal = aq_base(getToolByName(self, 'portal_url').getPortalObject())
+        while wfpolicyconfig is None and current_ob is not None:
+            if base_hasattr(current_ob, WorkflowPolicyConfig_id):
+                wfpolicyconfig = getattr(current_ob, WorkflowPolicyConfig_id)
+            elif aq_base(current_ob) is portal:
+                break
+            current_ob = aq_inner(aq_parent(current_ob))
+
+        if wfpolicyconfig is not None:
+            # Was it here or did we acquire?
+            start_here = base_hasattr(aq_parent(aq_inner(ob)), WorkflowPolicyConfig_id)
             chain = wfpolicyconfig.getPlacefulChainFor(portal_type, start_here=start_here)
             if chain is not None:
                 return chain
 
-        elif aq_base(current_ob) is portal:
-            break
-        start_here = False
-        current_ob = aq_inner(aq_parent(current_ob))
-
-    # Note that if chain is not in cbt or has a value of None, we use a default chain.
+    chain = None
     if cbt is not None:
         chain = cbt.get(portal_type, None)
-
+        # Note that if chain is not in cbt or has a value of
+        # None, we use a default chain.
     if chain is None:
         chain = self.getDefaultChainFor(ob)
         if chain is None:
-            # CMFCore default
             return ()
-
     return chain
 
 # don't lose the docstrings
