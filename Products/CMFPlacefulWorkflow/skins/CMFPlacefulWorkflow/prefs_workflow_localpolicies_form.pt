@@ -30,25 +30,26 @@ CMFPlacefulWorkflow configuration panel
     <metal:block fill-slot="top_slot"
                  tal:define="dummy python:request.set('disable_border',1)" />
 
-    <div metal:fill-slot="prefs_configlet_main"
+    <div metal:fill-slot="prefs_configlet_content"
          tal:define="errors python:request.get('errors', {})"
          class="configlet">
 
         <div id="content" class="documentEditable"
-             tal:condition="python:checkPermission('Manage users', here)">
+             tal:condition="python:checkPermission('View management screens', here)">
 
-            <!-- ugly way of simulating real actions on placeful workflow pages until we have real objects. -->
+            <h5 class="hiddenStructure">Views</h5>
+
             <ul class="contentViews">
                 <li id="contentview-workflow-advanced" class="plain">
                     <a href="prefs_workflow_advanced"
                        i18n:translate="label_workflow_global_type_mapping">
-                        Global Workflow configuration
+                        Global Content Type to Workflow Mapping
                     </a>
                 </li>
                 <li id="contentview-workflow-localpolicies" class="selected">
                     <a href="prefs_workflow_localpolicies_form"
                        i18n:translate="label_workflow_local_type_mapping">
-                        Workflow policies configuration
+                        Local Content Type to Workflow Mapping
                     </a>
                 </li>
             </ul>
@@ -56,8 +57,6 @@ CMFPlacefulWorkflow configuration panel
             <div class="contentActions">
                 &nbsp;
             </div>
-            <!-- End of tabs -->
-
             <div class="documentContent" id="region-content">
 
                 <a name="documentContent"></a>
@@ -73,16 +72,19 @@ CMFPlacefulWorkflow configuration panel
                    i18n:translate="label_up_to_plone_setup">
                     Up to Plone Setup
                 </a>
-
+					
+                <h3 i18n:translate="title_workflow_policy_setup">
+                    Workflow Policies Setup
+                </h3>
+				
                 <p i18n:translate="description_workflow_policy_setup">
-                    Workflow policies setup for Plone.<br/>
-                    Here you will create and configure your workflow policies.
-                    A policy modify workflows for your documents in or below
-                    a folderish type. To apply a policy you have to add in a
-                    folderish a workflow polices local configuration in the
-                    workflow dropdown menu.
+                    Here you can create and configure your workflow policies.
+                    A policy modifies workflows for any items in or below
+                    a specific folder. To apply a policy you have to add a
+                    local workflow policy configuration to the desired
+                    folder using the policy item in the workflow dropdown
+                    menu.
                 </p>
-
                 <form action=""
                       name=""
                       method="post"
@@ -186,10 +188,9 @@ CMFPlacefulWorkflow configuration panel
                 </form>
             </div>
         </div>
-
         <div id="content"
              class="documentEditable"
-             tal:condition="python:not checkPermission('Manage users', here)">
+             tal:condition="python:not checkPermission('View management screens', here)">
             <tal:block replace="here/raiseUnauthorized" />
         </div>
 

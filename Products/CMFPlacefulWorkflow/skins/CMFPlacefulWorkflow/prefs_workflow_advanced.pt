@@ -28,15 +28,16 @@ Override plone prefs_workflow_advanced template for adding policy stuff
       i18n:domain="cmfplacefulworkflow">
 
     <metal:block fill-slot="top_slot" />
-
-    <div metal:fill-slot="prefs_configlet_main"
+    
+    <div metal:fill-slot="prefs_configlet_content"
          tal:define="workflow_list wtool/listWorkflows;"
          class="configlet">
 
         <div id="content" class="documentEditable"
-             tal:condition="python:checkPermission('Manage users', here)">
+             tal:condition="python:checkPermission('View management screens', here)">
 
-            <!-- ugly way of simulating real actions on placeful workflow pages until we have real objects. -->
+            <h5 class="hiddenStructure">Views</h5>
+
             <ul class="contentViews">
                 <li id="contentview-workflow-advanced" class="selected">
                     <a href="prefs_workflow_advanced"
@@ -55,7 +56,6 @@ Override plone prefs_workflow_advanced template for adding policy stuff
             <div class="contentActions">
                 &nbsp;
             </div>
-            <!-- End of tabs -->
 
             <div class="documentContent" id="region-content">
 
@@ -169,7 +169,7 @@ Override plone prefs_workflow_advanced template for adding policy stuff
         </div>
 
         <div id="content" class="documentEditable"
-             tal:condition="python:not checkPermission('Manage users', here)">
+             tal:condition="python:not checkPermission('View management screens', here)">
             <tal:block replace="here/raiseUnauthorized" />
         </div>
 
