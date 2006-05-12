@@ -125,7 +125,6 @@ CMFPlacefulWorkflow configuration panel
                             </label>
 
                             <div class="formHelp"
-                                 i18n:translate="help_policy_mapping"
                                  tal:content="python:wfp.getDescription()">
                                 Description of the policy mapping
                             </div>
