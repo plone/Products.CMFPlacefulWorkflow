@@ -1,7 +1,5 @@
 [TODO]
 
-* Fixed a simple i18n markup problem revealed by ZChecker. (hannosch)
-
 * Add mutli workflow support in UI ( LinesWidget ? )
 
 * Fallback to workflow tool chain if no chain is defined for a type in a policy
@@ -9,6 +7,10 @@
 * Support of aquiring policy from another
 
 [ unreleased ]
+
+* Removed unused i18n folder. (hannosch)
+
+* Fixed a simple i18n markup problem revealed by ZChecker. (hannosch)
 
 * Removed a noise log message at Zope startup. (hannosch)
 
