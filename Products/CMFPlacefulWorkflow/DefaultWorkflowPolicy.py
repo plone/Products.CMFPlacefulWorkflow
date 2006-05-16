@@ -42,6 +42,7 @@ _dtmldir = os_path.join( package_home( globals() ), 'dtml' )
 from Products.CMFCore.utils import getToolByName
 
 DEFAULT_CHAIN = '(Default)'
+MARKER = '_MARKER'
 
 class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
 
@@ -210,9 +211,11 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
 
         chain = None
         if cbt is not None:
-            chain = cbt.get(pt, None)
+            chain = cbt.get(pt, MARKER)
 
-        if chain is None:
+        if chain is MARKER:
+            return None
+        elif chain is None:
             return None
         elif len(chain) == 1 and chain[0] == DEFAULT_CHAIN:
             default = self.getDefaultChain(ob)

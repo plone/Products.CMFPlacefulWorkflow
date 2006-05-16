@@ -31,9 +31,10 @@ from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConf
 from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase
 
 try:
-   _standard_permissions = ZopeTestCase._standard_permissions
+    _standard_permissions = ZopeTestCase._standard_permissions
 except AttributeError:
-   _standard_permissions = ZopeTestCase.standard_permissions
+    _standard_permissions = ZopeTestCase.standard_permissions
+
 _edit_permissions     = [] # [PlacefulWorkflowPolicy_editPermission,]
 _all_permissions      = _edit_permissions
 
@@ -312,13 +313,17 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         self.assertEqual(tuple(chain), ('folder_workflow',))
 
     def test_11_In_and_Below(self):
+        """In and below"""
         self.logout()
         self.loginAsPortalOwner()
         wft = self.portal.portal_workflow
-        self.portal.invokeFactory('Folder', id='folder')
+        self.portal.portal_types['Large Plone Folder']._setPropValue('global_allow', True)
+        self.portal.invokeFactory('Large Plone Folder', id='folder')
         self.portal.folder.invokeFactory('Document', id='document')
-        self.portal.folder.invokeFactory('Folder', id='folder2')
+        self.portal.folder.invokeFactory('Large Plone Folder', id='folder2')
         self.portal.folder.folder2.invokeFactory('Document', id='document2')
+        self.portal.folder.invokeFactory('Large Plone Folder', id='large_folder3')
+        self.portal.folder.large_folder3.invokeFactory('Document', id='document3')
 
         # Create a policy
         pwt = self.portal_placeful_workflow
@@ -330,6 +335,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         gsp1 = pwt.getWorkflowPolicyById('foo_bar_policy')
         gsp1.setChainForPortalTypes(['Document'], ['plone_workflow'])
         gsp1.setChainForPortalTypes(['Folder'], ['plone_workflow'])
+        gsp1.setChainForPortalTypes(['Large Plone Folder'], ['plone_workflow'])
 
         # Create a policy
         pwt = self.portal_placeful_workflow
@@ -341,6 +347,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         gsp2 = pwt.getWorkflowPolicyById('foo_bar_policy2')
         gsp2.setChainForPortalTypes(['Document'], ['folder_workflow'])
         gsp2.setChainForPortalTypes(['Folder'], ['folder_workflow'])
+        gsp2.setChainForPortalTypes(['Large Plone Folder'], ['folder_workflow'])
 
         # Add a config to the folder using the policy
         self.portal.folder.manage_addProduct['CMFPlacefulWorkflow'].manage_addWorkflowPolicyConfig()
