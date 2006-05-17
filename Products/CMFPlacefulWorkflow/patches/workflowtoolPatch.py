@@ -63,7 +63,7 @@ def getChainFor(self, ob):
     else:
         portal_type = None
 
-    if portal_type is None or not ob:
+    if portal_type is None or ob is None:
         return ()
 
     # Take some extra care when ob is a string
