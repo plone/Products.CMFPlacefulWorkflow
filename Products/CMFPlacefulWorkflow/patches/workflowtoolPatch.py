@@ -62,7 +62,7 @@ def getChainFor(self, ob):
     else:
         portal_type = None
 
-    if portal_type is None or not ob:
+    if portal_type is None or ob is None:
         return ()
 
     # Take some extra care when ob is a string
@@ -85,7 +85,7 @@ def getChainFor(self, ob):
     portal = aq_base(getToolByName(self, 'portal_url').getPortalObject())
     while chain is None and current_ob is not None:
         if shasattr(current_ob, WorkflowPolicyConfig_id):
-            wfpolicyconfig = getattr(current_ob, WorkflowPolicyConfig_id)
+            wfpolicyconfig = getattr(current_ob, WorkflowPolicyConfig_id)		
             chain = wfpolicyconfig.getPlacefulChainFor(portal_type, start_here=start_here)
             if chain is not None:
                 return chain
