@@ -135,6 +135,3 @@ class WorkflowPolicyConfig(SimpleItem):
         return chain
 
 InitializeClass( WorkflowPolicyConfig )
-
-
-
