@@ -1,1 +1,1 @@
-1.0beta2 CVS/SVN (UNRELEASED)
+1.0beta3

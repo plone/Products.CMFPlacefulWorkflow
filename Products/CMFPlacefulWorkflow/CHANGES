@@ -1,12 +1,12 @@
 [TODO]
 
-* Add mutli workflow support in UI ( LinesWidget ? )
-
-* Fallback to workflow tool chain if no chain is defined for a type in a policy
-
 * Support of aquiring policy from another
 
-[ unreleased ]
+[ 2006-05-17 - 1.0beta3]
+
+* Fixed copy/paste bug (ED)
+
+* Fixed BTreeFolder bug => obj is not None but False (ED)
 
 * Removed unused i18n folder. (hannosch)
 
@@ -14,7 +14,7 @@
 
 * Removed a noise log message at Zope startup. (hannosch)
 
-[ 2006-03-21 - 0.5alpha2 ]
+[ 2006-03-21 - 1.0alpha2 ]
 
 * Converted python scripts to use new MessageID / status messages. (hannosch)
 
