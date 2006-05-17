@@ -1,10 +1,12 @@
 [TODO]
 
-* Add old action's condition patch
-
 * Add option to configlet: 'use default as policy creation'
 
 * Policy: show only types that are concerned by the policy
+
+[ CVS/SVN ]
+
+* Fixed BTreeFolder no workflow bug
 
 [0.4.1 - 20060303] 
 
