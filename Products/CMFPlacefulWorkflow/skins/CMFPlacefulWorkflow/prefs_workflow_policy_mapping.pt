@@ -120,10 +120,7 @@ Workflow policy mapping template
                                     Id ctype/getId;
                                     current_wf_list python:wf_policy.getChainFor(Id)">
                         <td valign="top">
-                            <img src=""
-                                 alt=""
-                                 width="16"
-                                 height="16"
+                            <img src="" alt="" width="16" height="16"
                                  tal:attributes="src string:$portal_url/${ctype/getIcon}" />
                             <label tal:content="Title">Title</label>
                         </td>

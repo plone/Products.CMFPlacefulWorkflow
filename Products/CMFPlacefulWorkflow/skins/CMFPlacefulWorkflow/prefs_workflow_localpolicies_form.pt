@@ -83,10 +83,7 @@ CMFPlacefulWorkflow configuration panel
 
                 <tal:wfp tal:define="wfp python:wfp.getWorkflowPolicyById(wfpid)">
 
-                <input type="checkbox" 
-                       class="noborder"
-                       id="policy_id"
-                       name="policy_ids:list"
+                <input type="checkbox" class="noborder" id="policy_id" name="policy_ids:list"
                        tal:attributes="id wfpid; value wfpid" />
 
                 <label i18n:translate=""
@@ -94,14 +91,9 @@ CMFPlacefulWorkflow configuration panel
                        tal:attributes="for wfpid">
                     <a href="prefs_workflow_policy_mapping"
                        tal:attributes="href python:'prefs_workflow_policy_mapping?wfpid='+wfpid"
-                       tal:content="python:wfp.getId()">
+                       tal:content="python:wfp.getTitle() or wfp.getId()">
                         Title of the policy mapping
                     </a>
-                    <span href="prefs_workflow_policy_mapping"
-                          tal:condition="python:wfp.getTitle()"
-                          tal:content="python:'('+wfp.getTitle().strip()+')'">
-                        Title of the policy mapping
-                    </span>
                 </label>
 
                 <div class="formHelp"
@@ -116,49 +108,64 @@ CMFPlacefulWorkflow configuration panel
 
             <div class="formControls"
                  tal:condition="python:wfp.getWorkflowPolicyIds()">
-                <input class="context"
-                       tabindex=""
-                       type="submit"
-                       name="delete"
-                       value="Delete"
+                <input class="context" tabindex="" type="submit" name="delete" value="Delete"
                        i18n:attributes="value"
                        tal:attributes="tabindex tabindex/next;"
                        />
             </div>
+        </fieldset>
 
+        <fieldset>
+            <legend i18n:translate="">Add a workflow policy</legend>
             <div class="field"
                  tal:define="error errors/policy_id | nothing;"
                  tal:attributes="class python:test(error, 'field error', 'field')">
-    
-                <label i18n:translate="">New policy</label>
-    
+
+                <label i18n:translate="">New policy Id</label>
+                <span class="fieldRequired" title="Requis">(Requis)</span>
+
                 <div class="formHelp" id=""
                      i18n:translate="">
-                     Add new policies here
+                    Give an identifiant for a new workflows policy
                 </div>
-    
+
                 <div tal:content="error">Validation error output</div>
-    
-                <input name="policy_id"
-                       value=""
-                       size="30"
-                       tabindex=""
+
+                <input name="policy_id" value="" size="30" tabindex=""
                        tal:attributes="tabindex tabindex/next;" />
+            </div>
+            <div class="field"
+                 tal:define="error errors/policy_id | nothing;"
+                 tal:attributes="class python:test(error, 'field error', 'field')">
+
+                <label i18n:translate="">Duplicate another policy</label>
+                <span class="fieldRequired" title="Requis">(Requis)</span>
+
+                <div class="formHelp" id=""
+                     i18n:translate="">
+                    Initialize the new policy with the given one. You also can
+                    choose to start with an empty policy.
+                </div>
+
+                <div tal:content="error">Validation error output</div>
+                <select name="policy_duplicate_id">
+                    <option value="empty">Empty</option>
+                    <option value="portal_workflow">Global workflow</option>
+                    <option tal:repeat="wfpid python:wfp.getWorkflowPolicyIds()"
+                            tal:attributes="value wfpid"
+                            tal:content="python:wfp.getWorkflowPolicyById(wfpid).getTitle()">WF policy id</option>
+                </select>
             </div>
 
             <div class="formControls">
-                <input class="context"
-                       tabindex=""
-                       type="submit"
-                       name="add"
-                       value="Add"
-                       i18n:attributes="value"
+                <input type="submit" class="context" tabindex="" name="add" value="Add"
                        tal:attributes="tabindex tabindex/next;"
+                       i18n:attributes="value"
                        />
             </div>
-    
-        <input type="hidden" name="form_submitted" value="1" tal:attributes="value template/id" />
-      </fieldset>
+
+            <input type="hidden" name="form_submitted" value="1" tal:attributes="value template/id" />
+        </fieldset>
     </form>
 
 </div>
