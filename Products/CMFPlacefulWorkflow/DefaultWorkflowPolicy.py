@@ -236,7 +236,7 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
         for wf_id in default_chain:
             if wf_id:
                 if not wftool.getWorkflowById(wf_id):
-                    raise ValueError, ( '"%s" is not a workflow ID.' % wf_id)
+                    raise ValueError, ( "'%s' is not a workflow ID." % wf_id)
                 ids.append(wf_id)
 
         self._default_chain = tuple(ids)

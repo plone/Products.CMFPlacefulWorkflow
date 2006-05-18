@@ -85,7 +85,7 @@ def getChainFor(self, ob):
     portal = aq_base(getToolByName(self, 'portal_url').getPortalObject())
     while chain is None and current_ob is not None:
         if shasattr(current_ob, WorkflowPolicyConfig_id):
-            wfpolicyconfig = getattr(current_ob, WorkflowPolicyConfig_id)		
+            wfpolicyconfig = getattr(current_ob, WorkflowPolicyConfig_id)
             chain = wfpolicyconfig.getPlacefulChainFor(portal_type, start_here=start_here)
             if chain is not None:
                 return chain
@@ -107,6 +107,6 @@ def getChainFor(self, ob):
 
     return chain
 
-# don't lose the docstrings
+# don't loose the docstrings
 getChainFor.__doc__ = '\n'.join((WorkflowTool.getChainFor.__doc__, getChainFor.__doc__))
 WorkflowTool.getChainFor = getChainFor
