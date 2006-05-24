@@ -1,14 +1,18 @@
 [TODO]
 
+* Policy: show only types that are concerned by the policy (AJAX)
+
+[0.4.3 - 20060524]
+
+* Fixed getWorklists workflow tool method (patch)
+
 * Add option to configlet: 'use default as policy creation'
 
-* Policy: show only types that are concerned by the policy
-
-[ CVS/SVN ]
+[0.4.2 - 20060517]
 
 * Fixed BTreeFolder no workflow bug
 
-[0.4.1 - 20060303] 
+[0.4.1 - 20060303]
 
 * Fallback to workflow tool chain if no chain is defined for a type in a policy
 

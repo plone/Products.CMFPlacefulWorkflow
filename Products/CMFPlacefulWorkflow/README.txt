@@ -4,16 +4,16 @@ Dependencies
 Required Products
 ------------------
 
-* Plone 2.0.5 or more
+* Plone 2.0.5, 2.1.2 and 2.1.3 for 0.4.* version
 
-* Plone 2.1 is supported.
+* CMFPlacefulWorkflow is in the Plone 2.5 bundle after the 1.0 release
 
 Installation
 ============
-  
+
 Installing CMFPlacefulWorkflow
 ------------------------------
-    
+
 * Unpack it into your Zope Products Folder
 * Restart Zope
 * Use portal_quickinstaller to install the CMFPlacefulworkflow in ZMI (or use plone_setup in pmi)
@@ -97,7 +97,7 @@ Additional tools
 PLIP
 ----
 
-  http://plone.org/Members/maikroeder/52
+  http://plone.org/products/plone/roadmap/52
 
   Our goal is to be able to say that in a given folder, a different
   workflow (or workflow chain) should be used for certain content types. 
