@@ -110,9 +110,9 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         self.failUnless(gsp!=None)
 
     def test_04_addWorkflowPolicyAndConfigForIt(self,):
+        """Add a workflow policy
         """
-        Add workflow policy
-        """
+        self.loginAsPortalOwner()
         pwt = self.placefulworkflowTool
         pwt.manage_addWorkflowPolicy(id = 'foo_bar_policy' \
                                     , workflow_policy_type = 'default_workflow_policy'+\
@@ -124,9 +124,50 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         self.failUnless(pc.getPolicyInId()=='foo_bar_policy')
         self.failUnless(pc.getPolicyBelowId()=='foo_bar_policy')
 
-    def test_05_editWorkflowPolicy(self,):
+        self.logout()
+
+    def test_04_addWorkflowPolicyAndDuplicateConfiguration(self,):
+        """Add a workflow policy and duplicate another one
+
+        Use a python script that can duplicate another policy or portal_workflow configuration
         """
-        Add workflow policy
+        self.loginAsPortalOwner()
+        pw_tool = self.placefulworkflowTool
+        wf_tool = self.portal.portal_workflow
+        ptypes = self.portal.portal_types.objectIds()
+
+        ## Part One: duplicate portal_workflow
+        pw_tool.manage_addWorkflowPolicy(id='foo_bar_policy',
+                                         duplicate_id='portal_workflow',
+                                         )
+
+        policy = pw_tool.getWorkflowPolicyById('foo_bar_policy')
+
+        self.assertEqual(policy.getDefaultChain('XXX'), wf_tool._default_chain)
+        for ptype in ptypes:
+            self.assertEqual(policy.getChainFor(ptype), wf_tool.getChainFor(ptype))
+
+
+        ## Part Two: duplicate another policy
+        policy.setDefaultChain(['plone_workflow', 'folder_workflow'])
+        policy.setChainForPortalTypes(['Document','Folder', 'Large Plone Folder'], ['plone_workflow', 'folder_workflow'])
+        pw_tool.manage_addWorkflowPolicy(id='foo_bar_policy2',
+                                         duplicate_id='foo_bar_policy',
+                                         )
+ 
+        policy2 = pw_tool.getWorkflowPolicyById('foo_bar_policy2')
+
+        self.assertEqual(policy.getDefaultChain('XXX'), ('plone_workflow', 'folder_workflow'))
+        for ptype in ptypes:
+            if ptype not in ('Document','Folder', 'Large Plone Folder'):
+                self.assertEqual(policy2.getChainFor(ptype), policy.getChainFor(ptype))
+            else:
+                self.assertEqual(policy2.getChainFor(ptype), policy.getChainFor(ptype))
+
+        self.logout()
+
+    def test_05_editWorkflowPolicy(self,):
+        """Edit workflow policy
         """
         pwt = self.placefulworkflowTool
         pwt.manage_addWorkflowPolicy(id = 'foo_bar_policy' \

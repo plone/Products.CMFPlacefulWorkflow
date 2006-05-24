@@ -22,35 +22,8 @@ if delete and policy_ids:
     context.REQUEST.RESPONSE.redirect('prefs_workflow_localpolicies_form?portal_status_message=%s' % msg)
 
 elif add and policy_id:
-    if policy_id in ('portal_workflow', 'empty'):
-        msg = "This identifiant is reserved, just choose another one."
-    else:
-        msg = "Local Workflow Policy added."
-        pw_tool.manage_addWorkflowPolicy(id=policy_id)
 
-        if policy_duplicate_id != 'empty':
-            new_wp = pw_tool.getWorkflowPolicyById(policy_id)
-            if policy_duplicate_id == 'portal_workflow':
-                portal_workflow = getToolByName(context, 'portal_workflow')
-
-                try:
-                    new_wp.setDefaultChain(portal_workflow.getDefaultChainFor('Document'))
-                except:
-                    # Damned private method
-                    pass
-
-                for ptype in types_tool.objectIds():
-                    chain = portal_workflow.getChainForPortalType(ptype, managescreen=True)
-                    if chain:
-                        new_wp.setChain(ptype, chain)
-
-            else:
-                orig_wp = pw_tool.getWorkflowPolicyById(policy_duplicate_id)
-                new_wp.setDefaultChain(orig_wp.getDefaultChain('Document'))
-
-                for ptype in types_tool.objectIds():
-                    chain = orig_wp.getChainFor(ptype, managescreen=True)
-                    if chain:
-                        new_wp.setChain(ptype, chain)
+    msg = "Local Workflow Policy added."
+    pw_tool.manage_addWorkflowPolicy(id=policy_id, duplicate_id=policy_duplicate_id)
 
     context.REQUEST.RESPONSE.redirect('prefs_workflow_policy_mapping?wfpid=%s&portal_status_message=%s' % (policy_id, msg))
