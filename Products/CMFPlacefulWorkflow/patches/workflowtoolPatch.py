@@ -110,3 +110,56 @@ def getChainFor(self, ob):
 # don't loose the docstrings
 getChainFor.__doc__ = '\n'.join((WorkflowTool.getChainFor.__doc__, getChainFor.__doc__))
 WorkflowTool.getChainFor = getChainFor
+
+
+
+def getWorklists(self):
+    """ This method is ugly.
+
+    Worklists are deprecated and must be replaced by catalog search.
+    """
+    # We want to know which types use the workflows with worklists
+    # This for example avoids displaying 'pending' of multiple workflows in the same worklist
+    types_tool = getToolByName(self, 'portal_types')
+    list_ptypes = types_tool.listContentTypes()
+    types_by_wf = {} # wf:[list,of,types]
+    for t in list_ptypes:
+        for wf in self.getChainFor(t):
+            types_by_wf[wf] = types_by_wf.get(wf,[]) + [t]
+
+    # Placeful stuff
+    placeful_tool = getToolByName(self, 'portal_placeful_workflow')
+    for policy in placeful_tool.getWorkflowPolicies():
+        for t in list_ptypes:
+            chain = policy.getChainFor(t) or ()
+            for wf in chain:
+                types_by_wf[wf] = types_by_wf.get(wf,[]) + [t]
+
+    wf_with_wlists = {}
+    for id in self.getWorkflowIds():
+        # the above list incomprehension merely _flattens_ nested sequences into 1 sequence
+
+        wf=self.getWorkflowById(id)
+        if hasattr(wf, 'worklists'):
+            wlists = []
+            for worklist in wf.worklists._objects:
+                wlist_def=wf.worklists._mapping[worklist['id']]
+                # Make the var_matches a dict instead of PersistentMapping to enable access from scripts
+                var_matches = {}
+                for key in wlist_def.var_matches.keys(): var_matches[key] = wlist_def.var_matches[key]
+                a_wlist = { 'id':worklist['id']
+                          , 'guard' : wlist_def.getGuard()
+                          , 'guard_permissions' : wlist_def.getGuard().permissions
+                          , 'guard_roles' : wlist_def.getGuard().roles
+                          , 'catalog_vars' : var_matches
+                          , 'name' : getattr(wlist_def, 'actbox_name', None)
+                          , 'url' : getattr(wlist_def, 'actbox_url', None)
+                          , 'types' : types_by_wf.get(id,[]) }
+                wlists.append(a_wlist)
+            # yes, we can duplicates, we filter duplicates out on the calling PyhtonScript client
+            wf_with_wlists[id]=wlists
+
+    return wf_with_wlists
+
+getWorklists.__doc__ = WorkflowTool.getWorklists.__doc__
+WorkflowTool.getWorklists = getWorklists
