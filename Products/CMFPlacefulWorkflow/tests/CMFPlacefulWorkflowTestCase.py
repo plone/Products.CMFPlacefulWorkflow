@@ -41,11 +41,6 @@ from Products.CMFCore.utils import getToolByName
 # Plone imports
 from Products.PloneTestCase import PloneTestCase
 
-# Products imports
-#from Products.Archetypes.tests import ArchetypesTestCase
-from Products.ATContentTypes.Extensions.Install import install as installATCT
-from Products.ATContentTypes.Extensions.toolbox import isSwitchedToATCT
-
 PORTAL_ID = 'plone'
 
 class CMFPlacefulWorkflowTestCase(PloneTestCase.PloneTestCase):
