@@ -214,12 +214,12 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
             chain = cbt.get(pt, None)
 
         if chain is None:
-            return None
+            return ()
         elif len(chain) == 1 and chain[0] == DEFAULT_CHAIN:
             default = self.getDefaultChain(ob)
             if default:
                 if managescreen:
-                    return chain
+                    return chain[0]
                 else:
                     return default
             else:
