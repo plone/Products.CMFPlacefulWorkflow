@@ -418,7 +418,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
 
         # In folder, we want to have folder_workflow
         # We set PolicyIn to the first policy in folder
-        pc.setPolicyIn('foo_bar_policy')
+        pc.setPolicyBelow('foo_bar_policy')
 
         cb = self.portal.manage_copyObjects(['document'])
         self.portal.folder.manage_pasteObjects(cb_copy_data=cb)
@@ -547,8 +547,8 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
 
         # Create a policy
         placeful_tool.manage_addWorkflowPolicy('foo_bar_policy',
-                                               'portal_workflow',
-                                               'default_workflow_policy (Simple Policy)',)
+                                               'default_workflow_policy (Simple Policy)',
+                                               'portal_workflow',)
         # And redefine the chain for Document in portal_workflow
         wf_tool.setChainForPortalTypes(['Document'], ())
 
