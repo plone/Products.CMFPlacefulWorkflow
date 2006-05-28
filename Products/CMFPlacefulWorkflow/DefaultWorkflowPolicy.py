@@ -214,7 +214,7 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
             chain = cbt.get(pt, None)
 
         if chain is None:
-            return ()
+            return None
         elif len(chain) == 1 and chain[0] == DEFAULT_CHAIN:
             default = self.getDefaultChain(ob)
             if default:

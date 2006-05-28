@@ -145,7 +145,11 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
 
         self.assertEqual(policy.getDefaultChain('XXX'), wf_tool._default_chain)
         for ptype in ptypes:
-            self.assertEqual(policy.getChainFor(ptype), wf_tool.getChainFor(ptype))
+            chain = policy.getChainFor(ptype)
+            if chain is None:
+                # Default empty chain is None in a policy and () in portal_workflow
+                chain = ()
+            self.assertEqual(chain , wf_tool.getChainFor(ptype))
 
 
         ## Part Two: duplicate another policy
@@ -476,7 +480,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
 
         # You should only be able to get a config in the folder itself
         config = pwt.getWorkflowPolicyConfig(self.portal.folder)
-        self.failUnless(config!=None)
+        self.failUnless(config != None)
 
         # Not in the folder above
         config = pwt.getWorkflowPolicyConfig(self.portal)
