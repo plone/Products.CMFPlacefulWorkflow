@@ -98,8 +98,9 @@ class PlacefulWorkflowTool(UniqueObject, Folder, ActionProviderBase):
         return self._manage_addWorkflowPolicyForm(REQUEST, workflow_policy_types=wfpt)
 
     security.declareProtected( ManagePortal, 'manage_addWorkflowPolicy')
-    def manage_addWorkflowPolicy(self, id, duplicate_id='empty',
+    def manage_addWorkflowPolicy(self, id,
                                  workflow_policy_type='default_workflow_policy (Simple Policy)',
+                                 duplicate_id='empty',
                                  RESPONSE=None):
         """ Adds a workflow policies from the registered types.
         """
