@@ -2,6 +2,12 @@
 
 * Policy: show only types that are concerned by the policy (AJAX)
 
+[0.4.5 - 20060528]
+
+* Fixed unittests with duplicate_id argument for manage_addWonrkflowConfiguration
+
+* Fixed template that doesn't show '(Default)'
+
 [0.4.3 - 20060524]
 
 * Fixed getWorklists workflow tool method (patch)
