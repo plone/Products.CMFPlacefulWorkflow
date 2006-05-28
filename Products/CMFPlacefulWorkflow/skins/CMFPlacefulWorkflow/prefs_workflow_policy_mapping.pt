@@ -25,7 +25,7 @@ Workflow policy mapping template
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       lang="en"
       metal:use-macro="here/prefs_main_template/macros/master"
-      i18n:domain="plone">
+      i18n:domain="cmfplacefulworkflow">
 
 <metal:block fill-slot="top_slot"
              tal:define="dummy python:request.set('disable_border',1)" />
@@ -118,19 +118,25 @@ Workflow policy mapping template
                 <metal:ctype tal:repeat="ctype type_list">
                     <tr tal:define="Title ctype/Title;
                                     Id ctype/getId;
-                                    current_wf_list python:wf_policy.getChainFor(Id)">
+                                    current_wf_list python:wf_policy.getChainFor(Id, managescreen=True)">
                         <td valign="top">
                             <img src="" alt="" width="16" height="16"
                                  tal:attributes="src string:$portal_url/${ctype/getIcon}" />
                             <label tal:content="Title">Title</label>
                         </td>
                         <td valign="top">
-                            <div>
-                                <select id="select_workflow" name="workflow_id"
-                                        tal:attributes="name python:'wf.' + ctype.getId() + ':record'" >
-                                    <option tal:repeat="wf python:['', '(Default)'] + wf_list"
+                            <div tal:define="chain python:wf_policy.getChainFor(ctype.getId(), managescreen=True)">
+                                <select id="select_workflow" name="workflow_id" multiple="multiple"
+                                        tal:attributes="name python:'wf.' + ctype.getId() + ':record';
+                                                        multiple nothing;" >
+                                    <option value=""></option>
+                                    <option value="(Default)"
+                                            tal:attributes="value string:(Default);
+                                                            selected python:test('(Default)' == chain, 'selected', None);"
+                                                            >(Default)</option>
+                                    <option tal:repeat="wf wf_list"
                                             tal:attributes="value wf;
-                                                            selected python:test((wf,)==wf_policy.getChainFor(ctype.getId(), managescreen=True), 'selected', None)"
+                                                            selected python:test(wf in chain, 'selected', None)"
                                             tal:content="wf">workflow_id</option>
                                 </select>
                             </div>

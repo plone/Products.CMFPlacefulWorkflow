@@ -25,7 +25,7 @@ CMFPlacefulWorkflow configuration panel
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       lang="en"
       metal:use-macro="here/prefs_main_template/macros/master"
-      i18n:domain="plone">
+      i18n:domain="cmfplacefulworkflow">
 
 <metal:block metal:fill-slot="top_slot"
              tal:define="dummy python:request.set('disable_border',1)" />
