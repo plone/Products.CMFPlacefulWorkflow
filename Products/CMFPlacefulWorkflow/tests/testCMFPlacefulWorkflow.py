@@ -162,7 +162,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
             if ptype not in ('Document','Folder', 'Large Plone Folder'):
                 self.assertEqual(policy2.getChainFor(ptype), policy.getChainFor(ptype))
             else:
-                self.assertEqual(policy2.getChainFor(ptype), policy.getChainFor(ptype))
+                self.assertEqual(policy2.getChainFor(ptype), ('plone_workflow', 'folder_workflow'))
 
         self.logout()
 
@@ -170,13 +170,12 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         """Edit workflow policy
         """
         pwt = self.placefulworkflowTool
-        pwt.manage_addWorkflowPolicy(id = 'foo_bar_policy' \
-                                    , workflow_policy_type = 'default_workflow_policy'+\
-                                    ' (Simple Policy)')
+        pwt.manage_addWorkflowPolicy(id='foo_bar_policy',
+                                     workflow_policy_type='default_workflow_policy (Simple Policy)')
         gsp = pwt.getWorkflowPolicyById('foo_bar_policy')
         gsp.setChainForPortalTypes(['Document','Folder'], ['plone_workflow','folder_workflow'])
-        self.failUnless(gsp.getChainFor('Document')==('plone_workflow','folder_workflow',))
-        self.failUnless(gsp.getChainFor('Folder')==('plone_workflow','folder_workflow',))
+        self.assertEqual(gsp.getChainFor('Document'), ('plone_workflow','folder_workflow',))
+        self.assertEqual(gsp.getChainFor('Folder'), ('plone_workflow','folder_workflow',))
 
     def test_06_getWorkflowPolicyIds(self,):
         pwt = self.placefulworkflowTool
@@ -344,9 +343,8 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
 
         # Create a policy
         pwt = self.placefulworkflowTool
-        pwt.manage_addWorkflowPolicy(id = 'foo_bar_policy' \
-                                    , workflow_policy_type = 'default_workflow_policy'+\
-                                    ' (Simple Policy)')
+        pwt.manage_addWorkflowPolicy('foo_bar_policy',
+                                     'default_workflow_policy (Simple Policy)')
 
         # And redefine the chain for Document
         gsp1 = pwt.getWorkflowPolicyById('foo_bar_policy')
@@ -462,9 +460,8 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
 
         # Create a policy
         pwt = self.placefulworkflowTool
-        pwt.manage_addWorkflowPolicy(id = 'foo_bar_policy' \
-                                    , workflow_policy_type = 'default_workflow_policy'+\
-                                    ' (Simple Policy)')
+        pwt.manage_addWorkflowPolicy('foo_bar_policy',
+                                     'default_workflow_policy (Simple Policy)')
         # And redefine the chain for Document
         gsp1 = pwt.getWorkflowPolicyById('foo_bar_policy')
         gsp1.setChainForPortalTypes(['Document'], ['folder_workflow'])
@@ -536,6 +533,41 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         wrapped_doc = self.portal.folder2.__of__(self.portal.folder).document2
         chain = wft.getChainFor(wrapped_doc)
         self.assertEqual(tuple(chain), ('plone_workflow',))
+
+    def test_16_getWorklists(self):
+        """Verify if worklists are always accessible with a policy
+        """
+        wf_tool = self.portal.portal_workflow
+        placeful_tool = self.placefulworkflowTool
+
+        self.loginAsPortalOwner()
+
+        self.portal.invokeFactory('Folder', id='folder')
+        self.portal.folder.invokeFactory('Document', id='document')
+
+        # Create a policy
+        placeful_tool.manage_addWorkflowPolicy('foo_bar_policy',
+                                               'portal_workflow',
+                                               'default_workflow_policy (Simple Policy)',)
+        # And redefine the chain for Document in portal_workflow
+        wf_tool.setChainForPortalTypes(['Document'], ())
+
+        # Add a config to the folder using the policy
+        self.portal.folder.manage_addProduct['CMFPlacefulWorkflow'].manage_addWorkflowPolicyConfig()
+
+        # Set the policy for the config
+        config = getattr(self.portal.folder, WorkflowPolicyConfig_id)
+        config.setPolicyBelow('foo_bar_policy')
+
+        # we make the document pending
+        document = self.portal.folder.document
+        wf_tool.doActionFor(document, 'submit', comment="unittest transition")
+
+        self.assertEqual(tuple(wf_tool.getWorklists().keys()), ('folder_workflow', 'plone_workflow'))
+        self.assertEqual(tuple(self.portal.my_worklist()), (document,))
+
+        self.logout()
+
 
 def test_suite():
     from unittest import TestSuite, makeSuite
