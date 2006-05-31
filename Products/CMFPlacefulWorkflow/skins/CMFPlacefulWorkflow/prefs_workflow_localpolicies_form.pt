@@ -35,7 +35,7 @@ CMFPlacefulWorkflow configuration panel
          class="configlet">
 
         <div id="content" class="documentEditable"
-             tal:condition="python:checkPermission('View management screens', here)">
+             tal:condition="python:checkPermission('Manage portal', here)">
 
             <h5 class="hiddenStructure">Views</h5>
 
@@ -189,7 +189,7 @@ CMFPlacefulWorkflow configuration panel
         </div>
         <div id="content"
              class="documentEditable"
-             tal:condition="python:not checkPermission('View management screens', here)">
+             tal:condition="python:not checkPermission('Manage portal', here)">
             <tal:block replace="here/raiseUnauthorized" />
         </div>
 
