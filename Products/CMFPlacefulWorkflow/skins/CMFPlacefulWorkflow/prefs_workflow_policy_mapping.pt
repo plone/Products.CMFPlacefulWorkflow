@@ -116,30 +116,28 @@ Workflow policy mapping template
             </div>
             <table class="field">
                 <metal:ctype tal:repeat="ctype type_list">
-                    <tr tal:define="Title ctype/Title;
-                                    Id ctype/getId;
-                                    current_wf_list python:wf_policy.getChainFor(Id, managescreen=True)">
+                    <tr tal:define="ctype_title ctype/Title;
+                                    ctype_id ctype/getId;
+                                    chain python:wf_policy.getChainFor(ctype_id, managescreen=True) or ('backward compatibility',);
+                                    ">
                         <td valign="top">
                             <img src="" alt="" width="16" height="16"
                                  tal:attributes="src string:$portal_url/${ctype/getIcon}" />
-                            <label tal:content="Title">Title</label>
+                            <label tal:content="ctype_title">Title</label>
                         </td>
                         <td valign="top">
-                            <div tal:define="chain python:wf_policy.getChainFor(ctype.getId(), managescreen=True)">
-                                <select id="select_workflow" name="workflow_id" multiple="multiple"
-                                        tal:attributes="name python:'wf.' + ctype.getId() + ':record';
-                                                        multiple nothing;" >
-                                    <option value=""></option>
-                                    <option value="(Default)"
-                                            tal:attributes="value string:(Default);
-                                                            selected python:test('(Default)' == chain, 'selected', None);"
-                                                            >(Default)</option>
-                                    <option tal:repeat="wf wf_list"
-                                            tal:attributes="value wf;
-                                                            selected python:test(wf in chain, 'selected', None)"
-                                            tal:content="wf">workflow_id</option>
-                                </select>
-                            </div>
+                            <select id="select_workflow" name="workflow_id"
+                                    tal:attributes="name string:wf.${ctype_id}record;" >
+                                <option value=""></option>
+                                <option value="(Default)"
+                                        tal:attributes="value string:(Default);
+                                                        selected python:test('(Default)' == chain, 'selected', None);"
+                                                        >(Default)</option>
+                                <option tal:repeat="wf wf_list"
+                                        tal:attributes="value wf;
+                                                        selected python:test(wf != '(Default)' and wf in chain, 'selected', None)"
+                                        tal:content="wf">workflow_id</option>
+                            </select>
                         </td>
                     </tr>
                 </metal:ctype>
