@@ -30,7 +30,7 @@ from OFS.Folder import Folder
 from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass, DTMLFile, package_home
 
-from Products.CMFCore.utils import UniqueObject
+from Products.CMFCore.utils import getToolByName, UniqueObject
 from Products.CMFCore.permissions import ManagePortal
 from Products.CMFCore.ActionProviderBase import ActionProviderBase
 from Products.CMFPlone.migrations.migration_util import safeEditProperty
@@ -95,12 +95,42 @@ class PlacefulWorkflowTool(UniqueObject, Folder, ActionProviderBase):
         return self._manage_addWorkflowPolicyForm(REQUEST, workflow_policy_types=wfpt)
 
     security.declareProtected( ManagePortal, 'manage_addWorkflowPolicy')
-    def manage_addWorkflowPolicy(self, id, workflow_policy_type='default_workflow_policy (Simple Policy)', RESPONSE=None):
+    def manage_addWorkflowPolicy(self, id,
+                                 workflow_policy_type='default_workflow_policy (Simple Policy)',
+                                 duplicate_id='empty',
+                                 RESPONSE=None):
         """ Adds a workflow policies from the registered types.
         """
+        if id in ('empty', 'portal_workflow'):
+            raise ValueError, "'%s' is reserved. Please choose another id." % id
+
         factory = _workflow_policy_factories[workflow_policy_type]
         ob = factory(id)
         self._setObject(id, ob)
+
+        if duplicate_id and duplicate_id != 'empty':
+            types_tool = getToolByName(self, 'portal_types')
+            new_wp = self.getWorkflowPolicyById(id)
+
+            if duplicate_id == 'portal_workflow':
+                wf_tool = getToolByName(self, 'portal_workflow')
+
+                new_wp.setDefaultChain(wf_tool._default_chain)
+
+                for ptype in types_tool.objectIds():
+                    chain = wf_tool.getChainForPortalType(ptype, managescreen=True)
+                    if chain:
+                        new_wp.setChain(ptype, chain)
+
+            else:
+                orig_wp = self.getWorkflowPolicyById(duplicate_id)
+                new_wp.setDefaultChain(orig_wp.getDefaultChain('Document'))
+
+                for ptype in types_tool.objectIds():
+                    chain = orig_wp.getChainFor(ptype, managescreen=True)
+                    if chain:
+                        new_wp.setChain(ptype, chain)
+
         if RESPONSE is not None:
             RESPONSE.redirect(self.absolute_url() +
                               '/manage_main?management_view=Contents')
