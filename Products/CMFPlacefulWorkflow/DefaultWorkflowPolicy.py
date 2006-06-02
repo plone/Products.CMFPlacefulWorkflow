@@ -215,13 +215,11 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
 
         if chain is MARKER:
             return None
-        elif chain is None:
-            return None
         elif len(chain) == 1 and chain[0] == DEFAULT_CHAIN:
             default = self.getDefaultChain(ob)
             if default:
                 if managescreen:
-                    return chain
+                    return chain[0]
                 else:
                     return default
             else:
@@ -238,7 +236,7 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
         for wf_id in default_chain:
             if wf_id:
                 if not wftool.getWorkflowById(wf_id):
-                    raise ValueError, ( '"%s" is not a workflow ID.' % wf_id)
+                    raise ValueError, ( "'%s' is not a workflow ID." % wf_id)
                 ids.append(wf_id)
 
         self._default_chain = tuple(ids)
