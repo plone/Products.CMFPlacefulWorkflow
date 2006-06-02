@@ -1,12 +1,24 @@
 [TODO]
 
-* Support of aquiring policy from another
+* Policy: show only types that are concerned by the policy (AJAX)
+
+[ 2006-06-02 - 1.0rc2]
+
+* New post modern icon (encolpe)
+
+* Fixed policy mapping error on backward compatibility (encolpe)
+
+* Fixed template that doesn't show '(Default)' (encolpe)
+
+[ 2006-05-24 - 1.0rc1]
+
+* Support of aquiring policy from another (encolpe)
 
 [ 2006-05-17 - 1.0beta3]
 
-* Fixed copy/paste bug (ED)
+* Fixed copy/paste bug (encolpe)
 
-* Fixed BTreeFolder bug => obj is not None but False (ED)
+* Fixed BTreeFolder bug => obj is not None but False (encolpe)
 
 * Removed unused i18n folder. (hannosch)
 
@@ -26,23 +38,23 @@
 
 * Removed bare except (AM)
 
-* Let user choose an empty default workflow in a policy (ED)
+* Let user choose an empty default workflow in a policy (encolpe)
 
-* Cleaning installation schema (ED)
+* Cleaning installation schema (encolpe)
 
-* Uninstallation of the configlet (ED)
+* Uninstallation of the configlet (encolpe)
 
-* Fix reintallation looses defined policies (ED)
+* Fix reintallation looses defined policies (encolpe)
 
-* Code cleaning (ED)
+* Code cleaning (encolpe)
 
-* fix unit test 7 and 10 (ED)
+* fix unit test 7 and 10 (encolpe)
 
-* Better icon for configlet (ED)
+* Better icon for configlet (encolpe)
 
-* Unit tests cleaning (ED)
+* Unit tests cleaning (encolpe)
 
-* Removing Custom Policy (ED)
+* Removing Custom Policy (encolpe)
 
 * Test for Bugfix: Default workflow policy chain is now taken into account (MR)
 
