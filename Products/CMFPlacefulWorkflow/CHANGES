@@ -2,6 +2,12 @@
 
 * Policy: show only types that are concerned by the policy (AJAX)
 
+[0.4.6 - 20060602]
+
+* Finish worklists implementation with workflow id and complete guard filtering
+
+* Fixed policy mapping error on backward compatibility
+
 [0.4.5 - 20060528]
 
 * Fixed unittests with duplicate_id argument for manage_addWonrkflowConfiguration
