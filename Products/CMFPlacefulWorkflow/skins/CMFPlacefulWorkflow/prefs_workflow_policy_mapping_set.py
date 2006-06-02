@@ -11,10 +11,10 @@ policy = getToolByName(context, 'portal_placeful_workflow').getWorkflowPolicyByI
 policy.setTitle(title)
 policy.setDescription(description)
 
+policy.setDefaultChain(default_chain=(default_workflow_id,))
+
 for pt, wf in wf.items():
     policy.setChain(portal_type=pt, chain=(wf,))
-
-policy.setDefaultChain(default_chain=(default_workflow_id,))
 
 wf_tool = getToolByName(context, 'portal_workflow')
 wf_tool.updateRoleMappings()
