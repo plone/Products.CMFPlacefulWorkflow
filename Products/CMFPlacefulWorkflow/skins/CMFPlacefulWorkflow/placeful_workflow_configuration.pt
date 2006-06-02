@@ -109,7 +109,7 @@ Workflow policy configuration template
 
                         <label for="cb_policy"
                                tal:attributes="for python:'cb_'+policy.id"
-                               tal:content="python:policy.getTitle()">
+                               tal:content="python:policy.getTitle() or policy.getId()">
                             Policy Label
                         </label>
                         <br />
@@ -168,7 +168,7 @@ Workflow policy configuration template
 
                         <label for="cb_policy"
                                tal:attributes="for python:'cb_'+policy.id"
-                               tal:content="python:policy.getTitle()">
+                               tal:content="python:policy.getTitle() or policy.getId()">
                             Policy Label
                         </label>
                         <br />
