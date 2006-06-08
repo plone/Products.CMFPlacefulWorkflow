@@ -148,7 +148,7 @@ Workflow policy configuration template
                 <div class="formHelp"
                      i18n:translate="description_below_this_folder">
                     Modify the workflows only below this Folder. If you want to
-                    modify the workflow of this Folder use 'Below this Folder'.
+                    modify the workflow of this Folder use 'In this Folder'.
                 </div>
 
                 <div class="field">
@@ -192,7 +192,7 @@ Workflow policy configuration template
 
                     <label for="cb_default_policy"
                            i18n:translate="label_default_policy">
-                        Default Policy
+                        Global Policy
                     </label>
                     <br />
                     <span class="formHelp"

@@ -102,7 +102,7 @@ Override plone prefs_workflow_advanced template for adding policy stuff
                         <div class="field" summary="Default workflow"
                              tal:define="default_wf python:wtool.getChainForPortalType('Plone Site')"
                              i18n:attributes="summary summary_default_workflow;">
-                            <label i18n:translate="summary summary_default_workflow;">Default workflow</label>
+                            <label i18n:translate="summary_default_workflow">Default workflow</label>
                             <select id="select_workflow" name="wf.default_workflow:record" tabindex="" alt="">
                                 <metal:block tal:repeat="wf workflow_list">
                                     <option value="wf"

@@ -30,16 +30,17 @@ CMFPlacefulWorkflow configuration panel
     <metal:block fill-slot="top_slot"/>
 
     <div metal:fill-slot="prefs_configlet_content"
-         tal:define="errors python:request.get('errors', {})"
+         tal:define="errors python:request.get('errors', {});"
          class="configlet">
+
+        <span tal:define="dummy python:request.response.setHeader('pragma','no-cache')" />
 
         <div id="content" class="documentEditable"
              tal:condition="python:checkPermission('Manage portal', here)">
 
             <h5 class="hiddenStructure">Views</h5>
 
-            <ul class="contentViews"
-                tal:condition="python: False and 'for later'">
+            <ul class="contentViews">
                 <li id="contentview-workflow-advanced" class="plain">
                     <a href="prefs_workflow_advanced"
                        i18n:translate="label_workflow_global_type_mapping">
@@ -57,12 +58,13 @@ CMFPlacefulWorkflow configuration panel
             <div class="contentActions">
                 &nbsp;
             </div>
+
             <div class="documentContent" id="region-content">
 
                 <a name="documentContent"></a>
 
                 <h1 i18n:translate="heading_placeful_workflow">
-                    Placeful Workflow
+                    Workflow policies
                 </h1>
 
                 <a href=""
@@ -93,7 +95,7 @@ CMFPlacefulWorkflow configuration panel
                       tal:define="wfp python:here.portal_placeful_workflow;">
 
                     <fieldset>
-                        <legend i18n:translate="">Workflow Policies</legend>
+                        <legend i18n:translate="legend_workflow_policies">Existing Workflow Policies</legend>
 
                         <div tal:repeat="wfpid python:wfp.getWorkflowPolicyIds()"
                              class="field">
@@ -103,8 +105,7 @@ CMFPlacefulWorkflow configuration panel
                             <input type="checkbox" class="noborder" id="policy_id" name="policy_ids:list"
                                    tal:attributes="id wfpid; value wfpid" />
 
-                            <label i18n:translate=""
-                                   for="policy_id"
+                            <label for="policy_id"
                                    tal:attributes="for wfpid">
                                 <a href="prefs_workflow_policy_mapping"
                                    tal:attributes="href python:'prefs_workflow_policy_mapping?wfpid='+wfpid"
@@ -114,7 +115,6 @@ CMFPlacefulWorkflow configuration panel
                             </label>
 
                             <div class="formHelp"
-                                 i18n:translate=""
                                  tal:content="python:wfp.getDescription()">
                                 Description of the policy mapping
                             </div>
@@ -125,7 +125,8 @@ CMFPlacefulWorkflow configuration panel
 
                         <div class="formControls"
                              tal:condition="python:wfp.getWorkflowPolicyIds()">
-                            <input class="context" tabindex="" type="submit" name="delete" value="Delete"
+                            <input class="context" tabindex="" type="submit" name="delete" value="label_remove"
+                                   i18n:domain="plone"
                                    i18n:attributes="value"
                                    tal:attributes="tabindex tabindex/next;"
                                    />
@@ -133,16 +134,19 @@ CMFPlacefulWorkflow configuration panel
                     </fieldset>
 
                     <fieldset>
-                        <legend i18n:translate="">Add a workflow policy</legend>
+                        <legend i18n:translate="legend_add_workflow_policy">Add a workflow policy</legend>
                         <div class="field"
                              tal:define="error errors/policy_id | nothing;"
                              tal:attributes="class python:test(error, 'field error', 'field')">
 
-                            <label i18n:translate="">New policy Id</label>
-                            <span class="fieldRequired" title="Requis">(Requis)</span>
+                            <label i18n:translate="label_new_policy_id">New policy Id</label>
+                            <span class="fieldRequired" title="Required"
+                                  i18n:domain="plone"
+                                  i18n:attributes="title title_required;"
+                                  i18n:translate="label_required">(Required)</span>
 
                             <div class="formHelp" id=""
-                                 i18n:translate="">
+                                 i18n:translate="description_new_policy_id">
                                 Give an identifiant for a new workflows policy
                             </div>
 
@@ -155,19 +159,25 @@ CMFPlacefulWorkflow configuration panel
                              tal:define="error errors/policy_id | nothing;"
                              tal:attributes="class python:test(error, 'field error', 'field')">
 
-                            <label i18n:translate="">Duplicate another policy</label>
-                            <span class="fieldRequired" title="Requis">(Requis)</span>
+                            <label i18n:translate="label_duplicate_policy_id">Duplicate another policy</label>
+                            <span class="fieldRequired" title="Requis"
+                                  i18n:attributes="title title_required;"
+                                  i18n:translate="label_required">(Requis)</span>
 
                             <div class="formHelp" id=""
-                                 i18n:translate="">
+                                 i18n:translate="description_duplicate_policy_id">
                                 Initialize the new policy with the given one. You also can
                                 choose to start with an empty policy.
                             </div>
 
                             <div tal:content="error">Validation error output</div>
                             <select name="policy_duplicate_id">
-                                <option value="empty">Empty</option>
-                                <option value="portal_workflow">Global workflow</option>
+                                <option value="empty"
+                                        i18n:translate="label_no_policy_duplicated">
+                                    No policy duplicated
+                                </option>
+                                <option value="portal_workflow"
+                                        i18n:translate="label_duplicate_portal_workflow">Global workflow</option>
                                 <option tal:repeat="wfpid python:wfp.getWorkflowPolicyIds()"
                                         tal:attributes="value wfpid"
                                         tal:content="python:wfp.getWorkflowPolicyById(wfpid).getTitle()">WF policy id</option>
@@ -177,7 +187,7 @@ CMFPlacefulWorkflow configuration panel
                         <div class="formControls">
                             <input type="submit" class="context" tabindex="" name="add" value="Add"
                                    tal:attributes="tabindex tabindex/next;"
-                                   i18n:attributes="value"
+                                   i18n:attributes="value label_add"
                                    />
                         </div>
 
