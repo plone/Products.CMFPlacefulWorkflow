@@ -115,7 +115,7 @@ Workflow policy mapping template
               You can assign a workflow for all content type.
             </div>
             <table class="field">
-                <metal:ctype tal:repeat="ctype type_list">
+                <tal:ctype tal:repeat="ctype type_list">
                     <tr tal:define="ctype_title ctype/Title;
                                     ctype_id ctype/getId;
                                     chain python:wf_policy.getChainFor(ctype_id, managescreen=True) or ('backward compatibility',);
@@ -127,7 +127,7 @@ Workflow policy mapping template
                         </td>
                         <td valign="top">
                             <select id="select_workflow" name="workflow_id"
-                                    tal:attributes="name string:wf.${ctype_id}record;" >
+                                    tal:attributes="name string:wf.${ctype_id}:record;" >
                                 <option value=""></option>
                                 <option value="(Default)"
                                         tal:attributes="value string:(Default);
@@ -140,7 +140,7 @@ Workflow policy mapping template
                             </select>
                         </td>
                     </tr>
-                </metal:ctype>
+                </tal:ctype>
             </table>
             <input type="hidden" value="" name="wfpid" tal:attributes="value wfpid" />
         </div>
