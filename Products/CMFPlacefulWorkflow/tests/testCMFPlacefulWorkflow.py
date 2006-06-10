@@ -24,9 +24,8 @@ __version__ = "$Revision$"
 __docformat__ = 'restructuredtext'
 
 
-from Products.PloneTestCase import PloneTestCase
 from Testing import ZopeTestCase
-
+from Products.PloneTestCase import PloneTestCase
 
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
 from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase
@@ -35,6 +34,7 @@ from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase
     #_standard_permissions = ZopeTestCase._standard_permissions
 #except AttributeError:
     #_standard_permissions = ZopeTestCase.standard_permissions
+
 #_edit_permissions     = [] # [PlacefulWorkflowPolicy_editPermission,]
 #_all_permissions      = _edit_permissions
 
@@ -158,7 +158,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         pw_tool.manage_addWorkflowPolicy(id='foo_bar_policy2',
                                          duplicate_id='foo_bar_policy',
                                          )
- 
+
         policy2 = pw_tool.getWorkflowPolicyById('foo_bar_policy2')
 
         self.assertEqual(policy.getDefaultChain('XXX'), ('plone_workflow', 'folder_workflow'))
@@ -337,6 +337,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         self.assertEqual(tuple(chain), ('folder_workflow',))
 
     def test_11_In_and_Below(self):
+        """In and below"""
         self.logout()
         self.loginAsPortalOwner()
         wft = self.portal.portal_workflow
