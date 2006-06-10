@@ -10,7 +10,6 @@ policy_id = request.get('policy_id', None)
 policy_duplicate_id = request.get('policy_duplicate_id', 'empty')
 
 pw_tool = getToolByName(context, 'portal_placeful_workflow')
-types_tool = getToolByName(context, 'portal_types')
 
 msg="No action"
 
