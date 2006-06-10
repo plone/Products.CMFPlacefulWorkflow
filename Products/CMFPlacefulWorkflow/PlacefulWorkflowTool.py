@@ -70,11 +70,12 @@ class PlacefulWorkflowTool(UniqueObject, Folder, ActionProviderBase):
 
     manage_options=(
         ({
-        'label': 'Content',
-        'action': 'manage_main',
+            'label': 'Content',
+            'action': 'manage_main',
         },
-         { 'label' : 'Overview'
-           , 'action' : 'manage_overview'
+         {
+             'label' : 'Overview',
+             'action' : 'manage_overview'
            },) +
         ActionProviderBase.manage_options +
         Folder.manage_options
