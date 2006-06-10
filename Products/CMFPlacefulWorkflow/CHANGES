@@ -1,6 +1,10 @@
 [TODO]
 
-* Policy: show only types that are concerned by the policy (AJAX)
+* Policy: show only types that are concerned by the policy (AJAX ?)
+
+[0.4.7 - 10060610]
+
+* Fixed typo in policy mapping form
 
 [0.4.6 - 20060602]
 
