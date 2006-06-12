@@ -64,7 +64,7 @@ CMFPlacefulWorkflow configuration panel
                 <a name="documentContent"></a>
 
                 <h1 i18n:translate="heading_placeful_workflow">
-                    Workflow policies
+                    Workflow Policies
                 </h1>
 
                 <a href=""
@@ -160,10 +160,10 @@ CMFPlacefulWorkflow configuration panel
                              tal:attributes="class python:test(error, 'field error', 'field')">
 
                             <label i18n:translate="label_duplicate_policy_id">Duplicate another policy</label>
-                            <span class="fieldRequired" title="Requis"
+                            <span class="fieldRequired" title="Required"
+                                  i18n:domain="plone"
                                   i18n:attributes="title title_required;"
-                                  i18n:translate="label_required">(Requis)</span>
-
+                                  i18n:translate="label_required">(Required)</span>
                             <div class="formHelp" id=""
                                  i18n:translate="description_duplicate_policy_id">
                                 Initialize the new policy with the given one. You also can
@@ -187,7 +187,7 @@ CMFPlacefulWorkflow configuration panel
                         <div class="formControls">
                             <input type="submit" class="context" tabindex="" name="add" value="Add"
                                    tal:attributes="tabindex tabindex/next;"
-                                   i18n:attributes="value label_add"
+                                   i18n:attributes="value label_add;"
                                    />
                         </div>
 

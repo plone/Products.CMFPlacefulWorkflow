@@ -4,6 +4,8 @@
 
 [ SVN unreleased ]
 
+* Some small i18n corrections. (hannosch)
+
 * Fixed missing i18n chains (encolpe)
 
 [ 2006-06-02 - 1.0rc2]

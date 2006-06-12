@@ -192,7 +192,7 @@ Workflow policy configuration template
 
                     <label for="cb_default_policy"
                            i18n:translate="label_default_policy">
-                        Global Policy
+                        Default Policy
                     </label>
                     <br />
                     <span class="formHelp"
