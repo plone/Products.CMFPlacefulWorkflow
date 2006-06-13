@@ -4,6 +4,8 @@
 
 [ SVN unreleased ]
 
+* Fixed None chain in getChainFor (encolpe)
+
 * Some small i18n corrections. (hannosch)
 
 * Fixed missing i18n chains (encolpe)
