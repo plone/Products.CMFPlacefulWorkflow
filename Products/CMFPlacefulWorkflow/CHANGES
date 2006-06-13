@@ -2,6 +2,9 @@
 
 * Policy: show only types that are concerned by the policy (AJAX ?)
 
+
+* Fixed None chain in getChainFor
+
 [0.4.7 - 10060610]
 
 * Fixed typo in policy mapping form
