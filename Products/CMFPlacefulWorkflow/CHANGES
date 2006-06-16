@@ -2,7 +2,7 @@
 
 * Policy: show only types that are concerned by the policy (AJAX)
 
-[ SVN unreleased ]
+[ 2006-06-16 - -1.0.0-final ]
 
 * Fixed None chain in getChainFor (encolpe)
 
