@@ -126,8 +126,7 @@ CMFPlacefulWorkflow configuration panel
                         <div class="formControls"
                              tal:condition="python:wfp.getWorkflowPolicyIds()">
                             <input class="context" tabindex="" type="submit" name="delete" value="Remove selected"
-                                   i18n:domain="plone"
-                                   i18n:attributes="value label_remove"
+                                   i18n:attributes="value label_remove_selected;"
                                    tal:attributes="tabindex tabindex/next;"
                                    />
                         </div>
