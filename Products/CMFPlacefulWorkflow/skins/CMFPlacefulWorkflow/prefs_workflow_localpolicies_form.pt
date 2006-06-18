@@ -84,7 +84,7 @@ CMFPlacefulWorkflow configuration panel
                     A policy modifies workflows for any items in or below
                     a specific folder. To apply a policy you have to add a
                     local workflow policy configuration to the desired
-                    folder using the policy item in the workflow dropdown
+                    folder using the 'policy' item in the 'state' drop-down
                     menu.
                 </p>
 
@@ -125,9 +125,9 @@ CMFPlacefulWorkflow configuration panel
 
                         <div class="formControls"
                              tal:condition="python:wfp.getWorkflowPolicyIds()">
-                            <input class="context" tabindex="" type="submit" name="delete" value="label_remove"
+                            <input class="context" tabindex="" type="submit" name="delete" value="Remove selected"
                                    i18n:domain="plone"
-                                   i18n:attributes="value"
+                                   i18n:attributes="value label_remove"
                                    tal:attributes="tabindex tabindex/next;"
                                    />
                         </div>
@@ -147,7 +147,7 @@ CMFPlacefulWorkflow configuration panel
 
                             <div class="formHelp" id=""
                                  i18n:translate="description_new_policy_id">
-                                Give an identifiant for a new workflows policy
+                                Give an identifier for a new workflows policy
                             </div>
 
                             <div tal:content="error">Validation error output</div>
@@ -166,7 +166,7 @@ CMFPlacefulWorkflow configuration panel
                                   i18n:translate="label_required">(Required)</span>
                             <div class="formHelp" id=""
                                  i18n:translate="description_duplicate_policy_id">
-                                Initialize the new policy with the given one. You also can
+                                Choose a policy to copy when creating the new policy. You also can
                                 choose to start with an empty policy.
                             </div>
 
