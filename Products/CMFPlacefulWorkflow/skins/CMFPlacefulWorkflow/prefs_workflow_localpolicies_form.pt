@@ -146,7 +146,7 @@ CMFPlacefulWorkflow configuration panel
 
                             <div class="formHelp" id=""
                                  i18n:translate="description_new_policy_id">
-                                Give an identifier for a new workflows policy
+                                Enter an id for the new workflow policy
                             </div>
 
                             <div tal:content="error">Validation error output</div>
@@ -165,8 +165,8 @@ CMFPlacefulWorkflow configuration panel
                                   i18n:translate="label_required">(Required)</span>
                             <div class="formHelp" id=""
                                  i18n:translate="description_duplicate_policy_id">
-                                Choose a policy to copy when creating the new policy. You also can
-                                choose to start with an empty policy.
+                                Choose a policy to copy when creating the new policy.
+                                You also can choose to start with an empty policy.
                             </div>
 
                             <div tal:content="error">Validation error output</div>

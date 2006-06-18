@@ -4,6 +4,8 @@
 
 [ 2006-06-16 - -1.0.0-final ]
 
+* Some more better explanation texts. (optilude, hannosch, jrlewis)
+
 * Fixed None chain in getChainFor (encolpe)
 
 * Some small i18n corrections. (hannosch)
