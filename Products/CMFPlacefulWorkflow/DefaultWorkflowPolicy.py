@@ -129,7 +129,7 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
                                'chain': chain})
         return self._manage_defineLocalWorkflowPolicy(
             REQUEST,
-            default_chain=', '.join(self._default_chain),
+            default_chain=', '.join(self._default_chain or ()),
             types_info=types_info,
             management_view='Workflows',
             manage_tabs_message=manage_tabs_message)
