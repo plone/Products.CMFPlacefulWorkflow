@@ -2,11 +2,11 @@
 
 * Policy: show only types that are concerned by the policy (AJAX)
 
-[ SVN UNRELEASED ]
+[ 2006-09-08 - 1.0.1 ]
 
 * Fixed breakage on policy creation in ZMI
 
-[ 2006-06-16 - -1.0.0-final ]
+[ 2006-06-16 - 1.0.0-final ]
 
 * Some more better explanation texts. (optilude, hannosch, jrlewis)
 
