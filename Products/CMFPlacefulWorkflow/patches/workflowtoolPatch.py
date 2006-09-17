@@ -45,6 +45,7 @@ def getChainFor(self, ob):
     """
 
     cbt = self._chains_by_type
+    chain = None
 
     if type(ob) == type(''):
         # We are not in an object, then we can only get default from portal_workflow
