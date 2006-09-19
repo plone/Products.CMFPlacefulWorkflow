@@ -24,7 +24,6 @@ __version__ = "$Revision$"
 __docformat__ = 'restructuredtext'
 
 # Zope imports
-from Testing import ZopeTestCase
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import noSecurityManager
 

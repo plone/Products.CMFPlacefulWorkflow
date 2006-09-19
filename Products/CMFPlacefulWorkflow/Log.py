@@ -51,10 +51,8 @@ LOG_WARNING = 3
 LOG_NOTICE = 4
 LOG_DEBUG = 5
 
-from sys import stdout, stderr, exc_info
+from sys import stderr
 import time
-import thread
-import threading
 import traceback
 import os
 import pprint
