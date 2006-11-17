@@ -31,9 +31,10 @@ Plone 2.1 specific macro
 <metal:menubarmacro define-macro="contentMenu">
 
 <ul tal:define="isStructuralFolder here/is_folderish;
-                folder python:test(isStructuralFolder, here, here.getParentNode());
+                folder python:test(isStructuralFolder, here, here.aq_inner.getParentNode());
+                isParentStructuralFolder folder/is_folderish;
                 isContextDefaultPage here/isDefaultPageInFolder;
-                parent_folder python: isContextDefaultPage and here.getParentNode() or folder;
+                parent_folder python: isContextDefaultPage and here.aq_inner.getParentNode() or folder;
                 disableMenu python:here.portal_factory.isTemporary(here);
                 useSelf python:isStructuralFolder and not isContextDefaultPage;
                 manage_portal python:checkPermission('Manage portal', here);"
@@ -103,17 +104,17 @@ Plone 2.1 specific macro
     
     </tal:states>
 
+    <tal:structuralFolder condition="python:isStructuralFolder or isParentStructuralFolder">
     <tal:add define="addContext   nocall:parent_folder;
                      allowedTypes addContext/getAllowedTypes;
                      menuTypes    python:here.getAddableTypesInMenu(allowedTypes);
                      numAllowed   python:len(allowedTypes);
                      numMenu      python:len(menuTypes);    
                      showSettings addContext/canConstrainTypes;
-                     showAdd      python:numAllowed >= 1 or showSettings;
                      showMore     python:numAllowed > numMenu;
                      showMenu     python:showMore or showSettings or numMenu > 1;
                      "
-             condition="showAdd">
+             condition="python:numAllowed >= 1 or showSettings">
 
     <tal:dropdown tal:condition="showMenu">
     <li>
@@ -137,7 +138,7 @@ Plone 2.1 specific macro
             <ul>
                 <tal:types repeat="ctype menuTypes"> 
                     <li tal:define="Title ctype/Title; Id ctype/getId; Description ctype/Description;
-                                    item_type_class python: 'contenttype-' + here.plone_utils.normalizeString(Id);"
+                                    item_type_class python: 'contenttype-' + normalizeString(Id);"
                         tal:attributes="class string:${item_type_class}">
                         <a href="#" 
                            i18n:attributes="title"
@@ -162,7 +163,7 @@ Plone 2.1 specific macro
                            i18n:attributes="title title_configure_addable_content_types;"
                            tal:attributes="href string:${addContext/absolute_url}/folder_constraintypes_form;">
                           <tal:title i18n:translate="folder_add_settings">
-                            Settings&hellip;
+                            Restrict&hellip;
                           </tal:title>
                     </a>
                 </li>
@@ -188,27 +189,28 @@ Plone 2.1 specific macro
                  i18n:attributes="alt" />
             <span i18n:translate="label_add_type"
                   tal:condition="python:folder == parent_folder">
-                Add <span tal:replace="typetitle" i18n:name="type" />
+                Add <span i18n:name="type"><span tal:content="typetitle" tal:omit-tag="" i18n:translate="">Title</span></span>
             </span>
             <span i18n:translate="label_add_type_to_folder"
                   tal:condition="python:folder != parent_folder">
-                Add <span tal:replace="typetitle" i18n:name="type" /> to folder
+                Add <span i18n:name="type"><span tal:content="typetitle" tal:omit-tag="" i18n:translate="">Title</span></span> to folder
             </span>
         </a>
     </li>
     </tal:add>
+    </tal:structuralFolder>
 
     <tal:displayMenu define="contextHasIndexHtml context/hasIndexHtml;
-                             folderHasIndexHtml parent_folder/hasIndexHtml;
-                             parentVocab parent_folder/getSelectableViews;
-                             contextVocab here/getSelectableViews;
-                             canSelectDefaultFolderPage parent_folder/canSelectDefaultPage;
-                             canSelectDefaultContextPage python:here.canSelectDefaultPage() and not isContextDefaultPage;
-                             parentHasActions python:parentVocab or canSelectDefaultFolderPage;
-                             contextHasActions python:contextVocab or canSelectDefaultContextPage;
-                             dimMenu python:(isStructuralFolder and contextHasIndexHtml) or
-                                            (isContextDefaultPage and folderHasIndexHtml);"
-                     condition="python:(isContextDefaultPage and parentHasActions) or contextHasActions">
+                               folderHasIndexHtml parent_folder/hasIndexHtml;
+                               parentVocab parent_folder/getSelectableViews;
+                               contextVocab here/getSelectableViews;
+                               canSelectDefaultFolderPage parent_folder/canSelectDefaultPage;
+                               canSelectDefaultContextPage python:here.canSelectDefaultPage() and not isContextDefaultPage;
+                               parentHasActions python:(parentVocab and len(parentVocab) > 1) or canSelectDefaultFolderPage;
+                               contextHasActions python:(contextVocab and len(contextVocab) > 1) or canSelectDefaultContextPage;
+                               dimMenu python:(isStructuralFolder and contextHasIndexHtml) or
+                                              (isContextDefaultPage and folderHasIndexHtml);"
+                        condition="python:(isContextDefaultPage and parentHasActions) or contextHasActions">
 
         <li>
         
@@ -216,7 +218,8 @@ Plone 2.1 specific macro
               <dt class="actionMenuHeader"
                   tal:attributes="class python:test(dimMenu, 'actionMenuHeader disabled', 'actionMenuHeader')">
                 
-                <span title="Delete or rename the index_html item to gain full control over how this folder is displayed."
+                <span class="actionMenuDisabled"
+                      title="Delete or rename the index_html item to gain full control over how this folder is displayed."
                    i18n:attributes="title title_remove_index_html_for_display_control;"
                    tal:condition="dimMenu"
                    i18n:translate="label_disabled_display_menu">
@@ -225,7 +228,7 @@ Plone 2.1 specific macro
                 
                 
                 <a href="#"
-                   title="Choose default view"
+                   title="Select the view mode for this folder, or set a content item as its default view."
                    i18n:attributes="title title_choose_default_view;"
                    tal:condition="not:dimMenu"
                    tal:attributes="href string:$here_url/select_default_view;"
@@ -273,9 +276,9 @@ Plone 2.1 specific macro
                                 <li class="actionSeparator">
                                     <a title="Select an item to be used as default view in this folder" href="#"
                                        tal:attributes="href string:${parent_folder/absolute_url}/select_default_page;"
-                                       i18n:attributes="title title_select_default_view_item;"
+                                       i18n:attributes="title title_select_default_page;"
                                        i18n:translate="label_choose_item">
-                                         Choose content item<br />&nbsp;&nbsp;as default view&hellip;
+                                         Select a content item<br />as default view&hellip;
                                     </a>
                                 </li>
                             </tal:haveSelectedLayout>
@@ -283,16 +286,17 @@ Plone 2.1 specific macro
                                 <li class="actionSeparator">
                                     <span class="currentDefaultPage actionMenuSelected"
                                           i18n:translate="label_item_selected">
-                                        Item: <span tal:replace="here/title_or_id"
-                                                    i18n:name="contentitem" />
+                                        Item: <span tal:content="here/title_or_id"
+                                                    tal:omit-tag=""
+                                                    i18n:name="contentitem">title</span>
                                     </span>
                                 </li>
-                                <li>
+                                <li class="actionSeparator">
                                     <a title="Change the item used as default view in this folder" href="#"
                                        tal:attributes="href string:${parent_folder/absolute_url}/select_default_page;"
                                        i18n:attributes="title title_change_default_view_item;"
                                        i18n:translate="label_change_item">
-                                         Change content item<br />&nbsp;&nbsp;as default view&hellip;
+                                         Change content item<br />as default view&hellip;
                                     </a>
                                 </li>
                             </tal:haveDefaultPage>
@@ -350,7 +354,7 @@ Plone 2.1 specific macro
                                        tal:attributes="href string:${here/absolute_url}/select_default_page;"
                                        i18n:attributes="title title_select_default_page;"
                                        i18n:translate="label_choose_item">
-                                         Choose content item<br />&nbsp;&nbsp;as default view&hellip;
+                                         Select a content item<br />as default view&hellip;
                                     </a>
                                 </li>
                             </tal:haveSelectedLayout>
@@ -358,8 +362,9 @@ Plone 2.1 specific macro
                                 <li class="actionSeparator">
                                     <span class="currentDefaultPage actionMenuSelected"
                                           i18n:translate="label_item_selected">
-                                        Item: <span tal:replace="defaultPage/title_or_id"
-                                              i18n:name="contentitem" />
+                                        Item: <span tal:content="defaultPage/title_or_id"
+                                                    tal:omit-tag=""
+                                                    i18n:name="contentitem">title</span>
                                     </span>
                                 </li>
                                 <li>
@@ -367,14 +372,14 @@ Plone 2.1 specific macro
                                        tal:attributes="href string:${here/absolute_url}/select_default_page;"
                                        i18n:attributes="title title_change_default_page;"
                                        i18n:translate="label_change_item">
-                                         Change content item<br />&nbsp;&nbsp;as default view&hellip;
+                                         Change content item<br />as default view&hellip;
                                     </a>
                                 </li>
                             </tal:haveDefaultPage>
                         </tal:contextDefaultPage>
                     
                     </tal:contextViewsSelection>                    
-                
+
                     <!-- Folder default page selection: No selectable layouts (not supported), but can select default-page in folder -->
                     <tal:folderDefaultPageSelection
                                 condition="python: canSelectDefaultFolderPage and not (parentVocab or contextVocab)"
@@ -385,7 +390,7 @@ Plone 2.1 specific macro
                                    tal:attributes="href string:${parent_folder/absolute_url}/select_default_page;"
                                    i18n:attributes="title title_select_default_page;"
                                    i18n:translate="label_choose_item">
-                                     Choose content item<br />&nbsp;&nbsp;as default view&hellip;
+                                     Select a content item<br />as default view&hellip;
                                 </a>
                             </li>
                         </tal:haveSelectedLayout>
@@ -393,8 +398,9 @@ Plone 2.1 specific macro
                             <li class="actionSeparator">
                                 <span class="currentDefaultPage actionMenuSelected"
                                           i18n:translate="label_item_selected">
-                                    Item: <span tal:replace="here/title_or_id"
-                                                i18n:name="contentitem" />
+                                    Item: <span tal:content="here/title_or_id"
+                                                tal:omit-tag=""
+                                                i18n:name="contentitem">title</span>
                                 </span>
                             </li>
                             <li>
@@ -402,7 +408,7 @@ Plone 2.1 specific macro
                                    tal:attributes="href string:${parent_folder/absolute_url}/select_default_page;"
                                    i18n:attributes="title title_change_default_page;"
                                    i18n:translate="label_change_item">
-                                     Change content item<br />&nbsp;&nbsp;as default view&hellip;
+                                     Change content item<br />as default view&hellip;
                                 </a>
                             </li>
                         </tal:haveDefaultPage>
@@ -413,7 +419,7 @@ Plone 2.1 specific macro
             </dl>
     </li>
     </tal:displayMenu>
-
+    
     <tal:edit define="editActions actions/object_buttons | nothing;
                       getIconFor nocall:putils/getIconFor;"
               condition="python:editActions">
@@ -421,7 +427,7 @@ Plone 2.1 specific macro
             <dl class="actionMenu" id="actionDropDownMenu">
                 <dt class="actionMenuHeader">
                     <a href="#"
-                       title="Actions"
+                       title="Actions for the current content item"
                        i18n:attributes="title title_actions_menu;"
                        tal:attributes="href string:${parent_folder/absolute_url}/folder_contents;"
                        i18n:translate="label_actions_menu">
@@ -434,28 +440,24 @@ Plone 2.1 specific macro
                             <tal:action define="icon python:getIconFor('object_buttons', editAction['id'], None);
                                   class_name string:actionicon-object_buttons-${editAction/id};
                                   class_name python:test(icon, class_name, nothing);">
-                                <li tal:condition="python:editAction['id'] not in ('delete', 'batch')"
-                                    tal:attributes="class class_name">
+                                <li tal:condition="python:editAction['id'] not in ('delete', 'batch')">
                                     <a tal:content="editAction/name"
                                        tal:attributes="href editAction/url;
                                        title editAction/name;
-                                       class python:test(icon, 'visualIconReplace', nothing);"
+                                       class python:test(icon, 'visualIconPadding %s' % class_name, nothing);"
                                        i18n:attributes="title"
                                        i18n:translate="">
                                         Action name
                                     </a>
                                 </li>
     
-                                <li tal:condition="python:editAction['id']=='delete'"
-                                    tal:attributes="class class_name">
+                                <li tal:condition="python:editAction['id']=='delete'">
                                     <a onclick="#"
-                                       tal:define="ptype here/portal_type;
-                                                   alert_msg python:((isContextDefaultPage or (isStructuralFolder and not here.portal_type == 'Topic')) and here.translate('alert_really_delete_folder', default='Do you really want to delete this folder and all its contents?')) or here.translate('alert_really_delete', default='Do you really want to delete this item?');
-                                                   ptype_translated python:here.translate(ptype);"
+                                       tal:define="alert_msg python:((isContextDefaultPage or (isStructuralFolder and not here.portal_type == 'Topic')) and here.translate('alert_really_delete_folder', default='Do you really want to delete this folder and all its contents?')) or here.translate('alert_really_delete', default='Do you really want to delete this item?');"
                                        tal:attributes="href editAction/url;
                                                        title editAction/name;
-                                                       class python:test(icon, 'visualIconReplace', nothing);
-                                                       onclick string:return confirm('$ptype_translated\n${alert_msg}');;"
+                                                       class python:test(icon, 'visualIconPadding %s' % class_name, nothing);
+                                                       onclick string: confirmDelete = confirm('${alert_msg}');; event.returnValue = confirmDelete;; return confirmDelete;;"
                                        tal:content="editAction/name"
                                        i18n:attributes="title"
                                        i18n:translate="">
@@ -471,16 +473,16 @@ Plone 2.1 specific macro
     </tal:edit>
 
     <tal:batch define="batchActions actions/batch | nothing"
-               condition="python: batchActions">
-      <tal:batchAction repeat="batchAction batchActions">
-        <li class="contentBatchAction">
-          <a tal:content="batchAction/name"
-             tal:attributes="href batchAction/url"
-             i18n:translate="">
-            Action name
-          </a>
-        </li>
-      </tal:batchAction>
+         condition="python: batchActions">
+        <tal:batchAction repeat="batchAction batchActions">
+            <li class="contentBatchAction">
+                <a tal:content="batchAction/name"
+                   tal:attributes="href batchAction/url"
+                   i18n:translate="">
+                    Action name
+                </a>
+            </li>
+        </tal:batchAction>
     </tal:batch>
 
 </ul>
