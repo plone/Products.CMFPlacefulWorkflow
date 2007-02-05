@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 ## CMFPlacefulWorkflow
-## A CMF/Plone product for locally changing the workflow of content types
-## Copyright (C)2006 Ingeniweb
+## Copyright (C)2005 Ingeniweb
 
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -24,44 +23,79 @@ __version__ = "$Revision$"
 # $Id$
 __docformat__ = 'restructuredtext'
 
-from Products.CMFPlacefulWorkflow.global_symbols import *
+import string
+from Products.CMFPlacefulWorkflow import install_globals
+from Products.CMFPlacefulWorkflow.global_symbols import placeful_prefs_configlet
+from Products.CMFCore.utils import getToolByName
+from cStringIO import StringIO
+from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addPlacefulWorkflowTool
+from Products.CMFCore.DirectoryView import addDirectoryViews
 
-from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import PlacefulWorkflowTool
-from Products.CMFPlacefulWorkflow.installers.utils import InstallationRunner, InstallationContext
-from Products.CMFPlacefulWorkflow.installers.ToolInstaller import ToolInstaller
-from Products.CMFPlacefulWorkflow.installers.SkinLayersInstaller import SkinLayersInstaller
-from Products.CMFPlacefulWorkflow.installers.ConfigletsInstaller import ConfigletsInstaller
+skin_name = 'CMFPlacefulWorkflow'
 
-def getRunners():
+def setupTools(self):
+    tool = 'Placeful Workflow Tool'
+    id = "portal_placeful_workflow"
+    found = False
+    for obj in self.objectValues():
+        if obj.getId() == id:
+            if obj.meta_type == tool:
+                found = True
+            else:
+                raise NameError, "The tool id is already taken"
 
-    installers = []
+    if not found:
+        addPlacefulWorkflowTool(self)
 
-    sti = ToolInstaller(PlacefulWorkflowTool)
-    installers.append(sti)
+def installSubSkin(self, skinFolder, out):
+    """ Install a subskin, i.e. a folder/directoryview.
+    """
+    skins_tool = getToolByName(self, 'portal_skins')
+    addDirectoryViews(skins_tool, 'skins', install_globals)
+    for skin in skins_tool.getSkinSelections():
+        path = skins_tool.getSkinPath(skin)
+        path = map( string.strip, string.split( path,',' ) )
+        if not skinFolder in path:
+            try:
+                path.insert( path.index( 'custom')+1, skinFolder )
+            except ValueError:
+                path.append(skinFolder)
+            path = string.join( path, ', ' )
+            skins_tool.addSkinSelection( skin, path )
+            out.write('*** Subskin installed into %s.\n' % skin) 
+        else:
+            out.write('*** Subskin was already installed into %s.\n' % skin) 
 
-    si = SkinLayersInstaller()
-    installers.append(si)
+def install(self, out=None):
+    if out is None:
+        out = StringIO()
 
-    ci = ConfigletsInstaller(placeful_prefs_configlet)
-    installers.append(ci)
+    setupTools(self)
+    installSubSkin(self, skin_name, out)
 
-    return InstallationRunner(*tuple(installers))
+    # Install configlet
+    cptool = getToolByName(self, 'portal_controlpanel')
+    try:
+        cptool.unregisterConfiglet(placeful_prefs_configlet['id'])
+    except:
+        pass
+    try:
+        cptool.registerConfiglet(**placeful_prefs_configlet)
+    except:
+        pass
+    return out.getvalue()
 
-def install(self):
 
-    # Always start with the creation of the InstallationContext
-    ic = InstallationContext(self, GLOBALS)
+def uninstall(self, out=None):
+    if out is None:
+        out = StringIO()
 
-    # Runs the installation and return the report
-    report = getRunners().install(ic, auto_reorder=True)
-    return report
+    # uninstall configlets
+    try:
+        cptool = getToolByName(self, 'portal_controlpanel')
+        cptool.unregisterConfiglet(placeful_prefs_configlet['id'])
+        out.write('Removing CMFPlacefulWorkflow Configlet')
+    except:
+        out.write('Failed to remove CMFPlacefulWorkflow Configlet')
 
-def uninstall(self):
-
-    # Always start with the creation of the InstallationContext
-    ic = InstallationContext(self, GLOBALS)
-
-    # Runs the uninstallation and return the report
-    report = getRunners().uninstall(ic, auto_reorder=True)
-
-    return report
+    return out.getvalue()

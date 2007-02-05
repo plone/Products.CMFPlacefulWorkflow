@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 ## CMFPlacefulWorkflow
-## A CMF/Plone product for locally changing the workflow of content types
-## Copyright (C)2006 Ingeniweb
+## Copyright (C)2005 Ingeniweb
 
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -40,14 +39,10 @@ else:
     Log.LOG_LEVEL = Log.LOG_NOTICE
 
 from Log import *
-Log = Log
-Log(LOG_NOTICE, "Starting %s at %d debug level" % (os.path.dirname(__file__), LOG_LEVEL, ))
 
 PROJECTNAME = "CMFPlacefulWorkflow"
-#PlacefulWorkflowPolicy_editPermission = "CMFPlacefulWorkflow: Edit Policies"
 
-GLOBALS = globals()
-from Products.CMFCore import CMFCorePermissions
+from Products.CMFCore.permissions import ManagePortal
 
 placeful_prefs_configlet = {
     'id': 'placefulworkflow',
@@ -55,6 +50,6 @@ placeful_prefs_configlet = {
     'name': 'Placeful Workflow',
     'action': 'string:$portal_url/prefs_workflow_localpolicies_form',
     'category': 'Products',
-    'permission': (CMFCorePermissions.ManagePortal,),
-    'imageUrl': 'placeful_workflow_icon.png',
+    'permission': (ManagePortal,),
+    'imageUrl': 'placefulworkflow_icon.png',
     }

@@ -4,8 +4,7 @@ This is an implementation of ZopeTestCase framework for this product.
 
 To run the tests easily, you can try the following command line from your Zope
 instance root:
-bin/zopectl test -vv --dir Products/CMFPlacefulWorkflow
+bin/zopectl test -vv Products/CMFPlacefulWorkflow
 
-Alternatively, you can use testrunner this way :
-
-python PathToZope/utilities/testrunner.py -q -i -a -d .
+or for only test method beginning with test_1:
+bin/zopectl test -vv Products/CMFPlacefulWorkflow test_1

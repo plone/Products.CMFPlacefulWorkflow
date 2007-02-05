@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 ## CMFPlacefulWorkflow
-## A CMF/Plone product for locally changing the workflow of content types
-## Copyright (C)2006 Ingeniweb
+## Copyright (C)2005 Ingeniweb
 
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -24,8 +23,7 @@ __version__ = "$Revision$"
 # $Id$
 __docformat__ = 'restructuredtext'
 
-from Globals import Persistent, DTMLFile, InitializeClass
-from AccessControl.Role import RoleManager
+from Globals import DTMLFile, InitializeClass
 from OFS.SimpleItem import SimpleItem
 
 from AccessControl import ClassSecurityInfo

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-## CMFPlacefulWorkflow
-## A CMF/Plone product for locally changing the workflow of content types
+## CMFPlacefulWorkflowM
 ## Copyright (C)2006 Ingeniweb
 
 ## This program is free software; you can redistribute it and/or modify
@@ -16,34 +15,22 @@
 ## You should have received a copy of the GNU General Public License
 ## along with this program; see the file COPYING. If not, write to the
 ## Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+"""
+Zope 3.1-style messagefactory module for Zope <= 2.9 (Zope 3.1)
 
-#
-# Runs all tests in the current directory
-#
-# Execute like:
-#   python runalltests.py
-#
-# Alternatively use the testrunner: 
-#   python /path/to/Zope/utilities/testrunner.py -qa
-#
+BBB: Zope 2.8 / Zope X3.0
+"""
+__version__ = "$Revision: 1.31 $"
+# $Source: /cvsroot/ingeniweb/PloneSubscription/SubscriptionTool.py,v $
+# $Id: SubscriptionTool.py,v 1.31 2005/10/10 20:43:57 encolpe Exp $
+__docformat__ = 'restructuredtext'
 
-import os, sys
-if __name__ == '__main__':
-    execfile(os.path.join(sys.path[0], 'framework.py')) 
 
-import unittest
-TestRunner = unittest.TextTestRunner
-suite = unittest.TestSuite()
+from zope.i18nmessageid import MessageIDFactory
+msg_factory = MessageIDFactory('cmfplacefulworkflow')
 
-tests = os.listdir('.')
-tests = [n[:-3] for n in tests if n.startswith('test') and n.endswith('.py')]
-print tests
-
-for test in tests:
-    m = __import__(test)
-    if hasattr(m, 'test_suite'):
-        suite.addTest(m.test_suite())
-
-if __name__ == '__main__':
-    TestRunner().run(suite)
-
+def CMFPlacefulWorkflowMessageFactory(ustr, default=None, mapping=None):
+    message = msg_factory(ustr, default)
+    if mapping is not None:
+        message.mapping.update(mapping)
+    return message

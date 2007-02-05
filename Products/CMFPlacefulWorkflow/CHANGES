@@ -2,40 +2,86 @@
 
 * Policy: show only types that are concerned by the policy (AJAX)
 
-[0.4.5 - 20060528]
+[ 2006-09-08 - 1.0.1 ]
 
-* Fixed unittests with duplicate_id argument for manage_addWonrkflowConfiguration
+* Fixed breakage on policy creation in ZMI
 
-* Fixed template that doesn't show '(Default)'
+[ 2006-06-16 - 1.0.0-final ]
 
-[0.4.3 - 20060524]
+* Some more better explanation texts. (optilude, hannosch, jrlewis)
 
-* Fixed getWorklists workflow tool method (patch)
+* Fixed None chain in getChainFor (encolpe)
 
-* Add option to configlet: 'use default as policy creation'
+* Some small i18n corrections. (hannosch)
 
-[0.4.2 - 20060517]
+* Fixed missing i18n chains (encolpe)
 
-* Fixed BTreeFolder no workflow bug
+[ 2006-06-02 - 1.0rc2]
 
-[0.4.1 - 20060303]
+* New post modern icon (encolpe)
 
-* Fallback to workflow tool chain if no chain is defined for a type in a policy
+* Fixed policy mapping error on backward compatibility (encolpe)
 
-* In must work on the object too
+* Fixed template that doesn't show '(Default)' (encolpe)
 
-* Write test for copy/paste bug
+[ 2006-05-24 - 1.0rc1]
 
-* Support of aquiring policy from another
+* Support of aquiring policy from another (encolpe)
 
-* Add the good icon for configlet
+[ 2006-05-17 - 1.0beta3]
 
-* Unit tests refactoring:
+* Fixed copy/paste bug (encolpe)
 
-  Cleaning base Plone Test installation
-  Backport test form Plone 2.5
+* Fixed BTreeFolder bug => obj is not None but False (encolpe)
 
-* Installer refactoring: use Ploneinstallation installers
+* Removed unused i18n folder. (hannosch)
+
+* Fixed a simple i18n markup problem revealed by ZChecker. (hannosch)
+
+* Removed a noise log message at Zope startup. (hannosch)
+
+[ 2006-03-21 - 1.0alpha2 ]
+
+* Converted python scripts to use new MessageID / status messages. (hannosch)
+
+* Synced prefs templates with current Plone 2.5 ones. (hannosch)
+
+* Cleaned up all templates and added missing i18n statements. (hannosch)
+
+* Determine workflow policy only via containment not context (AM)
+
+* Removed bare except (AM)
+
+* Let user choose an empty default workflow in a policy (encolpe)
+
+* Cleaning installation schema (encolpe)
+
+* Uninstallation of the configlet (encolpe)
+
+* Fix reintallation looses defined policies (encolpe)
+
+* Code cleaning (encolpe)
+
+* fix unit test 7 and 10 (encolpe)
+
+* Better icon for configlet (encolpe)
+
+* Unit tests cleaning (encolpe)
+
+* Removing Custom Policy (encolpe)
+
+* Test for Bugfix: Default workflow policy chain is now taken into account (MR)
+
+* Test for Bugfix: Policy Container does not apply contained workflow policies (MR)
+
+* Test the case where a container itself is subject to a workflow policy
+
+* Bugfix: When getting the chain for a type the config must handle the case 
+  where there is no appropriate policy.
+
+* Bugfix: Policy Container does not apply contained workflow policies (MR)
+
+* Bugfix: Default workflow policy chain is now taken into account (MR)
 
 * remove unused toolbox import from Testcase (thanks to huron)
 

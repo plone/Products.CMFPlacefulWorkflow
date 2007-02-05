@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 ## CMFPlacefulWorkflow
-## A CMF/Plone product for locally changing the workflow of content types
-## Copyright (C)2006 Ingeniweb
+## Copyright (C)2005 Ingeniweb
 
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -31,7 +30,7 @@ from Acquisition import aq_base
 from Products.CMFCore.utils import SimpleItemWithProperties
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addWorkflowPolicyFactory
 
-from Products.CMFCore.CMFCorePermissions import ManagePortal
+from Products.CMFCore.permissions import ManagePortal
 
 from Products.CMFPlacefulWorkflow.interfaces.portal_placeful_workflow \
         import WorkflowPolicyDefinition as IWorkflowPolicyDefinition
@@ -43,6 +42,7 @@ _dtmldir = os_path.join( package_home( globals() ), 'dtml' )
 from Products.CMFCore.utils import getToolByName
 
 DEFAULT_CHAIN = '(Default)'
+MARKER = '_MARKER'
 
 class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
 
@@ -129,7 +129,7 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
                                'chain': chain})
         return self._manage_defineLocalWorkflowPolicy(
             REQUEST,
-            default_chain=', '.join(self._default_chain),
+            default_chain=', '.join(self._default_chain or ()),
             types_info=types_info,
             management_view='Workflows',
             manage_tabs_message=manage_tabs_message)
@@ -211,9 +211,9 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
 
         chain = None
         if cbt is not None:
-            chain = cbt.get(pt, None)
+            chain = cbt.get(pt, MARKER)
 
-        if chain is None:
+        if chain is MARKER or chain is None:
             return None
         elif len(chain) == 1 and chain[0] == DEFAULT_CHAIN:
             default = self.getDefaultChain(ob)

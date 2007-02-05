@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 ## CMFPlacefulWorkflow
-## A CMF/Plone product for locally changing the workflow of content types
-## Copyright (C)2006 Ingeniweb
+## Copyright (C)2005 Ingeniweb
 
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -26,6 +25,3 @@ __docformat__ = 'restructuredtext'
 
 # Make getChainFor method look for placeful workflow configuration
 import workflowtoolPatch
-
-# Backport _getTempFolder from Plone 2.1 for Plone 2.0
-import FactoryToolPatch

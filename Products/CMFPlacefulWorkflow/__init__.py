@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 ## CMFPlacefulWorkflow
-## A CMF/Plone product for locally changing the workflow of content types
-## Copyright (C)2006 Ingeniweb
+## Copyright (C)2005 Ingeniweb
 
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -31,17 +30,10 @@ import PlacefulWorkflowTool
 import DefaultWorkflowPolicy
 import WorkflowPolicyConfig
 
+from AccessControl import ModuleSecurityInfo
 from Products.CMFCore import utils, DirectoryView
 
-from global_symbols import *
-
-from AccessControl.Permissions import *
-
 install_globals = globals()          # Used only in the Extensions/Install.py script
-
-from Products.CMFCore.utils import registerIcon
-
-from Products.CMFCore import utils
 
 tools = (PlacefulWorkflowTool.PlacefulWorkflowTool, )
 
@@ -50,11 +42,10 @@ DirectoryView.registerDirectory('skins', globals())
 # Initialization method
 def initialize(context):
 
-
-    registerIcon( DefaultWorkflowPolicy.DefaultWorkflowPolicyDefinition
-                , 'images/workflow_policy.gif'
-                , globals()
-                )
+    utils.registerIcon(
+        DefaultWorkflowPolicy.DefaultWorkflowPolicyDefinition,
+        'images/workflow_policy.gif',
+        globals())
 
     context.registerClass(
         PlacefulWorkflowTool.PlacefulWorkflowTool,
@@ -72,6 +63,18 @@ def initialize(context):
 
     utils.ToolInit( 'CMF Placeful Workflow Tool'
                   , tools=tools
-                  , product_name='CMFPlacefulWorkflow'
                   , icon='tool.gif'
                   ).initialize( context )
+
+ModuleSecurityInfo('Products.CMFPlacefulWorkflow').declarePublic('CMFPlacefulWorkflowMessageFactory')
+
+# Import "CMFPlacefulWorkflowMessageFactory as _" to create messages
+# Zope 3.1-style messagefactory module
+# BBB: Zope 2.8 / Zope X3.0
+try:
+    from zope.i18nmessageid import MessageFactory
+except ImportError:
+    from messagefactory_ import CMFPlacefulWorkflowMessageFactory
+else:
+    CMFPlacefulWorkflowMessageFactory = MessageFactory('cmfplacefulworkflow')
+

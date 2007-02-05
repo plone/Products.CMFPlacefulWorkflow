@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 ## CMFPlacefulWorkflow
-## A CMF/Plone product for locally changing the workflow of content types
 ## Copyright (C)2006 Ingeniweb
 
 ## This program is free software; you can redistribute it and/or modify
@@ -16,10 +15,6 @@
 ## You should have received a copy of the GNU General Public License
 ## along with this program; see the file COPYING. If not, write to the
 ## Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-# ****************************
-# ****** LOG FACILITIES ******
-# ****************************
 """
 One can override the following variables :
 
@@ -40,6 +35,11 @@ LOG_PROCESSOR : A dictionnary holding, for each key, the data processor.
 A data processor is a function that takes only one parameter : the data to print.
 Default : LogFile for all keys.
 """
+__version__ = "$Revision$"
+# $Source: /cvsroot/ingeniweb/PloneSubscription/SubscriptionTool.py,v $
+# $Id$
+__docformat__ = 'restructuredtext'
+
 
 
 LOG_LEVEL = -1
@@ -51,10 +51,8 @@ LOG_WARNING = 3
 LOG_NOTICE = 4
 LOG_DEBUG = 5
 
-from sys import stdout, stderr, exc_info
+from sys import stderr
 import time
-import thread
-import threading
 import traceback
 import os
 import pprint
@@ -133,22 +131,23 @@ def LogFile(level, label, data, stack):
     LOG_OUTPUT.flush()
 
 
-import zLOG
+import logging
+logger = logging.getLogger('CMFPlacefulWorkflow')
 
 zLogLevelConverter = {
-    LOG_NONE: zLOG.TRACE,
-    LOG_CRITICAL: zLOG.PANIC,
-    LOG_ERROR: zLOG.ERROR,
-    LOG_WARNING: zLOG.PROBLEM,
-    LOG_NOTICE: zLOG.INFO,
-    LOG_DEBUG: zLOG.DEBUG,
+    LOG_NONE: logging.NOTSET,
+    LOG_CRITICAL: logging.CRITICAL,
+    LOG_ERROR: logging.ERROR,
+    LOG_WARNING: logging.WARNING,
+    LOG_NOTICE: logging.INFO,
+    LOG_DEBUG: logging.DEBUG,
     }
 
 def LogzLog(level, label, data, stack):
     """
     LogzLog : writes data though Zope's logging facility
     """
-    zLOG.LOG("IngeniWeb", zLogLevelConverter[level], "", data + "\n", )
+    logger.log(zLogLevelConverter[level], data)
 
     
 

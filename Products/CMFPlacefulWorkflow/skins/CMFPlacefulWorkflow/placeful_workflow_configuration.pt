@@ -27,8 +27,6 @@ Workflow policy configuration template
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="cmfplacefulworkflow">
 
-  <body>
-
     <div metal:fill-slot="main"
          tal:define="type_list python:here.portal_types.listTypeInfo();
                      wf_list python:here.portal_workflow.objectIds();
@@ -150,7 +148,7 @@ Workflow policy configuration template
                 <div class="formHelp"
                      i18n:translate="description_below_this_folder">
                     Modify the workflows only below this Folder. If you want to
-                    modify the workflow of this Folder use 'Below this Folder'.
+                    modify the workflow of this Folder use 'In this Folder'.
                 </div>
 
                 <div class="field">
@@ -226,6 +224,4 @@ Workflow policy configuration template
         </div>
 
     </div>
-
-  </body>
 </html>

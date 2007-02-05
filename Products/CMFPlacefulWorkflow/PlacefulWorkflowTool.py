@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 ## CMFPlacefulWorkflow
-## A CMF/Plone product for locally changing the workflow of content types
-## Copyright (C)2006 Ingeniweb
+## Copyright (C)2005 Ingeniweb
 
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -24,24 +23,21 @@ __version__ = "$Revision$"
 # $Id$
 __docformat__ = 'restructuredtext'
 
-from Products.CMFCore.utils import getToolByName, UniqueObject
+from os import path as os_path
+
+from Acquisition import aq_base
 from OFS.Folder import Folder
-from Globals import InitializeClass, PersistentMapping, DTMLFile
-from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
-from Products.CMFCore.CMFCorePermissions import ManagePortal
-#from Products.CMFCore.CMFCorePermissions import *
+from Globals import InitializeClass, DTMLFile, package_home
+
+from Products.CMFCore.utils import getToolByName, UniqueObject
+from Products.CMFCore.permissions import ManagePortal
 from Products.CMFCore.ActionProviderBase import ActionProviderBase
 from Products.CMFPlone.migrations.migration_util import safeEditProperty
-from os import path as os_path
-from Globals import package_home
-from Acquisition import aq_base, aq_parent, aq_inner
-
-_dtmldir = os_path.join( package_home( globals() ), 'dtml' )
-
-from global_symbols import *
 
 from interfaces.portal_placeful_workflow import portal_workflow_policy
+
+_dtmldir = os_path.join( package_home( globals() ), 'dtml' )
 
 WorkflowPolicyConfig_id  = ".wf_policy_config"
 
@@ -70,11 +66,12 @@ class PlacefulWorkflowTool(UniqueObject, Folder, ActionProviderBase):
 
     manage_options=(
         ({
-        'label': 'Content',
-        'action': 'manage_main',
+            'label': 'Content',
+            'action': 'manage_main',
         },
-         { 'label' : 'Overview'
-           , 'action' : 'manage_overview'
+         {
+             'label' : 'Overview',
+             'action' : 'manage_overview'
            },) +
         ActionProviderBase.manage_options +
         Folder.manage_options
