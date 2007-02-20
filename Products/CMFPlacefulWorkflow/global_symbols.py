@@ -49,7 +49,7 @@ placeful_prefs_configlet = {
     'appId': "Placeful Workflow",
     'name': 'Placeful Workflow',
     'action': 'string:$portal_url/prefs_workflow_localpolicies_form',
-    'category': 'Products',
+    'category': 'Plone',
     'permission': (ManagePortal,),
     'imageUrl': 'placefulworkflow_icon.png',
     }
