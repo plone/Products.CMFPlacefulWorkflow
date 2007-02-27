@@ -24,6 +24,7 @@ __version__ = "$Revision$"
 __docformat__ = 'restructuredtext'
 
 # Zope imports
+from Testing import ZopeTestCase
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import noSecurityManager
 
@@ -67,4 +68,24 @@ class CMFPlacefulWorkflowTestCase(PloneTestCase.PloneTestCase):
     def getPermissionsOfRole(self, role):
         perms = self.portal.permissionsOfRole(role)
         return [p['name'] for p in perms if p['selected']]
+
+
+# Install CMFPlacefulWorkflow
+ZopeTestCase.installProduct('MimetypesRegistry')
+ZopeTestCase.installProduct('PythonScripts')
+ZopeTestCase.installProduct('PortalTransforms')
+ZopeTestCase.installProduct('Archetypes')
+ZopeTestCase.installProduct('ATContentTypes')
+ZopeTestCase.installProduct('PloneInstallation')
+ZopeTestCase.installProduct('CMFPlacefulWorkflow')
+
+# Setup Plone site
+PloneTestCase.setupPloneSite(id='plone', products=[
+    'Archetypes',
+    'ATContentTypes',
+    'CMFPlacefulWorkflow',
+    ])
+
+app = ZopeTestCase.app()
+ZopeTestCase.close(app)
 
