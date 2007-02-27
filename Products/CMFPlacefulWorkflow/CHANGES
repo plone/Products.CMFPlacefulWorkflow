@@ -2,6 +2,16 @@
 
 * Policy: show only types that are concerned by the policy (AJAX)
 
+[ 2007-02-27 - 1.0.3 ]
+
+* Fix tests initialization breakage and tests README (encolpe)
+
+* Move CMFPW control panel in plone panels (wichert)
+
+[ 2007-01-01 - 1.0.2 ]
+
+* Fixed templates for Plone 2.1.4 (jmgrimaldi)
+
 [ 2006-09-08 - 1.0.1 ]
 
 * Fixed breakage on policy creation in ZMI
