@@ -23,4 +23,4 @@ __version__ = "$Revision$"
 # $Id$
 __docformat__ = 'restructuredtext'
 
-from portal_placeful_worklfow import IPlacefulWorflowTool, IWorkflowPolicyDefinition
+from portal_placeful_workflow import IPlacefulWorflowTool, IWorkflowPolicyDefinition

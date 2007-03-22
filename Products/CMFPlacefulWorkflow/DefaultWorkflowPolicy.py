@@ -40,8 +40,7 @@ from Products.CMFCore.utils import SimpleItemWithProperties
 from Products.CMFCore.permissions import ManagePortal
 
 
-from Products.CMFPlacefulWorkflow.interfaces \
-        import WorkflowPolicyDefinition as IWorkflowPolicyDefinition
+from Products.CMFPlacefulWorkflow.interfaces import IWorkflowPolicyDefinition
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addWorkflowPolicyFactory
 
 _dtmldir = os_path.join( package_home( globals() ), 'dtml' )
