@@ -23,23 +23,29 @@ __version__ = "$Revision$"
 # $Id$
 __docformat__ = 'restructuredtext'
 
+
+#Python imports
+from Globals import package_home
+from os import path as os_path
+# Zope imports
 from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass, PersistentMapping, DTMLFile
 from Acquisition import aq_base
+from zope.component import getUtility
+
+from Products.CMFCore.interfaces import IConfigurableWorkflowTool
+from Products.CMFCore.interfaces import ITypesTool
 
 from Products.CMFCore.utils import SimpleItemWithProperties
-from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addWorkflowPolicyFactory
-
 from Products.CMFCore.permissions import ManagePortal
 
-from Products.CMFPlacefulWorkflow.interfaces.portal_placeful_workflow \
-        import WorkflowPolicyDefinition as IWorkflowPolicyDefinition
 
-from Globals import package_home
-from os import path as os_path
+from Products.CMFPlacefulWorkflow.interfaces \
+        import WorkflowPolicyDefinition as IWorkflowPolicyDefinition
+from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addWorkflowPolicyFactory
+
 _dtmldir = os_path.join( package_home( globals() ), 'dtml' )
 
-from Products.CMFCore.utils import getToolByName
 
 DEFAULT_CHAIN = '(Default)'
 MARKER = '_MARKER'
@@ -142,7 +148,7 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
         self.title = title
         self.description = description
 
-        wf_tool = getToolByName(self, 'portal_workflow')
+        wftool = getUtility(IConfigurableWorkflowTool)
 
         if props is None:
             props = REQUEST
@@ -164,7 +170,7 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
                 ids = []
                 for wf_id in chain.split(' '):
                     if wf_id:
-                        if not wf_tool.getWorkflowById(wf_id):
+                        if not wftool.getWorkflowById(wf_id):
                             raise ValueError, (
                                 '"%s" is not a workflow ID.' % wf_id)
                         ids.append(wf_id)
@@ -174,7 +180,7 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
         ids = []
         for wf_id in default_chain.split(' '):
             if wf_id:
-                if not wf_tool.getWorkflowById(wf_id):
+                if not wftool.getWorkflowById(wf_id):
                     raise ValueError, (
                         '"%s" is not a workflow ID.' % wf_id)
                 ids.append(wf_id)
@@ -231,7 +237,7 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
     def setDefaultChain(self, default_chain):
 
         """ Sets the default chain for this tool. """
-        wftool = getToolByName(self, 'portal_workflow')
+        wftool = getUtility(IConfigurableWorkflowTool)
         ids = []
         for wf_id in default_chain:
             if wf_id:
@@ -245,8 +251,8 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
     def getDefaultChain(self, ob):
         """ Returns the default chain."""
         if self._default_chain is None:
-            wf_tool = getToolByName(self, 'portal_workflow')
-            return wf_tool.getDefaultChainFor(ob)
+            wftool = getUtility(IConfigurableWorkflowTool)
+            return wftool.getDefaultChainFor(ob)
         else:
             return self._default_chain
 
@@ -260,7 +266,7 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
         if type(chain) is type(''):
             chain = map( lambda x: x.strip(), chain.split(',') )
 
-        wftool = getToolByName(self, 'portal_workflow')
+        wftool = getUtility(IConfigurableWorkflowTool)
         cbt = self._chains_by_type
         if cbt is None:
             self._chains_by_type = cbt = PersistentMapping()
@@ -290,7 +296,7 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
 
         """ List the portal types which are available.
         """
-        pt = getToolByName(self, 'portal_types', None)
+        pt = getUtility(ITypesTool)
         if pt is None:
             return ()
         else:

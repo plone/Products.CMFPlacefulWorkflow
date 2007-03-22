@@ -2,11 +2,13 @@
 ##title=set local workflow policy mapping
 #-*- coding: utf-8 -*-
 
-from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.utils import getToolByInterfaceName
 from Products.CMFPlacefulWorkflow import CMFPlacefulWorkflowMessageFactory as _
 
 request = context.REQUEST
-policy = getToolByName(context, 'portal_placeful_workflow').getWorkflowPolicyById(wfpid)
+pwtool_iface = 'Products.CMFPlacefulWorkflow.interfaces.IPlacefulWorflowTool'
+pwtool = getToolByInterfaceName(pwtool_iface)
+policy = pwtool.getWorkflowPolicyById(wfpid)
 
 policy.setTitle(title)
 policy.setDescription(description)
@@ -16,8 +18,8 @@ policy.setDefaultChain(default_chain=(default_workflow_id,))
 for pt, wf in wf.items():
     policy.setChain(portal_type=pt, chain=(wf,))
 
-wf_tool = getToolByName(context, 'portal_workflow')
-wf_tool.updateRoleMappings()
+wftool = getToolByInterfaceName('Products.CMFCore.interfaces.IConfigurableWorkflowTool')
+wftool.updateRoleMappings()
 
 context.plone_utils.addPortalMessage(_(u'Changes to criteria saved.'))
 if request:

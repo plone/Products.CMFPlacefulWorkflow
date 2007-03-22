@@ -29,13 +29,14 @@ from Acquisition import aq_base
 from OFS.Folder import Folder
 from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass, DTMLFile, package_home
+from zope.component import getUtility
 
-from Products.CMFCore.utils import getToolByName, UniqueObject
+from Products.CMFCore.utils import UniqueObject
 from Products.CMFCore.permissions import ManagePortal
 from Products.CMFCore.ActionProviderBase import ActionProviderBase
 from Products.CMFPlone.migrations.migration_util import safeEditProperty
 
-from interfaces.portal_placeful_workflow import portal_workflow_policy
+from interfaces import IPlacefulWorflowTool
 
 _dtmldir = os_path.join( package_home( globals() ), 'dtml' )
 
@@ -59,7 +60,7 @@ class PlacefulWorkflowTool(UniqueObject, Folder, ActionProviderBase):
 
     id = 'portal_placeful_workflow'
     meta_type = 'Placeful Workflow Tool'
-    __implements__ = portal_workflow_policy
+    __implements__ = IPlacefulWorflowTool
     _actions = []
     security = ClassSecurityInfo()
 
@@ -109,11 +110,11 @@ class PlacefulWorkflowTool(UniqueObject, Folder, ActionProviderBase):
         self._setObject(id, ob)
 
         if duplicate_id and duplicate_id != 'empty':
-            types_tool = getToolByName(self, 'portal_types')
+            types_tool = getUtility(self, 'portal_types')
             new_wp = self.getWorkflowPolicyById(id)
 
             if duplicate_id == 'portal_workflow':
-                wf_tool = getToolByName(self, 'portal_workflow')
+                wf_tool = getUtility(self, 'portal_workflow')
 
                 new_wp.setDefaultChain(wf_tool._default_chain)
 

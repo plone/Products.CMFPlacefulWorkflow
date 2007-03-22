@@ -23,11 +23,15 @@ __version__ = "$Revision$"
 # $Id$
 __docformat__ = 'restructuredtext'
 
+
+from zope.component import getUtility
+from Acquisition import aq_base, aq_parent, aq_inner
+
+from Products.CMFCore.interfaces import IURLTool
+
+from Products.CMFPlone.utils import base_hasattr
 from Products.CMFPlone.WorkflowTool import WorkflowTool
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
-from Acquisition import aq_base, aq_parent, aq_inner
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.utils import base_hasattr
 
 def getChainFor(self, ob):
     """Monkey-patched by CMFPlacefulWorkflow to look for placeful workflow configurations.
@@ -85,7 +89,7 @@ def getChainFor(self, ob):
     current_ob = aq_inner(ob)
     # start_here is used to check 'In policy': We check it only in the first folder
     start_here = True
-    portal = aq_base(getToolByName(self, 'portal_url').getPortalObject())
+    portal = aq_base(getUtility(IURLTool).getPortalObject())
     while chain is None and current_ob is not None:
         if base_hasattr(current_ob, WorkflowPolicyConfig_id):
             wfpolicyconfig = getattr(current_ob, WorkflowPolicyConfig_id)

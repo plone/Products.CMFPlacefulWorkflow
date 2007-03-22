@@ -25,12 +25,11 @@ __docformat__ = 'restructuredtext'
 
 from Globals import DTMLFile, InitializeClass
 from OFS.SimpleItem import SimpleItem
-
 from AccessControl import ClassSecurityInfo
+from zope.component import getUtility
 
+from interfaces import IPlacefulWorflowTool
 from PlacefulWorkflowTool import WorkflowPolicyConfig_id
-
-from Products.CMFCore.utils import getToolByName
 
 manage_addWorkflowPolicyConfigForm=DTMLFile('dtml/addWorkflowPolicyConfig_form', globals())
 def manage_addWorkflowPolicyConfig( self, REQUEST=None):
@@ -81,13 +80,13 @@ class WorkflowPolicyConfig(SimpleItem):
         return  self.workflow_policy_below
 
     def getPolicyIn(self):
-        pwt = getToolByName(self, 'portal_placeful_workflow')
+        pwt = getUtility(IPlacefulWorflowTool)
         wfp_id = self.getPolicyInId()
         policy_in = pwt.getWorkflowPolicyById(wfp_id)
         return policy_in
 
     def getPolicyBelow(self):
-        pwt = getToolByName(self, 'portal_placeful_workflow')
+        pwt = getUtility(IPlacefulWorflowTool)
         wfp_id = self.getPolicyBelowId()
         policy_below = pwt.getWorkflowPolicyById(wfp_id)
         return policy_below
@@ -114,7 +113,7 @@ class WorkflowPolicyConfig(SimpleItem):
         In other case we test the 'below' policy first and, if there's no chain
         found, the 'in' policy.
         """
-        workflow_tool = getToolByName(self, 'portal_placeful_workflow')
+        workflow_tool = getUtility(IPlacefulWorflowTool)
 
         chain = None
         policy = None

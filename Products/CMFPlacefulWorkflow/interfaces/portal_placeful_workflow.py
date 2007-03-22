@@ -28,7 +28,7 @@ from Interface import Attribute, Interface
 _marker = []
 
 
-class portal_workflow_policy(Interface):
+class IPlacefulWorflowTool(Interface):
     '''
     '''
     id = Attribute('id', 'Must be set to "portal_workflow_policy"')
@@ -42,7 +42,7 @@ class portal_workflow_policy(Interface):
         """Set the max workflow chain length"""
 
 
-class WorkflowPolicyDefinition(Interface):
+class IWorkflowPolicyDefinition(Interface):
     '''
     '''
 

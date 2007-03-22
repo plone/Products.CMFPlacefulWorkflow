@@ -22,3 +22,5 @@ __version__ = "$Revision$"
 # $Source: /cvsroot/ingeniweb/PloneSubscription/SubscriptionTool.py,v $
 # $Id$
 __docformat__ = 'restructuredtext'
+
+from portal_placeful_worklfow import IPlacefulWorflowTool, IWorkflowPolicyDefinition
