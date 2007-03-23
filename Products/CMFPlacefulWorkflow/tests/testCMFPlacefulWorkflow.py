@@ -34,7 +34,7 @@ from Products.CMFCore.interfaces import IMemberDataTool
 
 from Products.PloneTestCase import PloneTestCase
 
-from Products.CMFPlacefulWorkflow.interfaces import IPlacefulWorflowTool
+from Products.CMFPlacefulWorkflow.interfaces.PlacefulWorkflow import IPlacefulWorkflowTool
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
 from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase
 
@@ -90,7 +90,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         self.membershipTool = getUtility(IMembershipTool)
         self.memberdataTool = getUtility(IMemberDataTool)
 
-        self.portal_placeful_workflow = getUtility(IPlacefulWorflowTool)
+        self.portal_placeful_workflow = getUtility(IPlacefulWorkflowTool)
 
         self.setupSecurityContext()
 

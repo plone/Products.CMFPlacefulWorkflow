@@ -29,14 +29,19 @@ from Acquisition import aq_base
 from OFS.Folder import Folder
 from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass, DTMLFile, package_home
+
+from zope.interface import implements
 from zope.component import getUtility
 
 from Products.CMFCore.utils import UniqueObject
 from Products.CMFCore.permissions import ManagePortal
 from Products.CMFCore.ActionProviderBase import ActionProviderBase
 from Products.CMFPlone.migrations.migration_util import safeEditProperty
+from Products.CMFCore.utils import registerToolInterface
 
-from interfaces import IPlacefulWorflowTool
+from interfaces import IPlacefulWorkflowTool
+from interfaces.PlacefulWorkflow import IPlacefulWorkflowTool as z2IPlacefulWorkflowTool
+
 
 _dtmldir = os_path.join( package_home( globals() ), 'dtml' )
 
@@ -60,8 +65,12 @@ class PlacefulWorkflowTool(UniqueObject, Folder, ActionProviderBase):
 
     id = 'portal_placeful_workflow'
     meta_type = 'Placeful Workflow Tool'
-    __implements__ = IPlacefulWorflowTool
+
+    __implements__ = (z2IPlacefulWorkflowTool,)
+    implements(IPlacefulWorkflowTool)
+
     _actions = []
+
     security = ClassSecurityInfo()
 
 
@@ -234,3 +243,4 @@ def _removeWorkflowPolicyFactory( factory, id=None, title=None ):
         pass
 
 InitializeClass(PlacefulWorkflowTool)
+registerToolInterface('portal_placeful_workflow', IPlacefulWorkflowTool)

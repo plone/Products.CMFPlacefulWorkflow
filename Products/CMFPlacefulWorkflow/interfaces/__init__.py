@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ## CMFPlacefulWorkflow
-## Copyright (C)2005 Ingeniweb
+## Copyright (C)2006 Ingeniweb
 
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -16,35 +16,19 @@
 ## along with this program; see the file COPYING. If not, write to the
 ## Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 """
-Placeful Workflow tool interface.
+CMFPlacefulWorkflow.interfaces package
 """
 __version__ = "$Revision$"
-# $Source: /cvsroot/ingeniweb/CMFPlacefulWorkflow/interfaces/portal_placeful_workflow.py,v $
+# $Source: /cvsroot/ingeniweb/PloneSubscription/SubscriptionTool.py,v $
 # $Id$
 __docformat__ = 'restructuredtext'
 
+from Interface.bridge import fromZ3Interface, createZope3Bridge
 
-from zope.interface import Attribute, Interface
-
-_marker = []
-
-
-class IPlacefulWorflowTool(Interface):
-    '''
-    '''
-    id = Attribute('id', 'Must be set to "portal_workflow_policy"')
-
-    # security.declarePublic('getMaxChainLength')
-    def getMaxChainLength(self):
-        """Return the max workflow chain length"""
-
-    # security.declarePublic('getMaxChainLength')
-    def setMaxChainLength(self, max_chain_length):
-        """Set the max workflow chain length"""
+from portal_placeful_workflow import IPlacefulWorkflowTool, IWorkflowPolicyDefinition
 
 
-class IWorkflowPolicyDefinition(Interface):
-    '''
-    '''
-
-    pass
+#z2IPlacefulWorkflowTool = fromZ3Interface(IPlacefulWorkflowTool)
+#z2IWorkflowPolicyDefinition = fromZ3Interface(IWorkflowPolicyDefinition)
+import PlacefulWorkflow
+createZope3Bridge(IPlacefulWorkflowTool, PlacefulWorkflow, 'IPlacefulWorkflowTool')

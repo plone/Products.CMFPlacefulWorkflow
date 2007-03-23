@@ -28,7 +28,7 @@ from OFS.SimpleItem import SimpleItem
 from AccessControl import ClassSecurityInfo
 from zope.component import getUtility
 
-from interfaces import IPlacefulWorflowTool
+from interfaces import IPlacefulWorkflowTool
 from PlacefulWorkflowTool import WorkflowPolicyConfig_id
 
 manage_addWorkflowPolicyConfigForm=DTMLFile('dtml/addWorkflowPolicyConfig_form', globals())
@@ -80,13 +80,13 @@ class WorkflowPolicyConfig(SimpleItem):
         return  self.workflow_policy_below
 
     def getPolicyIn(self):
-        pwt = getUtility(IPlacefulWorflowTool)
+        pwt = getUtility(IPlacefulWorkflowTool)
         wfp_id = self.getPolicyInId()
         policy_in = pwt.getWorkflowPolicyById(wfp_id)
         return policy_in
 
     def getPolicyBelow(self):
-        pwt = getUtility(IPlacefulWorflowTool)
+        pwt = getUtility(IPlacefulWorkflowTool)
         wfp_id = self.getPolicyBelowId()
         policy_below = pwt.getWorkflowPolicyById(wfp_id)
         return policy_below
@@ -113,7 +113,7 @@ class WorkflowPolicyConfig(SimpleItem):
         In other case we test the 'below' policy first and, if there's no chain
         found, the 'in' policy.
         """
-        workflow_tool = getUtility(IPlacefulWorflowTool)
+        workflow_tool = getUtility(IPlacefulWorkflowTool)
 
         chain = None
         policy = None
