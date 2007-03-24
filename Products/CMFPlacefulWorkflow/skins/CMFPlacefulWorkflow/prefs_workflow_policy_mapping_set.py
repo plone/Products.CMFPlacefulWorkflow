@@ -6,7 +6,7 @@ from Products.CMFCore.utils import getToolByInterfaceName
 from Products.CMFPlacefulWorkflow import CMFPlacefulWorkflowMessageFactory as _
 
 request = context.REQUEST
-pwtool_iface = 'Products.CMFPlacefulWorkflow.interfaces.IPlacefulWorflowTool'
+pwtool_iface = 'Products.CMFPlacefulWorkflow.interfaces.IPlacefulWorkflowTool'
 pwtool = getToolByInterfaceName(pwtool_iface)
 policy = pwtool.getWorkflowPolicyById(wfpid)
 

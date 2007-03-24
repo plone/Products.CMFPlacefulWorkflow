@@ -11,7 +11,7 @@ policy_ids = request.get('policy_ids',[])
 policy_id = request.get('policy_id', None)
 policy_duplicate_id = request.get('policy_duplicate_id', 'empty')
 
-pwtool = getToolByInterfaceName('Products.CMFPlacefulWorkflow.interfaces.IPlacefulWorflowTool')
+pwtool = getToolByInterfaceName('Products.CMFPlacefulWorkflow.interfaces.IPlacefulWorkflowTool')
 
 if delete and policy_ids:
     for policy_id in policy_ids:

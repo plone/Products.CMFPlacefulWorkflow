@@ -7,7 +7,7 @@ from Products.CMFPlacefulWorkflow import CMFPlacefulWorkflowMessageFactory as _
 
 request = context.REQUEST
 wtool_iface = 'Products.CMFCore.interfaces.IConfigurableWorkflowTool'
-pwtool_iface = 'Products.CMFPlacefulWorkflow.interfaces.IPlacefulWorflowTool'
+pwtool_iface = 'Products.CMFPlacefulWorkflow.interfaces.IPlacefulWorkflowTool'
 config = getToolByInterfaceName(pwtool_iface).getWorkflowPolicyConfig(context)
 
 if not config:

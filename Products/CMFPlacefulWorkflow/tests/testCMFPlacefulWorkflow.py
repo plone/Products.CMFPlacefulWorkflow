@@ -31,10 +31,11 @@ from Products.CMFCore.interfaces import ICatalogTool
 from Products.CMFCore.interfaces import IConfigurableWorkflowTool
 from Products.CMFCore.interfaces import IMembershipTool
 from Products.CMFCore.interfaces import IMemberDataTool
+from Products.CMFCore.utils import getToolInterface
 
 from Products.PloneTestCase import PloneTestCase
 
-from Products.CMFPlacefulWorkflow.interfaces.PlacefulWorkflow import IPlacefulWorkflowTool
+from Products.CMFPlacefulWorkflow.interfaces import IPlacefulWorkflowTool
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
 from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase
 
@@ -90,6 +91,11 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         self.membershipTool = getUtility(IMembershipTool)
         self.memberdataTool = getUtility(IMemberDataTool)
 
+        print '####'
+        print '####'
+        print getToolInterface('portal_placeful_workflow')
+        print '####'
+        print '####'
         self.portal_placeful_workflow = getUtility(IPlacefulWorkflowTool)
 
         self.setupSecurityContext()
