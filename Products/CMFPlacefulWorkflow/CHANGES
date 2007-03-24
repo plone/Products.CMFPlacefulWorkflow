@@ -2,6 +2,10 @@
 
 * Policy: show only types that are concerned by the policy (AJAX)
 
+[ 2007-03-24 - 1.2.0-beta1 ]
+
+* Switch from getToolByName to getUtility for Plone 3.0 integration (encolpe)
+
 [ 2007-02-27 - 1.0.3 ]
 
 * Fix tests initialization breakage and tests README (encolpe)

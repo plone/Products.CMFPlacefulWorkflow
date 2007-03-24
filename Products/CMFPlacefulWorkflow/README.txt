@@ -4,9 +4,7 @@ Dependencies
 Required Products
 ------------------
 
-* Plone 2.0.5, 2.1.2 and 2.1.3 for 0.4.* version
-
-* CMFPlacefulWorkflow is in the Plone 2.5 bundle after the 1.0 release
+* Plone 3.0 *ONLY*
 
 Installation
 ============
@@ -14,8 +12,7 @@ Installation
 Installing CMFPlacefulWorkflow
 ------------------------------
 
-* Unpack it into your Zope Products Folder
-* Restart Zope
+* CMFPlacefulWorflow is in Plone bundle since Plone 2.5
 * Use portal_quickinstaller to install the CMFPlacefulworkflow in ZMI (or use plone_setup in pmi)
 * Now you can define and apply a workflow policies through the Plone Interface.
     (Adding a workflow policies through the ZMI works as well).
