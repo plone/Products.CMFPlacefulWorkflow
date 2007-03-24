@@ -91,11 +91,6 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         self.membershipTool = getUtility(IMembershipTool)
         self.memberdataTool = getUtility(IMemberDataTool)
 
-        print '####'
-        print '####'
-        print getToolInterface('portal_placeful_workflow')
-        print '####'
-        print '####'
         self.portal_placeful_workflow = getUtility(IPlacefulWorkflowTool)
 
         self.setupSecurityContext()
