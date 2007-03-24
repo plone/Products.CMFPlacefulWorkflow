@@ -26,6 +26,7 @@ __docformat__ = 'restructuredtext'
 from Globals import DTMLFile, InitializeClass
 from OFS.SimpleItem import SimpleItem
 from AccessControl import ClassSecurityInfo
+
 from zope.component import getUtility
 
 from interfaces import IPlacefulWorkflowTool

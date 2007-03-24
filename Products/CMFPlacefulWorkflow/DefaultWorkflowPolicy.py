@@ -31,16 +31,20 @@ from os import path as os_path
 from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass, PersistentMapping, DTMLFile
 from Acquisition import aq_base
+
+from zope.interface import implements
 from zope.component import getUtility
 
 from Products.CMFCore.interfaces import IConfigurableWorkflowTool
 from Products.CMFCore.interfaces import ITypesTool
 
+
 from Products.CMFCore.utils import SimpleItemWithProperties
 from Products.CMFCore.permissions import ManagePortal
 
 
-from Products.CMFPlacefulWorkflow.interfaces import IWorkflowPolicyDefinition
+from interfaces import IWorkflowPolicyDefinition
+from interfaces.WorkflowPolicyDefinition import IWorkflowPolicyDefinition as z2IWorkflowPolicyDefinition
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addWorkflowPolicyFactory
 
 _dtmldir = os_path.join( package_home( globals() ), 'dtml' )

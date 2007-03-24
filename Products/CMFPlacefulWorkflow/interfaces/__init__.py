@@ -23,12 +23,12 @@ __version__ = "$Revision$"
 # $Id$
 __docformat__ = 'restructuredtext'
 
-from Interface.bridge import fromZ3Interface, createZope3Bridge
+from Interface.bridge import createZope3Bridge
 
 from portal_placeful_workflow import IPlacefulWorkflowTool, IWorkflowPolicyDefinition
 
-
-#z2IPlacefulWorkflowTool = fromZ3Interface(IPlacefulWorkflowTool)
-#z2IWorkflowPolicyDefinition = fromZ3Interface(IWorkflowPolicyDefinition)
+# Zope 2 interfaces definition
 import PlacefulWorkflow
+import WorkflowPolicyDefinition
 createZope3Bridge(IPlacefulWorkflowTool, PlacefulWorkflow, 'IPlacefulWorkflowTool')
+createZope3Bridge(IWorkflowPolicyDefinition, WorkflowPolicyDefinition, 'IWorkflowPolicyDefinition')
