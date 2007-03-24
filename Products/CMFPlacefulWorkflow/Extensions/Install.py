@@ -26,7 +26,8 @@ __docformat__ = 'restructuredtext'
 import string
 from cStringIO import StringIO
 
-from zope.component import getUtility
+from Acquisition import aq_base
+from zope.component import getUtility, getSiteManager
 
 from Products.CMFCore.interfaces import ISkinsTool
 from Products.CMFCore.DirectoryView import addDirectoryViews
@@ -36,6 +37,7 @@ from Products.CMFPlone.interfaces import IControlPanel
 from Products.CMFPlacefulWorkflow import install_globals
 from Products.CMFPlacefulWorkflow.global_symbols import placeful_prefs_configlet
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addPlacefulWorkflowTool
+from Products.CMFPlacefulWorkflow.interfaces import IPlacefulWorkflowTool
 
 skin_name = 'CMFPlacefulWorkflow'
 
@@ -52,6 +54,9 @@ def setupTools(self):
 
     if not found:
         addPlacefulWorkflowTool(self)
+
+    tool = aq_base(self[id])
+    getSiteManager(self).registerUtility(tool, IPlacefulWorkflowTool)
 
 def installSubSkin(self, skinFolder, out):
     """ Install a subskin, i.e. a folder/directoryview.
@@ -96,6 +101,7 @@ def uninstall(self, out=None):
     if out is None:
         out = StringIO()
 
+    getSiteManager(self).unregisterUtility(self['portal_placeful_workflow'], IPlacefulWorkflowTool)
     # uninstall configlets
     try:
         cptool = getUtility(IControlPanel)
