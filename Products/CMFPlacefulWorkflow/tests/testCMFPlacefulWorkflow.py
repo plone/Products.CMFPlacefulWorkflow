@@ -31,7 +31,6 @@ from Products.CMFCore.interfaces import ICatalogTool
 from Products.CMFCore.interfaces import IConfigurableWorkflowTool
 from Products.CMFCore.interfaces import IMembershipTool
 from Products.CMFCore.interfaces import IMemberDataTool
-from Products.CMFCore.utils import getToolInterface
 
 from Products.PloneTestCase import PloneTestCase
 
@@ -50,9 +49,6 @@ _all_permissions      = _edit_permissions
 #Install our product
 PloneTestCase.installProduct('CMFPlacefulWorkflow')
 PloneTestCase.setupPloneSite()
-
-# Other imports
-from zope.component import getUtility
 
 
 class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
