@@ -24,5 +24,6 @@ __version__ = "$Revision$"
 __docformat__ = 'restructuredtext'
 
 
+## Patch disabled in CMFPlone
 ## Make getChainFor method look for placeful workflow configuration
 #import workflowtoolPatch

@@ -17,6 +17,8 @@
 ## Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 """
 Patch for Plone workflow tool getChainFor method
+
+This code stay here for historical reasons: ** DO NOT REMOVE IT **
 """
 __version__ = "$Revision$"
 # $Source: /cvsroot/ingeniweb/CMFPlacefulWorkflow/patches/workflowtoolPatch.py,v $
