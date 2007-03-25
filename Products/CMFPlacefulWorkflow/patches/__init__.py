@@ -23,10 +23,6 @@ __version__ = "$Revision$"
 # $Id$
 __docformat__ = 'restructuredtext'
 
-# Now the patch is included in CMFPlone.WorkflowTool
-# Patch is applied only if Plone isn't installed
-try:
-    from Products.CMFPlone.WorkflowTool import WorkflowTool
-except ImportError:
-    ## Make getChainFor method look for placeful workflow configuration
-    import workflowtoolPatch
+
+## Make getChainFor method look for placeful workflow configuration
+#import workflowtoolPatch
