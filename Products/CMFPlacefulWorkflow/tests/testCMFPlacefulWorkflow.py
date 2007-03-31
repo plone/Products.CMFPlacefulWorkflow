@@ -98,6 +98,15 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
 
         # XXX
 
+    def test_prefs_workflow_policy_mapping_set_PostOnly(self):
+	"""
+	Check POST on mapping policy
+	"""
+	self.setRoles(['Manager')]
+        self.app.REQUEST.set('REQUEST_METHOD', 'GET')
+	self.assertRaises(Forbidden, self.prefs_workflow_policy_mapping_set)
+	
+
     def test_01_addWorkflowPolicyConfig(self,):
         """
         Add workflow policy config
