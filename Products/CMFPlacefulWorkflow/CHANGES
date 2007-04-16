@@ -2,6 +2,10 @@
 
 * Policy: show only types that are concerned by the policy (AJAX)
 
+[ 2007-04-16 - 1.0.4 ]
+
+* Fix postonly XSS risk. (ramon)
+
 [ 2007-02-27 - 1.0.3 ]
 
 * Fix tests initialization breakage and tests README (encolpe)
