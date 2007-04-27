@@ -25,16 +25,8 @@ __docformat__ = 'restructuredtext'
 
 
 from Testing import ZopeTestCase
-from zope.component import getUtility
-
-from Products.CMFCore.interfaces import ICatalogTool
-from Products.CMFCore.interfaces import IConfigurableWorkflowTool
-from Products.CMFCore.interfaces import IMembershipTool
-from Products.CMFCore.interfaces import IMemberDataTool
-
 from Products.PloneTestCase import PloneTestCase
 
-from Products.CMFPlacefulWorkflow.interfaces import IPlacefulWorkflowTool
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
 from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase
 
@@ -50,6 +42,8 @@ _all_permissions      = _edit_permissions
 PloneTestCase.installProduct('CMFPlacefulWorkflow')
 PloneTestCase.setupPloneSite()
 
+# Other imports
+from Products.CMFCore.utils import getToolByName
 
 class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
     """ Testing all add-on and modified method for workflow stuff """
@@ -82,12 +76,12 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         It also joins three users called 'user1', 'user2' and 'user3'.
         """
         #some usefull properties/tool
-        self.catalog = getUtility(ICatalogTool)
-        self.workflow = getUtility(IConfigurableWorkflowTool)
-        self.membershipTool = getUtility(IMembershipTool)
-        self.memberdataTool = getUtility(IMemberDataTool)
+        self.catalog = getToolByName(self.portal, 'portal_catalog')
+        self.workflow = getToolByName(self.portal, 'portal_workflow')
+        self.membershipTool = getToolByName(self.portal, 'portal_membership')
+        self.memberdataTool = getToolByName(self.portal, 'portal_memberdata')
 
-        self.portal_placeful_workflow = getUtility(IPlacefulWorkflowTool)
+        self.portal_placeful_workflow = getToolByName(self.portal, 'portal_placeful_workflow')
 
         self.setupSecurityContext()
 

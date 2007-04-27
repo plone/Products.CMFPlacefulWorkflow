@@ -1,14 +1,11 @@
 ##parameters=policy_in='', policy_below=''
 ##title=set placeful workflow configuration
 ##
-
-from Products.CMFCore.utils import getToolByInterfaceName
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlacefulWorkflow import CMFPlacefulWorkflowMessageFactory as _
 
 request = context.REQUEST
-wtool_iface = 'Products.CMFCore.interfaces.IConfigurableWorkflowTool'
-pwtool_iface = 'Products.CMFPlacefulWorkflow.interfaces.IPlacefulWorkflowTool'
-config = getToolByInterfaceName(pwtool_iface).getWorkflowPolicyConfig(context)
+config = getToolByName(context, 'portal_placeful_workflow').getWorkflowPolicyConfig(context)
 
 if not config:
     message = _(u'No config in this folder.')
@@ -28,7 +25,7 @@ else:
         raise str(policy_below)
 
     message = _('Changed policies.')
-    getToolByInterfaceName(wtool_iface).updateRoleMappings()
+    getToolByName(context, 'portal_workflow').updateRoleMappings()
 
 context.plone_utils.addPortalMessage(message)
 request.RESPONSE.redirect('placeful_workflow_configuration')

@@ -31,16 +31,12 @@ from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass, DTMLFile, package_home
 
 from zope.interface import implements
-from zope.component import getUtility
 
-from Products.CMFCore.utils import UniqueObject
+from Products.CMFCore.utils import getToolByName, UniqueObject
 from Products.CMFCore.permissions import ManagePortal
 from Products.CMFCore.ActionProviderBase import ActionProviderBase
 from Products.CMFPlone.migrations.migration_util import safeEditProperty
 from Products.CMFCore.utils import registerToolInterface
-
-from Products.CMFCore.interfaces import ITypesTool
-from Products.CMFCore.interfaces import IConfigurableWorkflowTool
 
 
 from interfaces import IPlacefulWorkflowTool
@@ -123,11 +119,11 @@ class PlacefulWorkflowTool(UniqueObject, Folder, ActionProviderBase):
         self._setObject(id, ob)
 
         if duplicate_id and duplicate_id != 'empty':
-            types_tool = getUtility(ITypesTool)
+            types_tool = getToolByName(self, 'portal_types')
             new_wp = self.getWorkflowPolicyById(id)
 
             if duplicate_id == 'portal_workflow':
-                wf_tool = getUtility(IConfigurableWorkflowTool)
+                wf_tool = getToolByName(self, 'portal_workflow')
 
                 new_wp.setDefaultChain(wf_tool._default_chain)
 

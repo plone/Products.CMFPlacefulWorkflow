@@ -23,30 +23,23 @@ __version__ = "$Revision$"
 # $Id$
 __docformat__ = 'restructuredtext'
 
-
-#Python imports
-from Globals import package_home
-from os import path as os_path
-# Zope imports
 from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass, PersistentMapping, DTMLFile
 from Acquisition import aq_base
 
-from zope.component import getUtility
-
-from Products.CMFCore.interfaces import IConfigurableWorkflowTool
-from Products.CMFCore.interfaces import ITypesTool
-
 
 from Products.CMFCore.utils import SimpleItemWithProperties
-from Products.CMFCore.permissions import ManagePortal
-
-
-from interfaces import IWorkflowPolicyDefinition
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addWorkflowPolicyFactory
 
+from Products.CMFCore.permissions import ManagePortal
+
+from interfaces import IWorkflowPolicyDefinition
+
+from Globals import package_home
+from os import path as os_path
 _dtmldir = os_path.join( package_home( globals() ), 'dtml' )
 
+from Products.CMFCore.utils import getToolByName
 
 DEFAULT_CHAIN = '(Default)'
 MARKER = '_MARKER'
@@ -149,7 +142,7 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
         self.title = title
         self.description = description
 
-        wftool = getUtility(IConfigurableWorkflowTool)
+        wftool = getToolByName(self, 'portal_workflow')
 
         if props is None:
             props = REQUEST
@@ -238,7 +231,7 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
     def setDefaultChain(self, default_chain):
 
         """ Sets the default chain for this tool. """
-        wftool = getUtility(IConfigurableWorkflowTool)
+        wftool = getToolByName(self, 'portal_workflow')
         ids = []
         for wf_id in default_chain:
             if wf_id:
@@ -252,8 +245,8 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
     def getDefaultChain(self, ob):
         """ Returns the default chain."""
         if self._default_chain is None:
-            wftool = getUtility(IConfigurableWorkflowTool)
-            return wftool.getDefaultChainFor(ob)
+            wf_tool = getToolByName(self, 'portal_workflow')
+            return wf_tool.getDefaultChainFor(ob)
         else:
             return self._default_chain
 
@@ -267,7 +260,7 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
         if type(chain) is type(''):
             chain = map( lambda x: x.strip(), chain.split(',') )
 
-        wftool = getUtility(IConfigurableWorkflowTool)
+        wftool = getToolByName(self, 'portal_workflow')
         cbt = self._chains_by_type
         if cbt is None:
             self._chains_by_type = cbt = PersistentMapping()
@@ -297,7 +290,7 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
 
         """ List the portal types which are available.
         """
-        pt = getUtility(ITypesTool)
+        pt = getToolByName(self, 'portal_types', None)
         if pt is None:
             return ()
         else:

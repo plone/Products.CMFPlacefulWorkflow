@@ -27,15 +27,16 @@ import string
 from cStringIO import StringIO
 
 from Acquisition import aq_base
-from zope.component import getUtility, getSiteManager
+from zope.component import getSiteManager
 
 from Products.CMFCore.interfaces import ISkinsTool
 from Products.CMFCore.DirectoryView import addDirectoryViews
 
-from Products.CMFPlone.interfaces import IControlPanel
 
 from Products.CMFPlacefulWorkflow import install_globals
 from Products.CMFPlacefulWorkflow.global_symbols import placeful_prefs_configlet
+from Products.CMFCore.utils import getToolByName
+from cStringIO import StringIO
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addPlacefulWorkflowTool
 from Products.CMFPlacefulWorkflow.interfaces import IPlacefulWorkflowTool
 
@@ -61,7 +62,7 @@ def setupTools(self):
 def installSubSkin(self, skinFolder, out):
     """ Install a subskin, i.e. a folder/directoryview.
     """
-    skins_tool = getUtility(ISkinsTool)
+    skins_tool = getToolByName(self, 'portal_skins')
     addDirectoryViews(skins_tool, 'skins', install_globals)
     for skin in skins_tool.getSkinSelections():
         path = skins_tool.getSkinPath(skin)
@@ -85,7 +86,7 @@ def install(self, out=None):
     installSubSkin(self, skin_name, out)
 
     # Install configlet
-    cptool = getUtility(IControlPanel)
+    cptool = getToolByName(self, 'portal_controlpanel')
     try:
         cptool.unregisterConfiglet(placeful_prefs_configlet['id'])
     except:
@@ -104,7 +105,7 @@ def uninstall(self, out=None):
     getSiteManager(self).unregisterUtility(self['portal_placeful_workflow'], IPlacefulWorkflowTool)
     # uninstall configlets
     try:
-        cptool = getUtility(IControlPanel)
+        cptool = getToolByName(self, 'portal_controlpanel')
         cptool.unregisterConfiglet(placeful_prefs_configlet['id'])
         out.write('Removing CMFPlacefulWorkflow Configlet')
     except:
