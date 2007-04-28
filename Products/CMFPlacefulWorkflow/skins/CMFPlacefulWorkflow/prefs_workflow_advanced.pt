@@ -103,7 +103,7 @@ Override plone prefs_workflow_advanced template for adding policy stuff
                              tal:define="default_wf python:wtool.getChainForPortalType('Plone Site')"
                              i18n:attributes="summary summary_default_workflow;">
                             <label i18n:translate="summary_default_workflow">Default workflow</label>
-                            <select id="select_workflow" name="wf.default_workflow:record" tabindex="" alt="">
+                            <select id="select_workflow" name="wf.default_workflow:record" alt="">
                                 <metal:block tal:repeat="wf workflow_list">
                                     <option value="wf"
                                             tal:attributes="value wf;
@@ -135,7 +135,7 @@ Override plone prefs_workflow_advanced template for adding policy stuff
                                 <td valign="top">
                                     <div tal:repeat="current_wf current_wf_list">
 
-                                        <select id="select_workflow" name="workflow_id" tabindex="" alt=""
+                                        <select id="select_workflow" name="workflow_id" alt=""
                                                 tal:attributes="name python:'wf.' + ctype.getId() + ':record'" >
 
                                             <metal:block tal:repeat="wf full_workflow_list">
@@ -157,10 +157,9 @@ Override plone prefs_workflow_advanced template for adding policy stuff
                         </div>
 
                         <div class="formControls">
-                            <input class="context" tabindex="" type="submit" name="Change" value="Save"
+                            <input class="context" type="submit" name="Change" value="Save"
                                    i18n:domain="plone"
-                                   i18n:attributes="value label_save;"
-                                   tal:attributes="tabindex tabindex/next;" />
+                                   i18n:attributes="value label_save;" />
                         </div>
 
                     </fieldset>

@@ -212,13 +212,11 @@ Workflow policy mapping template
                         </div>
                         <div class="formControls">
                             <input class="context"
-                                   tabindex=""
                                    type="submit"
                                    name="submit"
                                    value="Save"
                                    i18n:domain="plone"
-                                   i18n:attributes="value label_save;"
-                                   tal:attributes="tabindex tabindex/next;" />
+                                   i18n:attributes="value label_save;" />
                         </div>
                     </fieldset>
                 </form>

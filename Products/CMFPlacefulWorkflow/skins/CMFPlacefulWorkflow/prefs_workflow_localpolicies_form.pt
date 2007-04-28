@@ -125,9 +125,8 @@ CMFPlacefulWorkflow configuration panel
 
                         <div class="formControls"
                              tal:condition="python:wfp.getWorkflowPolicyIds()">
-                            <input class="context" tabindex="" type="submit" name="delete" value="Remove selected"
+                            <input class="context" type="submit" name="delete" value="Remove selected"
                                    i18n:attributes="value label_remove_selected;"
-                                   tal:attributes="tabindex tabindex/next;"
                                    />
                         </div>
                     </fieldset>
@@ -151,8 +150,7 @@ CMFPlacefulWorkflow configuration panel
 
                             <div tal:content="error">Validation error output</div>
 
-                            <input name="policy_id" value="" size="30" tabindex=""
-                                   tal:attributes="tabindex tabindex/next;" />
+                            <input name="policy_id" value="" size="30" />
                         </div>
                         <div class="field"
                              tal:define="error errors/policy_id | nothing;"
@@ -184,8 +182,7 @@ CMFPlacefulWorkflow configuration panel
                         </div>
 
                         <div class="formControls">
-                            <input type="submit" class="context" tabindex="" name="add" value="Add"
-                                   tal:attributes="tabindex tabindex/next;"
+                            <input type="submit" class="context" name="add" value="Add"
                                    i18n:attributes="value label_add;"
                                    />
                         </div>

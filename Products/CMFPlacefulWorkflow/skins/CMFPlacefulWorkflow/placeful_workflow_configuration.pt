@@ -101,10 +101,8 @@ Workflow policy configuration template
                                name="policy_in"
                                value="policy"
                                id="cb_policy"
-                               tabindex=""
                                tal:attributes="id python:'cb_policy_' + policy.id;
                                                value python:policy.id;
-                                               tabindex tabindex;
                                                checked python:policy.id==policy_in_id" />
 
                         <label for="cb_policy"
@@ -126,9 +124,8 @@ Workflow policy configuration template
                            id="cb_default_policy"
                            title=""
                            checked="1"
-                           tal:attributes="tabindex tabindex;
-                                       value python:'';
-                                       checked python:not policy_in" />
+                           tal:attributes="value python:'';
+                                           checked python:not policy_in" />
 
                     <label for="cb_default_policy"
                            i18n:translate="label_default_policy">
@@ -160,10 +157,8 @@ Workflow policy configuration template
                                name="policy_below"
                                value="policy"
                                id="cb_policy"
-                               tabindex=""
                                tal:attributes="id python:'cb_policy_' + policy.id;
                                                value python:policy.id;
-                                               tabindex tabindex;
                                                checked python:policy.id==policy_below_id" />
 
                         <label for="cb_policy"
@@ -186,8 +181,7 @@ Workflow policy configuration template
                            id="cb_default_policy"
                            title=""
                            checked="1"
-                           tal:attributes="tabindex tabindex;
-                                           value python:'';
+                           tal:attributes="value python:'';
                                            checked python:not policy_below" />
 
                     <label for="cb_default_policy"
