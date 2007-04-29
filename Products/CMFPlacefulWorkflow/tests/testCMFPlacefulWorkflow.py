@@ -25,6 +25,7 @@ __docformat__ = 'restructuredtext'
 
 
 from Testing import ZopeTestCase
+from zExceptions import Forbidden
 from Products.PloneTestCase import PloneTestCase
 
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
