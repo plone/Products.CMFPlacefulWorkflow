@@ -25,6 +25,7 @@ __docformat__ = 'restructuredtext'
 
 
 from Testing import ZopeTestCase
+from zExceptions import Forbidden
 from Products.PloneTestCase import PloneTestCase
 
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
@@ -96,6 +97,23 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         self.contentId = 'myPolicy'
 
         # XXX
+
+    def test_prefs_workflow_policy_mapping_set_PostOnly(self):
+        """
+        Check POST on mapping policy
+        """
+        self.loginAsPortalOwner()
+        # add a policy to edit
+        pwt = self.portal_placeful_workflow
+        pwt.manage_addWorkflowPolicy('foo_bar_policy',
+                                     'default_workflow_policy (Simple Policy)')
+        # use a GET request which should fail
+        self.app.REQUEST.set('REQUEST_METHOD', 'GET')
+        self.assertRaises(Forbidden,
+                          self.portal.prefs_workflow_policy_mapping_set,
+                          True, 'foo_bar_policy', 'title', 'description',
+                          {'Document': 'plone_workflow'}, 'plone_workflow')
+
 
     def test_01_addWorkflowPolicyConfig(self,):
         """

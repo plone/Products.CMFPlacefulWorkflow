@@ -37,6 +37,7 @@ from Products.CMFCore.permissions import ManagePortal
 from Products.CMFCore.ActionProviderBase import ActionProviderBase
 from Products.CMFPlone.migrations.migration_util import safeEditProperty
 from Products.CMFCore.utils import registerToolInterface
+from Products.CMFCore.utils import postonly
 
 
 from interfaces import IPlacefulWorkflowTool
@@ -108,7 +109,8 @@ class PlacefulWorkflowTool(UniqueObject, Folder, ActionProviderBase):
     def manage_addWorkflowPolicy(self, id,
                                  workflow_policy_type='default_workflow_policy (Simple Policy)',
                                  duplicate_id='empty',
-                                 RESPONSE=None):
+                                 RESPONSE=None,
+				 REQUEST=None):
         """ Adds a workflow policies from the registered types.
         """
         if id in ('empty', 'portal_workflow'):
@@ -144,6 +146,7 @@ class PlacefulWorkflowTool(UniqueObject, Folder, ActionProviderBase):
         if RESPONSE is not None:
             RESPONSE.redirect(self.absolute_url() +
                               '/manage_main?management_view=Contents')
+    manage_addWorkflowPolicy = postonly(manage_addWorkflowPolicy)
 
     def all_meta_types(self):
         return (

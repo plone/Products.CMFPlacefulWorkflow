@@ -29,6 +29,7 @@ from Acquisition import aq_base
 
 
 from Products.CMFCore.utils import SimpleItemWithProperties
+from Products.CMFCore.utils import postonly
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addWorkflowPolicyFactory
 
 from Products.CMFCore.permissions import ManagePortal
@@ -182,13 +183,15 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
         if REQUEST is not None:
             return self.manage_selectWorkflows(REQUEST,
                             manage_tabs_message='Changed.')
+    manage_changeWorkflows = postonly(manage_changeWorkflows)
 
     security.declareProtected( ManagePortal, 'setChainForPortalTypes')
-    def setChainForPortalTypes(self, pt_names, chain):
+    def setChainForPortalTypes(self, pt_names, chain, REQUEST=None):
         """ Set a chain for portal types.
         """
         for portal_type in pt_names:
             self.setChain(portal_type, chain)
+    setChainForPortalTypes = postonly(setChainForPortalTypes)
 
     security.declareProtected( ManagePortal, 'getChainFor')
     def getChainFor(self, ob, managescreen=False):
@@ -228,7 +231,7 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
         return chain
 
     security.declareProtected( ManagePortal, 'setDefaultChain')
-    def setDefaultChain(self, default_chain):
+    def setDefaultChain(self, default_chain, REQUEST=None):
 
         """ Sets the default chain for this tool. """
         wftool = getToolByName(self, 'portal_workflow')
@@ -240,6 +243,7 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
                 ids.append(wf_id)
 
         self._default_chain = tuple(ids)
+    setDefaultChain = postonly(setDefaultChain)
 
     security.declareProtected( ManagePortal, 'getDefaultChain')
     def getDefaultChain(self, ob):
@@ -251,7 +255,7 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
             return self._default_chain
 
     security.declareProtected( ManagePortal, 'setChain')
-    def setChain(self, portal_type, chain):
+    def setChain(self, portal_type, chain, REQUEST=None):
         """Set the chain for a portal type."""
         # Verify input data
         if portal_type not in [pt.id for pt in self._listTypeInfo()]:
@@ -275,12 +279,14 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
                 if wf_id != '' and not wftool.getWorkflowById(wf_id):
                     raise ValueError, ("'%s' is not a workflow ID." % wf_id)
             cbt[portal_type] = tuple(chain)
+    setChain = postonly(setChain)
 
     security.declareProtected( ManagePortal, 'delChain')
-    def delChain(self, portal_type):
+    def delChain(self, portal_type, REQUEST=None):
         """Delete the chain for a portal type."""
         if self._chains_by_type.has_key(portal_type):
             del self._chains_by_type[portal_type]
+    delChain = postonly(delChain)
 
     #
     #   Helper methods
