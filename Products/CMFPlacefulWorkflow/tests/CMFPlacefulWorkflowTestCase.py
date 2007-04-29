@@ -84,6 +84,8 @@ PloneTestCase.setupPloneSite(id='plone', products=[
     'Archetypes',
     'ATContentTypes',
     'CMFPlacefulWorkflow',
+    ], extension_profiles=[
+    'Products.CMFPlone:testfixture',
     ])
 
 app = ZopeTestCase.app()
