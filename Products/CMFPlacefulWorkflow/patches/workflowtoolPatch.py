@@ -73,9 +73,10 @@ def getPlacefulChainFor(self, ob):
     is_policy_container = False
     objectids = []
     try:
-       objectids = ob.objectIds()
+        objectids = ob.objectIds()
     except AttributeError, TypeError:
-       pass
+        pass
+
     if WorkflowPolicyConfig_id in objectids:
         is_policy_container = True
 
