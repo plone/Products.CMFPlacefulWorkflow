@@ -24,6 +24,11 @@ __version__ = "$Revision$"
 __docformat__ = 'restructuredtext'
 
 
-## Patch disabled in CMFPlone
+## Patch disabled in CMFPlone with version 3.0
 ## Make getChainFor method look for placeful workflow configuration
-import workflowtoolPatch
+try:
+    from Products.CMFPlone.migrations import v3_0
+except ImportError:
+    from Products.CMFPlacefulWorkflow.global_symbols import Log, LOG_NOTICE
+    Log(LOG_NOTICE, "Apply getChainFor monkey patch on WorkflowTool")
+    import workflowtoolPatch
