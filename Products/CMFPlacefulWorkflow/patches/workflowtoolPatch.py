@@ -31,7 +31,7 @@ from Acquisition import aq_base, aq_parent, aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import base_hasattr
 
-def getChainFor(self, ob):
+def getPlacefulChainFor(self, ob):
     """Monkey-patched by CMFPlacefulWorkflow to look for placeful workflow configurations.
 
     Goal: find a workflow chain in a policy
@@ -114,5 +114,5 @@ def getChainFor(self, ob):
     return chain
 
 # don't lose the docstrings
-getChainFor.__doc__ = '\n'.join((WorkflowTool.getChainFor.__doc__, getChainFor.__doc__))
-WorkflowTool.getChainFor = getChainFor
+getPlacefulChainFor.__doc__ = '\n'.join((WorkflowTool.getChainFor.__doc__, getPlacefulChainFor.__doc__))
+WorkflowTool.getChainFor = getPlacefulChainFor
