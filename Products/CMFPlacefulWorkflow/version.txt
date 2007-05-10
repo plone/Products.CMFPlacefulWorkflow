@@ -1,1 +1,2 @@
-1.0.4 CVS/SVN (UNRELEASED)
+1.0.5
+
