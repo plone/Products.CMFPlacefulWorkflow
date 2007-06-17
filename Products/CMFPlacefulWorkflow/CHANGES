@@ -2,6 +2,10 @@
 
 * Policy: show only types that are concerned by the policy (AJAX)
 
+[ 1.2.0-beta4 ]
+
+* Move CMFPW control panel back to add-on panels (hannosch)
+
 [ 2007-03-24 - 1.2.0-beta1 ]
 
 * Switch from getToolByName to getUtility for Plone 3.0 integration (encolpe)
