@@ -3,7 +3,7 @@
 
 XXX Missing drop downs for the two cases.
 
-<form action="manage_makeChanges" method="post">
+<form action="manage_makeChanges" method="POST">
 <table cellspacing="0" cellpadding="2" border="0
   <tr>
     <td align="left" valign="top">

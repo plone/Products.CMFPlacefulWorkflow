@@ -50,7 +50,7 @@
 Click the button below to update the security settings of all
 workflow-aware objects in this portal.
 
-<form action="&dtml-portal_url;/portal_workflow/updateRoleMappings" method="GET">
+<form action="&dtml-portal_url;/portal_workflow/updateRoleMappings" method="POST">
   <input type="submit" name="submit" value="Update security settings" />
 </form>
 </p>
