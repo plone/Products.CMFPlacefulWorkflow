@@ -27,14 +27,15 @@ from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass, PersistentMapping, DTMLFile
 from Acquisition import aq_base
 
-
 from Products.CMFCore.utils import SimpleItemWithProperties
 from Products.CMFCore.utils import postonly
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addWorkflowPolicyFactory
 
 from Products.CMFCore.permissions import ManagePortal
 
-from interfaces import IWorkflowPolicyDefinition
+from Products.CMFPlacefulWorkflow.interfaces.portal_placeful_workflow \
+        import WorkflowPolicyDefinition as IWorkflowPolicyDefinition
+from Products.CMFPlacefulWorkflow.global_symbols import Log, LOG_DEBUG
 
 from Globals import package_home
 from os import path as os_path
@@ -143,7 +144,7 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
         self.title = title
         self.description = description
 
-        wftool = getToolByName(self, 'portal_workflow')
+        wf_tool = getToolByName(self, 'portal_workflow')
 
         if props is None:
             props = REQUEST
@@ -156,30 +157,10 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
             id = t.getId()
             field_name = 'chain_%s' % id
             chain = props.get(field_name, DEFAULT_CHAIN).strip()
-            if chain == DEFAULT_CHAIN:
-                # Remove from cbt.
-                if cbt.has_key(id):
-                    del cbt[id]
-            else:
-                chain = chain.replace(',', ' ')
-                ids = []
-                for wf_id in chain.split(' '):
-                    if wf_id:
-                        if not wftool.getWorkflowById(wf_id):
-                            raise ValueError, (
-                                '"%s" is not a workflow ID.' % wf_id)
-                        ids.append(wf_id)
-                cbt[id] = tuple(ids)
+            self.setChain(id, chain)
+
         # Set up the default chain.
-        default_chain = default_chain.replace(',', ' ')
-        ids = []
-        for wf_id in default_chain.split(' '):
-            if wf_id:
-                if not wftool.getWorkflowById(wf_id):
-                    raise ValueError, (
-                        '"%s" is not a workflow ID.' % wf_id)
-                ids.append(wf_id)
-        self._default_chain = tuple(ids)
+        self.setDefaultChain(default_chain)
         if REQUEST is not None:
             return self.manage_selectWorkflows(REQUEST,
                             manage_tabs_message='Changed.')
@@ -216,6 +197,11 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
         if cbt is not None:
             chain = cbt.get(pt, MARKER)
 
+        # Backwards compatibility: before chain was a string, not a list
+        if chain is not MARKER and type(chain) == type(''):
+            chain = map( lambda x: x.strip(), chain.split(',') )
+
+        Log(LOG_DEBUG, 'Chain founded in policy', chain)
         if chain is MARKER or chain is None:
             return None
         elif len(chain) == 1 and chain[0] == DEFAULT_CHAIN:
@@ -235,6 +221,9 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
 
         """ Sets the default chain for this tool. """
         wftool = getToolByName(self, 'portal_workflow')
+
+        if type(default_chain) is type(''):
+            default_chain = map( lambda x: x.strip(), default_chain.split(',') )
         ids = []
         for wf_id in default_chain:
             if wf_id:
