@@ -34,7 +34,7 @@ from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addWorkflowPolicyF
 from Products.CMFCore.permissions import ManagePortal
 
 from Products.CMFPlacefulWorkflow.interfaces.portal_placeful_workflow \
-        import WorkflowPolicyDefinition as IWorkflowPolicyDefinition
+        import IWorkflowPolicyDefinition
 from Products.CMFPlacefulWorkflow.global_symbols import Log, LOG_DEBUG
 
 from Globals import package_home
