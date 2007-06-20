@@ -28,6 +28,7 @@ from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConf
 from Acquisition import aq_base, aq_parent, aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import base_hasattr
+from Products.CMFPlacefulWorkflow.global_symbols import Log, LOG_DEBUG
 
 def getChainFor(self, ob):
     """Monkey-patched by CMFPlacefulWorkflow to look for placeful workflow configurations.
@@ -87,9 +88,12 @@ def getChainFor(self, ob):
     start_here = True
     portal = aq_base(getToolByName(self, 'portal_url').getPortalObject())
     while chain is None and current_ob is not None:
+        Log(LOG_DEBUG, "base_hasattr", base_hasattr(current_ob, WorkflowPolicyConfig_id))
         if base_hasattr(current_ob, WorkflowPolicyConfig_id):
+            Log(LOG_DEBUG, "found a policy here", current_ob.absolute_url(relative=1))
             wfpolicyconfig = getattr(current_ob, WorkflowPolicyConfig_id)
             chain = wfpolicyconfig.getPlacefulChainFor(portal_type, start_here=start_here)
+            Log(LOG_DEBUG, "chain founded", chain)
             if chain is not None:
                 return chain
 

@@ -29,6 +29,7 @@ from OFS.SimpleItem import SimpleItem
 from AccessControl import ClassSecurityInfo
 
 from PlacefulWorkflowTool import WorkflowPolicyConfig_id
+from Products.CMFPlacefulWorkflow.global_symbols import Log, LOG_DEBUG
 
 from Products.CMFCore.utils import getToolByName
 
@@ -115,6 +116,8 @@ class WorkflowPolicyConfig(SimpleItem):
         found, the 'in' policy.
         """
         workflow_tool = getToolByName(self, 'portal_placeful_workflow')
+        Log(LOG_DEBUG, 'below policy id', self.getPolicyBelowId())
+        Log(LOG_DEBUG, 'in policy id', self.getPolicyInId())
 
         chain = None
         policy = None
@@ -127,8 +130,10 @@ class WorkflowPolicyConfig(SimpleItem):
         policy = workflow_tool.getWorkflowPolicyById(self.getPolicyInId())
         # print "start here:", start_here, "type", portal_type, "policy", policy
 
+        Log(LOG_DEBUG, "policy", repr(policy), policy != None)
         if chain == None and policy != None:
             chain = policy.getChainFor(portal_type)
+            Log(LOG_DEBUG, "portal_type and chain", portal_type, chain)
 
         return chain
 
