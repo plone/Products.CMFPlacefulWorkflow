@@ -4,6 +4,12 @@
 
 [ 1.2.0-beta4 ]
 
+* Add verbose debugging when adding the debug.txt file
+
+* Fix migration bug from plone 2.1 version (encolpe)
+
+* Fix policy config bug saving in ZMI
+
 * Move CMFPW control panel back to add-on panels (hannosch)
 
 [ 2007-03-24 - 1.2.0-beta1 ]
