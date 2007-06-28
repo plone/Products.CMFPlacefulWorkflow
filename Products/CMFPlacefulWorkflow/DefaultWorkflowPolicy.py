@@ -24,11 +24,11 @@ __version__ = "$Revision$"
 __docformat__ = 'restructuredtext'
 
 from AccessControl import ClassSecurityInfo
+from AccessControl.requestmethod import postonly
 from Globals import InitializeClass, PersistentMapping, DTMLFile
 from Acquisition import aq_base
 
 from Products.CMFCore.utils import SimpleItemWithProperties
-from Products.CMFCore.utils import postonly
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addWorkflowPolicyFactory
 
 from Products.CMFCore.permissions import ManagePortal

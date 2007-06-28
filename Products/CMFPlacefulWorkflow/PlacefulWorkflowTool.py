@@ -26,6 +26,7 @@ __docformat__ = 'restructuredtext'
 from os import path as os_path
 
 from Acquisition import aq_base
+from AccessControl.requestmethod import postonly
 from OFS.Folder import Folder
 from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass, DTMLFile, package_home
@@ -37,7 +38,6 @@ from Products.CMFCore.permissions import ManagePortal
 from Products.CMFCore.ActionProviderBase import ActionProviderBase
 from Products.CMFPlone.migrations.migration_util import safeEditProperty
 from Products.CMFCore.utils import registerToolInterface
-from Products.CMFCore.utils import postonly
 
 
 from interfaces import IPlacefulWorkflowTool
