@@ -2,7 +2,7 @@
 
 * Policy: show only types that are concerned by the policy (AJAX)
 
-[ 1.2.0-beta4 ]
+[ 1.2.0-rc1 ]
 
 * Add verbose debugging when adding the debug.txt file
 
