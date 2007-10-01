@@ -2,6 +2,17 @@
 
 * Policy: show only types that are concerned by the policy (AJAX)
 
+[ 2007-10-01 - 1.0.6 ]
+
+* Force post when clicking on buttons (encolpe)
+
+* Add verbose debugging when adding the debug.txt file (encolpe)
+
+* Fix upgrade bug from Plone < 2.5 when chain was a string instead of a list (encolpe)
+
+* Fix ZMI bug when saving policy configuration didn't use standard API (encolpe)
+
+
 [ 2007-05-10 - 1.0.5 ]
 
 * Fix test on postonly XSS risk. (alecm)
