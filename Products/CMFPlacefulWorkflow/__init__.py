@@ -41,6 +41,9 @@ DirectoryView.registerDirectory('skins', globals())
 
 # Initialization method
 def initialize(context):
+ 
+    import exportimport
+    exportimport.initialize(context)
 
     utils.registerIcon(
         DefaultWorkflowPolicy.DefaultWorkflowPolicyDefinition,

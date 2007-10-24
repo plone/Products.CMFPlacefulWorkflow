@@ -47,3 +47,9 @@ class WorkflowPolicyDefinition(Interface):
     '''
 
     pass
+
+class IPlacefulWorkflowTool(Interface):
+    '''
+    '''
+
+    pass

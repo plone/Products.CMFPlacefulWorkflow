@@ -1,0 +1,38 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five">
+ 
+  <!-- GenericSetup -->
+  <five:bridge 
+     zope2="Products.CMFPlacefulWorkflow.interfaces.portal_placeful_workflow.IPlacefulWorkflowTool"
+     package=".interfaces"
+     name="IPlacefulWorkflowTool"
+     /> 
+  <five:implements
+     class="Products.CMFPlacefulWorkflow.PlacefulWorkflowTool.PlacefulWorkflowTool"
+     interface=".interfaces.IPlacefulWorkflowTool"
+     />
+  <adapter
+     factory=".exportimport.PlacefulWorkflowXMLAdapter"
+     provides="Products.GenericSetup.interfaces.IBody"
+     for=".interfaces.IPlacefulWorkflowTool
+          Products.GenericSetup.interfaces.ISetupEnviron"
+     />
+
+  <five:bridge 
+     zope2="Products.CMFPlacefulWorkflow.interfaces.portal_placeful_workflow.WorkflowPolicyDefinition"
+     package=".interfaces"
+     name="IWorkflowPolicyDefinition"
+     /> 
+  <five:implements
+     class="Products.CMFPlacefulWorkflow.DefaultWorkflowPolicy.DefaultWorkflowPolicyDefinition"
+     interface=".interfaces.IWorkflowPolicyDefinition"
+     />
+  <adapter
+     factory=".exportimport.WorkflowPoliciesXMLAdapter"
+     provides="Products.GenericSetup.interfaces.IBody"
+     for=".interfaces.IWorkflowPolicyDefinition
+          Products.GenericSetup.interfaces.ISetupEnviron"
+     />
+
+</configure>

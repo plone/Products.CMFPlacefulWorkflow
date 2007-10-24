@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<object name="baz_policy" meta_type="WorkflowPolicy">
+ <property name="title">Baz Policy</property>
+ <bindings>
+  <default>
+   <bound-workflow workflow_id="folder_workflow"/>
+  </default>
+  <type acquire="True" type_id="Document"/>
+  <type type_id="Event"/>
+  <type type_id="File">
+  </type>
+  <type type_id="Folder">
+   <bound-workflow workflow_id="plone_workflow"/>
+  </type>
+ </bindings>
+</object>
