@@ -2,6 +2,11 @@
 
 * Policy: show only types that are concerned by the policy (AJAX)
 
+[ 2007-10-24 ]
+
+* GenericSetup exportimport handlers for tool and policies.
+  Contributed by Jazkarta.  (rossp)
+
 [ 2007-10-01 - 1.0.6 ]
 
 * Force post when clicking on buttons (encolpe)
