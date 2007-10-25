@@ -38,35 +38,35 @@ class WorkflowPoliciesXMLAdapter(WorkflowToolXMLAdapter):
         fragment = self._doc.createDocumentFragment()
         node = self._doc.createElement('bindings')
         child = self._doc.createElement('default')
-        chain = self.context._default_chain
-        for workflow_id in chain:
+        for workflow_id in self.context._default_chain or ():
             sub = self._doc.createElement('bound-workflow')
             sub.setAttribute('workflow_id', workflow_id)
             child.appendChild(sub)
         node.appendChild(child)
-        cbt = self.context._chains_by_type
-        for ti in sorted(
-            getToolByName(self.context,
-                          'portal_types').listTypeInfo(),
-            key=lambda type: type.getId()):
-            type_id = ti.getId()
-            chain = cbt.get(type_id, _marker)
-
-            if chain == [DEFAULT_CHAIN]:
-                # types using the policy default are ommitted
-                continue
-
-            child = self._doc.createElement('type')
-            child.setAttribute('type_id', type_id)
-            if chain is _marker:
-                # Types omited from the policy must acquire
-                child.setAttribute('acquire', 'True')
-
-            for workflow_id in chain:
-                sub = self._doc.createElement('bound-workflow')
-                sub.setAttribute('workflow_id', workflow_id)
-                child.appendChild(sub)
-            node.appendChild(child)
+        if self.context._chains_by_type:
+            for ti in sorted(
+                getToolByName(self.context,
+                              'portal_types').listTypeInfo(),
+                key=lambda type: type.getId()):
+                type_id = ti.getId()
+                chain = self.context._chains_by_type.get(type_id,
+                                                         _marker)
+            
+                if chain == [DEFAULT_CHAIN]:
+                    # types using the policy default are ommitted
+                    continue
+            
+                child = self._doc.createElement('type')
+                child.setAttribute('type_id', type_id)
+                if chain is _marker:
+                    # Types omited from the policy must acquire
+                    child.setAttribute('acquire', 'True')
+            
+                for workflow_id in chain:
+                    sub = self._doc.createElement('bound-workflow')
+                    sub.setAttribute('workflow_id', workflow_id)
+                    child.appendChild(sub)
+                node.appendChild(child)
         fragment.appendChild(node)
         return fragment
 
