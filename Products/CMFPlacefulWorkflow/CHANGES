@@ -4,6 +4,9 @@
 
 [ 1.2.0-rc1 ]
 
+* GenericSetup exportimport handlers for tool and policies.
+  Contributed by Jazkarta.  (rossp)
+
 * Add verbose debugging when adding the debug.txt file
 
 * Fix migration bug from plone 2.1 version (encolpe)
