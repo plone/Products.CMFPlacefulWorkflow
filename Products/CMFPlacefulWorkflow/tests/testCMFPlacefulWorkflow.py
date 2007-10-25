@@ -602,11 +602,12 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         document = self.portal.folder.document
         wf_tool.doActionFor(document, 'submit', comment="unittest transition")
 
-        self.assertEqual(tuple(wf_tool.getWorklists().keys()),
-                         ('folder_workflow', 'plone_workflow',
-                          'community_folder_workflow', 'intranet_folder_workflow',
-                          'one_state_workflow', 'simple_publication_workflow',
-                          'community_workflow', 'intranet_workflow'))
+        self.assertEqual(
+            sorted(tuple(wf_tool.getWorklists().keys())),
+            sorted(('folder_workflow', 'plone_workflow',
+                    'intranet_folder_workflow', 'one_state_workflow',
+                    'simple_publication_workflow',
+                    'intranet_workflow')))
         self.assertEqual(tuple(self.portal.my_worklist()), (document,))
 
         self.logout()
