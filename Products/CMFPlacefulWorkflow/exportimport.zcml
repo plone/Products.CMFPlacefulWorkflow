@@ -1,7 +1,8 @@
 <configure
    xmlns="http://namespaces.zope.org/zope"
    xmlns:five="http://namespaces.zope.org/five"
-   xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+   xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+   i18n_domain="cmfplacefulworkflow">
 
   <adapter
      factory=".exportimport.PlacefulWorkflowXMLAdapter"
@@ -24,11 +25,11 @@
      />
 
   <genericsetup:registerProfile
-      name="default"
-      title="CMFPlacefulWorkflow Setps"
-      description="Registers the steps for exporting and importing the CMFPlacefulWorkflow tool and contained policies."
+     name="default"
+     title="CMFPlacefulWorkflow Setps"
+     description="Registers the steps for exporting and importing the CMFPlacefulWorkflow tool and contained policies."
      provides="Products.GenericSetup.interfaces.EXTENSION"
      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-      />
+     />
 
 </configure>
