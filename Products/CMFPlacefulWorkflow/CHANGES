@@ -1,7 +1,12 @@
 
-[ 2007-11-08 1.2.1 ]
+[ 2007-11-08 1.3.0 ]
 
 * GenericSetup exportimport handlers for tool and policies.
+  Contributed by Jazkarta.  (rossp)
+
+[ 2007-11-08 1.2.1 ]
+
+* Fix ordering bug when we tests plone workflows
   Contributed by Jazkarta.  (rossp)
 
 [ 2007-10-01 1.2.0 ]

@@ -26,7 +26,7 @@
 
   <genericsetup:registerProfile
      name="default"
-     title="CMFPlacefulWorkflow Setps"
+     title="CMFPlacefulWorkflow Steps"
      description="Registers the steps for exporting and importing the CMFPlacefulWorkflow tool and contained policies."
      provides="Products.GenericSetup.interfaces.EXTENSION"
      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
