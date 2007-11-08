@@ -1,11 +1,12 @@
-[TODO]
 
-* Policy: show only types that are concerned by the policy (AJAX)
-
-[ 1.2.0-rc1 ]
+[ 2007-11-08 1.2.1 ]
 
 * GenericSetup exportimport handlers for tool and policies.
   Contributed by Jazkarta.  (rossp)
+
+[ 2007-10-01 1.2.0 ]
+
+[ 2007-07-02 1.2.0-rc1 ]
 
 * Add verbose debugging when adding the debug.txt file
 
