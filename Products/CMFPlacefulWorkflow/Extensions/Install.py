@@ -100,7 +100,7 @@ def install(self, reinstall=False, out=None):
     return out.getvalue()
 
 
-def uninstall(self, out=None):
+def uninstall(self, reinstall=False, out=None):
     if out is None:
         out = StringIO()
 
