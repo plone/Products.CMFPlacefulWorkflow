@@ -76,7 +76,7 @@ def installSubSkin(self, skinFolder, out):
         else:
             out.write('*** Subskin was already installed into %s.\n' % skin) 
 
-def install(self, reinstall=False, out=None):
+def install(self, out=None, reinstall=False):
     if out is None:
         out = StringIO()
 
@@ -98,7 +98,7 @@ def install(self, reinstall=False, out=None):
     return out.getvalue()
 
 
-def uninstall(self, reinstall=False, out=None):
+def uninstall(self, out=None, reinstall=False):
     if out is None:
         out = StringIO()
 
