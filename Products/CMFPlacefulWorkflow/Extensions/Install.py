@@ -78,11 +78,13 @@ def installSubSkin(self, skinFolder, out):
         else:
             out.write('*** Subskin was already installed into %s.\n' % skin) 
 
-def install(self, out=None):
+def install(self, reinstall=False, out=None):
     if out is None:
         out = StringIO()
 
-    setupTools(self)
+    if not reinstall:
+        setupTools(self)
+
     installSubSkin(self, skin_name, out)
 
     # Install configlet
