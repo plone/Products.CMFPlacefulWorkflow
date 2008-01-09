@@ -98,6 +98,13 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
 
         # XXX
 
+    def test_reinstall(self):
+        """
+        Test if upgrade is going the good way
+        """
+        self.qi = self.portal.portal_quickinstaller
+        self.qi.installProduct('CMFPlacefulWorkflow', reinstall=True)
+
     def test_prefs_workflow_policy_mapping_set_PostOnly(self):
         """
         Check POST on mapping policy
