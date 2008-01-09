@@ -1,3 +1,6 @@
+[ 2008-MM-DD 1.2.2]
+
+* Fix #7654 by adding reinstall parameter in intall method
 
 [ 2007-11-08 1.2.1 ]
 
