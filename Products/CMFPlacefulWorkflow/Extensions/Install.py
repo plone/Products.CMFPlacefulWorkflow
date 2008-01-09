@@ -29,14 +29,12 @@ from cStringIO import StringIO
 from Acquisition import aq_base
 from zope.component import getSiteManager
 
-from Products.CMFCore.interfaces import ISkinsTool
 from Products.CMFCore.DirectoryView import addDirectoryViews
 
 
 from Products.CMFPlacefulWorkflow import install_globals
 from Products.CMFPlacefulWorkflow.global_symbols import placeful_prefs_configlet
 from Products.CMFCore.utils import getToolByName
-from cStringIO import StringIO
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addPlacefulWorkflowTool
 from Products.CMFPlacefulWorkflow.interfaces import IPlacefulWorkflowTool
 
