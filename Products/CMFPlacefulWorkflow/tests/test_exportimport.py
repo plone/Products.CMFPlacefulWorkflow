@@ -60,8 +60,8 @@ class ExportImportLayer(
 
 def test_suite():
     suite = ZopeDocFileSuite(
-        '../exportimport.txt',
-        optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS,
+        'exportimport.txt',
+        optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS|doctest.REPORT_UDIFF,
         test_class=CMFPlacefulWorkflowTestCase)
     suite.layer = ExportImportLayer
     return suite
