@@ -20,9 +20,8 @@ Import the portal_placeful_workflow step with a profile defining a
 policy::
 
     >>> ps = getToolByName(self.portal, 'portal_setup')
-    >>> setup_context = 'profile-Products.CMFPlacefulWorkflow.tests:exportimport'
-    >>> ps.setImportContext(setup_context)
-    >>> ps.runImportStepFromProfile('portal_placeful_workflow')
+    >>> specific_context = 'profile-Products.CMFPlacefulWorkflow.tests:exportimport'
+    >>> ps.runImportStepFromProfile(specific_context, 'portal_placeful_workflow')
     {'messages': {'portal_placeful_workflow': 'placeful_workflow: Folder
     imported.\nplaceful_workflow: Workflow tool imported.', u'workflow': ''},
     'steps': [u'workflow', 'portal_placeful_workflow']}
@@ -63,7 +62,7 @@ Export
 
 Export the portal_placeful_workflow step::
 
-    >>> tarball = ps.runImportStepFromProfile('portal_placeful_workflow')['tarball']
+    >>> tarball = ps._doRunExportSteps(['portal_placeful_workflow'])['tarball']
 
 The export produces a file for the tool itself::
 
@@ -104,4 +103,5 @@ Export works when chains are left unset to acquire::
 
     >>> policy._default_chain = None
     >>> policy._chains_by_type = None
-    >>> ignored = ps.runImportStepFromProfile('portal_placeful_workflow')
+    >>> baseline = ps.getBaselineContextID()
+    >>> ignored = ps.runImportStepFromProfile(specific_context, 'portal_placeful_workflow')
