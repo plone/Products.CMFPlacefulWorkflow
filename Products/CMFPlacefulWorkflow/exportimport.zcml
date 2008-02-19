@@ -5,14 +5,14 @@
    i18n_domain="cmfplacefulworkflow">
 
   <adapter
-     factory=".exportimport.PlacefulWorkflowXMLAdapter"
+     factory=".exportimport.workflow_policies.PlacefulWorkflowXMLAdapter"
      provides="Products.GenericSetup.interfaces.IBody"
      for=".interfaces.IPlacefulWorkflowTool
           Products.GenericSetup.interfaces.ISetupEnviron"
      />
 
   <adapter
-     factory=".exportimport.WorkflowPoliciesXMLAdapter"
+     factory=".exportimport.workflow_policies.WorkflowPoliciesXMLAdapter"
      provides="Products.GenericSetup.interfaces.IBody"
      for=".interfaces.IWorkflowPolicyDefinition
           Products.GenericSetup.interfaces.ISetupEnviron"

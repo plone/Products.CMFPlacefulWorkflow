@@ -27,11 +27,9 @@ from Products.GenericSetup.utils import XMLAdapterBase
 from Products.GenericSetup.OFSP.exportimport import FolderXMLAdapter
 
 from Products.CMFCore.utils import getToolByName
-from Products.CMFCore.exportimport.workflow import (
-    WorkflowToolXMLAdapter,)
+from Products.CMFCore.exportimport.workflow import WorkflowToolXMLAdapter
 
-from Products.CMFPlacefulWorkflow.DefaultWorkflowPolicy import (
-    DEFAULT_CHAIN)
+from Products.CMFPlacefulWorkflow.DefaultWorkflowPolicy import DEFAULT_CHAIN
 
 _marker = []
 
@@ -46,7 +44,7 @@ class WorkflowPoliciesXMLAdapter(WorkflowToolXMLAdapter):
 
     _LOGGER_ID = 'placeful_workflow'
 
-    name = None
+    name = 'workflow_policies'
 
     def _extractChains(self):
         fragment = self._doc.createDocumentFragment()
