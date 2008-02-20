@@ -127,8 +127,12 @@ def importWorkflowPolicies(context):
     """
     site = context.getSite()
     tool = getToolByName(site, 'portal_placeful_workflow')
-
+    print 80*"*"
+    print context._profile_path
+    print context.listDirectory('')
+    print 80*"*"
     importObjects(tool, '', context)
+    
 
 def exportWorkflowPolicies(context):
     """Export workflow policies as an XML file.
