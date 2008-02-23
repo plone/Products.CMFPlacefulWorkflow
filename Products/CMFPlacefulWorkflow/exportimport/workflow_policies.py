@@ -58,24 +58,24 @@ class WorkflowPoliciesXMLAdapter(WorkflowToolXMLAdapter):
             child.appendChild(sub)
         node.appendChild(child)
         if self.context._chains_by_type:
-            for ti in sorted(
-                getToolByName(self.context,
-                              'portal_types').listTypeInfo(),
-                key=lambda type: type.getId()):
+            typestool = getToolByName(self.context, 'portal_types')
+            typeinfos = sorted(typestool.listTypeInfo(), 
+                               key=lambda type: type.getId())                    
+            for ti in typeinfos:
                 type_id = ti.getId()
-                chain = self.context._chains_by_type.get(type_id,
-                                                         _marker)
-            
-                if chain == [DEFAULT_CHAIN]:
-                    # types using the policy default are ommitted
-                    continue
-            
+                chain = self.context._chains_by_type.get(type_id, _marker)            
                 child = self._doc.createElement('type')
+                if chain is _marker or len(chain) == 0:
+                    #child.setAttribute('acquire', 'True')
+                    # Types omited from the policy must acquire. 
+                    # XXX: question is: do we need to explicit export them?
+                    # it doesnt hurt, but makes the file a bit more confusing.
+                    # chains that arent exported also arent imported and if
+                    # no chain is found it falls back to acquire anyway
+                    # chains with acquire are also ignored on import.
+                    # -- jensens
+                    continue 
                 child.setAttribute('type_id', type_id)
-                if chain is _marker:
-                    # Types omited from the policy must acquire
-                    child.setAttribute('acquire', 'True')
-            
                 for workflow_id in chain:
                     sub = self._doc.createElement('bound-workflow')
                     sub.setAttribute('workflow_id', workflow_id)

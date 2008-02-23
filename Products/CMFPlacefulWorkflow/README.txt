@@ -35,8 +35,12 @@ Overview
      description "This is an example policy". 
   
   4. Change the workflow for the content type "Folder" from "folder_workflow"
-     to plone_workflow", and click on "Save". Now all your content types
+     to plone_workflow", and click on "Save". Now all your folders 
      should use the "plone_workflow".
+     
+  5. You can define a default workflow, which is only valid for the types in
+     your policy marked with "(Default)". Other types with an empty workflow
+     will fall back to the global workflow (or an acquired placeful workflow).
 
   Let's test the new workflow policy for "Folders" at the root
   of our site:
@@ -75,5 +79,6 @@ Overview
 Additional tools
 
   The Placeful Workflow tool (portal_placeful_workflow) is installed by
-  the installer. It provides a few configuration options so that you use
-  to create you workflow policies through the ZMI.
+  the profile. It provides a few configuration options so that you use
+  to create you workflow policies through the ZMI or Plone Site Setup.
+  
