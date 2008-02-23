@@ -44,7 +44,9 @@ class WorkflowPoliciesXMLAdapter(WorkflowToolXMLAdapter):
 
     _LOGGER_ID = 'placeful_workflow'
 
-    name = 'workflow_policies'
+    @property
+    def name(self):
+        return self.context.id
 
     def _extractChains(self):
         fragment = self._doc.createDocumentFragment()
