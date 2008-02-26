@@ -23,7 +23,7 @@ __version__ = "$Revision$"
 # $Id$
 __docformat__ = 'restructuredtext'
 
-# Apply monkey patches
+# Apply monkey patches (only for plone < 3.0)
 import patches
 
 import PlacefulWorkflowTool
@@ -41,7 +41,6 @@ DirectoryView.registerDirectory('skins', globals())
 
 # Initialization method
 def initialize(context):
-
     utils.registerIcon(
         DefaultWorkflowPolicy.DefaultWorkflowPolicyDefinition,
         'images/workflow_policy.gif',

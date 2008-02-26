@@ -25,7 +25,11 @@ __docformat__ = 'restructuredtext'
 
 from Interface.bridge import createZope3Bridge
 
-from portal_placeful_workflow import IPlacefulWorkflowTool, IWorkflowPolicyDefinition
+from portal_placeful_workflow import (
+    IPlacefulWorkflowTool,
+    IWorkflowPolicyDefinition,
+    IPlacefulMarker,
+    )
 
 # Zope 2 interfaces definition
 import PlacefulWorkflow

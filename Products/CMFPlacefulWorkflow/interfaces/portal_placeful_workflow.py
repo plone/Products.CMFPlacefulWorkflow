@@ -43,6 +43,11 @@ class IPlacefulWorkflowTool(Interface):
         """Set the max workflow chain length"""
 
 
+class IPlacefulMarker(Interface):
+    """A marker applied to the standard workflow tool to enable placeful
+    lookup"""
+
+
 class IWorkflowPolicyDefinition(Interface):
     '''
     '''

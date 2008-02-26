@@ -28,11 +28,14 @@ from cStringIO import StringIO
 
 from Acquisition import aq_base
 from zope.component import getSiteManager
+from zope.interface import alsoProvides
+from zope.interface import noLongerProvides
 
 from Products.CMFCore.DirectoryView import addDirectoryViews
 
 
 from Products.CMFPlacefulWorkflow import install_globals
+from Products.CMFPlacefulWorkflow.interfaces import IPlacefulMarker
 from Products.CMFPlacefulWorkflow.global_symbols import placeful_prefs_configlet
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addPlacefulWorkflowTool
@@ -95,6 +98,9 @@ def install(self, out=None, reinstall=False):
         cptool.registerConfiglet(**placeful_prefs_configlet)
     except:
         pass
+    wf_tool = getToolByName(self, 'portal_workflow')
+    if not IPlacefulMarker.providedBy(wf_tool):
+        alsoProvides(wf_tool, IPlacefulMarker)
     return out.getvalue()
 
 
@@ -110,5 +116,9 @@ def uninstall(self, out=None, reinstall=False):
         out.write('Removing CMFPlacefulWorkflow Configlet')
     except:
         out.write('Failed to remove CMFPlacefulWorkflow Configlet')
+
+    wf_tool = getToolByName(self, 'portal_workflow')
+    if IPlacefulMarker.providedBy(wf_tool):
+        noLongerProvides(wf_tool, IPlacefulMarker)
 
     return out.getvalue()
