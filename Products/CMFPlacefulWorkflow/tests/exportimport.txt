@@ -37,8 +37,8 @@ In this policy, plone_workflow is the default chain::
 
 Anything not specified in the policy, should get the policy default::
 
-    >>> policy.getChainFor('Image')
-    ('folder_workflow',)
+    >>> policy.getChainFor('Image') is None
+    True
 
 In this policy, Folder is bound to plone_workflow::
 
@@ -49,13 +49,18 @@ The chain for Document should acquire from portal_workflow, so the
 policy returns None::
 
     >>> policy.getChainFor('Document')
+    ()
 
 The chains for Event and File should be empty::
 
     >>> policy.getChainFor('Event')
     ()
-    >>> policy.getChainFor('File')
+    >>> policy.getChainFor('Favorite')
     ()
+    >>> policy.getChainFor('File')
+    ('plone_workflow', 'folder_workflow')
+    >>> policy.getChainFor('News Item') is None
+    True
 
 Export
 ------
@@ -90,14 +95,18 @@ The export also produces a file for any policies::
       <default>
        <bound-workflow workflow_id="folder_workflow"/>
       </default>
-      <type acquire="True" type_id="Document"/>
+      <type type_id="Document"/>
       <type type_id="Event"/>
-      <type type_id="File"/>
+      <type type_id="File">
+       <bound-workflow workflow_id="plone_workflow"/>
+       <bound-workflow workflow_id="folder_workflow"/>
+      </type>
       <type type_id="Folder">
        <bound-workflow workflow_id="plone_workflow"/>
       </type>
      </bindings>
     </object>
+    <BLANKLINE>
 
 Export works when chains are left unset to acquire::
 

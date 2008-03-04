@@ -33,6 +33,11 @@ from Products.CMFPlone.interfaces import IPloneSiteRoot
 
 from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase
 
+OPTIONFLAGS = (doctest.ELLIPSIS |
+               doctest.NORMALIZE_WHITESPACE |
+               #doctest.REPORT_ONLY_FIRST_FAILURE |
+               doctest.REPORT_UDIFF)
+
 class ExportImportLayer(
     CMFPlacefulWorkflowTestCase.layer):
 
@@ -61,7 +66,7 @@ class ExportImportLayer(
 def test_suite():
     suite = ZopeDocFileSuite(
         'exportimport.txt',
-        optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS|doctest.REPORT_UDIFF,
+        optionflags=OPTIONFLAGS,
         test_class=CMFPlacefulWorkflowTestCase)
     suite.layer = ExportImportLayer
     return suite

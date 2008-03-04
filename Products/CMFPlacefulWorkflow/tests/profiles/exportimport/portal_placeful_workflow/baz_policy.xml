@@ -5,9 +5,16 @@
   <default>
    <bound-workflow workflow_id="folder_workflow"/>
   </default>
-  <type acquire="True" type_id="Document"/>
-  <type type_id="Event"/>
+  <type type_id="Document"/>
+  <type type_id="Event">
+  </type>
+  <type type_id="Favorite">
+   <bound-workflow workflow_id="(Default)"/>
+   <bound-workflow workflow_id="plone_workflow"/>
+  </type>
   <type type_id="File">
+   <bound-workflow workflow_id="plone_workflow"/>
+   <bound-workflow workflow_id="folder_workflow"/>
   </type>
   <type type_id="Folder">
    <bound-workflow workflow_id="plone_workflow"/>
