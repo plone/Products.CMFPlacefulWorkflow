@@ -33,8 +33,7 @@ from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addWorkflowPolicyF
 
 from Products.CMFCore.permissions import ManagePortal
 
-from Products.CMFPlacefulWorkflow.interfaces.portal_placeful_workflow \
-        import IWorkflowPolicyDefinition
+from Products.CMFPlacefulWorkflow.interfaces.portal_placeful_workflow import IWorkflowPolicyDefinition
 from Products.CMFPlacefulWorkflow.global_symbols import Log, LOG_DEBUG
 
 from Globals import package_home
@@ -266,7 +265,8 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
         else:
             for wf_id in chain:
                 if wf_id != '' and not wftool.getWorkflowById(wf_id):
-                    raise ValueError, ("'%s' is not a workflow ID." % wf_id)
+                    raise ValueError, ("'%s' is not a workflow ID.\nchain: %s" % (
+                        wf_id, repr(chain)))
             cbt[portal_type] = tuple(chain)
     setChain = postonly(setChain)
 
@@ -295,4 +295,3 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
 InitializeClass(DefaultWorkflowPolicyDefinition)
 
 addWorkflowPolicyFactory(DefaultWorkflowPolicyDefinition, title='Simple Policy')
-
