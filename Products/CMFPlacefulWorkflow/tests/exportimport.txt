@@ -56,7 +56,7 @@ The chains for Event and File should be empty::
     >>> policy.getChainFor('Event')
     ()
     >>> policy.getChainFor('Favorite')
-    ()
+    ('folder_workflow',)
     >>> policy.getChainFor('File')
     ('plone_workflow', 'folder_workflow')
     >>> policy.getChainFor('News Item') is None
@@ -97,6 +97,7 @@ The export also produces a file for any policies::
       </default>
       <type type_id="Document"/>
       <type type_id="Event"/>
+      <type default_chain="true" type_id="Favorite"/>
       <type type_id="File">
        <bound-workflow workflow_id="plone_workflow"/>
        <bound-workflow workflow_id="folder_workflow"/>
