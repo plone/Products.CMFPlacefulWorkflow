@@ -67,16 +67,18 @@ class WorkflowPoliciesXMLAdapter(WorkflowToolXMLAdapter):
                 type_id = ti.getId()
                 chain = self.context._chains_by_type.get(type_id, _marker)
                 child = self._doc.createElement('type')
-                if chain is _marker or len(chain) == 0:
-                    #child.setAttribute('acquire', 'True')
-                    # Types omited from the policy must acquire.
-                    # XXX: question is: do we need to explicit export them?
-                    # it doesnt hurt, but makes the file a bit more confusing.
-                    # chains that arent exported also arent imported and if
-                    # no chain is found it falls back to acquire anyway
-                    # chains with acquire are also ignored on import.
-                    # -- jensens
+                if chain is _marker:
+                    # If no chain is defined chain is acquired
                     continue
+
+                if chain == (DEFAULT_CHAIN,):
+                    # If the type is using the default chain there's no chain
+                    # to wait after the attribute
+                    child.setAttribute('type_id', type_id)
+                    child.setAttribute('default_chain', "true")
+                    node.appendChild(child)
+                    continue
+
                 child.setAttribute('type_id', type_id)
                 for workflow_id in chain:
                     sub = self._doc.createElement('bound-workflow')
@@ -91,9 +93,9 @@ class WorkflowPoliciesXMLAdapter(WorkflowToolXMLAdapter):
 
         Types specified are in two cases:
 
-        - no workflow is present then the type take the default worklfow
+        - a default_chain attribute is present
 
-        - one or more workflows are presents then type take the chain in the
+        - zero or more workflows are presents then type take the chain in the
           same order
 
         For any types not specified, we do nothing and they will acquire their
@@ -104,7 +106,6 @@ class WorkflowPoliciesXMLAdapter(WorkflowToolXMLAdapter):
             if child.nodeName != 'bindings':
                 continue
             for sub in child.childNodes:
-                Log(LOG_DEBUG, sub)
                 if sub.nodeName == 'default':
                     self.context.setDefaultChain(self._getChain(sub))
                 if sub.nodeName == 'type':
@@ -113,23 +114,18 @@ class WorkflowPoliciesXMLAdapter(WorkflowToolXMLAdapter):
                         'Type %s listed more than once' % type_id)
                     seen.add(type_id)
 
-                    acquire = sub.getAttribute('acquire')
+                    default = sub.getAttribute('default_chain')
                     chain = self._getChain(sub)
-                    assert not (acquire and chain), (
-                        'Type %s is marked to acquire but also '
+                    Log(LOG_DEBUG, default, chain)
+                    assert not (default and chain), (
+                        'Type %s is marked to use default but also '
                         'included a chain: %s' % (type_id, chain))
-                    if acquire:
+                    if default:
                         # omit from the policy to acquire
-                        continue
-                    self.context.setChainForPortalTypes((type_id,),
-                                                        chain)
+                        self.context.setChain(type_id, (DEFAULT_CHAIN,))
+                    else:
+                        self.context.setChain(type_id, chain)
 
-        #for ti in getToolByName(self.context,
-        #                        'portal_types').listTypeInfo():
-        #    type_id = ti.getId()
-        #    if type_id not in seen:
-        #        self.context.setChainForPortalTypes((type_id,),
-        #                                            DEFAULT_CHAIN)
 
     def _getChain(self, node):
         result = super(WorkflowPoliciesXMLAdapter,
