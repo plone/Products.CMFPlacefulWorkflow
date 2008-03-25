@@ -15,6 +15,11 @@
 ## along with this program; see the file COPYING. If not, write to the
 ## Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+__version__ = "$Revision: $"
+# $Source: $
+# $Id: $
+__docformat__ = 'restructuredtext'
+
 from zope.interface import Interface, implementer
 from zope.component import adapter
 
