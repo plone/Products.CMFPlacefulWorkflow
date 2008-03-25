@@ -247,7 +247,8 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         wp_ids=pwt.getWorkflowPolicyIds()
         self.failUnless('foo_bar_policy' in wp_ids)
         self.failUnless('foo_bar_policy_2' in wp_ids)
-        self.failUnless(len(wp_ids)==2)
+        # There are 4 base policies
+        self.failUnless(len(wp_ids)==6)
 
     def test_07_getChainFor(self,):
         # Let's see what the chain is before

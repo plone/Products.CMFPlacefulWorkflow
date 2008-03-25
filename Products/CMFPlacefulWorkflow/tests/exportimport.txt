@@ -9,12 +9,12 @@ portal_setup.
 Import
 ------
 
-Start with no policies::
+Start with basic policies::
 
     >>> from Products.CMFCore.utils import getToolByName
     >>> ppw = getToolByName(self.portal, 'portal_placeful_workflow')
     >>> ppw.getWorkflowPolicyIds()
-    ()
+    ('intranet', 'old-plone', 'one-state', 'simple-publication')
 
 Import the portal_placeful_workflow step with a profile defining a
 policy::
@@ -27,7 +27,7 @@ policy::
     'steps': [u'workflow', 'portal_placeful_workflow']}
 
     >>> ppw.getWorkflowPolicyIds()
-    ('baz_policy',)
+    ('intranet', 'old-plone', 'one-state', 'simple-publication', 'baz_policy')
 
 In this policy, plone_workflow is the default chain::
 
@@ -83,7 +83,12 @@ The export produces a file for the tool itself::
      <property name="title"></property>
      <property name="max_chain_length" type="int">1</property>
      <object name="baz_policy" meta_type="WorkflowPolicy"/>
+     <object name="intranet" meta_type="WorkflowPolicy"/>
+     <object name="old-plone" meta_type="WorkflowPolicy"/>
+     <object name="one-state" meta_type="WorkflowPolicy"/>
+     <object name="simple-publication" meta_type="WorkflowPolicy"/>
     </object>
+    <BLANKLINE>
 
 The export also produces a file for any policies::
 
