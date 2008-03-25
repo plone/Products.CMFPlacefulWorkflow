@@ -24,11 +24,13 @@ __version__ = "$Revision$"
 __docformat__ = 'restructuredtext'
 
 
+import transaction
 from Testing import ZopeTestCase
 from zExceptions import Forbidden
 from Products.PloneTestCase import PloneTestCase
 
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
+from Products.CMFPlacefulWorkflow.interfaces import IPlacefulMarker
 from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase
 
 try:
@@ -97,6 +99,18 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         self.contentId = 'myPolicy'
 
         # XXX
+
+    def test_marker_applied_and_unapplied(self):
+        """
+        Check that the IPlacefulMarker is applied to the workflow tool by
+        the install, and removed by the uninstall.
+        """
+        self.failUnless(IPlacefulMarker.providedBy(self.workflow))
+        self.loginAsPortalOwner()
+        self.qi.uninstallProducts(['CMFPlacefulWorkflow'])
+        self.failIf(IPlacefulMarker.providedBy(self.workflow))
+        self.qi.installProduct('CMFPlacefulWorkflow')
+        self.failUnless(IPlacefulMarker.providedBy(self.workflow))
 
     def test_reinstall(self):
         """

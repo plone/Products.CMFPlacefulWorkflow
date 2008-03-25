@@ -23,92 +23,40 @@ __version__ = "$Revision$"
 # $Id$
 __docformat__ = 'restructuredtext'
 
-import string
 from cStringIO import StringIO
 
-from Acquisition import aq_base
 from zope.component import getSiteManager
-from zope.interface import alsoProvides
 from zope.interface import noLongerProvides
 
-from Products.CMFCore.DirectoryView import addDirectoryViews
-
-
-from Products.CMFPlacefulWorkflow import install_globals
 from Products.CMFPlacefulWorkflow.interfaces import IPlacefulMarker
+from Products.CMFPlacefulWorkflow.global_symbols import PROJECTNAME
 from Products.CMFPlacefulWorkflow.global_symbols import placeful_prefs_configlet
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addPlacefulWorkflowTool
 from Products.CMFPlacefulWorkflow.interfaces import IPlacefulWorkflowTool
 
-skin_name = 'CMFPlacefulWorkflow'
 
-def setupTools(self):
-    tool = 'Placeful Workflow Tool'
-    id = "portal_placeful_workflow"
-    found = False
-    for obj in self.objectValues():
-        if obj.getId() == id:
-            if obj.meta_type == tool:
-                found = True
-            else:
-                raise NameError, "The tool id is already taken"
-
-    if not found:
-        addPlacefulWorkflowTool(self)
-
-    tool = aq_base(self[id])
-    getSiteManager(self).registerUtility(tool, IPlacefulWorkflowTool)
-
-def installSubSkin(self, skinFolder, out):
-    """ Install a subskin, i.e. a folder/directoryview.
-    """
-    skins_tool = getToolByName(self, 'portal_skins')
-    addDirectoryViews(skins_tool, 'skins', install_globals)
-    for skin in skins_tool.getSkinSelections():
-        path = skins_tool.getSkinPath(skin)
-        path = map( string.strip, string.split( path,',' ) )
-        if not skinFolder in path:
-            try:
-                path.insert( path.index( 'custom')+1, skinFolder )
-            except ValueError:
-                path.append(skinFolder)
-            path = string.join( path, ', ' )
-            skins_tool.addSkinSelection( skin, path )
-            out.write('*** Subskin installed into %s.\n' % skin) 
-        else:
-            out.write('*** Subskin was already installed into %s.\n' % skin) 
-
-def install(self, out=None, reinstall=False):
+def install(self, reinstall=False, out=None):
     if out is None:
         out = StringIO()
 
-    if not reinstall:
-        setupTools(self)
+    # import default profile
+    out.write("Installation log of %s:" % PROJECTNAME)
 
-    installSubSkin(self, skin_name, out)
+    out.write("Run default profile for %s" % PROJECTNAME)
+    setuptool = getToolByName(self, 'portal_setup')   
+    importcontext = 'profile-Products.%s:default' % PROJECTNAME
+    setuptool.setImportContext(importcontext)
+    setuptool.runAllImportSteps()
+    out.write("%s profile imported" % PROJECTNAME)
 
-    # Install configlet
-    cptool = getToolByName(self, 'portal_controlpanel')
-    try:
-        cptool.unregisterConfiglet(placeful_prefs_configlet['id'])
-    except:
-        pass
-    try:
-        cptool.registerConfiglet(**placeful_prefs_configlet)
-    except:
-        pass
-    wf_tool = getToolByName(self, 'portal_workflow')
-    if not IPlacefulMarker.providedBy(wf_tool):
-        alsoProvides(wf_tool, IPlacefulMarker)
     return out.getvalue()
 
-
-def uninstall(self, out=None, reinstall=False):
+def uninstall(self, reinstall=False, out=None):
     if out is None:
         out = StringIO()
 
-    getSiteManager(self).unregisterUtility(self['portal_placeful_workflow'], IPlacefulWorkflowTool)
+    getSiteManager(self).unregisterUtility(self['portal_placeful_workflow'],
+                                           IPlacefulWorkflowTool)
     # uninstall configlets
     try:
         cptool = getToolByName(self, 'portal_controlpanel')

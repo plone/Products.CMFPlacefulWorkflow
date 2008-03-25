@@ -1,10 +1,42 @@
+[ 2008-03-25 1.3.0-rc2 ]
+
+* Merging plip217 (alecm, encolpe)
+
+* Remove trunk branch::
+
+  dev are in branches/plone3.1
+
+  maintenance in branches/plone3.0
+
 [ 2008-03-20 1.3.0-rc1 ]
 
 * Fix #7654 by adding reinstall parameter in intall method
 
 * Implementation of PLIP 217 (alecm)
 
-* Add Generic Setup exportimport (rossp, jensens, encolpe)
+[ 2008-02-23 1.3.0 ]
+
+* End GenericSetup export importhandler:
+  - acquire attribute is removed on types (undefined types use aquired chain)
+  - add a default_chain attribute on types
+  - empty chain remove all workflows
+  Thanks to jensens to point me this
+  (encolpe)
+
+* fix the GenericSetup exportimport handlers, they just did half the work
+  needed. (jensens)
+
+* full generic setup support, no Extensions/Install.py any longer.
+  Contributed by BlueDynamics Alliance.  (jensens)
+
+[ 2007-11-08 1.3.0-beta1 ]
+
+* GenericSetup exportimport handlers for tool and policies.
+  Contributed by Jazkarta.  (rossp)
+
+[ 2008-MM-DD 1.2.2 ]
+
+* Fix #7654 by adding reinstall parameter in intall method (encolpe)
 
 [ 2007-11-08 1.2.1 ]
 

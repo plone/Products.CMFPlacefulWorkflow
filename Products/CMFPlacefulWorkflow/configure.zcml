@@ -1,6 +1,8 @@
 <configure xmlns="http://namespaces.zope.org/zope">
 
   <include file="implements.zcml"/>
+  <include file="exportimport.zcml"/>
+
   <adapter
       factory=".adapter.PlacefulWorkflowChain"
       />
