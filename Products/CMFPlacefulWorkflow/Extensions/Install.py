@@ -35,22 +35,6 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFPlacefulWorkflow.interfaces import IPlacefulWorkflowTool
 
 
-def install(self, reinstall=False, out=None):
-    if out is None:
-        out = StringIO()
-
-    # import default profile
-    out.write("Installation log of %s:" % PROJECTNAME)
-
-    out.write("Run default profile for %s" % PROJECTNAME)
-    setuptool = getToolByName(self, 'portal_setup')   
-    importcontext = 'profile-Products.%s:default' % PROJECTNAME
-    setuptool.setImportContext(importcontext)
-    setuptool.runAllImportSteps()
-    out.write("%s profile imported" % PROJECTNAME)
-
-    return out.getvalue()
-
 def uninstall(self, reinstall=False, out=None):
     if out is None:
         out = StringIO()
