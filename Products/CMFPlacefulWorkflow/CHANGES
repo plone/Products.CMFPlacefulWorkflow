@@ -1,3 +1,5 @@
+* Add metadata.xml to the GS profile. This fixes a deprecation
+  warning.
 
 * Move import and export step registration to zcml. (wichert)
 
