@@ -1,3 +1,7 @@
+
+* Move import and export step registration to zcml. (wichert)
+
+
 [ 2008-03-25 1.3.0-rc2 ]
 
 * Adding 4 base policies using plone base workflows (encolpe)

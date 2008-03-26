@@ -31,5 +31,28 @@
      description="Registers the steps for exporting and importing the CMFPlacefulWorkflow tool and contained policies."
      provides="Products.GenericSetup.interfaces.EXTENSION"
      />
+  
+  <genericsetup:importStep
+     name="placeful_workflow" 
+     title="Placeful Workflow Policies"
+     description="Import placeful workflow policies."
+     handler="Products.CMFPlacefulWorkflow.exportimport.importWorkflowPolicies">
+    <depends name="workflow"/>
+  </genericsetup:importStep>
+
+  <genericsetup:exportStep
+     name="portal_placeful_workflow" 
+     title="Placeful Workflow Policies"
+     description="Export placeful workflow policies."
+     handler="Products.CMFPlacefulWorkflow.exportimport.exportWorkflowPolicies"
+     />
+
+  <genericsetup:importStep
+     name="placeful_marker" 
+     title="Placeful Workflow Tool Marker Interface"
+     description="Add placeful marker to default workflow tool"
+     handler="Products.CMFPlacefulWorkflow.setuphandlers.installMarker">
+    <depends name="workflow"/>
+  </genericsetup:importStep>
 
 </configure>
