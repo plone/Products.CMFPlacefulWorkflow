@@ -138,15 +138,16 @@ def importWorkflowPolicies(context):
     """Import workflow policies from the XML file.
     """
     site = context.getSite()
-    tool = getToolByName(site, 'portal_placeful_workflow')
-    importObjects(tool, '', context)
+    tool = getToolByName(site, 'portal_placeful_workflow', None)
+    if tool is not None:
+        importObjects(tool, '', context)
 
 
 def exportWorkflowPolicies(context):
     """Export workflow policies as an XML file.
     """
     site = context.getSite()
-    tool = getToolByName(site, 'portal_placeful_workflow')
+    tool = getToolByName(site, 'portal_placeful_workflow', None)
     if tool is None:
         logger = context.getLogger('workflow_policies')
         logger.info('Nothing to export.')
