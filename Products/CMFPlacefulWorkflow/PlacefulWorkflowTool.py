@@ -28,6 +28,7 @@ from os import path as os_path
 from Acquisition import aq_base
 from AccessControl.requestmethod import postonly
 from OFS.Folder import Folder
+from OFS.ObjectManager import IFAwareObjectManager
 from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass, DTMLFile, package_home
 
@@ -35,7 +36,6 @@ from zope.interface import implements
 
 from Products.CMFCore.utils import getToolByName, UniqueObject
 from Products.CMFCore.permissions import ManagePortal
-from Products.CMFCore.ActionProviderBase import ActionProviderBase
 from Products.CMFPlone.migrations.migration_util import safeEditProperty
 from Products.CMFCore.utils import registerToolInterface
 
@@ -59,7 +59,7 @@ def addPlacefulWorkflowTool(self,REQUEST={}):
     if REQUEST:
         return REQUEST.RESPONSE.redirect(self.absolute_url() + '/manage_main')
 
-class PlacefulWorkflowTool(UniqueObject, Folder, ActionProviderBase):
+class PlacefulWorkflowTool(UniqueObject, Folder, IFAwareObjectManager):
     """
     PlacefulWorkflow Tool
     """
@@ -75,18 +75,7 @@ class PlacefulWorkflowTool(UniqueObject, Folder, ActionProviderBase):
     security = ClassSecurityInfo()
 
 
-    manage_options=(
-        ({
-            'label': 'Content',
-            'action': 'manage_main',
-        },
-         {
-             'label' : 'Overview',
-             'action' : 'manage_overview'
-           },) +
-        ActionProviderBase.manage_options +
-        Folder.manage_options
-        )
+    manage_options=Folder.manage_options
 
     def __init__(self):
         # Properties to be edited by site manager
@@ -110,7 +99,7 @@ class PlacefulWorkflowTool(UniqueObject, Folder, ActionProviderBase):
                                  workflow_policy_type='default_workflow_policy (Simple Policy)',
                                  duplicate_id='empty',
                                  RESPONSE=None,
-				 REQUEST=None):
+                                 REQUEST=None):
         """ Adds a workflow policies from the registered types.
         """
         if id in ('empty', 'portal_workflow'):
@@ -197,8 +186,8 @@ class PlacefulWorkflowTool(UniqueObject, Folder, ActionProviderBase):
         some_config = getattr(ob, WorkflowPolicyConfig_id, None)
         if some_config is not None:
             # Was it here or did we acquire?
-             if hasattr(aq_base(ob), WorkflowPolicyConfig_id):
-                 local_config = some_config
+            if hasattr(aq_base(ob), WorkflowPolicyConfig_id):
+                local_config = some_config
         return local_config
 
     def _post_init(self):
