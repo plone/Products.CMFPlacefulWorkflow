@@ -29,38 +29,40 @@ policy::
     >>> ppw.getWorkflowPolicyIds()
     ('intranet', 'old-plone', 'one-state', 'simple-publication', 'baz_policy')
 
-In this policy, plone_workflow is the default chain::
+In this policy, folder_workflow is the default chain::
 
     >>> policy = ppw.getWorkflowPolicyById('baz_policy')
     >>> policy.getDefaultChain(None)
     ('folder_workflow',)
 
-Anything not specified in the policy, should get the policy default::
+Anything not specified in the policy should acquire policy from above or
+portal_workflow. Here the policy should return None for News Item::
 
-    >>> policy.getChainFor('Image') is None
+    >>> policy.getChainFor('News Item') is None
     True
 
-In this policy, Folder is bound to plone_workflow::
+Folder is bound to only plone_workflow::
 
     >>> policy.getChainFor('Folder')
     ('plone_workflow',)
 
-The chain for Document should acquire from portal_workflow, so the
-policy returns None::
+Favorite is bound to default policy workflow
+
+    >>> policy.getChainFor('Favorite')
+    ('folder_workflow',)
+
+The chains for Document and Event should be empty::
 
     >>> policy.getChainFor('Document')
     ()
-
-The chains for Event and File should be empty::
-
     >>> policy.getChainFor('Event')
     ()
-    >>> policy.getChainFor('Favorite')
-    ('folder_workflow',)
+
+File is bound to both plone_workflow and folder_workflow::
+
     >>> policy.getChainFor('File')
     ('plone_workflow', 'folder_workflow')
-    >>> policy.getChainFor('News Item') is None
-    True
+
 
 Export
 ------
@@ -120,3 +122,4 @@ Export works when chains are left unset to acquire::
     >>> policy._chains_by_type = None
     >>> baseline = ps.getBaselineContextID()
     >>> ignored = ps.runImportStepFromProfile(specific_context, 'portal_placeful_workflow')
+
