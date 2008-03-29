@@ -9,7 +9,7 @@
          tal:define="allowedContentTypes allowedSortedContentTypes|here/allowedContentTypes;
                      wfpid python:request.get('wfpid');
                      wf_policy python:here.portal_placeful_workflow.getWorkflowPolicyById(wfpid);
-                     wf_list here/portal_workflow/objectIds;"
+                     wf_list python: [{'id': obj.getId(), 'title': obj.title_or_id()} for obj in wtool.objectValues()];"
          class="configlet">
 
         <span tal:define="dummy python:request.response.setHeader('pragma','no-cache')" />
@@ -133,9 +133,11 @@
                                     name="default_workflow_id">
     
                                 <option tal:repeat="wf wf_list"
-                                        tal:attributes="value wf;
-                                                        selected python:test((wf,)==wf_policy.getDefaultChain(here), 'selected', None)"
-                                        tal:content="wf">
+                                        tal:attributes="value wf/id;
+                                                        selected python:test((wf['id'],)==wf_policy.getDefaultChain(here), 'selected', None)"
+                                        tal:content="wf/title"
+                                        i18n:domain="plone"
+                                        i18n:translate="">
                                     example_workflow
                                 </option>
                             </select>
@@ -164,21 +166,30 @@
                                             <img src="" alt="" width="16" height="16"
                                                  tal:attributes="src string:$portal_url/${ctype/getIcon}" />
                                             <label tal:content="ctype_title"
-                                                   i18n:domain="plone"
                                                    i18n:translate="">Title</label>
                                         </td>
                                         <td valign="top">
                                             <select id="select_workflow" name="workflow_id"
                                                     tal:attributes="name string:wf.${ctype_id}:record;" >
-                                                <option value=""></option>
+                                                <option value="acquisition"
+                                                        tal:attributes="selected python:test(chain is None, 'selected', None);"
+                                                        i18n:domain="plone"
+                                                        i18n:translate="">Acquire workflow from above</option>
+                                                <option value=""
+                                                        tal:attributes="selected python:test(chain == (), 'selected', None);"
+                                                        i18n:domain="plone"
+                                                        i18n:translate="">No workflow</option>
                                                 <option value="(Default)"
                                                         tal:attributes="value string:(Default);
-                                                                        selected python:test('(Default)' == chain, 'selected', None);"
-                                                                        >(Default)</option>
+                                                                        selected python:test(chain == '(Default)', 'selected', None);"
+                                                        i18n:domain="plone"
+                                                        i18n:translate="">Default workflow for the policy</option>
                                                 <option tal:repeat="wf wf_list"
-                                                        tal:attributes="value wf;
-                                                                        selected python:test(wf != '(Default)' and wf in chain, 'selected', None)"
-                                                        tal:content="wf">workflow_id</option>
+                                                        tal:attributes="value wf/id;
+                                                                        selected python:test((wf['id'],) == chain, 'selected', None)"
+                                                        tal:content="wf/title"
+                                                        i18n:domain="plone"
+                                                        i18n:translate="">workflow_id</option>
                                             </select>
                                         </td>
                                     </tr>
