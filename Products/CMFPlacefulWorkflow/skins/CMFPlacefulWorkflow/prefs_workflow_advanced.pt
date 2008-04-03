@@ -42,7 +42,7 @@
                 </h1>
 
                 <a class="link-parent" href=""
-                   tal:attributes="href string: $portal_url/plone_control_panel"
+                   tal:attributes="href string:$portal_url/plone_control_panel"
                    i18n:domain="plone"
                    i18n:translate="label_up_to_plone_setup">
                     Up to Plone Setup

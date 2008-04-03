@@ -51,7 +51,7 @@
     
                 <a href=""
                    class="link-parent"
-                   tal:attributes="href string: $portal_url/prefs_workflow_localpolicies_form"
+                   tal:attributes="href string:$portal_url/prefs_workflow_localpolicies_form"
                    i18n:translate="label_up_to_placeful_workflow">
                     Up to Placeful Workflow
                 </a>
