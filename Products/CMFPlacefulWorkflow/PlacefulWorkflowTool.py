@@ -23,14 +23,16 @@ __version__ = "$Revision$"
 # $Id$
 __docformat__ = 'restructuredtext'
 
-from os import path as os_path
+from os.path import join as path_join
 
 from Acquisition import aq_base
 from AccessControl.requestmethod import postonly
 from OFS.Folder import Folder
 from OFS.ObjectManager import IFAwareObjectManager
 from AccessControl import ClassSecurityInfo
-from Globals import InitializeClass, DTMLFile, package_home
+from Globals import InitializeClass, package_home
+
+from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 
 from zope.interface import implements
 
@@ -44,9 +46,7 @@ from interfaces import IPlacefulWorkflowTool
 from interfaces.PlacefulWorkflow import IPlacefulWorkflowTool as z2IPlacefulWorkflowTool
 
 
-_dtmldir = os_path.join( package_home( globals() ), 'dtml' )
-
-WorkflowPolicyConfig_id  = ".wf_policy_config"
+WorkflowPolicyConfig_id = ".wf_policy_config"
 
 def addPlacefulWorkflowTool(self,REQUEST={}):
     """
@@ -81,7 +81,7 @@ class PlacefulWorkflowTool(UniqueObject, Folder, IFAwareObjectManager):
         # Properties to be edited by site manager
         safeEditProperty(self, 'max_chain_length', 1, data_type='int')
 
-    _manage_addWorkflowPolicyForm = DTMLFile('addWorkflowPolicy', _dtmldir)
+    _manage_addWorkflowPolicyForm = PageTemplateFile(path_join('www', 'add_workflow_policy'), globals())
 
     security.declareProtected( ManagePortal, 'manage_addWorkflowPolicyForm')
     def manage_addWorkflowPolicyForm(self, REQUEST):

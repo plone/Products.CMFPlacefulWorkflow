@@ -17,15 +17,16 @@
   </tr>
   <tr>
     <td align="left" valign="top">
-    <div class="form-label">
-    Type
-    </label></div>
+    <div class="form-label"><label>Type</label></div>
     </td>
     <td align="left" valign="top">
-    <dtml-in workflow_policy_types>
-      <input type="radio" name="workflow_policy_type" value="&dtml-sequence-item;">
-      &dtml-sequence-item;<br />
-    </dtml-in>
+    <div tal:repeat="wptype options/workflow_policy_types">
+      <input type="radio" name="workflow_policy_type" value="id" id="id"
+             tal:attributes="name wptype;id wptype;">
+      <label for="ids"
+             tal:attributes="for wptype"
+             tal:content="wptype">Id</label><br />
+    </div>
     </td>
   </tr>
   <tr>
@@ -40,5 +41,7 @@
   </tr>
 </table>
 </form>
+<div tal:content="structure request">DEBUG</div>
+<div tal:content="structure options">DEBUG</div>
 
 <dtml-var manage_page_footer>
