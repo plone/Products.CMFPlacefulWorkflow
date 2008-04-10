@@ -41,7 +41,5 @@
   </tr>
 </table>
 </form>
-<div tal:content="structure request">DEBUG</div>
-<div tal:content="structure options">DEBUG</div>
 
 <dtml-var manage_page_footer>
