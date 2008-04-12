@@ -19,27 +19,6 @@
 <form action="manage_changeWorkflows" method="POST">
 <table>
 
-  <tr>
-    <td align="left" valign="top">
-    <div class="form-label">
-    Workflow Policy Title
-    </div>
-    </td>
-    <td align="left" valign="top">
-    <input type="text" name="title" value="<dtml-var getTitle>" size="40" />
-    </td>
-  </tr>
-  <tr>
-    <td align="left" valign="top">
-    <div class="form-label">
-    Workflow Policy Description
-    </div>
-    </td>
-    <td align="left" valign="top">
-    <input type="text" name="description" size="40" value="<dtml-var getDescription>" />
-    </td>
-  </tr>
-
 <dtml-in types_info mapping sort=id>
 <tr>
 <td class="form-label">

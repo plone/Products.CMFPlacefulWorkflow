@@ -23,10 +23,15 @@ __version__ = "$Revision$"
 # $Id$
 __docformat__ = 'restructuredtext'
 
+import logging
+from os.path import join as path_join
+
 from AccessControl import ClassSecurityInfo
 from AccessControl.requestmethod import postonly
-from Globals import InitializeClass, PersistentMapping, DTMLFile
+from Globals import InitializeClass, PersistentMapping
 from Acquisition import aq_base
+
+from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 
 from Products.CMFCore.utils import SimpleItemWithProperties
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addWorkflowPolicyFactory
@@ -36,14 +41,10 @@ from Products.CMFCore.permissions import ManagePortal
 from Products.CMFPlacefulWorkflow.interfaces.portal_placeful_workflow import IWorkflowPolicyDefinition
 from Products.CMFPlacefulWorkflow.global_symbols import Log, LOG_DEBUG
 
-from Globals import package_home
-from os import path as os_path
-_dtmldir = os_path.join( package_home( globals() ), 'dtml' )
-
 from Products.CMFCore.utils import getToolByName
 
 DEFAULT_CHAIN = '(Default)'
-MARKER = '_MARKER'
+_MARKER = '_MARKER'
 
 class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
 
@@ -58,24 +59,23 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
 
     security = ClassSecurityInfo()
 
-    manage_options = ( { 'label' : 'Workflows'
-                       , 'action' : 'manage_selectWorkflows'
-                       }
-                     , { 'label' : 'Overview', 'action' : 'manage_overview' }
-                     )
+    manage_options = (
+        { 'label' : 'Workflows', 'action' : 'manage_main'},
+    )
 
     #
     #   ZMI methods
     #
-    security.declareProtected( ManagePortal, 'manage_overview' )
-    manage_overview = DTMLFile( 'explainWorkflowPolicy', _dtmldir )
+
+    security.declareProtected( ManagePortal, '_manage_workflows' )
+    _manage_workflows = PageTemplateFile(path_join('www', 'define_local_workflow_policy'),
+                                              globals(),
+                                              __name__= 'manage_main')
 
     def __init__(self, id):
         self.id = id
         self.title = ''
         self.description = ''
-
-    _manage_defineLocalWorkflowPolicy = DTMLFile('defineLocalWorkflowPolicy', _dtmldir)
 
     security.declareProtected( ManagePortal, 'getId')
     def getId(self):
@@ -109,9 +109,11 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
         """
         self.description = description
 
-    security.declareProtected( ManagePortal, 'manage_selectWorkflows')
-    def manage_selectWorkflows(self, REQUEST, manage_tabs_message=None):
-        """ Show a management screen for changing type to workflow connections.
+    security.declareProtected( ManagePortal, 'manage_main')
+    def manage_main(self, REQUEST, manage_tabs_message=None):
+        """ Show a management screen for changing type to workflow connections
+
+        Display 'None' if there's no chain for a type.
         """
         cbt = self._chains_by_type
         ti = self._listTypeInfo()
@@ -121,14 +123,19 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
             title = t.Title()
             if title == id:
                 title = None
+
             if cbt is not None and cbt.has_key(id):
                 chain = ', '.join(cbt[id])
             else:
-                chain = DEFAULT_CHAIN
-            types_info.append({'id': id,
-                               'title': title,
-                               'chain': chain})
-        return self._manage_defineLocalWorkflowPolicy(
+                chain = 'None'
+
+            types_info.append({
+                'id': id,
+                'title': title,
+                'chain': chain,
+                #'cbt': repr(cbt.get(id)), # for debug purpose
+            })
+        return self._manage_workflows(
             REQUEST,
             default_chain=', '.join(self._default_chain or ()),
             types_info=types_info,
@@ -138,7 +145,9 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
 
     security.declareProtected( ManagePortal, 'manage_changeWorkflows')
     def manage_changeWorkflows(self, title, description, default_chain, props=None, REQUEST=None):
-        """ Changes which workflows apply to objects of which type.
+        """ Changes which workflows apply to objects of which type
+
+        A chain equal to 'None' is empty we remove the entry.
         """
         self.title = title
         self.description = description
@@ -156,13 +165,18 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
             id = t.getId()
             field_name = 'chain_%s' % id
             chain = props.get(field_name, DEFAULT_CHAIN).strip()
+
+            if chain == 'None':
+                if cbt.get(id, _MARKER) is not _MARKER:
+                    self.delChain(id)
+                continue
+
             self.setChain(id, chain)
 
         # Set up the default chain.
         self.setDefaultChain(default_chain)
         if REQUEST is not None:
-            return self.manage_selectWorkflows(REQUEST,
-                            manage_tabs_message='Changed.')
+            return self.manage_main(REQUEST, manage_tabs_message='Changed.')
     manage_changeWorkflows = postonly(manage_changeWorkflows)
 
     security.declareProtected( ManagePortal, 'setChainForPortalTypes')
@@ -194,14 +208,14 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
 
         chain = None
         if cbt is not None:
-            chain = cbt.get(pt, MARKER)
+            chain = cbt.get(pt, _MARKER)
 
         # Backwards compatibility: before chain was a string, not a list
-        if chain is not MARKER and type(chain) == type(''):
+        if chain is not _MARKER and type(chain) == type(''):
             chain = map( lambda x: x.strip(), chain.split(',') )
 
         Log(LOG_DEBUG, 'Chain founded in policy', chain)
-        if chain is MARKER or chain is None:
+        if chain is _MARKER or chain is None:
             return None
         elif len(chain) == 1 and chain[0] == DEFAULT_CHAIN:
             default = self.getDefaultChain(ob)

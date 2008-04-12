@@ -13,7 +13,7 @@
 ## GNU General Public License for more details.
 
 ## You should have received a copy of the GNU General Public License
-## along with this program; see the file COPYING. If not, write to the
+## along with this program; see th e file COPYING. If not, write to the
 ## Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 """
 Workflow Policy config
@@ -23,17 +23,22 @@ __version__ = "$Revision$"
 # $Id$
 __docformat__ = 'restructuredtext'
 
-from Globals import DTMLFile, InitializeClass
-from OFS.SimpleItem import SimpleItem
+import logging
+from os.path import join as path_join
 
+from Globals import InitializeClass
+from OFS.SimpleItem import SimpleItem
 from AccessControl import ClassSecurityInfo
+
+from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 
 from PlacefulWorkflowTool import WorkflowPolicyConfig_id
 from Products.CMFPlacefulWorkflow.global_symbols import Log, LOG_DEBUG
 
 from Products.CMFCore.utils import getToolByName
 
-manage_addWorkflowPolicyConfigForm=DTMLFile('dtml/addWorkflowPolicyConfig_form', globals())
+manage_addWorkflowPolicyConfigForm = PageTemplateFile(
+    path_join('www', 'add_workflow_policy_config_form'), globals())
 def manage_addWorkflowPolicyConfig( self, REQUEST=None):
     ' add a Workflow Policy Configuratio into the system '
     workflow_policy_in = ''
@@ -41,31 +46,32 @@ def manage_addWorkflowPolicyConfig( self, REQUEST=None):
     if REQUEST:
         workflow_policy_in = REQUEST.get('workflow_policy_in', '')
         workflow_policy_below = REQUEST.get('workflow_policy_below', '')
-    i = WorkflowPolicyConfig(workflow_policy_in, workflow_policy_below)   #create new workflow policy config
-    self._setObject( WorkflowPolicyConfig_id,i )   #register it
+
+    #create new workflow policy config
+    i = WorkflowPolicyConfig(workflow_policy_in, workflow_policy_below)
+    self._setObject( WorkflowPolicyConfig_id, i)
 
     if REQUEST is not None:
         REQUEST['RESPONSE'].redirect(self.absolute_url()+'/manage_main')
 
 class WorkflowPolicyConfig(SimpleItem):
     """Workflow policy configuration"""
-    meta_type='Workflow Policy Configuration'
-    manage=manage_main=DTMLFile('dtml/manageWorkflowPolicyConfig', globals())
-    manage_main._setName('manage_main')
-    index_html=None
+    meta_type = 'Workflow Policy Configuration'
+    index_html = None
     security = ClassSecurityInfo()
 
-    manage_options=(
-        (
-        {'icon':'', 'label':'Edit',
-         'action':'manage_main',},
-        )
-        +SimpleItem.manage_options
-        )
+    manage_main = PageTemplateFile(path_join('www', 'manage_workflow_policy_config'),
+                                   globals(),
+                                   __name__='manage_main')
+
+    manage_options=((
+        {'icon':'', 'label':'Edit', 'action':'manage_main',},
+        )+SimpleItem.manage_options
+    )
 
     def __init__( self, workflow_policy_in='', workflow_policy_below='' ):
         """Initialize a new MailHost instance """
-        self.id = ".wf_policy_conf"
+        self.id = WorkflowPolicyConfig_id
         self.title = "Workflow policy configuration"
         self.setPolicyIn(workflow_policy_in)
         self.setPolicyBelow(workflow_policy_below)
