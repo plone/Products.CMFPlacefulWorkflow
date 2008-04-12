@@ -1,6 +1,8 @@
-[ UNRELEASED ]
+[ 2008-04-12 1.3.0-rc5 ]
 
-* Remove invalid leading whitespace in links
+* Move DTML management screens into ZPT (encolpe)
+
+* Remove invalid leading whitespace in links (wichert)
 
 [ 2008-03-26 1.3.0-rc4 ]
 
