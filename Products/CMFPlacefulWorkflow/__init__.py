@@ -23,9 +23,6 @@ __version__ = "$Revision$"
 # $Id$
 __docformat__ = 'restructuredtext'
 
-# Apply monkey patches (only for plone < 3.0)
-import patches
-
 import PlacefulWorkflowTool
 import DefaultWorkflowPolicy
 import WorkflowPolicyConfig
