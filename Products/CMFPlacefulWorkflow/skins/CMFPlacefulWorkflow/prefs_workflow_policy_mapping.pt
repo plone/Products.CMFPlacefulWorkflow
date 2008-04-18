@@ -173,17 +173,14 @@
                                                     tal:attributes="name string:wf.${ctype_id}:record;" >
                                                 <option value="acquisition"
                                                         tal:attributes="selected python:test(chain is None, 'selected', None);"
-                                                        i18n:domain="plone"
-                                                        i18n:translate="">Acquire workflow from above</option>
+                                                        i18n:translate="label_mapping_acquire_workflow">Acquire workflow from above</option>
                                                 <option value=""
                                                         tal:attributes="selected python:test(chain == (), 'selected', None);"
-                                                        i18n:domain="plone"
-                                                        i18n:translate="">No workflow</option>
+                                                        i18n:translate="label_mapping_no_workflow">No workflow</option>
                                                 <option value="(Default)"
                                                         tal:attributes="value string:(Default);
                                                                         selected python:test(chain == '(Default)', 'selected', None);"
-                                                        i18n:domain="plone"
-                                                        i18n:translate="">Default workflow for the policy</option>
+                                                        i18n:translate="label_mapping_default_worflow">Default workflow for the policy</option>
                                                 <option tal:repeat="wf wf_list"
                                                         tal:attributes="value wf/id;
                                                                         selected python:test((wf['id'],) == chain, 'selected', None)"
