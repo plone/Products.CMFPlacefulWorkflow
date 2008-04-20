@@ -7,7 +7,7 @@
      name="CMFPlacefulWorkflow"
      title="Workflow Policy Support (CMFPlacefulWorkflow)"
      directory="profiles/default"
-     description="Add in Plone the capability to change workflow for types in every object."
+     description="Add in Plone the capability to change workflow chains for types in every object."
      provides="Products.GenericSetup.interfaces.EXTENSION"
      />
 
