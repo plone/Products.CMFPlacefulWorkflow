@@ -2,6 +2,7 @@
 
   <include file="implements.zcml"/>
   <include file="exportimport.zcml"/>
+  <include file="profiles.zcml"/>
 
   <adapter
       factory=".adapter.PlacefulWorkflowChain"

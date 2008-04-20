@@ -23,14 +23,6 @@
      meta_type="WorkflowPolicy"
      permission="cmf.ManagePortal"
      />
-
-  <genericsetup:registerProfile
-     name="default"
-     title="CMFPlacefulWorkflow Steps"
-     directory="profiles/default"
-     description="Registers the steps for exporting and importing the CMFPlacefulWorkflow tool and contained policies."
-     provides="Products.GenericSetup.interfaces.EXTENSION"
-     />
   
   <genericsetup:importStep
      name="placeful_workflow" 
