@@ -69,17 +69,6 @@ def getPlacefulChainFor(self, ob):
     if portal_type is None or ob is None:
         return ()
 
-    # Take some extra care when ob is a string
-    is_policy_container = False
-    objectids = []
-    try:
-        objectids = ob.objectIds()
-    except AttributeError, TypeError:
-        pass
-
-    if WorkflowPolicyConfig_id in objectids:
-        is_policy_container = True
-
     # Inspired by implementation in CPSWorkflowTool.py of CPSCore 3.9.0
     # Workflow needs to be determined by true containment not context
     # so we loop over the actual containers

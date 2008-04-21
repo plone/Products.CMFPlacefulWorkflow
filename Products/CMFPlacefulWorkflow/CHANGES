@@ -1,4 +1,6 @@
-[ 2008-MM-DD 1.2.2]
+[ 2008-04-21 1.2.2]
+
+* Fix time penalty on Large Folder
 
 * Fix #7654 by adding reinstall parameter in intall method
 
