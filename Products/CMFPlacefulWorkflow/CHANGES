@@ -1,6 +1,6 @@
-[TODO]
+[ UNRELEASED - 1.0.7 ]
 
-* Policy: show only types that are concerned by the policy (AJAX)
+* Fix time penalty on Large Folder (encolpe)
 
 [ 2007-10-01 - 1.0.6 ]
 
