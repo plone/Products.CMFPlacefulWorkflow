@@ -18,9 +18,9 @@
 """
 CMFPlacefulWorkflow.interfaces package
 """
-__version__ = "$Revision$"
+__version__ = "$Revision: 59438 $"
 # $Source: /cvsroot/ingeniweb/PloneSubscription/SubscriptionTool.py,v $
-# $Id$
+# $Id: __init__.py 59438 2008-02-26 06:19:30Z alecm $
 __docformat__ = 'restructuredtext'
 
 from Interface.bridge import createZope3Bridge

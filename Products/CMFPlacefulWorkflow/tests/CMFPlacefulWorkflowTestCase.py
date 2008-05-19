@@ -18,9 +18,9 @@
 """
 CMFPlacefulWorkflow TestCase module
 """
-__version__ = "$Revision$"
+__version__ = "$Revision: 41292 $"
 # $Source: /cvsroot/ingeniweb/CMFPlacefulWorkflow/tests/CMFPlacefulWorkflowTestCase.py,v $
-# $Id$
+# $Id: CMFPlacefulWorkflowTestCase.py 41292 2007-04-29 21:20:27Z optilude $
 __docformat__ = 'restructuredtext'
 
 # Zope imports

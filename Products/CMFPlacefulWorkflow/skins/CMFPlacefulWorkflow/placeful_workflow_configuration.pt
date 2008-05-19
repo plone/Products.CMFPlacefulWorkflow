@@ -20,7 +20,7 @@
 Workflow policy configuration template
 
 # $Source: /cvsroot/ingeniweb/CMFPlacefulWorkflow/skins/CMFPlacefulWorkflow/placeful_workflow_configuration.pt,v $
-# $Id$
+# $Id: placeful_workflow_configuration.pt 65086 2008-05-19 12:29:32Z encolpe $
 </tal:block>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       lang="en"

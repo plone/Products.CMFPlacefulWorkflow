@@ -35,9 +35,9 @@ LOG_PROCESSOR : A dictionnary holding, for each key, the data processor.
 A data processor is a function that takes only one parameter : the data to print.
 Default : LogFile for all keys.
 """
-__version__ = "$Revision$"
+__version__ = "$Revision: 36863 $"
 # $Source: /cvsroot/ingeniweb/PloneSubscription/SubscriptionTool.py,v $
-# $Id$
+# $Id: Log.py 36863 2007-02-05 21:30:44Z encolpe $
 __docformat__ = 'restructuredtext'
 
 

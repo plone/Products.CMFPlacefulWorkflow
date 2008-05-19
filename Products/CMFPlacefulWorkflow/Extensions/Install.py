@@ -18,9 +18,9 @@
 """
 Product installation
 """
-__version__ = "$Revision$"
+__version__ = "$Revision: 61118 $"
 # $Source: /cvsroot/ingeniweb/CMFPlacefulWorkflow/Extensions/Install.py,v $
-# $Id$
+# $Id: Install.py 61118 2008-03-25 13:50:21Z encolpe $
 __docformat__ = 'restructuredtext'
 
 from cStringIO import StringIO

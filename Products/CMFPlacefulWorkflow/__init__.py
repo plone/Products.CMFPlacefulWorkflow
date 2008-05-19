@@ -18,9 +18,9 @@
 """
 Initialization
 """
-__version__ = "$Revision$"
+__version__ = "$Revision: 62604 $"
 # $Source: /cvsroot/ingeniweb/CMFPlacefulWorkflow/__init__.py,v $
-# $Id$
+# $Id: __init__.py 62604 2008-04-13 20:50:14Z hannosch $
 __docformat__ = 'restructuredtext'
 
 import PlacefulWorkflowTool

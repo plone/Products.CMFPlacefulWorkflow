@@ -18,9 +18,9 @@
 """
 A simple workflow policy.
 """
-__version__ = "$Revision$"
+__version__ = "$Revision: 62540 $"
 # $Source: /cvsroot/ingeniweb/CMFPlacefulWorkflow/DefaultWorkflowPolicy.py,v $
-# $Id$
+# $Id: DefaultWorkflowPolicy.py 62540 2008-04-12 07:50:01Z encolpe $
 __docformat__ = 'restructuredtext'
 
 import logging

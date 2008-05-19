@@ -18,9 +18,9 @@
 """
 CMFPlacefulWorkflow product
 """
-__version__ = "$Revision$"
+__version__ = "$Revision: 43896 $"
 # $Source: /cvsroot/ingeniweb/CMFPlacefulWorkflow/global_symbols.py,v $
-# $Id$
+# $Id: global_symbols.py 43896 2007-06-17 09:55:34Z hannosch $
 __docformat__ = 'restructuredtext'
 
 import os

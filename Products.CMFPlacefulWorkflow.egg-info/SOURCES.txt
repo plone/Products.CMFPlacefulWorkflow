@@ -1,0 +1,14 @@
+README.txt
+setup.cfg
+setup.py
+Products/__init__.py
+Products.CMFPlacefulWorkflow.egg-info/PKG-INFO
+Products.CMFPlacefulWorkflow.egg-info/SOURCES.txt
+Products.CMFPlacefulWorkflow.egg-info/dependency_links.txt
+Products.CMFPlacefulWorkflow.egg-info/entry_points.txt
+Products.CMFPlacefulWorkflow.egg-info/namespace_packages.txt
+Products.CMFPlacefulWorkflow.egg-info/not-zip-safe
+Products.CMFPlacefulWorkflow.egg-info/requires.txt
+Products.CMFPlacefulWorkflow.egg-info/top_level.txt
+Products/CMFPlacefulWorkflow/__init__.py
+Products/CMFPlacefulWorkflow/tests.py

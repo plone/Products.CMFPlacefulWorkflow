@@ -18,9 +18,9 @@
 """
 CMFPlacefulWorkflow Unittest
 """
-__version__ = "$Revision$"
+__version__ = "$Revision: 61119 $"
 # $Source: /cvsroot/ingeniweb/CMFPlacefulWorkflow/tests/testCMFPlacefulWorkflow.py,v $
-# $Id$
+# $Id: testCMFPlacefulWorkflow.py 61119 2008-03-25 14:21:45Z encolpe $
 __docformat__ = 'restructuredtext'
 
 

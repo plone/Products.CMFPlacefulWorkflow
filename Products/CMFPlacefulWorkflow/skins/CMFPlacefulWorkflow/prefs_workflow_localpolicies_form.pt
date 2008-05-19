@@ -20,7 +20,7 @@
 CMFPlacefulWorkflow configuration panel
 
 # $Source: /cvsroot/ingeniweb/CMFPlacefulWorkflow/skins/CMFPlacefulWorkflow/prefs_workflow_localpolicies_form.pt,v $
-# $Id$
+# $Id: prefs_workflow_localpolicies_form.pt 61960 2008-04-03 08:18:55Z wichert $
 </tal:block>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       lang="en"
