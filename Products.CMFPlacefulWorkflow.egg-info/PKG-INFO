@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: Products.CMFPlacefulWorkflow
-Version: 0.1dev
+Version: 0.1dev-r65111
 Summary: Workflow policies for CMF and Plone
 Home-page: http://svn.plone.org/svn/collective/Products.CMFPlacefulWorkflow
 Author: Ingeniweb
