@@ -37,13 +37,11 @@ Workflow policy configuration template
             Workflow policies' local configuration management
         </h1>
 
-        <p class="documentDescription"
-           i18n:translate="description_workflow_policies">
+        <p i18n:translate="description_workflow_policies">
             Set your workflow policies' local configuration for this folder and below.
         </p>
 
-        <p class="documentDescription"
-           tal:condition="python:not policy_config and here.isPrincipiaFolderish">
+        <p tal:condition="python:not policy_config and here.isPrincipiaFolderish">
             <br/>
             <a href="placeful_workflow_configuration_add"
                i18n:translate="description_add_workflow_policy_for_type">
