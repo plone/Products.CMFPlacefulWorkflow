@@ -1,0 +1,9 @@
+trunk (2008-06-27)
+==================
+
+  - fixed bad metadata.xml
+    [encolpe]
+
+  - fixed incorrect variable name in exception message
+    [davisagli]
+
