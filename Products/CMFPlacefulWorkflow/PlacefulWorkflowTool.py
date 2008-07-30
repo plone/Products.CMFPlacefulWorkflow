@@ -27,25 +27,32 @@ from os.path import join as path_join
 
 from Acquisition import aq_base
 from AccessControl.requestmethod import postonly
+from AccessControl import Unauthorized
 from OFS.Folder import Folder
 from OFS.ObjectManager import IFAwareObjectManager
 from AccessControl import ClassSecurityInfo
-from Globals import InitializeClass, package_home
+from Globals import InitializeClass
+from Globals import package_home
 
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 
 from zope.interface import implements
+from zope.interface import implementedBy
 
-from Products.CMFCore.utils import getToolByName, UniqueObject
+from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.utils import UniqueObject
 from Products.CMFCore.permissions import ManagePortal
+from Products.CMFCore.permissions import View
 from Products.CMFPlone.migrations.migration_util import safeEditProperty
 from Products.CMFCore.utils import registerToolInterface
+from Products.CMFCore.utils import _checkPermission
 
-
+from Products.CMFCore.interfaces import ISiteRoot
+from Products.CMFPlone.interfaces import IPloneSiteRoot
 from interfaces import IPlacefulWorkflowTool
 
-
 WorkflowPolicyConfig_id = ".wf_policy_config"
+_MARKER = object()
 
 def addPlacefulWorkflowTool(self,REQUEST={}):
     """
@@ -83,7 +90,6 @@ class PlacefulWorkflowTool(UniqueObject, Folder, IFAwareObjectManager):
 
     security.declareProtected( ManagePortal, 'manage_addWorkflowPolicyForm')
     def manage_addWorkflowPolicyForm(self, REQUEST):
-
         """ Form for adding workflow policies.
         """
         wfpt = []
@@ -143,16 +149,21 @@ class PlacefulWorkflowTool(UniqueObject, Folder, IFAwareObjectManager):
 
     security.declareProtected( ManagePortal, 'getWorkflowPolicyById')
     def getWorkflowPolicyById(self, wfp_id):
-
         """ Retrieve a given workflow policy.
         """
-        policy=None
-        if wfp_id != None:
-            wfp = getattr(self, wfp_id, None)
-            if wfp !=None:
-                if getattr(wfp, '_isAWorkflowPolicy', 0):
-                    policy = wfp
-        return policy
+        if wfp_id is None:
+            return None
+        policy = getattr(self.aq_explicit, wfp_id, _MARKER)
+        if policy is not _MARKER:
+            if getattr(policy, '_isAWorkflowPolicy', 0):
+                return policy
+        return None
+
+    security.declarePublic('isValidPolicyName')
+    def isValidPolicyName(self, policy_id):
+        """ Return True if a policy exist
+        """
+        return self.getWorkflowPolicyById(policy_id) is not None
 
     security.declareProtected( ManagePortal, 'getWorkflowPolicyIds')
     def getWorkflowPolicies(self):
@@ -164,29 +175,44 @@ class PlacefulWorkflowTool(UniqueObject, Folder, IFAwareObjectManager):
                 wfps.append(obj)
         return tuple(wfps)
 
-    security.declareProtected( ManagePortal, 'getWorkflowPolicyIds')
+    security.declarePublic('getWorkflowPolicyIds')
     def getWorkflowPolicyIds(self):
-
         """ Return the list of workflow policy ids.
         """
         wfp_ids = []
 
-        for obj_name, obj in self.objectItems():
+        for obj_id, obj in self.objectItems():
             if getattr(obj, '_isAWorkflowPolicy', 0):
-                wfp_ids.append(obj_name)
+                wfp_ids.append(obj_id)
+
+        return tuple(wfp_ids)
+
+    security.declarePublic('getWorkflowPolicyInfos')
+    def getWorkflowPolicyInfos(self):
+        """ Return the list of workflow policy ids.
+        """
+        wfp_ids = []
+
+        for obj_id, obj in self.objectItems():
+            if getattr(obj, '_isAWorkflowPolicy', 0):
+                wfp_ids.append({'id': obj_id, 'title': obj.title_or_id(),
+                                'description': obj.description})
 
         return tuple(wfp_ids)
 
 
-    security.declareProtected( ManagePortal, 'getWorkflowPolicyConfig')
+    security.declareProtected( View, 'getWorkflowPolicyConfig')
     def getWorkflowPolicyConfig(self, ob):
-        local_config = None
-        some_config = getattr(ob, WorkflowPolicyConfig_id, None)
-        if some_config is not None:
-            # Was it here or did we acquire?
-            if hasattr(aq_base(ob), WorkflowPolicyConfig_id):
-                local_config = some_config
-        return local_config
+        """ Return a local workflow configuration if it exist
+        """
+        if ISiteRoot.providedBy(ob) or IPloneSiteRoot.providedBy(ob):
+            # Site root use portal_workflow tool as local policy
+            return None
+        if not _checkPermission(ManagePortal, ob):
+            raise Unauthorized("You need %s permission on %s" % (
+                ManagePortal, '/'.join(ob.getPhysicalPath())))
+
+        return getattr(ob.aq_explicit, WorkflowPolicyConfig_id, None)
 
     def _post_init(self):
         """

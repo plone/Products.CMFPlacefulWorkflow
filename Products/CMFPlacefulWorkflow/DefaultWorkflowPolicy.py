@@ -47,7 +47,7 @@ from zope.interface import implements
 DEFAULT_CHAIN = '(Default)'
 _MARKER = '_MARKER'
 
-class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
+class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
 
     implements(IWorkflowPolicyDefinition)
 
