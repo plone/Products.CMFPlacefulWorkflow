@@ -165,7 +165,7 @@ class PlacefulWorkflowTool(UniqueObject, Folder, IFAwareObjectManager):
         """
         return self.getWorkflowPolicyById(policy_id) is not None
 
-    security.declareProtected( ManagePortal, 'getWorkflowPolicyIds')
+    security.declareProtected( ManagePortal, 'getWorkflowPolicies')
     def getWorkflowPolicies(self):
         """ Return the list of workflow policies.
         """
