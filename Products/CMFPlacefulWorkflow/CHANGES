@@ -1,3 +1,9 @@
+[ 2008-mm-dd trunk ]
+
+* Fix untranslated workflows titles #8101 (encolpe)
+
+* Local workflow policy can set by a local Manager #6806 (encolpe)
+
 [ 2008-06-30 1.3.2 ]
 
 * Fixed incorrect variable name in exception message that crash migration (davisagli)
