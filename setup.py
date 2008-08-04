@@ -25,7 +25,15 @@ setup(name='Products.CMFPlacefulWorkflow',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          # -*- Extra requirements: -*-
+          'zope.component',
+          'zope.interface',
+          'zope.i18nmessageid',
+          'Products.CMFCore',
+          'Products.CMFPlone',
+          'Products.GenericSetup',
+          'Products.PageTemplates',
+          'zope.testing',
+          'Products.PloneTestCase',
       ],
       entry_points="""
       # -*- Entry points: -*-
