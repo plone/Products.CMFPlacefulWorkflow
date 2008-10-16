@@ -1,5 +1,7 @@
 [ 2008-mm-dd trunk ]
 
+* Make the skin avaiable in all layers (encolpe and Florian Sprenger)
+
 * Fix untranslated workflows titles #8101 (encolpe)
 
 * Local workflow policy can set by a local Manager #6806 (encolpe)
