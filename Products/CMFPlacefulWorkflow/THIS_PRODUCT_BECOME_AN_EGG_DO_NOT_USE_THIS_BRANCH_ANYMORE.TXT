@@ -1,0 +1,1 @@
+If you want to follow the development go to http://svn.plone.org/svn/collective/Products.CMFPlacefulWorkflow/branches/plone3.1
