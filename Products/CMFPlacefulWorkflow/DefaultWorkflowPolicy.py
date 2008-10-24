@@ -191,8 +191,12 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
     def getChainFor(self, ob, managescreen=False):
         """Returns the chain that applies to the object.
 
-        If chain doesn't exist we return None to get a fallback from portal_workflow.
-        We never return emtpy tuple that is good value for a chain.
+        If chain doesn't exist we return None to get a fallback from
+        portal_workflow.
+
+        @parm managescreen: If True return the special tuple
+                            ('default') instead of the actual default
+                            chain (hack).
         """
 
         cbt = self._chains_by_type
@@ -259,7 +263,16 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
 
     security.declareProtected( ManagePortal, 'setChain')
     def setChain(self, portal_type, chain, REQUEST=None):
-        """Set the chain for a portal type."""
+        """Set the chain for a portal type. 
+
+           @type chain: tuple of strings or None 
+           @param chain: A tuple of workflow ids to be set for the portal type. 
+                         A few special values exsist:  
+                           - C{None}: Acquire chain from a policy above,  
+                                      ultimatly from the portal workflow settings. 
+                           - C{()} (empty tuple): No workflow for this type. 
+                           - C{('default',)}: Use the configured default workflow. 
+        """ 
         # Verify input data
         if portal_type not in [pt.id for pt in self._listTypeInfo()]:
             raise ValueError, ("'%s' is not a valid portal type." % portal_type)
