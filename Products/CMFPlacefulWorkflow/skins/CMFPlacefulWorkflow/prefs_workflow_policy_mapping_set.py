@@ -13,8 +13,14 @@ policy.setDescription(description)
 
 policy.setDefaultChain(default_chain=(default_workflow_id,),REQUEST=context.REQUEST)
 
+# for filtering special option values 
+CHAIN_MAP={'acquisition': None, '' : ()} 
 for pt, wf in wf.items():
-    policy.setChain(portal_type=pt, chain=(wf,),REQUEST=context.REQUEST)
+    if CHAIN_MAP.has_key(wf): 
+        chain = CHAIN_MAP[wf] 
+    else: 
+        chain = (wf,) 
+    policy.setChain(portal_type=pt, chain=chain,REQUEST=context.REQUEST) 
 
 wf_tool = getToolByName(context, 'portal_workflow')
 wf_tool.updateRoleMappings()

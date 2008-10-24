@@ -286,8 +286,9 @@ class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
             self._chains_by_type = cbt = PersistentMapping()
 
         # if chain is None or default, we remove the entry
-        if chain is None and cbt.has_key(portal_type):
-            del cbt[portal_type]
+        if chain is None:
+            if cbt.has_key(portal_type):
+                del cbt[portal_type]
         elif len(chain) == 1 and chain[0] == DEFAULT_CHAIN:
             cbt[portal_type] = chain
         else:
