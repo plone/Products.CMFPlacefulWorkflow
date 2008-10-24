@@ -31,6 +31,7 @@ from AccessControl.SecurityManagement import noSecurityManager
 # Plone imports
 from Products.PloneTestCase import PloneTestCase
 
+
 class CMFPlacefulWorkflowTestCase(PloneTestCase.PloneTestCase):
 
     # Globals
@@ -50,13 +51,14 @@ class CMFPlacefulWorkflowTestCase(PloneTestCase.PloneTestCase):
     def beforeTearDown(self):
         # logout
         noSecurityManager()
-    
+
     def loginAsPortalMember(self):
         '''Use if you need to manipulate site as a member.'''
         self._setupUser()
         self.mtool.createMemberarea(self.user_name)
         member = self.mtool.getMemberById(self.user_name)
-        member.setMemberProperties({'fullname': self.user_name.capitalize(), 'email': 'test@example.com',})
+        member.setMemberProperties({'fullname': self.user_name.capitalize(),
+                                    'email': 'test@example.com', })
         self.login()
 
     def loginAsPortalOwner(self):
@@ -69,6 +71,10 @@ class CMFPlacefulWorkflowTestCase(PloneTestCase.PloneTestCase):
         perms = self.portal.permissionsOfRole(role)
         return [p['name'] for p in perms if p['selected']]
 
+
+class CMFPlacefulWorkflowFunctionalTestCase(
+    CMFPlacefulWorkflowTestCase, PloneTestCase.FunctionalTestCase):
+    pass
 
 # Install CMFPlacefulWorkflow
 ZopeTestCase.installProduct('MimetypesRegistry')
@@ -90,4 +96,3 @@ PloneTestCase.setupPloneSite(id='plone', products=[
 
 app = ZopeTestCase.app()
 ZopeTestCase.close(app)
-
