@@ -23,16 +23,8 @@ __version__ = "$Revision: 59438 $"
 # $Id: __init__.py 59438 2008-02-26 06:19:30Z alecm $
 __docformat__ = 'restructuredtext'
 
-from Interface.bridge import createZope3Bridge
-
 from portal_placeful_workflow import (
     IPlacefulWorkflowTool,
     IWorkflowPolicyDefinition,
     IPlacefulMarker,
     )
-
-# Zope 2 interfaces definition
-import PlacefulWorkflow
-import WorkflowPolicyDefinition
-createZope3Bridge(IPlacefulWorkflowTool, PlacefulWorkflow, 'IPlacefulWorkflowTool')
-createZope3Bridge(IWorkflowPolicyDefinition, WorkflowPolicyDefinition, 'IWorkflowPolicyDefinition')

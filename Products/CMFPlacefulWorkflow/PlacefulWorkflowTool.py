@@ -43,7 +43,6 @@ from Products.CMFCore.utils import registerToolInterface
 
 
 from interfaces import IPlacefulWorkflowTool
-from interfaces.PlacefulWorkflow import IPlacefulWorkflowTool as z2IPlacefulWorkflowTool
 
 
 WorkflowPolicyConfig_id = ".wf_policy_config"
@@ -67,7 +66,6 @@ class PlacefulWorkflowTool(UniqueObject, Folder, IFAwareObjectManager):
     id = 'portal_placeful_workflow'
     meta_type = 'Placeful Workflow Tool'
 
-    __implements__ = (z2IPlacefulWorkflowTool,)
     implements(IPlacefulWorkflowTool)
 
     _actions = []
