@@ -46,11 +46,6 @@ Folder is bound to only plone_workflow::
     >>> policy.getChainFor('Folder')
     ('plone_workflow',)
 
-Favorite is bound to default policy workflow
-
-    >>> policy.getChainFor('Favorite')
-    ('folder_workflow',)
-
 The chains for Document and Event should be empty::
 
     >>> policy.getChainFor('Document')
@@ -104,7 +99,6 @@ The export also produces a file for any policies::
       </default>
       <type type_id="Document"/>
       <type type_id="Event"/>
-      <type default_chain="true" type_id="Favorite"/>
       <type type_id="File">
        <bound-workflow workflow_id="plone_workflow"/>
        <bound-workflow workflow_id="folder_workflow"/>

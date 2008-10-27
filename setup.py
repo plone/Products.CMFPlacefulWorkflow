@@ -1,18 +1,15 @@
 from setuptools import setup, find_packages
-import os
 
-version = '1.3.2'
+version = '1.4.0'
 
 setup(name='Products.CMFPlacefulWorkflow',
       version=version,
       description="Workflow policies for CMF and Plone",
       long_description=open("README.txt").read() + "\n" +
-                       open(os.path.join("docs", "HISTORY.txt")).read(),
-      # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
+                       open("CHANGES").read(),
       classifiers=[
         "Framework :: Plone",
         "Programming Language :: Python",
-        "Topic :: Software Development :: Libraries :: Python Modules",
         ],
       keywords='CMF Plone Zope2 workflow',
       author='Ingeniweb',
@@ -34,7 +31,4 @@ setup(name='Products.CMFPlacefulWorkflow',
           'zope.testing',
           'Products.PloneTestCase',
       ],
-      entry_points="""
-      # -*- Entry points: -*-
-      """,
       )

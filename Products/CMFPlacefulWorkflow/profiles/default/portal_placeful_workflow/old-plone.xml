@@ -7,7 +7,6 @@
   </default>
   <type default_chain="true" type_id="Document"/>
   <type default_chain="true" type_id="Event"/>
-  <type default_chain="true" type_id="Favorite"/>
   <type default_chain="true" type_id="File"/>
   <type type_id="Folder">
    <bound-workflow workflow_id="folder_workflow"/>

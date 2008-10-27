@@ -8,7 +8,6 @@
   <type type_id="Document"/>
   <type type_id="Event">
   </type>
-  <type type_id="Favorite" default_chain="true"/>
   <type type_id="File">
    <bound-workflow workflow_id="plone_workflow"/>
    <bound-workflow workflow_id="folder_workflow"/>

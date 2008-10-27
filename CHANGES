@@ -1,22 +1,20 @@
 trunk (unreleased)
 ==================
 
-  - Fixed "ValueError: 'acquisition' is not a workflow ID" in
-    prefs_workflow_policy_mapping.  Fix prepared by jhackel.  Fixes
-    http://dev.plone.org/plone/ticket/8101
-    [maurits]
+- Removed Favorite content type.
+  [hannosch]
+
+- Fixed "ValueError: 'acquisition' is not a workflow ID" in
+  prefs_workflow_policy_mapping.  Fix prepared by jhackel.  Fixes
+  http://dev.plone.org/plone/ticket/8101
+  [maurits]
+
 
 1.3.2 (2008-06-30)
 ==================
 
-  - xxx [Ingeniweb]
+- Fixed bad metadata.xml.
+  [encolpe]
 
-1.3.2 (2008-06-30)
-==================
-
-  - fixed bad metadata.xml
-    [encolpe]
-
-  - fixed incorrect variable name in exception message
-    [davisagli]
-
+- Fixed incorrect variable name in exception message.
+  [davisagli]
