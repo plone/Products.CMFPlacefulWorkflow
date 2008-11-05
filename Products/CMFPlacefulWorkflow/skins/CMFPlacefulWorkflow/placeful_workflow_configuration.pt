@@ -1,7 +1,7 @@
 <tal:block replace="nothing">
 -*- coding: utf-8 -*-
 ## CMFPlacefulWorkflow
-## Copyright (C)2005 Ingeniweb
+## Copyright (C)2005-2008 Ingeniweb
 
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -28,10 +28,9 @@ Workflow policy configuration template
       i18n:domain="cmfplacefulworkflow">
 
     <div metal:fill-slot="main"
-         tal:define="type_list python:here.portal_types.listTypeInfo();
-                     wf_list python:here.portal_workflow.objectIds();
-                     policy_config python:here.portal_placeful_workflow.getWorkflowPolicyConfig(here);
-                     container_policy_config python:here.portal_placeful_workflow.getWorkflowPolicyConfig(container);">
+         tal:define="wf_list here/portal_workflow/objectIds;
+                     pwtool here/portal_placeful_workflow;
+                     config python: pwtool.getWorkflowPolicyConfig(here);">
 
         <h1 i18n:translate="heading_workflow_policies">
             Workflow policies' local configuration management
@@ -41,7 +40,7 @@ Workflow policy configuration template
             Set your workflow policies' local configuration for this folder and below.
         </p>
 
-        <p tal:condition="python:not policy_config and here.isPrincipiaFolderish">
+        <p tal:condition="python:not config and here.isPrincipiaFolderish">
             <br/>
             <a href="placeful_workflow_configuration_add"
                i18n:translate="description_add_workflow_policy_for_type">
@@ -55,7 +54,7 @@ Workflow policy configuration template
             <br/>
         </p>
 
-        <p tal:condition="python:not here.isPrincipiaFolderish and not container_policy_config">
+        <p tal:condition="python:not here.isPrincipiaFolderish and here is not container">
             <a href=""
                tal:attributes="href python:container.absolute_url()+'/placeful_workflow_configuration_add'"
                i18n:translate="description_add_workflow_policy">
@@ -63,7 +62,7 @@ Workflow policy configuration template
             </a>
         </p>
 
-        <p tal:condition="python:not here.isPrincipiaFolderish and container_policy_config">
+        <p tal:condition="python:not here.isPrincipiaFolderish and here is container">
             <span tal:define="dummy python:context.REQUEST.RESPONSE.redirect(container.absolute_url()+'/placeful_workflow_configuration')" />
         </p>
 
@@ -71,13 +70,11 @@ Workflow policy configuration template
               name="edit_form"
               method="post"
               action="placeful_workflow_configuration_set"
-              tal:condition="policy_config">
+              tal:condition="config">
 
-            <fieldset tal:define="policies python:here.portal_placeful_workflow.getWorkflowPolicies();
-                                  policy_in python:policy_config.getPolicyIn();
-                                  policy_in_id python:policy_config.getPolicyInId();
-                                  policy_below python:policy_config.getPolicyBelow();
-                                  policy_below_id python:policy_config.getPolicyBelowId()">
+            <fieldset tal:define="policies pwtool/getWorkflowPolicyInfos;
+                                  policy_in_id config/getPolicyInId;
+                                  policy_below_id config/getPolicyBelowId;">
 
                 <legend i18n:translate="legend_publishing_details">
                     Workflow policies
@@ -92,38 +89,33 @@ Workflow policy configuration template
 
                 <div class="field">
 
-                    <tal:policy tal:repeat="policy python:policies">
+                    <tal:policy tal:repeat="policy policies">
 
-                        <input type="radio"
-                               class="noborder"
-                               name="policy_in"
-                               value="policy"
-                               id="cb_policy"
-                               tal:attributes="id python:'cb_policy_' + policy.id;
-                                               value python:policy.id;
-                                               checked python:policy.id==policy_in_id" />
+                        <input type="radio" class="noborder" name="policy_in"
+                               value="policy" id="cb_policy"
+                               tal:attributes="id python: 'cb_policy_' + policy['id'];
+                                               value policy/id;
+                                               checked python: policy['id'] == policy_in_id" />
 
                         <label for="cb_policy"
-                               tal:attributes="for python:'cb_'+policy.id"
-                               tal:content="python:policy.getTitle() or policy.getId()">
+                               tal:attributes="for python: 'cb_' + policy['id']"
+                               tal:content="policy/title"
+                               i18n:domain="cmfplacefulworkflow"
+                               i18n:translate="">
                             Policy Label
                         </label>
                         <br />
                         <span class="formHelp"
-                              tal:content="python:policy.getDescription()">
+                              tal:content="policy/description">
                             Workflow policy description
                         </span>
                         <br />
                     </tal:policy>
 
-                    <input type="radio"
-                           class="noborder"
-                           name="policy_in"
-                           id="cb_default_policy"
-                           title=""
-                           checked="1"
+                    <input type="radio" class="noborder" name="policy_in"
+                           id="cb_default_policy" title="" checked="checked"
                            tal:attributes="value python:'';
-                                           checked python:not policy_in" />
+                                           checked not:config/getPolicyIn" />
 
                     <label for="cb_default_policy"
                            i18n:translate="label_default_policy">
@@ -148,25 +140,24 @@ Workflow policy configuration template
 
                 <div class="field">
 
-                    <tal:policy tal:repeat="policy python:policies">
+                    <tal:policy tal:repeat="policy policies">
 
-                        <input type="radio"
-                               class="noborder"
-                               name="policy_below"
-                               value="policy"
-                               id="cb_policy"
-                               tal:attributes="id python:'cb_policy_' + policy.id;
-                                               value python:policy.id;
-                                               checked python:policy.id==policy_below_id" />
+                        <input type="radio" class="noborder" name="policy_below"
+                               value="policy" id="cb_policy"
+                               tal:attributes="id python: 'cb_policy_' + policy['id'];
+                                               value policy/id;
+                                               checked python: policy['id'] == policy_below_id" />
 
                         <label for="cb_policy"
-                               tal:attributes="for python:'cb_'+policy.id"
-                               tal:content="python:policy.getTitle() or policy.getId()">
+                               tal:attributes="for python: 'cb_' + policy['id']"
+                               tal:content="policy/title"
+                               i18n:domain="cmfplacefulworkflow"
+                               i18n:translate="">
                             Policy Label
                         </label>
                         <br />
                         <span class="formHelp"
-                              tal:content="python:policy.getDescription()">
+                              tal:content="policy/description">
                             Workflow policy description
                         </span>
                         <br />
@@ -180,7 +171,7 @@ Workflow policy configuration template
                            title=""
                            checked="1"
                            tal:attributes="value python:'';
-                                           checked python:not policy_below" />
+                                           checked not: config/getPolicyBelow" />
 
                     <label for="cb_default_policy"
                            i18n:translate="label_default_policy">

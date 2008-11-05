@@ -36,6 +36,7 @@ from PlacefulWorkflowTool import WorkflowPolicyConfig_id
 from Products.CMFPlacefulWorkflow.global_symbols import Log, LOG_DEBUG
 
 from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.permissions import ManagePortal
 
 manage_addWorkflowPolicyConfigForm = PageTemplateFile(
     path_join('www', 'add_workflow_policy_config_form'), globals())
@@ -76,39 +77,49 @@ class WorkflowPolicyConfig(SimpleItem):
         self.setPolicyIn(workflow_policy_in)
         self.setPolicyBelow(workflow_policy_below)
 
+    security.declareProtected(ManagePortal, 'manage_makeChanges')
     def manage_makeChanges(self, workflow_policy_in, workflow_policy_below):
         """ Store the policies """
         self.setPolicyIn(workflow_policy_in)
         self.setPolicyBelow(workflow_policy_below)
 
+    security.declareProtected(ManagePortal, 'getPolicyInId')
     def getPolicyInId(self):
         return self.workflow_policy_in
 
+    security.declareProtected(ManagePortal, 'getPolicyBelowId')
     def getPolicyBelowId(self):
         return  self.workflow_policy_below
 
+    security.declareProtected(ManagePortal, 'getPolicyIn')
     def getPolicyIn(self):
-        pwt = getToolByName(self, 'portal_placeful_workflow')
-        wfp_id = self.getPolicyInId()
-        policy_in = pwt.getWorkflowPolicyById(wfp_id)
-        return policy_in
+        pwtool = getToolByName(self, 'portal_placeful_workflow')
+        return pwtool.getWorkflowPolicyById(self.getPolicyInId())
 
+    security.declareProtected(ManagePortal, 'getPolicyBelow')
     def getPolicyBelow(self):
-        pwt = getToolByName(self, 'portal_placeful_workflow')
-        wfp_id = self.getPolicyBelowId()
-        policy_below = pwt.getWorkflowPolicyById(wfp_id)
-        return policy_below
+        pwtool = getToolByName(self, 'portal_placeful_workflow')
+        return pwtool.getWorkflowPolicyById(self.getPolicyBelowId())
 
-    def setPolicyIn(self, policy):
+    security.declareProtected(ManagePortal, 'setPolicyIn')
+    def setPolicyIn(self, policy, update_security=False):
         if not type(policy) == type(''):
             raise ValueError, "Policy must be a string"
         self.workflow_policy_in = policy
+        if update_security:
+            wtool = getToolByName(self, 'portal_workflow')
+            wtool.updateRoleMappings()
 
-    def setPolicyBelow(self, policy):
+    security.declareProtected(ManagePortal, 'setPolicyBelow')
+    def setPolicyBelow(self, policy, update_security=False):
         if not type(policy) == type(''):
             raise ValueError, "Policy must be a string"
         self.workflow_policy_below = policy
+        if update_security:
+            wtool = getToolByName(self, 'portal_workflow')
+            wtool.updateRoleMappings()
 
+    security.declareProtected(ManagePortal, 'getPlacefulChainFor')
     def getPlacefulChainFor(self, portal_type, start_here=False):
         """Get the chain for the given portal_type.
 

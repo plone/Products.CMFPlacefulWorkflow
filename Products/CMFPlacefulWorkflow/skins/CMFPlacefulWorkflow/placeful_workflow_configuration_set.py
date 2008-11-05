@@ -10,22 +10,17 @@ config = getToolByName(context, 'portal_placeful_workflow').getWorkflowPolicyCon
 if not config:
     message = _(u'No config in this folder.')
 else:
-    if context.portal_placeful_workflow.getWorkflowPolicyById(policy_in):
-        config.setPolicyIn(policy=policy_in)
-    elif policy_in == '':
-        config.setPolicyIn(policy='')
-    else:
-        raise str(policy_in)
+    if not context.portal_placeful_workflow.isValidPolicyName(policy_in) \
+       and not policy_in == '':
+        raise AttributeError("%s is not a valid policy id" % policy_in)
 
-    if context.portal_placeful_workflow.getWorkflowPolicyById(policy_below):
-        config.setPolicyBelow(policy=policy_below)
-    elif policy_below == '':
-        config.setPolicyBelow(policy='')
-    else:
-        raise str(policy_below)
+    if not context.portal_placeful_workflow.isValidPolicyName(policy_below) \
+       and not policy_below == '':
+        raise AttributeError("%s is not a valid policy id" % policy_below)
 
+    config.setPolicyIn(policy=policy_in)
+    config.setPolicyBelow(policy=policy_below, update_security=True)
     message = _('Changed policies.')
-    getToolByName(context, 'portal_workflow').updateRoleMappings()
 
 context.plone_utils.addPortalMessage(message)
 request.RESPONSE.redirect('placeful_workflow_configuration')

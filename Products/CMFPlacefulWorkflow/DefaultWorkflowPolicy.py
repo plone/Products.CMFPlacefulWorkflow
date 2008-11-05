@@ -46,7 +46,7 @@ from Products.CMFCore.utils import getToolByName
 DEFAULT_CHAIN = '(Default)'
 _MARKER = '_MARKER'
 
-class DefaultWorkflowPolicyDefinition (SimpleItemWithProperties):
+class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
 
     __implements__ = IWorkflowPolicyDefinition
 

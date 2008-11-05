@@ -77,18 +77,10 @@ class CMFPlacefulWorkflowFunctionalTestCase(
     pass
 
 # Install CMFPlacefulWorkflow
-ZopeTestCase.installProduct('MimetypesRegistry')
-ZopeTestCase.installProduct('PythonScripts')
-ZopeTestCase.installProduct('PortalTransforms')
-ZopeTestCase.installProduct('Archetypes')
-ZopeTestCase.installProduct('ATContentTypes')
-ZopeTestCase.installProduct('PloneInstallation')
 ZopeTestCase.installProduct('CMFPlacefulWorkflow')
 
 # Setup Plone site
 PloneTestCase.setupPloneSite(id='plone', products=[
-    'Archetypes',
-    'ATContentTypes',
     'CMFPlacefulWorkflow',
     ], extension_profiles=[
     'Products.CMFPlone:testfixture',

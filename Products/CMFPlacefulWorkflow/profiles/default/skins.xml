@@ -9,7 +9,7 @@
          meta_type="Filesystem Directory View"
          directory="Products.CMFPlacefulWorkflow:skins/CMFPlacefulWorkflow"/>
 
- <skin-path name="Plone Default">
+ <skin-path name="*">
   <layer insert-after="custom" 
          name="CMFPlacefulWorkflow"/>
  </skin-path>
