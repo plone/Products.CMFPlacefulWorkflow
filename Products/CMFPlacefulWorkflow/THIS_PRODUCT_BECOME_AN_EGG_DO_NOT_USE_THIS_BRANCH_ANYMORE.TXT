@@ -1,0 +1,3 @@
+If you want to follow the development for Plone 3.2 and above go to 
+http://svn.plone.org/svn/collective/Products.CMFPlacefulWorkflow/trunk
+
