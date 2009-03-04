@@ -26,10 +26,9 @@ __docformat__ = 'restructuredtext'
 from zope.testing import doctest
 from Testing.ZopeTestCase import ZopeDocFileSuite
 
+from Products.CMFCore.interfaces import ISiteRoot
 from Products.GenericSetup import EXTENSION
 from Products.GenericSetup import profile_registry
-
-from Products.CMFPlone.interfaces import IPloneSiteRoot
 
 from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase
 
@@ -49,7 +48,7 @@ class ExportImportLayer(
                 "Tests the placeful workflow policy handler."),
             path='profiles/exportimport',
             product='Products.CMFPlacefulWorkflow.tests',
-            profile_type=EXTENSION, for_=IPloneSiteRoot)
+            profile_type=EXTENSION, for_=ISiteRoot)
 
     @classmethod
     def tearDown(cls):
@@ -70,6 +69,3 @@ def test_suite():
         test_class=CMFPlacefulWorkflowTestCase)
     suite.layer = ExportImportLayer
     return suite
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')

@@ -1,3 +1,10 @@
+1.4.2 (unreleased)
+==================
+
+- Change the local workflow configuration screen to not be shown for the
+  site root, even if you accidentally type in the wrong URL.
+  [hannosch]
+
 1.4.1 (2009-01-17)
 ==================
 

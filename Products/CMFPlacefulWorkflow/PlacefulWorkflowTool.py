@@ -25,19 +25,16 @@ __docformat__ = 'restructuredtext'
 
 from os.path import join as path_join
 
-from Acquisition import aq_base
 from AccessControl.requestmethod import postonly
 from AccessControl import Unauthorized
 from OFS.Folder import Folder
 from OFS.ObjectManager import IFAwareObjectManager
 from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass
-from Globals import package_home
 
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 
 from zope.interface import implements
-from zope.interface import implementedBy
 
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.utils import UniqueObject
@@ -48,7 +45,6 @@ from Products.CMFCore.utils import registerToolInterface
 from Products.CMFCore.utils import _checkPermission
 
 from Products.CMFCore.interfaces import ISiteRoot
-from Products.CMFPlone.interfaces import IPloneSiteRoot
 from interfaces import IPlacefulWorkflowTool
 
 WorkflowPolicyConfig_id = ".wf_policy_config"
@@ -205,7 +201,7 @@ class PlacefulWorkflowTool(UniqueObject, Folder, IFAwareObjectManager):
     def getWorkflowPolicyConfig(self, ob):
         """ Return a local workflow configuration if it exist
         """
-        if ISiteRoot.providedBy(ob) or IPloneSiteRoot.providedBy(ob):
+        if self.isSiteRoot(ob):
             # Site root use portal_workflow tool as local policy
             return None
         if not _checkPermission(ManagePortal, ob):
@@ -213,6 +209,13 @@ class PlacefulWorkflowTool(UniqueObject, Folder, IFAwareObjectManager):
                 ManagePortal, '/'.join(ob.getPhysicalPath())))
 
         return getattr(ob.aq_explicit, WorkflowPolicyConfig_id, None)
+
+
+    security.declareProtected( View, 'isSiteRoot')
+    def isSiteRoot(self, ob):
+        """ Returns a boolean value indicating if the object is an ISiteRoot
+        """
+        return ISiteRoot.providedBy(ob)
 
     def _post_init(self):
         """
