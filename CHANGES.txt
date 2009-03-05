@@ -1,4 +1,4 @@
-1.4.2 (unreleased)
+1.4.2 (2009-03-05)
 ==================
 
 - The `Cancel` button on the local workflow configuration screen was saving
