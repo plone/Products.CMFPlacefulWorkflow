@@ -26,11 +26,12 @@ __docformat__ = 'restructuredtext'
 from os.path import join as path_join
 
 from AccessControl.requestmethod import postonly
+from AccessControl import ClassSecurityInfo
 from AccessControl import Unauthorized
+from Acquisition import aq_parent
+from Globals import InitializeClass
 from OFS.Folder import Folder
 from OFS.ObjectManager import IFAwareObjectManager
-from AccessControl import ClassSecurityInfo
-from Globals import InitializeClass
 
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 
@@ -214,8 +215,20 @@ class PlacefulWorkflowTool(UniqueObject, Folder, IFAwareObjectManager):
     security.declareProtected( View, 'isSiteRoot')
     def isSiteRoot(self, ob):
         """ Returns a boolean value indicating if the object is an ISiteRoot
+        or the default page of an ISiteRoot.
         """
-        return ISiteRoot.providedBy(ob)
+        siteroot = ISiteRoot.providedBy(ob)
+        if siteroot:
+            return True
+        parent = aq_parent(ob)
+        if ISiteRoot.providedBy(parent):
+            if (getattr(ob, 'isPrincipiaFolderish', False)
+                and ob.isPrincipiaFolderish):
+                # We are looking at a folder in the root
+                return False
+            # We are at a non-folderish item in the root
+            return True
+        return False
 
     def _post_init(self):
         """

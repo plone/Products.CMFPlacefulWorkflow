@@ -1,6 +1,14 @@
 1.4.2 (unreleased)
 ==================
 
+- The `Cancel` button on the local workflow configuration screen was saving
+  data as much as the `Save` button. Now it actually cancels the operation.
+  [hannosch]
+
+- Made sure you cannot set a workflow configuration on a non-folderish item
+  in the site root. The actual configuration would end up on the site root.
+  [hannosch]
+
 - Change the local workflow configuration screen to not be shown for the
   site root, even if you accidentally type in the wrong URL.
   [hannosch]
