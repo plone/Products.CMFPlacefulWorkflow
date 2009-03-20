@@ -1,6 +1,8 @@
 1.4.3 (unreleased)
 ==================
 
+- Made worflow policies translatable in prefs_workflow_localpolicies_form.
+  [vincentfretin]
 
 1.4.2 (2009-03-05)
 ==================

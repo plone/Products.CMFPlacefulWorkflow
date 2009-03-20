@@ -90,7 +90,8 @@ CMFPlacefulWorkflow configuration panel
                                    tal:attributes="for wfpid">
                                 <a href="prefs_workflow_policy_mapping"
                                    tal:attributes="href python:'prefs_workflow_policy_mapping?wfpid='+wfpid"
-                                   tal:content="python:wfp.getTitle() or wfp.getId()">
+                                   tal:content="python:wfp.getTitle() or wfp.getId()"
+                                   i18n:translate="">
                                     Title of the policy mapping
                                 </a>
                             </label>
