@@ -1,6 +1,9 @@
 1.4.3 (unreleased)
 ==================
 
+- Removed settings of the portal_skins tool itself from skins.xml.
+  Specifically, allow_any was set to False, which bit me.  [maurits]
+
 - Made worflow policies translatable in prefs_workflow_localpolicies_form.
   [vincentfretin]
 
