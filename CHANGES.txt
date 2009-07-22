@@ -1,6 +1,9 @@
 1.4.3 (unreleased)
 ==================
 
+- Define wtool inside the prefs_workflow_policy_mapping template.
+  [hannosch]
+
 - Removed settings of the portal_skins tool itself from skins.xml.
   Specifically, allow_any was set to False, which bit me.  [maurits]
 
@@ -27,9 +30,6 @@
 
 - Declare package dependencies and fixed deprecation warnings for use
   of Globals.
-  [hannosch]
-
-- Define wtool inside the prefs_workflow_policy_mapping template.
   [hannosch]
 
 - Copied safeEditProperty from CMFPlone.migration_util to avoid a dependency.

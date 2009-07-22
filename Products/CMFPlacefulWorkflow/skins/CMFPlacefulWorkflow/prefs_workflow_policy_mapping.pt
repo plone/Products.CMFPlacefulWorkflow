@@ -9,6 +9,7 @@
          tal:define="allowedContentTypes allowedSortedContentTypes|here/allowedContentTypes;
                      wfpid python:request.get('wfpid');
                      wf_policy python:here.portal_placeful_workflow.getWorkflowPolicyById(wfpid);
+                     wtool context/portal_workflow;
                      wf_list python: [{'id': obj.getId(), 'title': obj.title_or_id()} for obj in wtool.objectValues()];"
          class="configlet">
 
