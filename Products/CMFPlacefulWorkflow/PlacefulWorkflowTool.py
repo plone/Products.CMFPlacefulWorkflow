@@ -29,7 +29,7 @@ from AccessControl.requestmethod import postonly
 from AccessControl import ClassSecurityInfo
 from AccessControl import Unauthorized
 from Acquisition import aq_parent
-from Globals import InitializeClass
+from App.class_init import InitializeClass
 from OFS.Folder import Folder
 from OFS.ObjectManager import IFAwareObjectManager
 

@@ -26,7 +26,7 @@ __docformat__ = 'restructuredtext'
 import logging
 from os.path import join as path_join
 
-from Globals import InitializeClass
+from App.class_init import InitializeClass
 from OFS.SimpleItem import SimpleItem
 from AccessControl import ClassSecurityInfo
 

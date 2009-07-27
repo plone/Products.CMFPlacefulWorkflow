@@ -1,11 +1,16 @@
 1.4.3 (unreleased)
 ==================
 
+- Change imports from Globals to use canonical locations, for compatibility
+  with Zope 2.12.
+  [davisagli]
+
 - Define wtool inside the prefs_workflow_policy_mapping template.
   [hannosch]
 
 - Removed settings of the portal_skins tool itself from skins.xml.
-  Specifically, allow_any was set to False, which bit me.  [maurits]
+  Specifically, allow_any was set to False, which bit me.
+  [maurits]
 
 - Made worflow policies translatable in prefs_workflow_localpolicies_form.
   [vincentfretin]

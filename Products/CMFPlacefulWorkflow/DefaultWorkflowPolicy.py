@@ -23,13 +23,13 @@ __version__ = "$Revision: 62540 $"
 # $Id: DefaultWorkflowPolicy.py 62540 2008-04-12 07:50:01Z encolpe $
 __docformat__ = 'restructuredtext'
 
-import logging
 from os.path import join as path_join
 
 from AccessControl import ClassSecurityInfo
 from AccessControl.requestmethod import postonly
-from Globals import InitializeClass, PersistentMapping
+from App.class_init import InitializeClass
 from Acquisition import aq_base
+from Persistence import PersistentMapping
 
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 
