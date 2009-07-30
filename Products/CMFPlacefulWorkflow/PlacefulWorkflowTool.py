@@ -41,7 +41,6 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.utils import UniqueObject
 from Products.CMFCore.permissions import ManagePortal
 from Products.CMFCore.permissions import View
-from Products.CMFPlone.migrations.migration_util import safeEditProperty
 from Products.CMFCore.utils import registerToolInterface
 from Products.CMFCore.utils import _checkPermission
 
@@ -50,6 +49,13 @@ from interfaces import IPlacefulWorkflowTool
 
 WorkflowPolicyConfig_id = ".wf_policy_config"
 _MARKER = object()
+
+def safeEditProperty(obj, key, value, data_type='string'):
+    """ An add or edit function, surprisingly useful :) """
+    if obj.hasProperty(key):
+        obj._updateProperty(key, value)
+    else:
+        obj._setProperty(key, value, data_type)
 
 def addPlacefulWorkflowTool(self,REQUEST={}):
     """

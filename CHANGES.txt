@@ -1,6 +1,10 @@
 1.4.3 (unreleased)
 ==================
 
+- Copied safeEditProperty function from CMFPlone's migrations package,
+  as that is being removed.
+  [davisagli]
+
 - Change imports from Globals to use canonical locations, for compatibility
   with Zope 2.12.
   [davisagli]
