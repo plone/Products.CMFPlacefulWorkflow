@@ -1,6 +1,10 @@
 1.4.3 (unreleased)
 ==================
 
+- Register configlet icon using icon_expr for forwards-compatibility
+  with Plone 4.
+  [davisagli]
+
 - Copied safeEditProperty function from CMFPlone's migrations package,
   as that is being removed.
   [davisagli]
