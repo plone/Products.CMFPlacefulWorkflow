@@ -216,9 +216,5 @@ Workflow policy configuration template
 
         </tal:nosite>
 
-        <div metal:use-macro="here/document_byline/macros/byline">
-            Get the byline - contains details about author and modification date.
-        </div>
-
     </div>
 </html>

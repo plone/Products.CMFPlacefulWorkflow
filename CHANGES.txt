@@ -1,6 +1,10 @@
 1.4.3 (unreleased)
 ==================
 
+- Remove use of the deprecated document_byline macro in the placeful
+  workflow configuration template.
+  [davisagli]
+
 - Register configlet icon using icon_expr for forwards-compatibility
   with Plone 4.
   [davisagli]
