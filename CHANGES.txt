@@ -1,6 +1,9 @@
 1.4.3 (unreleased)
 ==================
 
+- Fix #9359: CMFPlacefulWorkflow defines __implements__ with zope3 interface.
+  [encolpe]
+
 - Remove use of the deprecated document_byline macro in the placeful
   workflow configuration template.
   [davisagli]

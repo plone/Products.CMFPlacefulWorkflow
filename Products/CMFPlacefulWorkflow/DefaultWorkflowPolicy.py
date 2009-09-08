@@ -31,6 +31,8 @@ from App.class_init import InitializeClass
 from Acquisition import aq_base
 from Persistence import PersistentMapping
 
+from zope.interface import implements
+
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 
 from Products.CMFCore.utils import SimpleItemWithProperties
@@ -48,7 +50,7 @@ _MARKER = '_MARKER'
 
 class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
 
-    __implements__ = IWorkflowPolicyDefinition
+    implements(IWorkflowPolicyDefinition)
 
     meta_type = 'WorkflowPolicy'
     id = 'default_workflow_policy'
@@ -263,16 +265,16 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
 
     security.declareProtected( ManagePortal, 'setChain')
     def setChain(self, portal_type, chain, REQUEST=None):
-        """Set the chain for a portal type. 
+        """Set the chain for a portal type.
 
-           @type chain: tuple of strings or None 
-           @param chain: A tuple of workflow ids to be set for the portal type. 
-                         A few special values exsist:  
-                           - C{None}: Acquire chain from a policy above,  
-                                      ultimatly from the portal workflow settings. 
-                           - C{()} (empty tuple): No workflow for this type. 
-                           - C{('default',)}: Use the configured default workflow. 
-        """ 
+           @type chain: tuple of strings or None
+           @param chain: A tuple of workflow ids to be set for the portal type.
+                         A few special values exsist:
+                           - C{None}: Acquire chain from a policy above,
+                                      ultimatly from the portal workflow settings.
+                           - C{()} (empty tuple): No workflow for this type.
+                           - C{('default',)}: Use the configured default workflow.
+        """
         # Verify input data
         if portal_type not in [pt.id for pt in self._listTypeInfo()]:
             raise ValueError, ("'%s' is not a valid portal type." % portal_type)
