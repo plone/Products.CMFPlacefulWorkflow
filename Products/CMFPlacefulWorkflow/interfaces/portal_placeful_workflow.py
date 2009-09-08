@@ -23,10 +23,8 @@ __version__ = "$Revision: 59438 $"
 # $Id: portal_placeful_workflow.py 59438 2008-02-26 06:19:30Z alecm $
 __docformat__ = 'restructuredtext'
 
-
-from zope.interface import Attribute, Interface
-
-_marker = []
+from zope.interface import Attribute
+from zope.interface import Interface
 
 
 class IPlacefulWorkflowTool(Interface):
@@ -51,5 +49,4 @@ class IPlacefulMarker(Interface):
 class IWorkflowPolicyDefinition(Interface):
     '''
     '''
-
     pass
