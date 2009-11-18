@@ -1,6 +1,11 @@
 1.4.3 (unreleased)
 ==================
 
+- Removed createSnapshot() call from exportimport.txt test. It wasn't doing
+  anything useful, and caused a distracting test failure not related to
+  CMFPlacefulWorkflow.
+  [optilude]
+
 - Fix #9359: CMFPlacefulWorkflow defines __implements__ with zope3 interface.
   [encolpe]
 

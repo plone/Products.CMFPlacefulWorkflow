@@ -20,7 +20,6 @@ Import the portal_placeful_workflow step with a profile defining a
 policy::
 
     >>> ps = getToolByName(self.portal, 'portal_setup')
-    >>> ps.createSnapshot('sn_1')
     >>> specific_context = 'profile-Products.CMFPlacefulWorkflow.tests:exportimport'
     >>> ps.runImportStepFromProfile(specific_context, 'portal_placeful_workflow')
     {'messages': {'portal_placeful_workflow': 'placeful_workflow: Folder
