@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '1.5a2'
+version = '1.5a3'
 
 setup(name='Products.CMFPlacefulWorkflow',
       version=version,
