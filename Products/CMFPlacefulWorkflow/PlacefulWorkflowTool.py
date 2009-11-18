@@ -38,7 +38,7 @@ from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from zope.interface import implements
 
 from Products.CMFCore.utils import getToolByName
-from Products.CMFCore.utils import UniqueObject
+from Products.CMFCore.utils import ImmutableId
 from Products.CMFCore.permissions import ManagePortal
 from Products.CMFCore.permissions import View
 from Products.CMFCore.utils import registerToolInterface
@@ -68,7 +68,7 @@ def addPlacefulWorkflowTool(self,REQUEST={}):
     if REQUEST:
         return REQUEST.RESPONSE.redirect(self.absolute_url() + '/manage_main')
 
-class PlacefulWorkflowTool(UniqueObject, Folder, IFAwareObjectManager):
+class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
     """
     PlacefulWorkflow Tool
     """
