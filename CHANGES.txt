@@ -1,4 +1,4 @@
-1.5a2 - Unreleased
+1.5a2 - 2009-11-18
 ==================
 
 - Make CMFPlacefulWorkflow tool an ImmutableId object, but not a UniqueObject.
@@ -10,7 +10,7 @@
   shadowing tools anyway, so the UniqueObject base class is a nicety rather
   than a necessity.
   [optilude]
-  
+
 1.5a1 - 2009-11-18
 ==================
 
