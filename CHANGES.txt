@@ -1,4 +1,4 @@
-1.4.3 (unreleased)
+1.5a1 - 2009-11-18
 ==================
 
 - Removed createSnapshot() call from exportimport.txt test. It wasn't doing
@@ -35,7 +35,7 @@
 - Made worflow policies translatable in prefs_workflow_localpolicies_form.
   [vincentfretin]
 
-1.4.2 (2009-03-05)
+1.4.2 - 2009-03-05
 ==================
 
 - The `Cancel` button on the local workflow configuration screen was saving

@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '1.4.3'
+version = '1.5a1'
 
 setup(name='Products.CMFPlacefulWorkflow',
       version=version,
@@ -13,8 +13,8 @@ setup(name='Products.CMFPlacefulWorkflow',
         ],
       keywords='CMF Plone Zope2 workflow',
       author='Ingeniweb',
-      author_email='support@ingeniweb.com',
-      url='http://svn.plone.org/svn/collective/Products.CMFPlacefulWorkflow',
+      author_email='plone-developers@lists.sourceforge.net',
+      url='http://pypi.python.org/pypi/Products.CMFPlacefulWorkflow',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['Products'],
