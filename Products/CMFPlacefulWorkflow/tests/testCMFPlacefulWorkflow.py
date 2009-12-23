@@ -18,13 +18,7 @@
 """
 CMFPlacefulWorkflow Unittest
 """
-__version__ = "$Revision: 61119 $"
-# $Source: /cvsroot/ingeniweb/CMFPlacefulWorkflow/tests/testCMFPlacefulWorkflow.py,v $
-# $Id: testCMFPlacefulWorkflow.py 61119 2008-03-25 14:21:45Z encolpe $
-__docformat__ = 'restructuredtext'
 
-
-import transaction
 from Testing import ZopeTestCase
 from zExceptions import Forbidden
 from Products.PloneTestCase import PloneTestCase
@@ -33,12 +27,8 @@ from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConf
 from Products.CMFPlacefulWorkflow.interfaces import IPlacefulMarker
 from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase
 
-try:
-    _standard_permissions = ZopeTestCase._standard_permissions
-except AttributeError:
-    _standard_permissions = ZopeTestCase.standard_permissions
-
-_edit_permissions     = [] # [PlacefulWorkflowPolicy_editPermission,]
+_standard_permissions = ZopeTestCase.standard_permissions
+_edit_permissions     = []
 _all_permissions      = _edit_permissions
 
 #Install our product
@@ -54,7 +44,6 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
     def createMember(self, id, pw, email, roles=('Member',)):
         pr = self.portal.portal_registration
         member = pr.addMember(id, pw, roles, properties={ 'username': id, 'email' : email })
-        #self.failUnless(id in self.portal.Members.objectIds())
         return member
 
     def installation(self, productName):

@@ -69,7 +69,8 @@ Export the portal_placeful_workflow step::
 
 The export produces a file for the tool itself::
 
-    >>> import tarfile, StringIO
+    >>> import tarfile
+    >>> import StringIO
     >>> archive = tarfile.open(
     ...     name='export',
     ...     fileobj=StringIO.StringIO(tarball))

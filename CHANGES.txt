@@ -1,6 +1,8 @@
 1.5a3 - Unreleased
 ==================
 
+- Small code cleanup and removal of unused imports.
+  [hannosch]
 
 1.5a2 - 2009-11-18
 ==================
