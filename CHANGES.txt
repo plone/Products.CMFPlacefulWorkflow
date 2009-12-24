@@ -1,6 +1,9 @@
 1.5a3 - Unreleased
 ==================
 
+- Avoid showing the content type icons in the workflow mapping screens.
+  [hannosch]
+
 - Small code cleanup and removal of unused imports.
   [hannosch]
 

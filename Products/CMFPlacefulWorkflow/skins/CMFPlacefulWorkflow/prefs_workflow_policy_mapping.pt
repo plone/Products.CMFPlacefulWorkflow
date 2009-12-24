@@ -144,11 +144,10 @@
                                                     ctype_id ctype/getId;
                                                     chain python:wf_policy.getChainFor(ctype_id, managescreen=True) or ('backward compatibility',);
                                                     ">
-                                        <td valign="top">
-                                            <img src="" alt="" width="16" height="16"
-                                                 tal:attributes="src string:$portal_url/${ctype/getIcon}" />
-                                            <label tal:content="ctype_title"
-                                                   i18n:translate="">Title</label>
+                                        <td valign="top"
+                                            tal:content="ctype_title"
+                                            i18n:translate="">
+                                            Title
                                         </td>
                                         <td valign="top">
                                             <select id="select_workflow" name="workflow_id"
