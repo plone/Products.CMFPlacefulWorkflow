@@ -1,5 +1,8 @@
-1.5a3 - Unreleased
-==================
+Changelog
+=========
+
+1.5b1 - 2009-12-27
+------------------
 
 - Avoid showing the content type icons in the workflow mapping screens.
   [hannosch]
@@ -8,7 +11,7 @@
   [hannosch]
 
 1.5a2 - 2009-11-18
-==================
+------------------
 
 - Make CMFPlacefulWorkflow tool an ImmutableId object, but not a UniqueObject.
   The UniqueObject base class specifies that it is impossible to have any
@@ -21,7 +24,7 @@
   [optilude]
 
 1.5a1 - 2009-11-18
-==================
+------------------
 
 - Removed createSnapshot() call from exportimport.txt test. It wasn't doing
   anything useful, and caused a distracting test failure not related to
@@ -57,7 +60,7 @@
   [vincentfretin]
 
 1.4.2 - 2009-03-05
-==================
+------------------
 
 - The `Cancel` button on the local workflow configuration screen was saving
   data as much as the `Save` button. Now it actually cancels the operation.
@@ -72,7 +75,7 @@
   [hannosch]
 
 1.4.1 (2009-01-17)
-==================
+------------------
 
 - Declare package dependencies and fixed deprecation warnings for use
   of Globals.
@@ -83,7 +86,7 @@
 
 
 1.4.0 (2008-11-05)
-==================
+------------------
 
 - Port evolutions from the 1.3 maintenance branch (old style product).
   [encolpe]
@@ -101,7 +104,7 @@
 
 
 1.3.2 (2008-06-30)
-==================
+------------------
 
 - Fixed bad metadata.xml.
   [encolpe]
