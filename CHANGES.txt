@@ -4,6 +4,10 @@ Changelog
 1.5b2 - unreleased
 ------------------
 
+- Use i18n_domain=cmfplacefulworkflow in profiles.zcml to be able to
+  translate the title and description of the profile. This refs
+  http://dev.plone.org/plone/ticket/9864
+  [vincentfretin]
 
 1.5b1 - 2009-12-27
 ------------------
