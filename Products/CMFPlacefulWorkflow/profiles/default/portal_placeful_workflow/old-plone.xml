@@ -12,9 +12,6 @@
    <bound-workflow workflow_id="folder_workflow"/>
   </type>
   <type default_chain="true" type_id="Image"/>
-  <type type_id="Large Plone Folder">
-   <bound-workflow workflow_id="folder_workflow"/>
-  </type>
   <type default_chain="true" type_id="Link"/>
   <type default_chain="true" type_id="News Item"/>
   <type type_id="Topic">

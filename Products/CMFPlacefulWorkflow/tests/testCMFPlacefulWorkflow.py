@@ -200,7 +200,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
 
         ## Part Two: duplicate another policy
         policy.setDefaultChain(['plone_workflow', 'folder_workflow'])
-        policy.setChainForPortalTypes(['Document','Folder', 'Large Plone Folder'], ['plone_workflow', 'folder_workflow'])
+        policy.setChainForPortalTypes(['Document','Folder'], ['plone_workflow', 'folder_workflow'])
         pw_tool.manage_addWorkflowPolicy(id='foo_bar_policy2',
                                          duplicate_id='foo_bar_policy',
                                          )
@@ -209,7 +209,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
 
         self.failUnlessEqual(policy.getDefaultChain('XXX'), ('plone_workflow', 'folder_workflow'))
         for ptype in ptypes:
-            if ptype not in ('Document','Folder', 'Large Plone Folder'):
+            if ptype not in ('Document','Folder'):
                 self.failUnlessEqual(policy2.getChainFor(ptype), policy.getChainFor(ptype))
             else:
                 self.failUnlessEqual(policy2.getChainFor(ptype), ('plone_workflow', 'folder_workflow'))
@@ -388,13 +388,12 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         self.logout()
         self.loginAsPortalOwner()
         wft = self.portal.portal_workflow
-        self.portal.portal_types['Large Plone Folder']._setPropValue('global_allow', True)
-        self.portal.invokeFactory('Large Plone Folder', id='folder')
+        self.portal.invokeFactory('Folder', id='folder')
         self.portal.folder.invokeFactory('Document', id='document')
-        self.portal.folder.invokeFactory('Large Plone Folder', id='folder2')
+        self.portal.folder.invokeFactory('Folder', id='folder2')
         self.portal.folder.folder2.invokeFactory('Document', id='document2')
-        self.portal.folder.invokeFactory('Large Plone Folder', id='large_folder3')
-        self.portal.folder.large_folder3.invokeFactory('Document', id='document3')
+        self.portal.folder.invokeFactory('Folder', id='folder3')
+        self.portal.folder.folder3.invokeFactory('Document', id='document3')
 
         # Create a policy
         pwt = self.portal_placeful_workflow
@@ -405,7 +404,6 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         gsp1 = pwt.getWorkflowPolicyById('foo_bar_policy')
         gsp1.setChainForPortalTypes(['Document'], ['plone_workflow'])
         gsp1.setChainForPortalTypes(['Folder'], ['plone_workflow'])
-        gsp1.setChainForPortalTypes(['Large Plone Folder'], ['plone_workflow'])
 
         # Create a policy
         pwt = self.portal_placeful_workflow
@@ -416,7 +414,6 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         gsp2 = pwt.getWorkflowPolicyById('foo_bar_policy2')
         gsp2.setChainForPortalTypes(['Document'], ['folder_workflow'])
         gsp2.setChainForPortalTypes(['Folder'], ['folder_workflow'])
-        gsp2.setChainForPortalTypes(['Large Plone Folder'], ['folder_workflow'])
 
         # Add a config to the folder using the policy
         self.portal.folder.manage_addProduct['CMFPlacefulWorkflow'].manage_addWorkflowPolicyConfig()
@@ -508,7 +505,6 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
     def test_14_getWorkflowPolicyConfig(self):
         self.logout()
         self.loginAsPortalOwner()
-        wft = self.portal.portal_workflow
         self.portal.invokeFactory('Folder', id='folder')
         self.portal.folder.invokeFactory('Document', id='document')
         self.portal.folder.invokeFactory('Folder', id='folder2')
