@@ -1,11 +1,14 @@
 Changelog
 =========
 
-1.5b2 - unreleased
+1.5b4 - 2010-06-03
 ------------------
 
 - Remove references to Large Plone Folder from the included workflow policies.
   [davisagli]
+
+1.5b3 - 2010-05-01
+------------------
 
 - Use i18n_domain=cmfplacefulworkflow in profiles.zcml to be able to
   translate the title and description of the profile. This refs
