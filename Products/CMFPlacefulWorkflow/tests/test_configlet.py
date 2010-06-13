@@ -22,10 +22,15 @@ __version__ = "$Revision: 61119 $"
 __docformat__ = 'restructuredtext'
 
 from Products.PloneTestCase import PloneTestCase
-from Products.Five.testbrowser import Browser
 from Products.CMFCore.utils import getToolByName
 
 from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowFunctionalTestCase
+
+# BBB Zope 2.12
+try:
+    from Testing.testbrowser import Browser
+except ImportError:
+    from Products.Five.testbrowser import Browser
 
 
 class TestConfiglet(CMFPlacefulWorkflowFunctionalTestCase):

@@ -18,12 +18,9 @@
 """
 Contributed by Jazkarta
 """
-__version__ = "$Revision:  $"
-# $Source:  $
-# $Id:  $
 __docformat__ = 'restructuredtext'
 
-from zope.testing import doctest
+import doctest
 from Testing.ZopeTestCase import ZopeDocFileSuite
 
 from Products.CMFCore.interfaces import ISiteRoot
@@ -34,7 +31,6 @@ from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase
 
 OPTIONFLAGS = (doctest.ELLIPSIS |
                doctest.NORMALIZE_WHITESPACE |
-               #doctest.REPORT_ONLY_FIRST_FAILURE |
                doctest.REPORT_UDIFF)
 
 class ExportImportLayer(
