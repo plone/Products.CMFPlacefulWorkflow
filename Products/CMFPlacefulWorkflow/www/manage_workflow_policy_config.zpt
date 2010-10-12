@@ -18,7 +18,7 @@ Workflow Policy Configurations for this folder and below.
     <td align="left" valign="top">
 
       <input type="radio" name="workflow_policy_in" id="cb_in_default_policy" value=""
-             tal:attributes="checked python:test(here.getPolicyInId() == '', 'checked', None)">
+             tal:attributes="checked python:test(here.getPolicyInId() == '', 'checked', None)"/>
       <label for="cb_default_policy">No policy: fallback to above policy or default site policy</label><br/>
 
       <tal:block tal:repeat="policy policies">
@@ -40,7 +40,7 @@ Workflow Policy Configurations for this folder and below.
     <td align="left" valign="top">
 
       <input type="radio" name="workflow_policy_below" id="cb_below_default_policy" value=""
-             tal:attributes="checked python:test(here.getPolicyBelowId() == '', 'checked', None)">
+             tal:attributes="checked python:test(here.getPolicyBelowId() == '', 'checked', None)"/>
       <label for="cb_default_policy">No policy: fallback to above policy or default site policy</label><br/>
 
       <tal:block tal:repeat="policy policies">
