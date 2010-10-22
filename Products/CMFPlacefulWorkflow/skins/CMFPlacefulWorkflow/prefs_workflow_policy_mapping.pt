@@ -30,35 +30,35 @@
                         (<span tal:content="python:wf_policy.getTitle()" />)
                     </span>
                 </h1>
-    
+
                 <a href=""
                    class="link-parent"
                    tal:attributes="href string:$portal_url/prefs_workflow_localpolicies_form"
                    i18n:translate="label_up_to_placeful_workflow">
                     Up to Placeful Workflow
                 </a>
-    
+
                 <p i18n:translate="description_workflow_custom_mapping">
                     Custom workflow policy which maps content types to workflows.
                 </p>
                 <form name="prefs_workflow_policy_mapping_set"
                       action="prefs_workflow_policy_mapping_set"
                       method="post">
-    
+
                     <fieldset>
-    
+
                         <legend i18n:translate="legend_workflow_policy_details">
                             Workflow Policy Details
                         </legend>
-    
+
                         <div class="field">
-    
+
                             <label for="title"
                                    i18n:domain="plone"
                                    i18n:translate="label_title">
                                 Title
                             </label>
-    
+
                             <span class="fieldRequired"
                                   title="Required"
                                   i18n:domain="plone"
@@ -67,7 +67,7 @@
                                 (Required)
                             </span>
                             <br />
-    
+
                             <input type="text"
                                    id="title"
                                    name="title"
@@ -75,20 +75,20 @@
                                    size="40"
                                    tal:attributes="value python:request.get('title',wf_policy.getTitle())" />
                         </div>
-    
+
                         <div class="field">
-    
+
                             <label for="description"
                                    i18n:domain="plone"
                                    i18n:translate="label_description">
                                 Description
                             </label>
-    
+
                             <div class="formHelp"
                                  i18n:translate="help_workflow_policy_description">
                                 A brief description of the workflow policy.
                             </div>
-    
+
                             <textarea cols="80"
                                       rows="2"
                                       id="description"
@@ -96,24 +96,24 @@
                                       tal:content="python:request.get('description',wf_policy.getDescription())">
                                 Workflow Policy Description.
                             </textarea>
-    
+
                         </div>
-    
+
                         <div class="field">
-    
+
                             <label for="default_workflow_id"
                                    i18n:translate="label_default_workflow">
                                 Default Workflow
                             </label>
-    
+
                             <div class="formHelp"
                                  i18n:translate="help_default_workflow_for_types">
                                 Default workflow for content types.
                             </div>
-    
+
                             <select id="select_workflow"
                                     name="default_workflow_id">
-    
+
                                 <option tal:repeat="wf wf_list"
                                         tal:attributes="value wf/id;
                                                         selected python:test((wf['id'],)==wf_policy.getDefaultChain(here), 'selected', None)"
@@ -124,18 +124,18 @@
                                 </option>
                             </select>
                         </div>
-    
+
                         <div class="field">
-    
+
                             <label for="workflow_id"
                                    i18n:translate="label_workflow_by_type">
                                 Workflows by type
                             </label>
-    
+
                             <div class="formHelp" i18n:translate="help_workflow_assign_all_types">
                                 You can assign a workflow for all content types.
                             </div>
-    
+
                             <table class="field"
                                    summary="Workflow to content type mapping."
                                    i18n:attributes="summary summary_workflow_type_mapping;">

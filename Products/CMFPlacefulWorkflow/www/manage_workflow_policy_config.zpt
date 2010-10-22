@@ -62,7 +62,7 @@ Workflow Policy Configurations for this folder and below.
     <td align="left" valign="top">
     <div class="form-element">
     <input class="form-element" type="submit" name="submit"
-           value="Save Changes" /> 
+           value="Save Changes" />
     </div>
     </td>
   </tr>

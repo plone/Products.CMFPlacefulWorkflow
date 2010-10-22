@@ -7,5 +7,5 @@
   <adapter
       factory=".adapter.PlacefulWorkflowChain"
       />
-  
+
 </configure>

@@ -6,8 +6,8 @@
          directory="Products.CMFPlacefulWorkflow:skins/CMFPlacefulWorkflow"/>
 
  <skin-path name="*">
-  <layer insert-after="custom" 
+  <layer insert-after="custom"
          name="CMFPlacefulWorkflow"/>
  </skin-path>
- 
+
 </object>

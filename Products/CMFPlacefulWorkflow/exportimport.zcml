@@ -23,9 +23,9 @@
      meta_type="WorkflowPolicy"
      permission="cmf.ManagePortal"
      />
-  
+
   <genericsetup:importStep
-     name="placeful_workflow" 
+     name="placeful_workflow"
      title="Placeful Workflow Policies"
      description="Import placeful workflow policies."
      handler="Products.CMFPlacefulWorkflow.exportimport.importWorkflowPolicies">
@@ -33,14 +33,14 @@
   </genericsetup:importStep>
 
   <genericsetup:exportStep
-     name="portal_placeful_workflow" 
+     name="portal_placeful_workflow"
      title="Placeful Workflow Policies"
      description="Export placeful workflow policies."
      handler="Products.CMFPlacefulWorkflow.exportimport.exportWorkflowPolicies"
      />
 
   <genericsetup:importStep
-     name="placeful_marker" 
+     name="placeful_marker"
      title="Placeful Workflow Tool Marker Interface"
      description="Add placeful marker to default workflow tool"
      handler="Products.CMFPlacefulWorkflow.setuphandlers.installMarker">
