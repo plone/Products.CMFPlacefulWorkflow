@@ -1,14 +1,13 @@
 Changelog
 =========
 
-1.5.1 - unreleased
+1.5.1 - 2010-10-27
 ------------------
 
-- fixed chameleon incompatibility in manage_workflow_policy_config.zpt.
-  renamed select_workflows.zpt to select_workflows.dtml and 
-  select_workflows.zpt to select_workflows.dtml.
+- Fixed chameleon incompatibility in `manage_workflow_policy_config.zpt`.
+  Renamed `select_workflows.zpt` to `select_workflows.dtml` and 
+  `select_workflows.zpt` to `select_workflows.dtml`.
   [swampmonkey]
-
 
 1.5 - 2010-07-18
 ----------------
