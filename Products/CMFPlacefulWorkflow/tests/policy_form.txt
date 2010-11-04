@@ -1,0 +1,57 @@
+;-*-Doctest-*-
+=============================
+Placeful workflow policy form
+=============================
+
+The Placeful workflow policy form works in a real browser.
+
+Open a browser and log in as a user who can use the policy form.
+
+    >>> from Products.Five import testbrowser
+    >>> browser = testbrowser.Browser()
+    >>> browser.handleErrors = False
+    >>> browser.open(portal.absolute_url())
+    >>> browser.getLink('Log in').click()
+
+    >>> from Products.PloneTestCase import ptc
+    >>> browser.getControl('Login Name').value = ptc.portal_owner
+    >>> browser.getControl(
+    ...     'Password').value = ptc.default_password
+    >>> browser.getControl('Log in').click()
+
+Open the policy form for the front-page and for the folder.
+
+    >>> browser.getLink('Policy').click()
+    >>> browser.url
+    'http://nohost/plone/front-page/placeful_workflow_configuration'
+    >>> print browser.contents
+    <...
+    <h1>
+    Workflow policies' local configuration management
+    </h1>
+    ...
+
+    >>> browser.open(portal.absolute_url()+'/placeful_workflow_configuration')
+    >>> browser.url
+    'http://nohost/plone/placeful_workflow_configuration'
+    >>> print browser.contents
+    <...
+    <h1>
+    Workflow policies' local configuration management
+    </h1>
+    ...
+
+The policy form also works for pages that aren't the default page.
+
+    >>> self.login()
+    >>> page = folder[folder.invokeFactory(type_name='Document', id='foo')]
+    >>> browser.open(page.absolute_url())
+    >>> browser.getLink('Policy').click()
+    >>> browser.url
+    'http://nohost/plone/Members/test_user_1_/foo/placeful_workflow_configuration'
+    >>> print browser.contents
+    <...
+    <h1>
+    Workflow policies' local configuration management
+    </h1>
+    ...

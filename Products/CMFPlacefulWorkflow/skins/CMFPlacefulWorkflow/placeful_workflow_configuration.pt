@@ -74,10 +74,6 @@ Workflow policy configuration template
               </a>
           </p>
 
-          <p tal:condition="python:not here.isPrincipiaFolderish and here is container">
-              <span tal:define="dummy python:context.REQUEST.RESPONSE.redirect(container.absolute_url()+'/placeful_workflow_configuration')" />
-          </p>
-
           <form id="edit_form"
                 name="edit_form"
                 method="post"
