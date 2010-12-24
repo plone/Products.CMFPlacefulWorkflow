@@ -4,6 +4,9 @@ Changelog
 1.5.2 - unreleased
 ------------------
 
+- Depend on ``Products.CMFPlone`` instead of ``Plone``.
+  [elro]
+
 - Updated the placeful_workflow import step to depends on typeinfo,
   as we need to make sure all types are available when importing the
   local policies.
