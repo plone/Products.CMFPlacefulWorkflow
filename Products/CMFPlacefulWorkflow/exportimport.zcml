@@ -29,6 +29,7 @@
      title="Placeful Workflow Policies"
      description="Import placeful workflow policies."
      handler="Products.CMFPlacefulWorkflow.exportimport.importWorkflowPolicies">
+    <depends name="typeinfo"/>
     <depends name="workflow"/>
   </genericsetup:importStep>
 
