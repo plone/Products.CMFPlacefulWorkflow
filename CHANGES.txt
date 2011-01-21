@@ -4,6 +4,11 @@ Changelog
 1.5.3 - Unreleased
 ------------------
 
+- Fix failing test. The 'comment_review_workflow' from plone.app.discussion is 
+  now part of the core.
+  [timo]
+
+
 1.5.2 - 2011-01-03
 ------------------
 
