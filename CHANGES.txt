@@ -4,6 +4,10 @@ Changelog
 1.5.4 - Unreleased
 ------------------
 
+- Create base profile with no dependencies on the default Plone types to allow use in an 
+  archetype free dexterity environment
+  [anthonyg]
+
 1.5.3 - 2011-02-04
 ------------------
 
