@@ -4,6 +4,9 @@ Changelog
 1.5.4 - Unreleased
 ------------------
 
+- Fix test to work with both 4.0 and 4.1.
+  [elro]
+
 - Create base profile with no dependencies on the default Plone types to allow use in an 
   archetype free dexterity environment
   [anthonyg]

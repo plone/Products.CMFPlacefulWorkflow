@@ -614,9 +614,14 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         document = self.portal.folder.document
         wf_tool.doActionFor(document, 'submit', comment="unittest transition")
 
+        keys = list(wf_tool.getWorklists().keys())
+        if 'comment_review_workflow' in keys:
+            # This test needs to work on both 4.0 and 4.1
+            keys.remove('comment_review_workflow')
+
         self.failUnlessEqual(
-            sorted(tuple(wf_tool.getWorklists().keys())),
-            sorted(('comment_review_workflow', 'folder_workflow',
+            sorted(tuple(keys)),
+            sorted(('folder_workflow',
                     'plone_workflow', 'intranet_folder_workflow',
                     'one_state_workflow', 'simple_publication_workflow',
                     'intranet_workflow')))
