@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.5.4 - Unreleased
+1.5.4 - 2011-03-31
 ------------------
 
 - Fix test to work with both 4.0 and 4.1.
