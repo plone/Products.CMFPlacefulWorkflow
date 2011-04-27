@@ -23,6 +23,7 @@ __version__ = "$Revision: 62604 $"
 # $Id: __init__.py 62604 2008-04-13 20:50:14Z hannosch $
 __docformat__ = 'restructuredtext'
 
+ManageWorkflowPolicies = 'Manage portal' #TODO : have a Site setup: Manage workflow policies permission
 import PlacefulWorkflowTool
 import DefaultWorkflowPolicy
 import WorkflowPolicyConfig
@@ -35,6 +36,7 @@ install_globals = globals()          # Used only in the Extensions/Install.py sc
 tools = (PlacefulWorkflowTool.PlacefulWorkflowTool, )
 
 DirectoryView.registerDirectory('skins', globals())
+
 
 # Initialization method
 def initialize(context):

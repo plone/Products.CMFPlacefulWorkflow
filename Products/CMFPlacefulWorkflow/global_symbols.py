@@ -42,7 +42,7 @@ from Log import *
 
 PROJECTNAME = "CMFPlacefulWorkflow"
 
-from Products.CMFCore.permissions import ManagePortal
+from Products.CMFPlacefulWorkflow import ManageWorkflowPolicies
 
 placeful_prefs_configlet = {
     'id': 'placefulworkflow',
@@ -50,6 +50,6 @@ placeful_prefs_configlet = {
     'name': 'Placeful Workflow',
     'action': 'string:$portal_url/prefs_workflow_localpolicies_form',
     'category': 'Products',
-    'permission': (ManagePortal,),
+    'permission': (ManageWorkflowPolicies,),
     'imageUrl': 'placefulworkflow_icon.png',
     }

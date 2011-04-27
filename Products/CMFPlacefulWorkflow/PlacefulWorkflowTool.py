@@ -39,12 +39,13 @@ from zope.interface import implements
 
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.utils import ImmutableId
-from Products.CMFCore.permissions import ManagePortal
 from Products.CMFCore.permissions import View
 from Products.CMFCore.utils import registerToolInterface
 from Products.CMFCore.utils import _checkPermission
 
 from Products.CMFCore.interfaces import ISiteRoot
+
+from Products.CMFPlacefulWorkflow import ManageWorkflowPolicies
 from interfaces import IPlacefulWorkflowTool
 
 WorkflowPolicyConfig_id = ".wf_policy_config"
@@ -91,7 +92,7 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
 
     _manage_addWorkflowPolicyForm = PageTemplateFile(path_join('www', 'add_workflow_policy'), globals())
 
-    security.declareProtected( ManagePortal, 'manage_addWorkflowPolicyForm')
+    security.declareProtected(ManageWorkflowPolicies, 'manage_addWorkflowPolicyForm')
     def manage_addWorkflowPolicyForm(self, REQUEST):
         """ Form for adding workflow policies.
         """
@@ -101,7 +102,7 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
         wfpt.sort()
         return self._manage_addWorkflowPolicyForm(REQUEST, workflow_policy_types=wfpt)
 
-    security.declareProtected( ManagePortal, 'manage_addWorkflowPolicy')
+    security.declareProtected(ManageWorkflowPolicies, 'manage_addWorkflowPolicy')
     def manage_addWorkflowPolicy(self, id,
                                  workflow_policy_type='default_workflow_policy (Simple Policy)',
                                  duplicate_id='empty',
@@ -148,9 +149,9 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
         return (
             {'name': 'WorkflowPolicy',
              'action': 'manage_addWorkflowPolicyForm',
-             'permission': ManagePortal },)
+             'permission':ManageWorkflowPolicies },)
 
-    security.declareProtected( ManagePortal, 'getWorkflowPolicyById')
+    security.declareProtected(ManageWorkflowPolicies, 'getWorkflowPolicyById')
     def getWorkflowPolicyById(self, wfp_id):
         """ Retrieve a given workflow policy.
         """
@@ -168,7 +169,7 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
         """
         return self.getWorkflowPolicyById(policy_id) is not None
 
-    security.declareProtected( ManagePortal, 'getWorkflowPolicies')
+    security.declareProtected(ManageWorkflowPolicies, 'getWorkflowPolicies')
     def getWorkflowPolicies(self):
         """ Return the list of workflow policies.
         """
@@ -211,9 +212,9 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
         if self.isSiteRoot(ob):
             # Site root use portal_workflow tool as local policy
             return None
-        if not _checkPermission(ManagePortal, ob):
+        if not _checkPermission(ManageWorkflowPolicies, ob):
             raise Unauthorized("You need %s permission on %s" % (
-                ManagePortal, '/'.join(ob.getPhysicalPath())))
+               ManageWorkflowPolicies, '/'.join(ob.getPhysicalPath())))
 
         return getattr(ob.aq_explicit, WorkflowPolicyConfig_id, None)
 
