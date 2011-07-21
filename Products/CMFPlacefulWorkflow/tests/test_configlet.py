@@ -62,6 +62,7 @@ class TestConfiglet(CMFPlacefulWorkflowFunctionalTestCase):
         # Create a policy
         self.ppw.manage_addWorkflowPolicy(
             'dummy_policy', 'default_workflow_policy (Simple Policy)')
+        self.ppw.dummy_policy.title = 'Dummy Policy'
 
     def setLocalChainForPortalType(self, pt, chain):
         gp = self.ppw.getWorkflowPolicyById('dummy_policy')
