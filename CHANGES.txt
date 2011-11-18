@@ -4,6 +4,9 @@ Changelog
 1.5.6 - unreleased
 ------------------
 
+- Fix profiles description to be translated.
+  [vincentfretin]
+
 - Fix failing test.
   [davisagli]
 
