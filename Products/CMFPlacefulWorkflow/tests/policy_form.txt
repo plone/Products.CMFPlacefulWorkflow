@@ -26,9 +26,7 @@ Open the policy form for the front-page and for the folder.
     'http://nohost/plone/front-page/placeful_workflow_configuration'
     >>> print browser.contents
     <...
-    <h1>
-    Workflow policies' local configuration management
-    </h1>
+    <h1>...Workflow policies' local configuration management...</h1>
     ...
 
     >>> browser.open(portal.absolute_url()+'/placeful_workflow_configuration')
@@ -36,9 +34,7 @@ Open the policy form for the front-page and for the folder.
     'http://nohost/plone/placeful_workflow_configuration'
     >>> print browser.contents
     <...
-    <h1>
-    Workflow policies' local configuration management
-    </h1>
+    <h1>...Workflow policies' local configuration management...</h1>
     ...
 
 The policy form also works for pages that aren't the default page.
@@ -51,7 +47,5 @@ The policy form also works for pages that aren't the default page.
     'http://nohost/plone/Members/test_user_1_/foo/placeful_workflow_configuration'
     >>> print browser.contents
     <...
-    <h1>
-    Workflow policies' local configuration management
-    </h1>
+    <h1>...Workflow policies' local configuration management...</h1>
     ...
