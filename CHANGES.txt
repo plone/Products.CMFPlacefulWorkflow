@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.5.7 (unreleased)
+1.5.7 (2012-05-25)
 ------------------
 
 - Fixed a few test failures in combination with five.pt.
