@@ -4,7 +4,8 @@ Changelog
 1.5.8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fixed updating Role Mappings only in current folder.
+  [kroman0]
 
 
 1.5.7 (2012-05-25)

@@ -24,6 +24,7 @@ from os.path import join as path_join
 from App.class_init import InitializeClass
 from OFS.SimpleItem import SimpleItem
 from AccessControl import ClassSecurityInfo
+from Acquisition import aq_base, aq_inner, aq_parent
 
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.CMFCore.utils import getToolByName
@@ -102,7 +103,13 @@ class WorkflowPolicyConfig(SimpleItem):
         self.workflow_policy_in = policy
         if update_security:
             wtool = getToolByName(self, 'portal_workflow')
-            wtool.updateRoleMappings()
+            wfs = {}
+            for id in wtool.objectIds():
+                wf = wtool.getWorkflowById(id)
+                if hasattr(aq_base(wf), 'updateRoleMappingsFor'):
+                    wfs[id] = wf
+            context = aq_parent(aq_inner(self))
+            wtool._recursiveUpdateRoleMappings(context, wfs)
 
     security.declareProtected(ManageWorkflowPolicies, 'setPolicyBelow')
     def setPolicyBelow(self, policy, update_security=False):
@@ -111,7 +118,13 @@ class WorkflowPolicyConfig(SimpleItem):
         self.workflow_policy_below = policy
         if update_security:
             wtool = getToolByName(self, 'portal_workflow')
-            wtool.updateRoleMappings()
+            wfs = {}
+            for id in wtool.objectIds():
+                wf = wtool.getWorkflowById(id)
+                if hasattr(aq_base(wf), 'updateRoleMappingsFor'):
+                    wfs[id] = wf
+            context = aq_parent(aq_inner(self))
+            wtool._recursiveUpdateRoleMappings(context, wfs)
 
     security.declareProtected(ManageWorkflowPolicies, 'getPlacefulChainFor')
     def getPlacefulChainFor(self, portal_type, start_here=False):
