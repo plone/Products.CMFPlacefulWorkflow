@@ -124,6 +124,11 @@ class WorkflowPolicyConfig(SimpleItem):
         self.workflow_policy_below = policy
         if update_security:
             wtool = getToolByName(self, 'portal_workflow')
+            # wtool.updateRoleMappings(context)    # passing context is not possible :(
+            # 
+            # Since WorkflowTool.updateRoleMappings() from the line above supports
+            # only sitewide updates code from updateRoleMappings() was copied below
+            # to enable context passing to wftool._recursiveUpdateRoleMappings()
             wfs = {}
             for id in wtool.objectIds():
                 wf = wtool.getWorkflowById(id)
