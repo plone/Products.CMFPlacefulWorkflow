@@ -1,3 +1,9 @@
+Origin
+======
+
+This product is the implementation of a PLIP initiated by Maik Röder:
+http://plone.org/products/plone/roadmap/52
+
 Overview
 ========
 
