@@ -4,8 +4,14 @@ Changelog
 1.5.8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fixed descriptions under placeful_workflow_configuration.pt for sections
+  "For this folder" and "Below this folder".
+  [alecghica]
 
+- Added "update security" as an option field on local configuration management
+  form, as in most cases updating catalog role mappings can be a very long operation
+  and is better to be made as a separate upgrade step.
+  [alecghica]
 
 1.5.7 (2012-05-25)
 ------------------
