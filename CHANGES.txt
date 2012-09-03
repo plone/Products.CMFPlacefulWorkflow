@@ -4,6 +4,9 @@ Changelog
 1.5.8 (unreleased)
 ------------------
 
+- Fixed add workflow policy template (via ZMI).
+  [alecghica]
+
 - Fixed descriptions under placeful_workflow_configuration.pt for sections
   "For this folder" and "Below this folder".
   [alecghica]
