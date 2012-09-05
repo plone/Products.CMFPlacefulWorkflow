@@ -202,8 +202,8 @@ Workflow policy configuration template
 
                   <div class="field">
 
-                    <input type="checkbox" class="noborder" name="update_security"
-                            value="" id="cb_update_security" />
+                    <input type="checkbox" checked="checked" class="noborder"
+                           name="update_security" value="" id="cb_update_security" />
 
                     <label for="cb_update_security"
                            i18n:domain="cmfplacefulworkflow"
