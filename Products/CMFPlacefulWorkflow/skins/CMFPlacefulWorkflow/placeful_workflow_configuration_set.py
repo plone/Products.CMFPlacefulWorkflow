@@ -1,4 +1,4 @@
-##parameters=policy_in='', policy_below=''
+##parameters=policy_in='', policy_below='', update_security=False
 ##title=set placeful workflow configuration
 ##
 from Products.CMFCore.utils import getToolByName
@@ -26,8 +26,9 @@ if not cancel:
            and not policy_below == '':
             raise AttributeError("%s is not a valid policy id" % policy_below)
 
-        config.setPolicyIn(policy=policy_in)
-        config.setPolicyBelow(policy=policy_below, update_security=True)
+        config.setPolicyIn(policy_in, update_security)
+        config.setPolicyBelow(policy_below, update_security)
+
         message = _('Changed policies.')
 
 context.plone_utils.addPortalMessage(message)
