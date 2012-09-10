@@ -4,6 +4,9 @@ Changelog
 1.5.8 (unreleased)
 ------------------
 
+- Fixed updating Role Mappings only in current folder.
+  [kroman0]
+
 - Added 'Manage workflow policies' permission. ManageWorkflowPolicies is
   no longer 'Manage portal', is now assigned as 'Manage workflow policies'.
   [alecghica]
