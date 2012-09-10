@@ -52,7 +52,7 @@ def initialize(context):
 
     context.registerClass(
         WorkflowPolicyConfig.WorkflowPolicyConfig,
-        permission='Add Workflow Policy XXX',
+        permission='Add Workflow Policy',
         constructors=(WorkflowPolicyConfig.manage_addWorkflowPolicyConfigForm,
                       WorkflowPolicyConfig.manage_addWorkflowPolicyConfig),
         icon='www/WorkflowPolicyConfig_icon.gif',
