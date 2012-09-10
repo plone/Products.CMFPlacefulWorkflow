@@ -4,8 +4,8 @@ Changelog
 1.5.8 (unreleased)
 ------------------
 
-- Added 'Manage workflow policies' permission. ManageWorkflowPolicies is
-  no longer 'Manage portal', is now assigned as 'Manage workflow policies'.
+- Added 'CMFPlacefulWorkflow: Manage workflow policies' permission. ManageWorkflowPolicies is
+  no longer 'Manage portal', it's now assigned to 'CMFPlacefulWorkflow: Manage workflow policies'.
   [alecghica]
 
 - Fixed add workflow policy template (via ZMI).
