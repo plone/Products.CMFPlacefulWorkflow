@@ -1,4 +1,4 @@
-##parameters=policy_in='', policy_below='', update_security=False
+##parameters=policy_in='', policy_below='', update_security=True
 ##title=set placeful workflow configuration
 ##
 from Products.CMFCore.utils import getToolByName
