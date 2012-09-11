@@ -4,6 +4,9 @@ Changelog
 1.5.8 (unreleased)
 ------------------
 
+- Fixed updating Role Mappings only in current folder.
+  [kroman0]
+
 - Added 'CMFPlacefulWorkflow: Manage workflow policies' permission. ManageWorkflowPolicies is
   no longer 'Manage portal', it's now assigned to 'CMFPlacefulWorkflow: Manage workflow policies'.
   [alecghica]
