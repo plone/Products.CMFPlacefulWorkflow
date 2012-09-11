@@ -40,7 +40,7 @@ from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addWorkflowPolicyF
 
 from Products.CMFPlacefulWorkflow.interfaces.portal_placeful_workflow import IWorkflowPolicyDefinition
 from Products.CMFPlacefulWorkflow.global_symbols import Log, LOG_DEBUG
-from Products.CMFPlacefulWorkflow import ManageWorkflowPolicies
+from Products.CMFPlacefulWorkflow.permissions import ManageWorkflowPolicies
 
 from Products.CMFCore.utils import getToolByName
 

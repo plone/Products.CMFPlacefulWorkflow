@@ -23,8 +23,6 @@ __version__ = "$Revision: 62604 $"
 # $Id: __init__.py 62604 2008-04-13 20:50:14Z hannosch $
 __docformat__ = 'restructuredtext'
 
-ManageWorkflowPolicies = 'Manage workflow policies'
-
 import PlacefulWorkflowTool
 import DefaultWorkflowPolicy
 import WorkflowPolicyConfig

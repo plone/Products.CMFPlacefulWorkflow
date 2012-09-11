@@ -45,7 +45,7 @@ from Products.CMFCore.utils import _checkPermission
 
 from Products.CMFCore.interfaces import ISiteRoot
 
-from Products.CMFPlacefulWorkflow import ManageWorkflowPolicies
+from Products.CMFPlacefulWorkflow.permissions import ManageWorkflowPolicies
 from interfaces import IPlacefulWorkflowTool
 
 WorkflowPolicyConfig_id = ".wf_policy_config"
