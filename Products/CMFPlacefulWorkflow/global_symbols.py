@@ -42,7 +42,7 @@ from Log import *
 
 PROJECTNAME = "CMFPlacefulWorkflow"
 
-from Products.CMFPlacefulWorkflow import ManageWorkflowPolicies
+from Products.CMFPlacefulWorkflow.permissions import ManageWorkflowPolicies
 
 placeful_prefs_configlet = {
     'id': 'placefulworkflow',

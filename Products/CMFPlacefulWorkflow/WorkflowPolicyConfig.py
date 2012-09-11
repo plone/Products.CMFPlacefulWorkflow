@@ -31,7 +31,7 @@ from Products.CMFCore.utils import getToolByName
 
 from PlacefulWorkflowTool import WorkflowPolicyConfig_id
 from Products.CMFPlacefulWorkflow.global_symbols import Log, LOG_DEBUG
-from Products.CMFPlacefulWorkflow import ManageWorkflowPolicies
+from Products.CMFPlacefulWorkflow.permissions import ManageWorkflowPolicies
 
 manage_addWorkflowPolicyConfigForm = PageTemplateFile(
     path_join('www', 'add_workflow_policy_config_form'), globals())
