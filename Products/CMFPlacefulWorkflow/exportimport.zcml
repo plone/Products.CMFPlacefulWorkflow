@@ -18,6 +18,7 @@
           Products.GenericSetup.interfaces.ISetupEnviron"
      />
 
+  <include package="Products.CMFCore" />
   <five:registerClass
      class=".DefaultWorkflowPolicy.DefaultWorkflowPolicyDefinition"
      meta_type="WorkflowPolicy"
