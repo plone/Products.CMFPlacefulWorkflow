@@ -7,8 +7,9 @@ Changelog
 - Fixed updating Role Mappings only in current folder.
   [kroman0]
 
-- Added 'CMFPlacefulWorkflow: Manage workflow policies' permission. ManageWorkflowPolicies is
-  no longer 'Manage portal', it's now assigned to 'CMFPlacefulWorkflow: Manage workflow policies'.
+- Added 'CMFPlacefulWorkflow: Manage workflow policies' permission.
+  ManageWorkflowPolicies is no longer 'Manage portal', it's now assigned to
+  'CMFPlacefulWorkflow: Manage workflow policies'.
   [alecghica]
 
 - Fixed add workflow policy template (via ZMI).
@@ -19,8 +20,8 @@ Changelog
   [alecghica]
 
 - Added "update security" as an option field on local configuration management
-  form, as in most cases updating catalog role mappings can be a very long operation
-  and is better to be made as a separate upgrade step.
+  form, as in most cases updating catalog role mappings can be a very long
+  operation and is better to be made as a separate upgrade step.
   [alecghica]
 
 1.5.7 (2012-05-25)
@@ -28,7 +29,6 @@ Changelog
 
 - Fixed a few test failures in combination with five.pt.
   [maurits]
-
 
 1.5.6 (2011-11-24)
 ------------------
