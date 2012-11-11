@@ -19,16 +19,15 @@ if submit is not None and submit == 'Cancel':
     message = _(u'Configuration changes cancelled.')
 
 if not cancel:
-    config = getToolByName(context, 'portal_placeful_workflow').getWorkflowPolicyConfig(context)
+    tool = getToolByName(context, 'portal_placeful_workflow')
+    config = tool.getWorkflowPolicyConfig(context)
     if not config:
         message = _(u'No config in this folder.')
     else:
-        if not context.portal_placeful_workflow.isValidPolicyName(policy_in) \
-           and not policy_in == '':
+        if not tool.isValidPolicyName(policy_in) and not policy_in == '':
             raise AttributeError("%s is not a valid policy id" % policy_in)
 
-        if not context.portal_placeful_workflow.isValidPolicyName(policy_below) \
-           and not policy_below == '':
+        if not tool.isValidPolicyName(policy_below) and not policy_below == '':
             raise AttributeError("%s is not a valid policy id" % policy_below)
 
         config.setPolicyIn(policy_in, update_security)
