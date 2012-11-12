@@ -4,7 +4,8 @@ Changelog
 1.5.9 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fixed handling of "update security" option.
+  [ericof]
 
 
 1.5.8 (2012-10-16)
