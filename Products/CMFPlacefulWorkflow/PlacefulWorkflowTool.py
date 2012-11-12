@@ -196,7 +196,6 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
         """ Return the list of workflow policy ids.
         """
         wfp_ids = []
-
         for obj_id, obj in self.objectItems():
             if getattr(obj, '_isAWorkflowPolicy', 0):
                 wfp_ids.append({'id': obj_id, 'title': obj.title_or_id(),
