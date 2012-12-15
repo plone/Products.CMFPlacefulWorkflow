@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.5.9 (unreleased)
+1.5.9 (2012-12-15)
 ------------------
 
 - Fixed handling of "update security" option.
