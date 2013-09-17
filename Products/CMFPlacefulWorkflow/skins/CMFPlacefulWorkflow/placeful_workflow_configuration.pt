@@ -51,17 +51,17 @@ Workflow policy configuration template
         <tal:nosite tal:condition="not:siteroot">
 
           <p tal:condition="python:not config and here.isPrincipiaFolderish">
-              <br/>
+              <br />
               <a href="placeful_workflow_configuration_add"
                  i18n:translate="description_add_workflow_policy_for_type">
                   Add a workflow policy's local configuration in the
-                  <span tal:content="python:here.translate(here.portal_type)"
+                  <span tal:replace="python:here.translate(here.portal_type)"
                         i18n:name="portal_type">
                       portal type
                   </span>
               </a>
-              <br/>
-              <br/>
+              <br />
+              <br />
           </p>
 
           <p tal:condition="python:not here.isPrincipiaFolderish and here is not container">
@@ -212,7 +212,7 @@ Workflow policy configuration template
                     </label>
 
                   </div>
-                  <br/>
+                  <br />
 
                   <div class="formControls" i18n:domain="plone">
 
