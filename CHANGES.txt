@@ -4,6 +4,10 @@ Changelog
 1.5.10 (unreleased)
 -------------------
 
+- Move dependency on Products.PloneTestCase to test extra and thus removing
+  implicit hard dependency on Products.ATContentTypes.
+  [thet]
+
 - Fix policy_form test failures for Plone 5.
   [timo]
 
