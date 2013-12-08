@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.5.10 (unreleased)
+1.5.10 (2013-12-07)
 -------------------
 
 - Move dependency on Products.PloneTestCase to test extra and thus removing
