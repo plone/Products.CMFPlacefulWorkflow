@@ -122,9 +122,25 @@ class WorkflowPoliciesXMLAdapter(WorkflowToolXMLAdapter):
                         'included a chain: %s' % (type_id, chain))
                     if default:
                         # omit from the policy to acquire
-                        self.context.setChain(type_id, (DEFAULT_CHAIN,))
+                        try:
+                            self.context.setChain(type_id, (DEFAULT_CHAIN,))
+                        except:
+                            if type_id == 'Collection':
+                                # this is really just a plone.app.upgrade?
+                                # test fix but it should be fine if we retry
+                                # with Topic instead of Collection
+                                self.context.setChain('Topic', chain)
+                            else:
+                                raise
+
                     else:
-                        self.context.setChain(type_id, chain)
+                        try:
+                            self.context.setChain(type_id, chain)
+                        except ValueError:
+                            if type_id == 'Collection':
+                                self.context.setChain('Topic', chain)
+                            else:
+                                raise
 
 
     def _getChain(self, node):
