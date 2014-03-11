@@ -14,7 +14,7 @@
   <type default_chain="true" type_id="Image"/>
   <type default_chain="true" type_id="Link"/>
   <type default_chain="true" type_id="News Item"/>
-  <type type_id="Topic">
+  <type type_id="Collection">
    <bound-workflow workflow_id="intranet_folder_workflow"/>
   </type>
  </bindings>

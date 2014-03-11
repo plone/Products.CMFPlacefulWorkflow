@@ -66,7 +66,7 @@ Now we will add a local policy on the user folder. Simple Publication for the fo
     >>> browser.getLink('Policy').click()
     >>> browser.url
     'http://nohost/plone/Members/test_user_1_/placeful_workflow_configuration'
-    >>> browser.getLink("local configuration in the Folder").click()
+    >>> browser.getControl(name="add_wp_for_type").click()
     >>> 'Update catalog role mappings' in browser.contents
     True
 

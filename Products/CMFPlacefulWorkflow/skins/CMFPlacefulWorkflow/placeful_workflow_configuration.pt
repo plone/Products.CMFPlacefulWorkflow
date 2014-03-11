@@ -51,25 +51,24 @@ Workflow policy configuration template
         <tal:nosite tal:condition="not:siteroot">
 
           <p tal:condition="python:not config and here.isPrincipiaFolderish">
-              <br />
-              <a href="placeful_workflow_configuration_add"
-                 i18n:translate="description_add_workflow_policy_for_type">
+            <form action="placeful_workflow_configuration_add" method="POST">
+                <button type="submit" name="add_wp_for_type" i18n:translate="description_add_workflow_policy_for_type">
                   Add a workflow policy's local configuration in the
                   <span tal:replace="python:here.translate(here.portal_type)"
                         i18n:name="portal_type">
                       portal type
                   </span>
-              </a>
-              <br />
-              <br />
+                </button>
+            </form>
           </p>
 
           <p tal:condition="python:not here.isPrincipiaFolderish and here is not container">
-              <a href=""
-                 tal:attributes="href python:container.absolute_url()+'/placeful_workflow_configuration_add'"
-                 i18n:translate="description_add_workflow_policy">
+              <form action="placeful_workflow_configuration_add" method="POST"
+                    tal:attributes="action python:container.absolute_url()+'/placeful_workflow_configuration_add'">
+                <button type="submit" name="add_wp_local_config" i18n:translate="description_add_workflow_policy">
                   Add Workflow policy's local configuration
-              </a>
+                </button>
+              </form>
           </p>
 
           <form id="edit_form"

@@ -14,6 +14,6 @@
   </type>
   <type default_chain="true" type_id="Link"/>
   <type default_chain="true" type_id="News Item"/>
-  <type default_chain="true" type_id="Topic"/>
+  <type default_chain="true" type_id="Collection"/>
  </bindings>
 </object>

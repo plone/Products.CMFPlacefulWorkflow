@@ -88,3 +88,8 @@ The Placeful Workflow tool (portal_placeful_workflow) is installed by the
 installer. It provides a few configuration options so that you use to create
 you workflow policies through the ZMI.
 
+1.6.x series
+============
+
+Plone 5 support only
+
