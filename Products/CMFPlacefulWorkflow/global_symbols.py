@@ -20,16 +20,16 @@ CMFPlacefulWorkflow product
 """
 __docformat__ = 'restructuredtext'
 
-PROJECTNAME = "CMFPlacefulWorkflow"
-
 from Products.CMFPlacefulWorkflow.permissions import ManageWorkflowPolicies
+from logging import getLogger
 
+Log = getLogger('CMFPlacefulWorkflow')
 placeful_prefs_configlet = {
     'id': 'placefulworkflow',
     'appId': "Placeful Workflow",
     'name': 'Placeful Workflow',
     'action': 'string:$portal_url/prefs_workflow_localpolicies_form',
     'category': 'Products',
-    'permission': (ManageWorkflowPolicies,),
+    'permission': (ManageWorkflowPolicies, ),
     'imageUrl': 'placefulworkflow_icon.png',
     }

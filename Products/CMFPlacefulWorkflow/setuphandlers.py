@@ -21,6 +21,7 @@ from zope.interface import alsoProvides
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlacefulWorkflow.interfaces import IPlacefulMarker
 
+
 def installMarker(context):
     """
     Apply a marker interface to the workflow tool to indicate that the

@@ -54,8 +54,6 @@ class TestConfiglet(CMFPlacefulWorkflowFunctionalTestCase):
         """
         self.logout()
         self.loginAsPortalOwner()
-        wft = self.portal.portal_workflow
-
         # Create a policy
         self.ppw.manage_addWorkflowPolicy(
             'dummy_policy', 'default_workflow_policy (Simple Policy)')

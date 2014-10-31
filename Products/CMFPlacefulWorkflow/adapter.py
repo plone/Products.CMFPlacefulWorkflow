@@ -28,6 +28,7 @@ from Products.CMFPlone.utils import base_hasattr
 from Products.CMFPlone.interfaces import IWorkflowChain
 from Products.CMFPlone.workflow import ToolWorkflowChain
 
+
 @adapter(Interface, IPlacefulMarker)
 @implementer(IWorkflowChain)
 def PlacefulWorkflowChain(ob, tool):

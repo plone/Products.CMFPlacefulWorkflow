@@ -44,8 +44,8 @@ def initialize(context):
     context.registerClass(
         PlacefulWorkflowTool.PlacefulWorkflowTool,
         meta_type="Placeful Workflow Tool",
-        constructors=(PlacefulWorkflowTool.addPlacefulWorkflowTool,),
-        icon = 'tool.gif')
+        constructors=(PlacefulWorkflowTool.addPlacefulWorkflowTool, ),
+        icon='tool.gif')
 
     context.registerClass(
         WorkflowPolicyConfig.WorkflowPolicyConfig,
@@ -55,13 +55,12 @@ def initialize(context):
         icon='www/WorkflowPolicyConfig_icon.gif',
     )
 
-    utils.ToolInit( 'CMF Placeful Workflow Tool'
+    utils.ToolInit('CMF Placeful Workflow Tool'
                   , tools=tools
                   , icon='tool.gif'
-                  ).initialize( context )
+                  ).initialize(context)
 
 ModuleSecurityInfo('Products.CMFPlacefulWorkflow').declarePublic('CMFPlacefulWorkflowMessageFactory')
 
 from zope.i18nmessageid import MessageFactory
 CMFPlacefulWorkflowMessageFactory = MessageFactory('cmfplacefulworkflow')
-

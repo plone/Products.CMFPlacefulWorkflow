@@ -27,26 +27,26 @@ from Products.CMFPlacefulWorkflow.interfaces import IPlacefulMarker
 from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase
 
 _standard_permissions = ZopeTestCase.standard_permissions
-_edit_permissions     = []
-_all_permissions      = _edit_permissions
-
+_edit_permissions = []
+_all_permissions = _edit_permissions
 
 # Other imports
 from Products.CMFCore.utils import getToolByName
 
+
 class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
     """ Testing all add-on and modified method for workflow stuff """
 
-    def createMember(self, id, pw, email, roles=('Member',)):
+    def createMember(self, id, pw, email, roles=('Member', )):
         pr = self.portal.portal_registration
-        member = pr.addMember(id, pw, roles, properties={ 'username': id, 'email' : email })
+        member = pr.addMember(id, pw, roles, properties={'username': id, 'email': email})
         return member
 
     def installation(self, productName):
         self.qi = self.portal.portal_quickinstaller
         self.qi.installProduct(productName)
 
-    def setupSecurityContext(self,):
+    def setupSecurityContext(self, ):
         self.logout()
         self.loginAsPortalOwner()
         # Create a few members
@@ -58,7 +58,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         self.installation('CMFPlacefulWorkflow')
         self.logout()
 
-    def afterSetUp(self,):
+    def afterSetUp(self, ):
         """
         afterSetUp(self) => This method is called to create an empty PloneArticle.
         It also joins three users called 'user1', 'user2' and 'user3'.
@@ -82,7 +82,6 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         """
         # Content creation
         self.contentId = 'myPolicy'
-
         # XXX
 
     def test_marker_applied_and_unapplied(self):
@@ -120,19 +119,18 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
                           True, 'foo_bar_policy', 'title', 'description',
                           {'Document': 'plone_workflow'}, 'plone_workflow')
 
-
-    def test_01_addWorkflowPolicyConfig(self,):
+    def test_01_addWorkflowPolicyConfig(self, ):
         """
         Add workflow policy config
         """
         # No policy config should exist before
-        self.failIf(WorkflowPolicyConfig_id in self.portal.objectIds() )
+        self.failIf(WorkflowPolicyConfig_id in self.portal.objectIds())
         # Add a policy config
         self.portal.manage_addProduct['CMFPlacefulWorkflow'].manage_addWorkflowPolicyConfig()
         # Make sure the policy config is there
-        self.failUnless( WorkflowPolicyConfig_id in self.portal.objectIds() )
+        self.failUnless(WorkflowPolicyConfig_id in self.portal.objectIds())
 
-    def test_02_checkWorkflowPolicyConfig(self,):
+    def test_02_checkWorkflowPolicyConfig(self, ):
         """
         Add workflow policy config
         """
@@ -141,7 +139,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         self.failUnlessEqual(pc.getPolicyBelow(), None)
         self.failUnlessEqual(pc.getPolicyIn(), None)
 
-    def test_03_addWorkflowPolicy(self,):
+    def test_03_addWorkflowPolicy(self, ):
         """
         Add workflow policy
         """
@@ -149,9 +147,9 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         pwt.manage_addWorkflowPolicy('foo_bar_policy',
                                      'default_workflow_policy (Simple Policy)')
         gsp = getattr(pwt, 'foo_bar_policy', None)
-        self.failUnless(gsp!=None)
+        self.failUnless(gsp != None)
 
-    def test_04_addWorkflowPolicyAndConfigForIt(self,):
+    def test_04_addWorkflowPolicyAndConfigForIt(self, ):
         """
         Add workflow policy
         """
@@ -168,7 +166,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
 
         self.logout()
 
-    def test_04_addWorkflowPolicyAndDuplicateConfiguration(self,):
+    def test_04_addWorkflowPolicyAndDuplicateConfiguration(self, ):
         """Add a workflow policy and duplicate another one
 
         Use a python script that can duplicate another policy or portal_workflow configuration
@@ -191,12 +189,11 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
             if chain is None:
                 # Default empty chain is None in a policy and () in portal_workflow
                 chain = ()
-            self.failUnlessEqual(chain , wf_tool.getChainFor(ptype))
-
+            self.failUnlessEqual(chain, wf_tool.getChainFor(ptype))
 
         ## Part Two: duplicate another policy
         policy.setDefaultChain(['plone_workflow', 'folder_workflow'])
-        policy.setChainForPortalTypes(['Document','Folder'], ['plone_workflow', 'folder_workflow'])
+        policy.setChainForPortalTypes(['Document', 'Folder'], ['plone_workflow', 'folder_workflow'])
         pw_tool.manage_addWorkflowPolicy(id='foo_bar_policy2',
                                          duplicate_id='foo_bar_policy',
                                          )
@@ -205,28 +202,28 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
 
         self.failUnlessEqual(policy.getDefaultChain('XXX'), ('plone_workflow', 'folder_workflow'))
         for ptype in ptypes:
-            if ptype not in ('Document','Folder'):
+            if ptype not in ('Document', 'Folder'):
                 self.failUnlessEqual(policy2.getChainFor(ptype), policy.getChainFor(ptype))
             else:
                 self.failUnlessEqual(policy2.getChainFor(ptype), ('plone_workflow', 'folder_workflow'))
 
         self.logout()
 
-    def test_05_editWorkflowPolicy(self,):
+    def test_05_editWorkflowPolicy(self, ):
         """Edit workflow policy
         """
         pwt = self.portal_placeful_workflow
         pwt.manage_addWorkflowPolicy('foo_bar_policy',
                                      'default_workflow_policy (Simple Policy)')
         gsp = pwt.getWorkflowPolicyById('foo_bar_policy')
-        gsp.setChainForPortalTypes(['Document','Folder'],
-                                   ['plone_workflow','folder_workflow'])
+        gsp.setChainForPortalTypes(['Document', 'Folder'],
+                                   ['plone_workflow', 'folder_workflow'])
         self.failUnlessEqual(gsp.getChainFor('Document'),
-                             ('plone_workflow','folder_workflow',))
+                             ('plone_workflow', 'folder_workflow', ))
         self.failUnlessEqual(gsp.getChainFor('Folder'),
-                             ('plone_workflow','folder_workflow',))
+                             ('plone_workflow', 'folder_workflow', ))
 
-    def test_06_getWorkflowPolicyIds(self,):
+    def test_06_getWorkflowPolicyIds(self, ):
         pwt = self.portal_placeful_workflow
         pwt.manage_addWorkflowPolicy('foo_bar_policy',
                                      'default_workflow_policy (Simple Policy)')
@@ -239,13 +236,13 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
                                          'intranet', 'old-plone', 'one-state',
                                          'simple-publication'))
 
-    def test_07_getChainFor(self,):
+    def test_07_getChainFor(self, ):
         # Let's see what the chain is before
         self.logout()
         self.loginAsPortalOwner()
 
         pw = self.portal.portal_workflow
-        self.failUnlessEqual(pw.getChainFor('Document'), ('plone_workflow',) )
+        self.failUnlessEqual(pw.getChainFor('Document'), ('plone_workflow', ))
 
         self.portal.invokeFactory('Document', id='doc_before', text='foo bar baz')
 
@@ -253,7 +250,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         # Workflow tool should look for policy definition and return
         # the chain of the correct policy
         self.failUnlessEqual(pw.getChainFor(self.portal.doc_before),
-                         ('plone_workflow',) )
+                         ('plone_workflow', ))
 
         # Let's define another policy
         pwt = self.portal_placeful_workflow
@@ -266,7 +263,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         gsp.setChainForPortalTypes(['Document'], ['folder_workflow'])
 
         # Try getting the new chain directly
-        self.failUnlessEqual(gsp.getChainFor('Document'), ('folder_workflow',) )
+        self.failUnlessEqual(gsp.getChainFor('Document'), ('folder_workflow', ))
 
         # Add a config at the root that will use the new policy
         self.portal.manage_addProduct['CMFPlacefulWorkflow'].manage_addWorkflowPolicyConfig()
@@ -277,25 +274,25 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         pc.setPolicyIn('foo_bar_policy')
         pc.setPolicyBelow('foo_bar_policy')
 
-        self.failUnlessEqual(pc.getPlacefulChainFor('Document', start_here=1), ('folder_workflow',))
+        self.failUnlessEqual(pc.getPlacefulChainFor('Document', start_here=1), ('folder_workflow', ))
 
         self.portal.invokeFactory('Document', id='doc', text='foo bar baz')
 
         # The chain should be different now
         # Workflow tool should look for policy definition and return
         # the chain of the correct policy
-        self.failUnlessEqual(pw.getChainFor(self.portal.doc), ('folder_workflow',) )
+        self.failUnlessEqual(pw.getChainFor(self.portal.doc), ('folder_workflow', ))
         # The chain for the first document should have changed now
-        self.failUnlessEqual(pw.getChainFor(self.portal.doc_before), ('folder_workflow',) )
+        self.failUnlessEqual(pw.getChainFor(self.portal.doc_before), ('folder_workflow', ))
 
-    def test_08_getChainFor(self,):
+    def test_08_getChainFor(self, ):
         # Let's see what the chain is before
         pwt = self.portal_placeful_workflow
         self.failUnlessEqual(pwt.getMaxChainLength(), 1)
         pwt.setMaxChainLength(2)
         self.failUnlessEqual(pwt.getMaxChainLength(), 2)
 
-    def test_09_wft_getChainFor(self,):
+    def test_09_wft_getChainFor(self, ):
         self.logout()
         self.loginAsPortalOwner()
         self.portal.invokeFactory('Folder', id='folder')
@@ -304,19 +301,19 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         # Check default
         wft = self.portal.portal_workflow
         chain = wft.getChainFor('Document')
-        self.failUnlessEqual(tuple(chain), ('plone_workflow',))
+        self.failUnlessEqual(tuple(chain), ('plone_workflow', ))
 
         # Check global chain
-        wft.setChainForPortalTypes(('Document',), ('wf',))
+        wft.setChainForPortalTypes(('Document', ), ('wf', ))
         chain = wft.getChainFor('Document')
-        self.failUnlessEqual(tuple(chain), ('wf',))
+        self.failUnlessEqual(tuple(chain), ('wf', ))
 
         # Check global chain, using object
         chain = wft.getChainFor(self.portal.folder.document)
-        self.failUnlessEqual(tuple(chain), ('wf',))
+        self.failUnlessEqual(tuple(chain), ('wf', ))
 
         # Remove global chain
-        wft.setChainForPortalTypes(('Document',), ())
+        wft.setChainForPortalTypes(('Document', ), ())
         chain = wft.getChainFor(self.portal.folder.document)
         self.failUnlessEqual(tuple(chain), ())
 
@@ -347,7 +344,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         pc.setPolicyBelow('foo_bar_policy')
 
         chain = wft.getChainFor(self.portal.folder.document)
-        self.failUnlessEqual(tuple(chain), ('folder_workflow',))
+        self.failUnlessEqual(tuple(chain), ('folder_workflow', ))
 
         # Create a different policy
         pwt = self.portal_placeful_workflow
@@ -366,7 +363,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
 
         # Check inheritance order
         chain = wft.getChainFor(self.portal.folder.folder2.document2)
-        self.failUnlessEqual(tuple(chain), ('plone_workflow',))
+        self.failUnlessEqual(tuple(chain), ('plone_workflow', ))
 
         # Check empty chain
         gsp2.setChain('Document', ())
@@ -375,9 +372,9 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
 
         # Check default
         wft.setDefaultChain('folder_workflow')
-        gsp2.setChainForPortalTypes(('Document',), ('(Default)',))
+        gsp2.setChainForPortalTypes(('Document', ), ('(Default)', ))
         chain = wft.getChainFor(self.portal.folder.folder2.document2)
-        self.failUnlessEqual(tuple(chain), ('folder_workflow',))
+        self.failUnlessEqual(tuple(chain), ('folder_workflow', ))
 
     def test_11_In_and_Below(self):
         """In and below"""
@@ -427,19 +424,19 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
 
         # A document in folder 2 should have folder_workflow
         chain = wft.getChainFor(self.portal.folder.folder2.document2)
-        self.failUnlessEqual(tuple(chain), ('folder_workflow',))
+        self.failUnlessEqual(tuple(chain), ('folder_workflow', ))
 
         # Folder 2 should have folder_workflow
         chain = wft.getChainFor(self.portal.folder.document)
-        self.failUnlessEqual(tuple(chain), ('folder_workflow',))
+        self.failUnlessEqual(tuple(chain), ('folder_workflow', ))
 
         # A document in folder 1 should have folder_workflow
         chain = wft.getChainFor(self.portal.folder.document)
-        self.failUnlessEqual(tuple(chain), ('folder_workflow',))
+        self.failUnlessEqual(tuple(chain), ('folder_workflow', ))
 
         # Folder 1 should have plone_workflow
         chain = wft.getChainFor(self.portal.folder)
-        self.failUnlessEqual(tuple(chain), ('plone_workflow',))
+        self.failUnlessEqual(tuple(chain), ('plone_workflow', ))
 
     def test_11_copy_paste(self):
         """ Test security after a copy/paste
@@ -474,15 +471,15 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
 
         # A document in plone root should have plone_workflow
         chain = wft.getChainFor(self.portal.document)
-        self.failUnlessEqual(tuple(chain), ('plone_workflow',))
+        self.failUnlessEqual(tuple(chain), ('plone_workflow', ))
 
         # Folder should have folder_workflow
         chain = wft.getChainFor(self.portal.folder)
-        self.failUnlessEqual(tuple(chain), ('folder_workflow',))
+        self.failUnlessEqual(tuple(chain), ('folder_workflow', ))
 
         # A document in folder should have folder_workflow
         chain = wft.getChainFor(self.portal.folder.document)
-        self.failUnlessEqual(tuple(chain), ('folder_workflow',))
+        self.failUnlessEqual(tuple(chain), ('folder_workflow', ))
 
     def test_11_getWorkflowPolicyById_edge_cases(self):
         pwt = self.portal_placeful_workflow
@@ -491,7 +488,6 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
     def test_12_getWorkflowPolicyById_edge_cases(self):
         pwt = self.portal_placeful_workflow
         self.failUnlessEqual(pwt.getWorkflowPolicyById(None), None)
-
 
     def test_13_getWorkflowPolicyConfig(self):
         pwt = self.portal_placeful_workflow
@@ -524,7 +520,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
 
         # You should only be able to get a config in the folder itself
         config = pwt.getWorkflowPolicyConfig(self.portal.folder)
-        self.failUnless(config!=None)
+        self.failUnless(config != None)
 
         # Not in the folder above
         config = pwt.getWorkflowPolicyConfig(self.portal)
@@ -569,17 +565,17 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         pc.setPolicyBelow('foo_bar_policy')
 
         chain = wft.getChainFor(self.portal.folder2.document2)
-        self.failUnlessEqual(tuple(chain), ('plone_workflow',))
+        self.failUnlessEqual(tuple(chain), ('plone_workflow', ))
 
         # What if we acquired the doc from the wrong place
         wrapped_doc = self.portal.folder2.document2.__of__(self.portal.folder)
         chain = wft.getChainFor(wrapped_doc)
-        self.failUnlessEqual(tuple(chain), ('plone_workflow',))
+        self.failUnlessEqual(tuple(chain), ('plone_workflow', ))
 
         # What if we acquired the container from the wrong place
         wrapped_doc = self.portal.folder2.__of__(self.portal.folder).document2
         chain = wft.getChainFor(wrapped_doc)
-        self.failUnlessEqual(tuple(chain), ('plone_workflow',))
+        self.failUnlessEqual(tuple(chain), ('plone_workflow', ))
 
     def test_16_getWorklists(self):
         """Verify if worklists are always accessible with a policy
@@ -595,7 +591,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         # Create a policy
         placeful_tool.manage_addWorkflowPolicy('foo_bar_policy',
                                                'default_workflow_policy (Simple Policy)',
-                                               'portal_workflow',)
+                                               'portal_workflow', )
         # And redefine the chain for Document in portal_workflow
         wf_tool.setChainForPortalTypes(['Document'], ())
 
@@ -621,7 +617,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
                     'plone_workflow', 'intranet_folder_workflow',
                     'one_state_workflow', 'simple_publication_workflow',
                     'intranet_workflow')))
-        self.failUnlessEqual(tuple(self.portal.my_worklist()), (document,))
+        self.failUnlessEqual(tuple(self.portal.my_worklist()), (document, ))
 
         self.logout()
 

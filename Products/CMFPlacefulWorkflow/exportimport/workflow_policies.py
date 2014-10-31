@@ -27,9 +27,10 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.exportimport.workflow import WorkflowToolXMLAdapter
 
 from Products.CMFPlacefulWorkflow.DefaultWorkflowPolicy import DEFAULT_CHAIN
-from Products.CMFPlacefulWorkflow.global_symbols import Log, LOG_DEBUG
+from Products.CMFPlacefulWorkflow.global_symbols import Log
 
 _marker = []
+
 
 class PlacefulWorkflowXMLAdapter(FolderXMLAdapter):
 
@@ -38,13 +39,14 @@ class PlacefulWorkflowXMLAdapter(FolderXMLAdapter):
     body = property(XMLAdapterBase._exportBody,
                     XMLAdapterBase._importBody)
 
+
 class WorkflowPoliciesXMLAdapter(WorkflowToolXMLAdapter):
 
     _LOGGER_ID = 'placeful_workflow'
 
     @property
     def name(self):
-        Log(LOG_DEBUG, self.context.id)
+        Log.debug(self.context.id)
         return self.context.id
 
     def _extractChains(self):
@@ -68,7 +70,7 @@ class WorkflowPoliciesXMLAdapter(WorkflowToolXMLAdapter):
                     # If no chain is defined chain is acquired
                     continue
 
-                if chain == (DEFAULT_CHAIN,):
+                if chain == (DEFAULT_CHAIN, ):
                     # If the type is using the default chain there's no chain
                     # to wait after the attribute
                     child.setAttribute('type_id', type_id)
@@ -113,14 +115,14 @@ class WorkflowPoliciesXMLAdapter(WorkflowToolXMLAdapter):
 
                     default = sub.getAttribute('default_chain')
                     chain = self._getChain(sub)
-                    Log(LOG_DEBUG, default, chain)
+                    Log.debug(default, chain)
                     assert not (default and chain), (
                         'Type %s is marked to use default but also '
                         'included a chain: %s' % (type_id, chain))
                     if default:
                         # omit from the policy to acquire
                         try:
-                            self.context.setChain(type_id, (DEFAULT_CHAIN,))
+                            self.context.setChain(type_id, (DEFAULT_CHAIN, ))
                         except:
                             if type_id == 'Collection':
                                 # this is really just a plone.app.upgrade?
@@ -139,13 +141,13 @@ class WorkflowPoliciesXMLAdapter(WorkflowToolXMLAdapter):
                             else:
                                 raise
 
-
     def _getChain(self, node):
         result = super(WorkflowPoliciesXMLAdapter,
                        self)._getChain(node)
         if result == '':
             return []
         return result.split(',')
+
 
 def importWorkflowPolicies(context):
     """Import workflow policies from the XML file.

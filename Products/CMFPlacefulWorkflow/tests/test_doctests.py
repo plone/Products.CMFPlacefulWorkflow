@@ -23,10 +23,6 @@ __docformat__ = 'restructuredtext'
 import unittest
 import doctest
 
-from Products.CMFCore.interfaces import ISiteRoot
-from Products.GenericSetup import EXTENSION
-from Products.GenericSetup import profile_registry
-
 from CMFPlacefulWorkflowTestCase import PWF_LAYER
 from plone.testing import layered
 

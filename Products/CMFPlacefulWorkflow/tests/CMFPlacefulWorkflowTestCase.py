@@ -21,9 +21,6 @@ CMFPlacefulWorkflow TestCase module
 __docformat__ = 'restructuredtext'
 
 # Zope imports
-from Testing import ZopeTestCase
-from AccessControl.SecurityManagement import newSecurityManager
-from AccessControl.SecurityManagement import noSecurityManager
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.GenericSetup import EXTENSION
 from Products.GenericSetup import profile_registry
@@ -57,9 +54,8 @@ class PlacefulWorkflowLayer(PloneTestCaseFixture):
         super(PlacefulWorkflowLayer, self).tearDownZope(app)
         z2.uninstallProduct(app, 'Products.CMFPlacefulWorkflow')
 
-
 PWF_FIXTURE = PlacefulWorkflowLayer()
-PWF_LAYER = testing.FunctionalTesting(bases=(PWF_FIXTURE,),
+PWF_LAYER = testing.FunctionalTesting(bases=(PWF_FIXTURE, ),
         name='PlacefulWorkflowTestCase:Functional')
 
 
@@ -75,29 +71,8 @@ class CMFPlacefulWorkflowTestCase(PloneTestCase):
         PloneTestCase.PloneTestCase._setup(self)
         self.app.REQUEST['SESSION'] = self.Session()
 
-#    def beforeTearDown(self):
-#        # logout
-#        noSecurityManager()
-#
-#    def loginAsPortalMember(self):
-#        '''Use if you need to manipulate site as a member.'''
-#        self._setupUser()
-#        self.mtool.createMemberarea(self.user_name)
-#        member = self.mtool.getMemberById(self.user_name)
-#        member.setMemberProperties({'fullname': self.user_name.capitalize(),
-#                                    'email': 'test@example.com', })
-#        self.login()
-#
-#    def loginAsPortalOwner(self):
-#        '''Use if you need to manipulate site as a manager.'''
-#        uf = self.app.acl_users
-#        user = uf.getUserById(self.portal_owner).__of__(uf)
-#        newSecurityManager(None, user)
-
     def getPermissionsOfRole(self, role):
         perms = self.portal.permissionsOfRole(role)
         return [p['name'] for p in perms if p['selected']]
 
-
 CMFPlacefulWorkflowFunctionalTestCase = CMFPlacefulWorkflowTestCase
-

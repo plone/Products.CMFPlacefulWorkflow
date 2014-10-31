@@ -26,7 +26,6 @@ from zope.component import getSiteManager
 from zope.interface import noLongerProvides
 
 from Products.CMFPlacefulWorkflow.interfaces import IPlacefulMarker
-from Products.CMFPlacefulWorkflow.global_symbols import PROJECTNAME
 from Products.CMFPlacefulWorkflow.global_symbols import placeful_prefs_configlet
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlacefulWorkflow.interfaces import IPlacefulWorkflowTool
