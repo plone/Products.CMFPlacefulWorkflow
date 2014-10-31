@@ -20,38 +20,26 @@ Contributed by Jazkarta
 """
 __docformat__ = 'restructuredtext'
 
+import unittest
 import doctest
 
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.GenericSetup import EXTENSION
 from Products.GenericSetup import profile_registry
 
-from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase
-from plone.testing import layererd
+from CMFPlacefulWorkflowTestCase import PWF_LAYER
+from plone.testing import layered
 
 OPTIONFLAGS = (doctest.ELLIPSIS |
                doctest.NORMALIZE_WHITESPACE |
-               doctest.REPORT_UDIFF)
+               doctest.REPORT_UDIFF |
+               doctest.REPORT_ONLY_FIRST_FAILURE)
 
-class ExportImportLayer(PloneTestCaseFixture):
-
-    def setUpZope(self, app, configurationContext):
-        super(ExportImportLayer, self).setUpZope()
-        profile_registry.registerProfile(
-            name='exportimport', title='Test Placeful Workflow Profile',
-            description=(
-                "Tests the placeful workflow policy handler."),
-            path='profiles/exportimport',
-            product='Products.CMFPlacefulWorkflow.tests',
-            profile_type=EXTENSION, for_=ISiteRoot)
-
-EXPORT_IMPORT_FIXTURE = ExportImportLayer()
-EXPORT_IMPORT_LAYER = FunctionalTesting(bases=(EXPORT_IMPORT_FIXTURE,),
-        name='WorkflowTestCase:Functional')
 
 def test_suite():
-    suite = layererd(doctest.DocFileSuite(
-        'exportimport.txt',
-        optionflags=OPTIONFLAGS,
-        ), layer=EXPORT_IMPORT_LAYER)
+    suite = unittest.TestSuite()
+    for testfile in ['exportimport.txt', 'policy_form.txt']:
+        suite.addTest(layered(doctest.DocFileSuite(testfile,
+                      optionflags=OPTIONFLAGS),
+                      layer=PWF_LAYER))
     return suite
