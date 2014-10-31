@@ -12,15 +12,17 @@ Import
 Start with basic policies::
 
     >>> from Products.CMFCore.utils import getToolByName
-    >>> self.setRoles(['Manager'])
-    >>> ppw = getToolByName(self.portal, 'portal_placeful_workflow')
+    >>> portal = layer['portal']
+    >>> from plone.app.testing import TEST_USER_ID, setRoles
+    >>> setRoles(layer['portal'], TEST_USER_ID, ['Manager'])
+    >>> ppw = getToolByName(portal, 'portal_placeful_workflow')
     >>> ppw.getWorkflowPolicyIds()
     ('intranet', 'old-plone', 'one-state', 'simple-publication')
 
 Import the portal_placeful_workflow step with a profile defining a
 policy::
 
-    >>> ps = getToolByName(self.portal, 'portal_setup')
+    >>> ps = getToolByName(portal, 'portal_setup')
     >>> specific_context = 'profile-Products.CMFPlacefulWorkflow.tests:exportimport'
     >>> ps.runImportStepFromProfile(specific_context, 'portal_placeful_workflow')
     {'messages': {'portal_placeful_workflow': 'placeful_workflow: Folder

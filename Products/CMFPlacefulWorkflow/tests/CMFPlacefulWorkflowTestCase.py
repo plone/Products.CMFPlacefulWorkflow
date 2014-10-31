@@ -24,12 +24,48 @@ __docformat__ = 'restructuredtext'
 from Testing import ZopeTestCase
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import noSecurityManager
+from Products.CMFCore.interfaces import ISiteRoot
+from Products.GenericSetup import EXTENSION
+from Products.GenericSetup import profile_registry
 
 # Plone imports
 from plone.app.testing.bbb import PloneTestCase
+from plone.app.testing.bbb import PloneTestCaseFixture
+from plone.testing import z2
+from plone.app import testing
+
+
+class PlacefulWorkflowLayer(PloneTestCaseFixture):
+
+    def setUpZope(self, app, configurationContext):
+        super(PlacefulWorkflowLayer, self).setUpZope(app, configurationContext)
+        profile_registry.registerProfile(
+            name='exportimport', title='Test Placeful Workflow Profile',
+            description=(
+                "Tests the placeful workflow policy handler."),
+            path='profiles/exportimport',
+            product='Products.CMFPlacefulWorkflow.tests',
+            profile_type=EXTENSION, for_=ISiteRoot)
+        z2.installProduct(app, 'Products.CMFPlacefulWorkflow')
+
+    def setUpPloneSite(self, portal):
+        super(PlacefulWorkflowLayer, self).setUpPloneSite(portal)
+        # install sunburst theme
+        testing.applyProfile(portal, 'Products.CMFPlacefulWorkflow:CMFPlacefulWorkflow')
+
+    def tearDownZope(self, app):
+        super(PlacefulWorkflowLayer, self).tearDownZope(app)
+        z2.uninstallProduct(app, 'Products.CMFPlacefulWorkflow')
+
+
+PWF_FIXTURE = PlacefulWorkflowLayer()
+PWF_LAYER = testing.FunctionalTesting(bases=(PWF_FIXTURE,),
+        name='PlacefulWorkflowTestCase:Functional')
 
 
 class CMFPlacefulWorkflowTestCase(PloneTestCase):
+
+    layer = PWF_LAYER
 
     class Session(dict):
         def set(self, key, value):

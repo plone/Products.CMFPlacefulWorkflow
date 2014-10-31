@@ -7,16 +7,17 @@ The Placeful workflow policy form works in a real browser.
 
 Open a browser and log in as a user who can use the policy form.
 
-    >>> from Products.Five import testbrowser
-    >>> browser = testbrowser.Browser()
-    >>> browser.handleErrors = False
+    >>> from plone.testing.z2 import Browser
+    >>> portal = layer['portal']
+    >>> browser = Browser(layer['app'])
     >>> browser.open(portal.absolute_url())
     >>> browser.getLink('Log in').click()
 
-    >>> from Products.PloneTestCase import ptc
-    >>> browser.getControl('Login Name').value = ptc.portal_owner
+    >>> from plone.app.testing import SITE_OWNER_NAME
+    >>> from plone.app.testing import SITE_OWNER_PASSWORD
+    >>> browser.getControl('Login Name').value = SITE_OWNER_NAME
     >>> browser.getControl(
-    ...     'Password').value = ptc.default_password
+    ...     'Password').value = SITE_OWNER_PASSWORD
     >>> browser.getControl('Log in').click()
 
 Open the policy form for the front-page and for the folder.
@@ -39,8 +40,13 @@ Open the policy form for the front-page and for the folder.
 
 The policy form also works for pages that aren't the default page.
 
-    >>> self.login()
+    >>> from plone.app.testing import login, TEST_USER_NAME
+    >>> login(portal, TEST_USER_NAME)
+    >>> from plone.app.testing import TEST_USER_ID
+    >>> folder = portal.portal_membership.getHomeFolder(TEST_USER_ID)
     >>> page = folder[folder.invokeFactory(type_name='Document', id='foo')]
+    >>> from transaction import commit
+    >>> commit()
     >>> browser.open(page.absolute_url())
     >>> browser.getLink('Policy').click()
     >>> browser.url

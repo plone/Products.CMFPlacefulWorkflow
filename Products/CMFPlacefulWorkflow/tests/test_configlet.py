@@ -21,16 +21,13 @@ CMFPlacefulWorkflow Functional Test of the Through the Web Configuration
 __version__ = "$Revision: 61119 $"
 __docformat__ = 'restructuredtext'
 
-from Products.PloneTestCase import PloneTestCase
 from Products.CMFCore.utils import getToolByName
 
 from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowFunctionalTestCase
 
-# BBB Zope 2.12
-try:
-    from Testing.testbrowser import Browser
-except ImportError:
-    from Products.Five.testbrowser import Browser
+from plone.testing.z2 import Browser
+from plone.app import testing
+from transaction import commit
 
 
 class TestConfiglet(CMFPlacefulWorkflowFunctionalTestCase):
@@ -43,13 +40,13 @@ class TestConfiglet(CMFPlacefulWorkflowFunctionalTestCase):
 
     def getBrowser(self, logged_in=False):
         """ instantiate and return a testbrowser for convenience """
-        browser = Browser()
+        browser = Browser(self.layer['app'])
         if logged_in:
             # Add an authorization header using the given or default
             # credentials """
             browser.addHeader('Authorization', 'Basic %s:%s' % (
-                    PloneTestCase.portal_owner,
-                    PloneTestCase.default_password))
+                    testing.SITE_OWNER_NAME,
+                    testing.SITE_OWNER_PASSWORD))
         return browser
 
     def createDummyPolicy(self):
@@ -72,8 +69,8 @@ class TestConfiglet(CMFPlacefulWorkflowFunctionalTestCase):
         """Test setting a local mapping to the special value 'acquisition'
         """
         self.setLocalChainForPortalType('Document', 'folder_workflow')
+        commit()
         browser = self.getBrowser(logged_in=True)
-        browser.handleErrors = False
 
         browser.open('http://nohost/plone/prefs_workflow_policy_mapping?'
                      'wfpid=dummy_policy')
