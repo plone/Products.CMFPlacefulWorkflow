@@ -18,9 +18,6 @@
 """
 PlacefulWorkflowTool main class
 """
-__version__ = "$Revision: 62441 $"
-# $Source: /cvsroot/ingeniweb/CMFPlacefulWorkflow/PlacefulWorkflowTool.py,v $
-# $Id: PlacefulWorkflowTool.py 62441 2008-04-10 20:03:21Z encolpe $
 __docformat__ = 'restructuredtext'
 
 from os.path import join as path_join

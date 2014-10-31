@@ -18,9 +18,6 @@
 """
 Contributed by Jazkarta
 """
-__version__ = "$Revision:  $"
-# $Source:  $
-# $Id:  $
 __docformat__ = 'restructuredtext'
 from Products.GenericSetup.utils import exportObjects, importObjects
 from Products.GenericSetup.utils import XMLAdapterBase

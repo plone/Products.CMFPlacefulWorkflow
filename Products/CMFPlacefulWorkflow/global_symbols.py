@@ -18,27 +18,7 @@
 """
 CMFPlacefulWorkflow product
 """
-__version__ = "$Revision: 43896 $"
-# $Source: /cvsroot/ingeniweb/CMFPlacefulWorkflow/global_symbols.py,v $
-# $Id: global_symbols.py 43896 2007-06-17 09:55:34Z hannosch $
 __docformat__ = 'restructuredtext'
-
-import os
-
-# Check if we have to be in debug mode
-if os.path.isfile(os.path.abspath(os.path.dirname(__file__)) + '/debug.txt'):
-    DEBUG_MODE = True
-else:
-    DEBUG_MODE = False
-
-# Set log options correctly
-import Log
-if DEBUG_MODE:
-    Log.LOG_LEVEL = Log.LOG_DEBUG
-else:
-    Log.LOG_LEVEL = Log.LOG_NOTICE
-
-from Log import *
 
 PROJECTNAME = "CMFPlacefulWorkflow"
 

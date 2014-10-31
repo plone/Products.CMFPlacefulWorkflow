@@ -18,9 +18,6 @@
 """
 Initialization
 """
-__version__ = "$Revision: 62604 $"
-# $Source: /cvsroot/ingeniweb/CMFPlacefulWorkflow/__init__.py,v $
-# $Id: __init__.py 62604 2008-04-13 20:50:14Z hannosch $
 __docformat__ = 'restructuredtext'
 
 import PlacefulWorkflowTool
@@ -65,13 +62,6 @@ def initialize(context):
 
 ModuleSecurityInfo('Products.CMFPlacefulWorkflow').declarePublic('CMFPlacefulWorkflowMessageFactory')
 
-# Import "CMFPlacefulWorkflowMessageFactory as _" to create messages
-# Zope 3.1-style messagefactory module
-# BBB: Zope 2.8 / Zope X3.0
-try:
-    from zope.i18nmessageid import MessageFactory
-except ImportError:
-    from messagefactory_ import CMFPlacefulWorkflowMessageFactory
-else:
-    CMFPlacefulWorkflowMessageFactory = MessageFactory('cmfplacefulworkflow')
+from zope.i18nmessageid import MessageFactory
+CMFPlacefulWorkflowMessageFactory = MessageFactory('cmfplacefulworkflow')
 

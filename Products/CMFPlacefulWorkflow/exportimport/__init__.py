@@ -18,9 +18,6 @@
 """
 
 """
-__version__ = "$Revision:  $"
-# $Source:  $
-# $Id:  $
 __docformat__ = 'restructuredtext'
 
 
