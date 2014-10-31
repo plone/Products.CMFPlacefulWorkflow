@@ -620,10 +620,3 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         self.failUnlessEqual(tuple(self.portal.my_worklist()), (document, ))
 
         self.logout()
-
-
-def test_suite():
-    from unittest import TestSuite, makeSuite
-    suite = TestSuite()
-    suite.addTest(makeSuite(TestPlacefulWorkflow))
-    return suite
