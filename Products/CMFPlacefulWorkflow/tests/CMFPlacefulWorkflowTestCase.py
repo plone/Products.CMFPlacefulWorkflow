@@ -18,9 +18,6 @@
 """
 CMFPlacefulWorkflow TestCase module
 """
-__version__ = "$Revision: 41292 $"
-# $Source: /cvsroot/ingeniweb/CMFPlacefulWorkflow/tests/CMFPlacefulWorkflowTestCase.py,v $
-# $Id: CMFPlacefulWorkflowTestCase.py 41292 2007-04-29 21:20:27Z optilude $
 __docformat__ = 'restructuredtext'
 
 # Zope imports
@@ -29,16 +26,10 @@ from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import noSecurityManager
 
 # Plone imports
-from Products.PloneTestCase import PloneTestCase
+from plone.app.testing.bbb import PloneTestCase
 
 
-class CMFPlacefulWorkflowTestCase(PloneTestCase.PloneTestCase):
-
-    # Globals
-    portal_name = 'portal'
-    portal_owner = 'portal_owner'
-    user_name = PloneTestCase.default_user
-    user_password = PloneTestCase.default_password
+class CMFPlacefulWorkflowTestCase(PloneTestCase):
 
     class Session(dict):
         def set(self, key, value):
@@ -48,43 +39,29 @@ class CMFPlacefulWorkflowTestCase(PloneTestCase.PloneTestCase):
         PloneTestCase.PloneTestCase._setup(self)
         self.app.REQUEST['SESSION'] = self.Session()
 
-    def beforeTearDown(self):
-        # logout
-        noSecurityManager()
-
-    def loginAsPortalMember(self):
-        '''Use if you need to manipulate site as a member.'''
-        self._setupUser()
-        self.mtool.createMemberarea(self.user_name)
-        member = self.mtool.getMemberById(self.user_name)
-        member.setMemberProperties({'fullname': self.user_name.capitalize(),
-                                    'email': 'test@example.com', })
-        self.login()
-
-    def loginAsPortalOwner(self):
-        '''Use if you need to manipulate site as a manager.'''
-        uf = self.app.acl_users
-        user = uf.getUserById(self.portal_owner).__of__(uf)
-        newSecurityManager(None, user)
+#    def beforeTearDown(self):
+#        # logout
+#        noSecurityManager()
+#
+#    def loginAsPortalMember(self):
+#        '''Use if you need to manipulate site as a member.'''
+#        self._setupUser()
+#        self.mtool.createMemberarea(self.user_name)
+#        member = self.mtool.getMemberById(self.user_name)
+#        member.setMemberProperties({'fullname': self.user_name.capitalize(),
+#                                    'email': 'test@example.com', })
+#        self.login()
+#
+#    def loginAsPortalOwner(self):
+#        '''Use if you need to manipulate site as a manager.'''
+#        uf = self.app.acl_users
+#        user = uf.getUserById(self.portal_owner).__of__(uf)
+#        newSecurityManager(None, user)
 
     def getPermissionsOfRole(self, role):
         perms = self.portal.permissionsOfRole(role)
         return [p['name'] for p in perms if p['selected']]
 
 
-class CMFPlacefulWorkflowFunctionalTestCase(
-    CMFPlacefulWorkflowTestCase, PloneTestCase.FunctionalTestCase):
-    pass
+CMFPlacefulWorkflowFunctionalTestCase = CMFPlacefulWorkflowTestCase
 
-# Install CMFPlacefulWorkflow
-ZopeTestCase.installProduct('CMFPlacefulWorkflow')
-
-# Setup Plone site
-PloneTestCase.setupPloneSite(id='plone', products=[
-    'CMFPlacefulWorkflow',
-    ], extension_profiles=[
-    'Products.CMFPlone:testfixture',
-    ])
-
-app = ZopeTestCase.app()
-ZopeTestCase.close(app)

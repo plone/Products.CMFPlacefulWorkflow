@@ -21,7 +21,6 @@ CMFPlacefulWorkflow Unittest
 
 from Testing import ZopeTestCase
 from zExceptions import Forbidden
-from Products.PloneTestCase import PloneTestCase
 
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
 from Products.CMFPlacefulWorkflow.interfaces import IPlacefulMarker
@@ -31,9 +30,6 @@ _standard_permissions = ZopeTestCase.standard_permissions
 _edit_permissions     = []
 _all_permissions      = _edit_permissions
 
-#Install our product
-PloneTestCase.installProduct('CMFPlacefulWorkflow')
-PloneTestCase.setupPloneSite()
 
 # Other imports
 from Products.CMFCore.utils import getToolByName

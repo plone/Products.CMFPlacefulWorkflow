@@ -21,23 +21,22 @@ Contributed by Jazkarta
 __docformat__ = 'restructuredtext'
 
 import doctest
-from Testing.ZopeTestCase import ZopeDocFileSuite
 
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.GenericSetup import EXTENSION
 from Products.GenericSetup import profile_registry
 
 from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase
+from plone.testing import layererd
 
 OPTIONFLAGS = (doctest.ELLIPSIS |
                doctest.NORMALIZE_WHITESPACE |
                doctest.REPORT_UDIFF)
 
-class ExportImportLayer(
-    CMFPlacefulWorkflowTestCase.layer):
+class ExportImportLayer(PloneTestCaseFixture):
 
-    @classmethod
-    def setUp(cls):
+    def setUpZope(self, app, configurationContext):
+        super(ExportImportLayer, self).setUpZope()
         profile_registry.registerProfile(
             name='exportimport', title='Test Placeful Workflow Profile',
             description=(
@@ -46,22 +45,13 @@ class ExportImportLayer(
             product='Products.CMFPlacefulWorkflow.tests',
             profile_type=EXTENSION, for_=ISiteRoot)
 
-    @classmethod
-    def tearDown(cls):
-        pass
-
-    @classmethod
-    def testSetUp(cls):
-        pass
-
-    @classmethod
-    def testTearDown(cls):
-        pass
+EXPORT_IMPORT_FIXTURE = ExportImportLayer()
+EXPORT_IMPORT_LAYER = FunctionalTesting(bases=(EXPORT_IMPORT_FIXTURE,),
+        name='WorkflowTestCase:Functional')
 
 def test_suite():
-    suite = ZopeDocFileSuite(
+    suite = layererd(doctest.DocFileSuite(
         'exportimport.txt',
         optionflags=OPTIONFLAGS,
-        test_class=CMFPlacefulWorkflowTestCase)
-    suite.layer = ExportImportLayer
+        ), layer=EXPORT_IMPORT_LAYER)
     return suite
