@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-## CMFPlacefulWorkflowM
+## CMFPlacefulWorflow
 ## Copyright (C)2006 Ingeniweb
 
 ## This program is free software; you can redistribute it and/or modify
@@ -16,21 +16,26 @@
 ## along with this program; see the file COPYING. If not, write to the
 ## Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 """
-Zope 3.1-style messagefactory module for Zope <= 2.9 (Zope 3.1)
-
-BBB: Zope 2.8 / Zope X3.0
+Contributed by Jazkarta
 """
-__version__ = "$Revision: 1.31 $"
-# $Source: /cvsroot/ingeniweb/PloneSubscription/SubscriptionTool.py,v $
-# $Id: SubscriptionTool.py,v 1.31 2005/10/10 20:43:57 encolpe Exp $
 __docformat__ = 'restructuredtext'
 
+import unittest
+import doctest
 
-from zope.i18nmessageid import MessageIDFactory
-msg_factory = MessageIDFactory('cmfplacefulworkflow')
+from CMFPlacefulWorkflowTestCase import PWF_LAYER
+from plone.testing import layered
 
-def CMFPlacefulWorkflowMessageFactory(ustr, default=None, mapping=None):
-    message = msg_factory(ustr, default)
-    if mapping is not None:
-        message.mapping.update(mapping)
-    return message
+OPTIONFLAGS = (doctest.ELLIPSIS |
+               doctest.NORMALIZE_WHITESPACE |
+               doctest.REPORT_UDIFF |
+               doctest.REPORT_ONLY_FIRST_FAILURE)
+
+
+def test_suite():
+    suite = unittest.TestSuite()
+    for testfile in ['exportimport.txt', 'policy_form.txt']:
+        suite.addTest(layered(doctest.DocFileSuite(testfile,
+                      optionflags=OPTIONFLAGS),
+                      layer=PWF_LAYER))
+    return suite

@@ -18,9 +18,6 @@
 """
 PlacefulWorkflowTool main class
 """
-__version__ = "$Revision: 62441 $"
-# $Source: /cvsroot/ingeniweb/CMFPlacefulWorkflow/PlacefulWorkflowTool.py,v $
-# $Id: PlacefulWorkflowTool.py 62441 2008-04-10 20:03:21Z encolpe $
 __docformat__ = 'restructuredtext'
 
 from os.path import join as path_join
@@ -51,6 +48,7 @@ from interfaces import IPlacefulWorkflowTool
 WorkflowPolicyConfig_id = ".wf_policy_config"
 _MARKER = object()
 
+
 def safeEditProperty(obj, key, value, data_type='string'):
     """ An add or edit function, surprisingly useful :) """
     if obj.hasProperty(key):
@@ -58,16 +56,18 @@ def safeEditProperty(obj, key, value, data_type='string'):
     else:
         obj._setProperty(key, value, data_type)
 
-def addPlacefulWorkflowTool(self,REQUEST={}):
+
+def addPlacefulWorkflowTool(self, REQUEST={}):
     """
     Factory method for the Placeful Workflow Tool
     """
-    id='portal_placeful_workflow'
-    pwt=PlacefulWorkflowTool()
+    id = 'portal_placeful_workflow'
+    pwt = PlacefulWorkflowTool()
     self._setObject(id, pwt, set_owner=0)
     getattr(self, id)._post_init()
     if REQUEST:
         return REQUEST.RESPONSE.redirect(self.absolute_url() + '/manage_main')
+
 
 class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
     """
@@ -83,8 +83,7 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
 
     security = ClassSecurityInfo()
 
-
-    manage_options=Folder.manage_options
+    manage_options = Folder.manage_options
 
     def __init__(self):
         # Properties to be edited by site manager
@@ -93,6 +92,7 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
     _manage_addWorkflowPolicyForm = PageTemplateFile(path_join('www', 'add_workflow_policy'), globals())
 
     security.declareProtected(ManageWorkflowPolicies, 'manage_addWorkflowPolicyForm')
+
     def manage_addWorkflowPolicyForm(self, REQUEST):
         """ Form for adding workflow policies.
         """
@@ -103,6 +103,7 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
         return self._manage_addWorkflowPolicyForm(REQUEST, workflow_policy_types=wfpt)
 
     security.declareProtected(ManageWorkflowPolicies, 'manage_addWorkflowPolicy')
+
     def manage_addWorkflowPolicy(self, id,
                                  workflow_policy_type='default_workflow_policy (Simple Policy)',
                                  duplicate_id='empty',
@@ -149,9 +150,10 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
         return (
             {'name': 'WorkflowPolicy',
              'action': 'manage_addWorkflowPolicyForm',
-             'permission':ManageWorkflowPolicies },)
+             'permission': ManageWorkflowPolicies}, )
 
     security.declareProtected(ManageWorkflowPolicies, 'getWorkflowPolicyById')
+
     def getWorkflowPolicyById(self, wfp_id):
         """ Retrieve a given workflow policy.
         """
@@ -164,12 +166,14 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
         return None
 
     security.declarePublic('isValidPolicyName')
+
     def isValidPolicyName(self, policy_id):
         """ Return True if a policy exist
         """
         return self.getWorkflowPolicyById(policy_id) is not None
 
     security.declareProtected(ManageWorkflowPolicies, 'getWorkflowPolicies')
+
     def getWorkflowPolicies(self):
         """ Return the list of workflow policies.
         """
@@ -180,6 +184,7 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
         return tuple(wfps)
 
     security.declarePublic('getWorkflowPolicyIds')
+
     def getWorkflowPolicyIds(self):
         """ Return the list of workflow policy ids.
         """
@@ -192,6 +197,7 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
         return tuple(wfp_ids)
 
     security.declarePublic('getWorkflowPolicyInfos')
+
     def getWorkflowPolicyInfos(self):
         """ Return the list of workflow policy ids.
         """
@@ -203,8 +209,8 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
 
         return tuple(wfp_ids)
 
+    security.declareProtected(View, 'getWorkflowPolicyConfig')
 
-    security.declareProtected( View, 'getWorkflowPolicyConfig')
     def getWorkflowPolicyConfig(self, ob):
         """ Return a local workflow configuration if it exist
         """
@@ -217,8 +223,8 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
 
         return getattr(ob.aq_explicit, WorkflowPolicyConfig_id, None)
 
+    security.declareProtected(View, 'isSiteRoot')
 
-    security.declareProtected( View, 'isSiteRoot')
     def isSiteRoot(self, ob):
         """ Returns a boolean value indicating if the object is an ISiteRoot
         or the default page of an ISiteRoot.
@@ -241,7 +247,6 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
         _post_init(self) => called from manage_add method, acquired within ZODB (__init__ is not)
         """
         pass
-
     #
     #   portal_workflow_policy implementation.
     #
@@ -257,6 +262,7 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
 
 _workflow_policy_factories = {}
 
+
 def _makeWorkflowPolicyFactoryKey(factory, id=None, title=None):
     # The factory should take one argument, id.
     if id is None:
@@ -268,13 +274,15 @@ def _makeWorkflowPolicyFactoryKey(factory, id=None, title=None):
         key = key + ' (%s)' % title
     return key
 
+
 def addWorkflowPolicyFactory(factory, id=None, title=None):
-    key = _makeWorkflowPolicyFactoryKey( factory, id, title )
+    key = _makeWorkflowPolicyFactoryKey(factory, id, title)
     _workflow_policy_factories[key] = factory
 
-def _removeWorkflowPolicyFactory( factory, id=None, title=None ):
+
+def _removeWorkflowPolicyFactory(factory, id=None, title=None):
     """ Make teardown in unitcase cleaner. """
-    key = _makeWorkflowPolicyFactoryKey( factory, id, title )
+    key = _makeWorkflowPolicyFactoryKey(factory, id, title)
     try:
         del _workflow_policy_factories[key]
     except KeyError:

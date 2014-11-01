@@ -15,9 +15,6 @@
 ## along with this program; see the file COPYING. If not, write to the
 ## Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-__version__ = "$Revision: $"
-# $Source: $
-# $Id: $
 __docformat__ = 'restructuredtext'
 
 from zope.interface import Interface, implementer
@@ -30,6 +27,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import base_hasattr
 from Products.CMFPlone.interfaces import IWorkflowChain
 from Products.CMFPlone.workflow import ToolWorkflowChain
+
 
 @adapter(Interface, IPlacefulMarker)
 @implementer(IWorkflowChain)

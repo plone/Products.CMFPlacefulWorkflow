@@ -18,11 +18,7 @@
 """
 
 """
-__version__ = "$Revision:  $"
-# $Source:  $
-# $Id:  $
 __docformat__ = 'restructuredtext'
-
 
 from workflow_policies import importWorkflowPolicies
 from workflow_policies import exportWorkflowPolicies

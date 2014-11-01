@@ -18,27 +18,50 @@
 """
 CMFPlacefulWorkflow TestCase module
 """
-__version__ = "$Revision: 41292 $"
-# $Source: /cvsroot/ingeniweb/CMFPlacefulWorkflow/tests/CMFPlacefulWorkflowTestCase.py,v $
-# $Id: CMFPlacefulWorkflowTestCase.py 41292 2007-04-29 21:20:27Z optilude $
 __docformat__ = 'restructuredtext'
 
 # Zope imports
-from Testing import ZopeTestCase
-from AccessControl.SecurityManagement import newSecurityManager
-from AccessControl.SecurityManagement import noSecurityManager
+from Products.CMFCore.interfaces import ISiteRoot
+from Products.GenericSetup import EXTENSION
+from Products.GenericSetup import profile_registry
 
 # Plone imports
-from Products.PloneTestCase import PloneTestCase
+from plone.app.testing.bbb import PloneTestCase
+from plone.app.testing.bbb import PloneTestCaseFixture
+from plone.testing import z2
+from plone.app import testing
 
 
-class CMFPlacefulWorkflowTestCase(PloneTestCase.PloneTestCase):
+class PlacefulWorkflowLayer(PloneTestCaseFixture):
 
-    # Globals
-    portal_name = 'portal'
-    portal_owner = 'portal_owner'
-    user_name = PloneTestCase.default_user
-    user_password = PloneTestCase.default_password
+    def setUpZope(self, app, configurationContext):
+        super(PlacefulWorkflowLayer, self).setUpZope(app, configurationContext)
+        profile_registry.registerProfile(
+            name='exportimport', title='Test Placeful Workflow Profile',
+            description=(
+                "Tests the placeful workflow policy handler."),
+            path='profiles/exportimport',
+            product='Products.CMFPlacefulWorkflow.tests',
+            profile_type=EXTENSION, for_=ISiteRoot)
+        z2.installProduct(app, 'Products.CMFPlacefulWorkflow')
+
+    def setUpPloneSite(self, portal):
+        super(PlacefulWorkflowLayer, self).setUpPloneSite(portal)
+        # install sunburst theme
+        testing.applyProfile(portal, 'Products.CMFPlacefulWorkflow:CMFPlacefulWorkflow')
+
+    def tearDownZope(self, app):
+        super(PlacefulWorkflowLayer, self).tearDownZope(app)
+        z2.uninstallProduct(app, 'Products.CMFPlacefulWorkflow')
+
+PWF_FIXTURE = PlacefulWorkflowLayer()
+PWF_LAYER = testing.FunctionalTesting(bases=(PWF_FIXTURE, ),
+        name='PlacefulWorkflowTestCase:Functional')
+
+
+class CMFPlacefulWorkflowTestCase(PloneTestCase):
+
+    layer = PWF_LAYER
 
     class Session(dict):
         def set(self, key, value):
@@ -48,43 +71,8 @@ class CMFPlacefulWorkflowTestCase(PloneTestCase.PloneTestCase):
         PloneTestCase.PloneTestCase._setup(self)
         self.app.REQUEST['SESSION'] = self.Session()
 
-    def beforeTearDown(self):
-        # logout
-        noSecurityManager()
-
-    def loginAsPortalMember(self):
-        '''Use if you need to manipulate site as a member.'''
-        self._setupUser()
-        self.mtool.createMemberarea(self.user_name)
-        member = self.mtool.getMemberById(self.user_name)
-        member.setMemberProperties({'fullname': self.user_name.capitalize(),
-                                    'email': 'test@example.com', })
-        self.login()
-
-    def loginAsPortalOwner(self):
-        '''Use if you need to manipulate site as a manager.'''
-        uf = self.app.acl_users
-        user = uf.getUserById(self.portal_owner).__of__(uf)
-        newSecurityManager(None, user)
-
     def getPermissionsOfRole(self, role):
         perms = self.portal.permissionsOfRole(role)
         return [p['name'] for p in perms if p['selected']]
 
-
-class CMFPlacefulWorkflowFunctionalTestCase(
-    CMFPlacefulWorkflowTestCase, PloneTestCase.FunctionalTestCase):
-    pass
-
-# Install CMFPlacefulWorkflow
-ZopeTestCase.installProduct('CMFPlacefulWorkflow')
-
-# Setup Plone site
-PloneTestCase.setupPloneSite(id='plone', products=[
-    'CMFPlacefulWorkflow',
-    ], extension_profiles=[
-    'Products.CMFPlone:testfixture',
-    ])
-
-app = ZopeTestCase.app()
-ZopeTestCase.close(app)
+CMFPlacefulWorkflowFunctionalTestCase = CMFPlacefulWorkflowTestCase

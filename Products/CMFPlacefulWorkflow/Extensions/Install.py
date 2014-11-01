@@ -18,9 +18,6 @@
 """
 Product installation
 """
-__version__ = "$Revision: 61118 $"
-# $Source: /cvsroot/ingeniweb/CMFPlacefulWorkflow/Extensions/Install.py,v $
-# $Id: Install.py 61118 2008-03-25 13:50:21Z encolpe $
 __docformat__ = 'restructuredtext'
 
 from cStringIO import StringIO
@@ -29,7 +26,6 @@ from zope.component import getSiteManager
 from zope.interface import noLongerProvides
 
 from Products.CMFPlacefulWorkflow.interfaces import IPlacefulMarker
-from Products.CMFPlacefulWorkflow.global_symbols import PROJECTNAME
 from Products.CMFPlacefulWorkflow.global_symbols import placeful_prefs_configlet
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlacefulWorkflow.interfaces import IPlacefulWorkflowTool
