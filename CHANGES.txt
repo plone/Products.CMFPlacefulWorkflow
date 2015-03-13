@@ -13,6 +13,7 @@ Changelog
 - Major cleanup of old stuff
   [tomgross]
 
+
 1.6.0 (2014-04-16)
 ------------------
 
