@@ -26,7 +26,7 @@ policy.setDefaultChain(default_chain=(default_workflow_id, ), REQUEST=context.RE
 # for filtering special option values
 CHAIN_MAP = {'acquisition': None, '': ()}
 for pt, wf in wf.items():
-    if CHAIN_MAP.has_key(wf):
+    if wf in CHAIN_MAP:
         chain = CHAIN_MAP[wf]
     else:
         chain = (wf, )

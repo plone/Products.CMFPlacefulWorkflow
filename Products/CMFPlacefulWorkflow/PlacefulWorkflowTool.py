@@ -18,32 +18,25 @@
 """
 PlacefulWorkflowTool main class
 """
-__docformat__ = 'restructuredtext'
 
-from os.path import join as path_join
-
-from AccessControl.requestmethod import postonly
 from AccessControl import ClassSecurityInfo
 from AccessControl import Unauthorized
+from AccessControl.requestmethod import postonly
 from Acquisition import aq_parent
 from App.class_init import InitializeClass
 from OFS.Folder import Folder
 from OFS.ObjectManager import IFAwareObjectManager
-
-from Products.PageTemplates.PageTemplateFile import PageTemplateFile
-
-from zope.interface import implements
-
-from Products.CMFCore.utils import getToolByName
-from Products.CMFCore.utils import ImmutableId
-from Products.CMFCore.permissions import View
-from Products.CMFCore.utils import registerToolInterface
-from Products.CMFCore.utils import _checkPermission
-
 from Products.CMFCore.interfaces import ISiteRoot
-
+from Products.CMFCore.permissions import View
+from Products.CMFCore.utils import ImmutableId
+from Products.CMFCore.utils import _checkPermission
+from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.utils import registerToolInterface
 from Products.CMFPlacefulWorkflow.permissions import ManageWorkflowPolicies
-from interfaces import IPlacefulWorkflowTool
+from Products.PageTemplates.PageTemplateFile import PageTemplateFile
+from os.path import join as path_join
+from zope.interface import implements
+from Products.CMFPlacefulWorkflow.interfaces import IPlacefulWorkflowTool
 
 WorkflowPolicyConfig_id = ".wf_policy_config"
 _MARKER = object()
@@ -243,8 +236,8 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
             return True
         parent = aq_parent(ob)
         if ISiteRoot.providedBy(parent):
-            if (getattr(ob, 'isPrincipiaFolderish', False)
-                    and ob.isPrincipiaFolderish):
+            if (getattr(ob, 'isPrincipiaFolderish', False) and
+                    ob.isPrincipiaFolderish):
                 # We are looking at a folder in the root
                 return False
             # We are at a non-folderish item in the root

@@ -18,16 +18,15 @@
 """
 Contributed by Jazkarta
 """
-__docformat__ = 'restructuredtext'
-from Products.GenericSetup.utils import exportObjects, importObjects
-from Products.GenericSetup.utils import XMLAdapterBase
-from Products.GenericSetup.OFSP.exportimport import FolderXMLAdapter
 
-from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.exportimport.workflow import WorkflowToolXMLAdapter
-
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlacefulWorkflow.DefaultWorkflowPolicy import DEFAULT_CHAIN
 from Products.CMFPlacefulWorkflow.global_symbols import Log
+from Products.GenericSetup.OFSP.exportimport import FolderXMLAdapter
+from Products.GenericSetup.utils import XMLAdapterBase
+from Products.GenericSetup.utils import exportObjects
+from Products.GenericSetup.utils import importObjects
 
 _marker = []
 

@@ -15,11 +15,9 @@
 # along with this program; see the file COPYING. If not, write to the
 # Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-__docformat__ = 'restructuredtext'
-
-from zope.interface import alsoProvides
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlacefulWorkflow.interfaces import IPlacefulMarker
+from zope.interface import alsoProvides
 
 
 def installMarker(context):

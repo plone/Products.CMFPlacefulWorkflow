@@ -19,19 +19,16 @@
 CMFPlacefulWorkflow Unittest
 """
 
-from Testing import ZopeTestCase
-from zExceptions import Forbidden
-
+from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
 from Products.CMFPlacefulWorkflow.interfaces import IPlacefulMarker
-from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase
+from Testing import ZopeTestCase
+from zExceptions import Forbidden
 
 _standard_permissions = ZopeTestCase.standard_permissions
 _edit_permissions = []
 _all_permissions = _edit_permissions
-
-# Other imports
-from Products.CMFCore.utils import getToolByName
 
 
 class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):

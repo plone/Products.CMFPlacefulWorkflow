@@ -18,13 +18,11 @@
 """
 Contributed by Jazkarta
 """
-__docformat__ = 'restructuredtext'
-
-import unittest
-import doctest
 
 from CMFPlacefulWorkflowTestCase import PWF_LAYER
 from plone.testing import layered
+import doctest
+import unittest
 
 OPTIONFLAGS = (doctest.ELLIPSIS |
                doctest.NORMALIZE_WHITESPACE |

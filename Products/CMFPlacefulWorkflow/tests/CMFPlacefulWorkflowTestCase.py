@@ -18,18 +18,14 @@
 """
 CMFPlacefulWorkflow TestCase module
 """
-__docformat__ = 'restructuredtext'
 
-# Zope imports
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.GenericSetup import EXTENSION
 from Products.GenericSetup import profile_registry
-
-# Plone imports
+from plone.app import testing
 from plone.app.testing.bbb import PloneTestCase
 from plone.app.testing.bbb import PloneTestCaseFixture
 from plone.testing import z2
-from plone.app import testing
 
 
 class PlacefulWorkflowLayer(PloneTestCaseFixture):

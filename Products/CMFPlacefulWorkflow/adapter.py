@@ -15,18 +15,18 @@
 # along with this program; see the file COPYING. If not, write to the
 # Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-__docformat__ = 'restructuredtext'
-
-from zope.interface import Interface, implementer
-from zope.component import adapter
-
+from Acquisition import aq_base
+from Acquisition import aq_inner
+from Acquisition import aq_parent
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
 from Products.CMFPlacefulWorkflow.interfaces import IPlacefulMarker
-from Acquisition import aq_base, aq_parent, aq_inner
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.utils import base_hasattr
 from Products.CMFPlone.interfaces import IWorkflowChain
+from Products.CMFPlone.utils import base_hasattr
 from Products.CMFPlone.workflow import ToolWorkflowChain
+from zope.component import adapter
+from zope.interface import Interface
+from zope.interface import implementer
 
 
 @adapter(Interface, IPlacefulMarker)

@@ -18,7 +18,6 @@
 """
 Placeful Workflow tool interface.
 """
-__docformat__ = 'restructuredtext'
 
 from zope.interface import Attribute
 from zope.interface import Interface

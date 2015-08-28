@@ -18,17 +18,14 @@
 """
 Product installation
 """
-__docformat__ = 'restructuredtext'
 
+from Products.CMFCore.utils import getToolByName
+from Products.CMFPlacefulWorkflow.global_symbols import placeful_prefs_configlet
+from Products.CMFPlacefulWorkflow.interfaces import IPlacefulMarker
+from Products.CMFPlacefulWorkflow.interfaces import IPlacefulWorkflowTool
 from cStringIO import StringIO
-
 from zope.component import getSiteManager
 from zope.interface import noLongerProvides
-
-from Products.CMFPlacefulWorkflow.interfaces import IPlacefulMarker
-from Products.CMFPlacefulWorkflow.global_symbols import placeful_prefs_configlet
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlacefulWorkflow.interfaces import IPlacefulWorkflowTool
 
 
 def uninstall(self, reinstall=False, out=None):

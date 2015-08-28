@@ -18,15 +18,11 @@
 """
 CMFPlacefulWorkflow Functional Test of the Through the Web Configuration
 """
-__version__ = "$Revision: 61119 $"
-__docformat__ = 'restructuredtext'
-
-from Products.CMFCore.utils import getToolByName
 
 from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowFunctionalTestCase
-
-from plone.testing.z2 import Browser
+from Products.CMFCore.utils import getToolByName
 from plone.app import testing
+from plone.testing.z2 import Browser
 from transaction import commit
 
 

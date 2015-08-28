@@ -18,7 +18,6 @@
 """
 CMFPlacefulWorkflow product
 """
-__docformat__ = 'restructuredtext'
 
 from Products.CMFPlacefulWorkflow.permissions import ManageWorkflowPolicies
 from logging import getLogger

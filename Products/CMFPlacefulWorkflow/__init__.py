@@ -18,16 +18,14 @@
 """
 Initialization
 """
-__docformat__ = 'restructuredtext'
 
-import PlacefulWorkflowTool
-import DefaultWorkflowPolicy
-import WorkflowPolicyConfig
-
+from zope.i18nmessageid import MessageFactory
 from AccessControl import ModuleSecurityInfo
-from Products.CMFCore import utils, DirectoryView
-
-install_globals = globals()          # Used only in the Extensions/Install.py script
+from Products.CMFCore import DirectoryView
+from Products.CMFCore import utils
+import DefaultWorkflowPolicy
+import PlacefulWorkflowTool
+import WorkflowPolicyConfig
 
 tools = (PlacefulWorkflowTool.PlacefulWorkflowTool, )
 
@@ -61,5 +59,4 @@ def initialize(context):
 ModuleSecurityInfo('Products.CMFPlacefulWorkflow').declarePublic(
     'CMFPlacefulWorkflowMessageFactory')
 
-from zope.i18nmessageid import MessageFactory
 CMFPlacefulWorkflowMessageFactory = MessageFactory('cmfplacefulworkflow')

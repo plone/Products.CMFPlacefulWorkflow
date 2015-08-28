@@ -18,28 +18,21 @@
 """
 A simple workflow policy.
 """
-__docformat__ = 'restructuredtext'
-
-from os.path import join as path_join
 
 from AccessControl import ClassSecurityInfo
 from AccessControl.requestmethod import postonly
-from App.class_init import InitializeClass
 from Acquisition import aq_base
+from App.class_init import InitializeClass
 from Persistence import PersistentMapping
-
-from zope.interface import implements
-
-from Products.PageTemplates.PageTemplateFile import PageTemplateFile
-
 from Products.CMFCore.utils import SimpleItemWithProperties
-from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addWorkflowPolicyFactory
-
-from Products.CMFPlacefulWorkflow.interfaces import IWorkflowPolicyDefinition
-from Products.CMFPlacefulWorkflow.global_symbols import Log
-from Products.CMFPlacefulWorkflow.permissions import ManageWorkflowPolicies
-
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addWorkflowPolicyFactory
+from Products.CMFPlacefulWorkflow.global_symbols import Log
+from Products.CMFPlacefulWorkflow.interfaces import IWorkflowPolicyDefinition
+from Products.CMFPlacefulWorkflow.permissions import ManageWorkflowPolicies
+from Products.PageTemplates.PageTemplateFile import PageTemplateFile
+from os.path import join as path_join
+from zope.interface import implements
 
 DEFAULT_CHAIN = '(Default)'
 _MARKER = '_MARKER'
@@ -137,7 +130,7 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
                 'id': id,
                 'title': title,
                 'chain': chain,
-                #'cbt': repr(cbt.get(id)), # for debug purpose
+                # 'cbt': repr(cbt.get(id)),  # for debug purpose
             })
         return self._manage_workflows(
             REQUEST,
