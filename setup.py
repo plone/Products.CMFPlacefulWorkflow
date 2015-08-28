@@ -5,14 +5,14 @@ version = '1.6.2.dev0'
 setup(name='Products.CMFPlacefulWorkflow',
       version=version,
       description="Workflow policies for Plone",
-      long_description=open("README.txt").read() + "\n" +
-                       open("CHANGES.txt").read(),
+      long_description=(open("README.rst").read() + "\n" +
+                        open("CHANGES.rst").read()),
       classifiers=[
-        "Framework :: Plone",
-        "Framework :: Plone :: 5.0",
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 2.7",
-        ],
+          "Framework :: Plone",
+          "Framework :: Plone :: 5.0",
+          "Programming Language :: Python",
+          "Programming Language :: Python :: 2.7",
+          ],
       keywords='CMF Plone Zope2 workflow',
       author='Encolpe DEGOUTE',
       author_email='plone-developers@lists.sourceforge.net',
