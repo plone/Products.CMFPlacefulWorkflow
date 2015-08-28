@@ -5,8 +5,8 @@ version = '1.5.11.dev0'
 setup(name='Products.CMFPlacefulWorkflow',
       version=version,
       description="Workflow policies for CMF and Plone",
-      long_description=open("README.txt").read() + "\n" +
-                       open("CHANGES.txt").read(),
+      long_description=(open("README.rst").read() + "\n" +
+                        open("CHANGES.rst").read()),
       classifiers=[
         "Framework :: Plone",
         "Programming Language :: Python",
