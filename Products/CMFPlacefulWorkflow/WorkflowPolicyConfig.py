@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
-## CMFPlacefulWorkflow
-## Copyright (C)2005 Ingeniweb
+# CMFPlacefulWorkflow
+# Copyright (C)2005 Ingeniweb
 
-## This program is free software; you can redistribute it and/or modify
-## it under the terms of the GNU General Public License as published by
-## the Free Software Foundation; either version 2 of the License, or
-## (at your option) any later version.
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
 
-## This program is distributed in the hope that it will be useful,
-## but WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-## GNU General Public License for more details.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 
-## You should have received a copy of the GNU General Public License
-## along with this program; see th e file COPYING. If not, write to the
-## Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+# You should have received a copy of the GNU General Public License
+# along with this program; see th e file COPYING. If not, write to the
+# Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 """
 Workflow Policy config
 """
@@ -45,7 +45,7 @@ def manage_addWorkflowPolicyConfig(self, REQUEST=None):
         workflow_policy_in = REQUEST.get('workflow_policy_in', '')
         workflow_policy_below = REQUEST.get('workflow_policy_below', '')
 
-    #create new workflow policy config
+    # create new workflow policy config
     i = WorkflowPolicyConfig(workflow_policy_in, workflow_policy_below)
     self._setObject(WorkflowPolicyConfig_id, i)
 
@@ -65,7 +65,7 @@ class WorkflowPolicyConfig(SimpleItem):
 
     manage_options = ((
         {'icon': '', 'label': 'Edit', 'action': 'manage_main', },
-        ) + SimpleItem.manage_options
+    ) + SimpleItem.manage_options
     )
 
     def __init__(self, workflow_policy_in='', workflow_policy_below=''):
@@ -90,7 +90,7 @@ class WorkflowPolicyConfig(SimpleItem):
     security.declareProtected(ManageWorkflowPolicies, 'getPolicyBelowId')
 
     def getPolicyBelowId(self):
-        return  self.workflow_policy_below
+        return self.workflow_policy_below
 
     security.declareProtected(ManageWorkflowPolicies, 'getPolicyIn')
 
@@ -107,8 +107,8 @@ class WorkflowPolicyConfig(SimpleItem):
     security.declareProtected(ManageWorkflowPolicies, 'setPolicyIn')
 
     def setPolicyIn(self, policy, update_security=False):
-        if not type(policy) == type(''):
-            raise ValueError, "Policy must be a string"
+        if not isinstance(policy, type('')):
+            raise ValueError("Policy must be a string")
         self.workflow_policy_in = policy
         if update_security:
             wtool = getToolByName(self, 'portal_workflow')
@@ -116,7 +116,8 @@ class WorkflowPolicyConfig(SimpleItem):
             #
             # Since WorkflowTool.updateRoleMappings()  from the line above supports
             # only sitewide updates code from updateRoleMappings() was copied below
-            # to enable context passing to wftool._recursiveUpdateRoleMappings()
+            # to enable context passing to
+            # wftool._recursiveUpdateRoleMappings()
             wfs = {}
             for id in wtool.objectIds():
                 wf = wtool.getWorkflowById(id)
@@ -128,8 +129,8 @@ class WorkflowPolicyConfig(SimpleItem):
     security.declareProtected(ManageWorkflowPolicies, 'setPolicyBelow')
 
     def setPolicyBelow(self, policy, update_security=False):
-        if not type(policy) == type(''):
-            raise ValueError, "Policy must be a string"
+        if not isinstance(policy, type('')):
+            raise ValueError("Policy must be a string")
         self.workflow_policy_below = policy
         if update_security:
             wtool = getToolByName(self, 'portal_workflow')
@@ -162,14 +163,15 @@ class WorkflowPolicyConfig(SimpleItem):
         chain = None
         policy = None
         if not start_here:
-            policy = workflow_tool.getWorkflowPolicyById(self.getPolicyBelowId())
+            policy = workflow_tool.getWorkflowPolicyById(
+                self.getPolicyBelowId())
             if policy is not None:
                 chain = policy.getChainFor(portal_type)
 
         policy = workflow_tool.getWorkflowPolicyById(self.getPolicyInId())
 
         if policy is not None:
-            Log.debug("policy %s %s", repr(policy), policy != None)
+            Log.debug("policy %s %s", repr(policy), policy is not None)
         if chain is None and policy is not None:
             chain = policy.getChainFor(portal_type)
             Log.debug("portal_type and chain %s %s", portal_type, chain)

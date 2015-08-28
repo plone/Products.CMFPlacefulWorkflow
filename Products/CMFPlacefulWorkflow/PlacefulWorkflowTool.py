@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
-## CMFPlacefulWorkflow
-## Copyright (C)2005 Ingeniweb
+# CMFPlacefulWorkflow
+# Copyright (C)2005 Ingeniweb
 
-## This program is free software; you can redistribute it and/or modify
-## it under the terms of the GNU General Public License as published by
-## the Free Software Foundation; either version 2 of the License, or
-## (at your option) any later version.
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
 
-## This program is distributed in the hope that it will be useful,
-## but WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-## GNU General Public License for more details.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 
-## You should have received a copy of the GNU General Public License
-## along with this program; see the file COPYING. If not, write to the
-## Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+# You should have received a copy of the GNU General Public License
+# along with this program; see the file COPYING. If not, write to the
+# Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 """
 PlacefulWorkflowTool main class
 """
@@ -89,9 +89,12 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
         # Properties to be edited by site manager
         safeEditProperty(self, 'max_chain_length', 1, data_type='int')
 
-    _manage_addWorkflowPolicyForm = PageTemplateFile(path_join('www', 'add_workflow_policy'), globals())
+    _manage_addWorkflowPolicyForm = PageTemplateFile(
+        path_join('www', 'add_workflow_policy'), globals())
 
-    security.declareProtected(ManageWorkflowPolicies, 'manage_addWorkflowPolicyForm')
+    security.declareProtected(
+        ManageWorkflowPolicies,
+        'manage_addWorkflowPolicyForm')
 
     def manage_addWorkflowPolicyForm(self, REQUEST):
         """ Form for adding workflow policies.
@@ -100,9 +103,12 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
         for key in _workflow_policy_factories.keys():
             wfpt.append(key)
         wfpt.sort()
-        return self._manage_addWorkflowPolicyForm(REQUEST, workflow_policy_types=wfpt)
+        return self._manage_addWorkflowPolicyForm(
+            REQUEST, workflow_policy_types=wfpt)
 
-    security.declareProtected(ManageWorkflowPolicies, 'manage_addWorkflowPolicy')
+    security.declareProtected(
+        ManageWorkflowPolicies,
+        'manage_addWorkflowPolicy')
 
     def manage_addWorkflowPolicy(self, id,
                                  workflow_policy_type='default_workflow_policy (Simple Policy)',
@@ -112,7 +118,9 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
         """ Adds a workflow policies from the registered types.
         """
         if id in ('empty', 'portal_workflow'):
-            raise ValueError, "'%s' is reserved. Please choose another id." % id
+            raise ValueError(
+                "'%s' is reserved. Please choose another id." %
+                id)
 
         factory = _workflow_policy_factories[workflow_policy_type]
         ob = factory(id)
@@ -128,7 +136,8 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
                 new_wp.setDefaultChain(wf_tool._default_chain)
 
                 for ptype in types_tool.objectIds():
-                    chain = wf_tool.getChainForPortalType(ptype, managescreen=True)
+                    chain = wf_tool.getChainForPortalType(
+                        ptype, managescreen=True)
                     if chain:
                         new_wp.setChain(ptype, chain)
 
@@ -219,7 +228,7 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
             return None
         if not _checkPermission(ManageWorkflowPolicies, ob):
             raise Unauthorized("You need %s permission on %s" % (
-               ManageWorkflowPolicies, '/'.join(ob.getPhysicalPath())))
+                ManageWorkflowPolicies, '/'.join(ob.getPhysicalPath())))
 
         return getattr(ob.aq_explicit, WorkflowPolicyConfig_id, None)
 
@@ -235,7 +244,7 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
         parent = aq_parent(ob)
         if ISiteRoot.providedBy(parent):
             if (getattr(ob, 'isPrincipiaFolderish', False)
-                and ob.isPrincipiaFolderish):
+                    and ob.isPrincipiaFolderish):
                 # We are looking at a folder in the root
                 return False
             # We are at a non-folderish item in the root
@@ -258,7 +267,11 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
 
     def setMaxChainLength(self, max_chain_length):
         """Set the max workflow chain length"""
-        safeEditProperty(self, 'max_chain_length', max_chain_length, data_type='int')
+        safeEditProperty(
+            self,
+            'max_chain_length',
+            max_chain_length,
+            data_type='int')
 
 _workflow_policy_factories = {}
 
