@@ -4,7 +4,12 @@ Changelog
 1.6.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Added upgrade step to apply our full profile.  This is meant mostly
+  for upgrades from ancient versions that had no profile yet or had a
+  profile without a metadata.xml.  In that case the quick installer
+  would complain that the old profile version was unknown and there
+  was no upgrade.
+  [maurits]
 
 
 1.6.1 (2015-03-13)

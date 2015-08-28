@@ -19,4 +19,12 @@
      provides="Products.GenericSetup.interfaces.EXTENSION"
      />
 
+  <genericsetup:upgradeStep
+    title="Apply full profile"
+    description="Meant mostly for upgrades from ancient versions that had no profile yet."
+    source="*"
+    destination="1.4.1"
+    handler=".upgrades.apply_full_profile"
+    profile="Products.CMFPlacefulWorkflow:CMFPlacefulWorkflow" />
+
 </configure>
