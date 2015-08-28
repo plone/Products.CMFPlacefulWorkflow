@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.5.11 (unreleased)
+1.5.11 (2015-08-28)
 -------------------
 
 - Added upgrade step to apply our full profile.  This is meant mostly
