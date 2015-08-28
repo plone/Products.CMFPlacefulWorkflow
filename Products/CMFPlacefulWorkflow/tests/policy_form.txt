@@ -7,7 +7,7 @@ The Placeful workflow policy form works in a real browser.
 
 Open a browser and log in as a user who can use the policy form.
 
-    >>> from Products.Five import testbrowser
+    >>> from Testing import testbrowser
     >>> browser = testbrowser.Browser()
     >>> browser.handleErrors = False
     >>> browser.open(portal.absolute_url())
