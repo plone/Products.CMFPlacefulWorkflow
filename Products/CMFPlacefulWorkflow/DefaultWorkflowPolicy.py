@@ -156,8 +156,6 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
         self.title = title
         self.description = description
 
-        wf_tool = getToolByName(self, 'portal_workflow')
-
         if props is None:
             props = REQUEST
         cbt = self._chains_by_type
