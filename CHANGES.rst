@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.6.2 (unreleased)
+1.6.2 (2015-09-07)
 ------------------
 
 - Added upgrade step to apply our full profile.  This is meant mostly
