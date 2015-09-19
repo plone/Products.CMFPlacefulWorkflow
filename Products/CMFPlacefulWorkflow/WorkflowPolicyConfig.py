@@ -107,8 +107,8 @@ class WorkflowPolicyConfig(SimpleItem):
     security.declareProtected(ManageWorkflowPolicies, 'setPolicyIn')
 
     def setPolicyIn(self, policy, update_security=False):
-        if not isinstance(policy, type('')):
-            raise ValueError("Policy must be a string")
+        if not isinstance(policy, basestring):
+            raise ValueError("Policy must be a basestring")
         self.workflow_policy_in = policy
         if update_security:
             wtool = getToolByName(self, 'portal_workflow')
@@ -129,7 +129,7 @@ class WorkflowPolicyConfig(SimpleItem):
     security.declareProtected(ManageWorkflowPolicies, 'setPolicyBelow')
 
     def setPolicyBelow(self, policy, update_security=False):
-        if not isinstance(policy, type('')):
+        if not isinstance(policy, basestring):
             raise ValueError("Policy must be a string")
         self.workflow_policy_below = policy
         if update_security:

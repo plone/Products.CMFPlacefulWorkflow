@@ -4,7 +4,8 @@ Changelog
 1.6.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Allow unicode as workflow-policy-name
+  [pbauer]
 
 
 1.6.2 (2015-09-07)
