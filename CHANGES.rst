@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.6.3 (unreleased)
+1.6.3 (2015-09-20)
 ------------------
 
 - Allow unicode as workflow-policy-name
