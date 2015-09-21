@@ -4,7 +4,8 @@ Changelog
 1.6.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix test after new default dependecy-strategy for GenericSetup.
+  [pbauer]
 
 
 1.6.3 (2015-09-20)
