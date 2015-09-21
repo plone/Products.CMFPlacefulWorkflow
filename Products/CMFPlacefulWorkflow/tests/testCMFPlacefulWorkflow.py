@@ -94,11 +94,32 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         Check that the IPlacefulMarker is applied to the workflow tool by
         the install, and removed by the uninstall.
         """
+        try:
+            # GenericSetup 1.7.8 and higher
+            from Products.GenericSetup.tool import DEPENDENCY_STRATEGY_REAPPLY
+            DEPENDENCY_STRATEGY_REAPPLY  # pyflakes
+        except ImportError:
+            DEPENDENCY_STRATEGY_REAPPLY = None
+
         self.failUnless(IPlacefulMarker.providedBy(self.workflow))
         self.loginAsPortalOwner()
         self.qi.uninstallProducts(['CMFPlacefulWorkflow'])
         self.failIf(IPlacefulMarker.providedBy(self.workflow))
-        self.qi.installProduct('CMFPlacefulWorkflow')
+
+        profile_id = 'Products.CMFPlacefulWorkflow:CMFPlacefulWorkflow'
+        if DEPENDENCY_STRATEGY_REAPPLY is None:
+            # Older GenericSetup.  Reapply is the default.  No alternative
+            # strategy can be given.
+            self.qi.installProduct('CMFPlacefulWorkflow')
+            # setup_tool.runAllImportStepsFromProfile('profile-%s' % profile_id)
+        else:
+            # Newer GenericSetup.  Upgrade is the default.  We want to
+            # reapply.
+            setup_tool = self.portal.portal_setup
+            setup_tool.runAllImportStepsFromProfile(
+                'profile-%s' % profile_id,
+                dependency_strategy=DEPENDENCY_STRATEGY_REAPPLY)
+
         self.failUnless(IPlacefulMarker.providedBy(self.workflow))
 
     def test_reinstall(self):

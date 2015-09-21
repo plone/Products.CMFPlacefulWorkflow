@@ -4,7 +4,8 @@ Changelog
 1.5.12 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix test after new default dependecy-strategy for GenericSetup.
+  [pbauer]
 
 
 1.5.11 (2015-08-28)
