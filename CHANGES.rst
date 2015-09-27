@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.6.4 (unreleased)
+1.6.4 (2015-09-27)
 ------------------
 
 - Fix test after new default dependecy-strategy for GenericSetup.
