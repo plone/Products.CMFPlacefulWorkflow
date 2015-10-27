@@ -4,7 +4,9 @@ Changelog
 1.5.12 (unreleased)
 -------------------
 
-- Fix test after new default dependecy-strategy for GenericSetup.
+Fixes:
+
+- Fixed test after new default dependency strategy for GenericSetup.
   [pbauer]
 
 
