@@ -276,7 +276,8 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
         """
         # Verify input data
         if portal_type not in [pt.id for pt in self._listTypeInfo()]:
-            raise ValueError, ("'%s' is not a valid portal type." % portal_type)
+            if portal_type != 'Topic':
+                raise ValueError, ("'%s' is not a valid portal type." % portal_type)
 
         if type(chain) is type(''):
             chain = map( lambda x: x.strip(), chain.split(',') )
