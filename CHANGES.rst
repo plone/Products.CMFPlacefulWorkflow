@@ -10,7 +10,9 @@ New:
 
 Fixes:
 
-- *add item here*
+- Ignore the Topic content type, since it may not be available if
+  plone.app.collection is installed
+  [cdw9]
 
 
 1.5.12 (2015-10-28)
