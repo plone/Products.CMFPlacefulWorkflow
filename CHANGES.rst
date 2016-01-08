@@ -4,10 +4,6 @@ Changelog
 1.5.13 (unreleased)
 -------------------
 
-New:
-
-- *add item here*
-
 Fixes:
 
 - Ignore the Topic content type, since it may not be available if
