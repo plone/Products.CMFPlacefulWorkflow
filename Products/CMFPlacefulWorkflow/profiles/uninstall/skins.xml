@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<object name="portal_skins">
+
+  <object name="CMFPlacefulWorkflow" remove="true" />
+
+  <skin-path name="*">
+    <layer name="CMFPlacefulWorkflow" remove="true" />
+  </skin-path>
+
+</object>

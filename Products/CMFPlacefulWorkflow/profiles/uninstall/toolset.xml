@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<tool-setup>
+  <forbidden tool_id="portal_placeful_workflow" />
+</tool-setup>

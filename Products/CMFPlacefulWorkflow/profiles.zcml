@@ -17,6 +17,15 @@
      directory="profiles/base"
      description="Add in Plone the capability to change workflow chains for types in every object. With no dependency on core Plone types."
      provides="Products.GenericSetup.interfaces.EXTENSION"
+     post_handler="Products.CMFPlacefulWorkflow.setuphandlers.installMarker"
+     />
+
+  <genericsetup:registerProfile
+     name="uninstall"
+     title="Workflow Policy Support (CMFPlacefulWorkflow) [uninstall]"
+     directory="profiles/uninstall"
+     provides="Products.GenericSetup.interfaces.EXTENSION"
+     pre_handler="Products.CMFPlacefulWorkflow.setuphandlers.uninstall"
      />
 
   <genericsetup:upgradeStep
