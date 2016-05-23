@@ -34,6 +34,6 @@ setup(name='Products.CMFPlacefulWorkflow',
           'zope.i18nmessageid',
           'Products.CMFCore',
           'Products.CMFPlone',
-          'Products.GenericSetup>=1.8.2',
+          'Products.GenericSetup>=1.8.3',
       ],
       )

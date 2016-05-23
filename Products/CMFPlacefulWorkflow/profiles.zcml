@@ -20,6 +20,14 @@
      post_handler="Products.CMFPlacefulWorkflow.setuphandlers.installMarker"
      />
 
+  <genericsetup:registerProfile
+     name="uninstall"
+     title="Workflow Policy Support (CMFPlacefulWorkflow) [uninstall]"
+     directory="profiles/uninstall"
+     provides="Products.GenericSetup.interfaces.EXTENSION"
+     pre_handler="Products.CMFPlacefulWorkflow.setuphandlers.uninstall"
+     />
+
   <genericsetup:upgradeStep
     title="Apply full profile"
     description="Meant mostly for upgrades from ancient versions that had no profile yet."
