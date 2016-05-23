@@ -41,9 +41,28 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
                 'username': id, 'email': email})
         return member
 
-    def installation(self, productName):
-        self.qi = self.portal.portal_quickinstaller
-        self.qi.installProduct(productName)
+    def installation(self, productName, uninstall=False, reinstall=False):
+        assert not (uninstall and reinstall)
+        try:
+            from Products.CMFPlone.utils import get_installer
+        except ImportError:
+            # Plone 5.0
+            self.qi = self.portal.portal_quickinstaller
+            if uninstall:
+                self.qi.uninstallProducts([productName])
+            elif reinstall:
+                self.qi.installProduct(productName, reinstall=True)
+            else:
+                self.qi.installProduct(productName)
+        else:
+            self.qi = get_installer(self.portal)
+            if uninstall:
+                self.qi.uninstall_product(productName)
+            elif reinstall:
+                self.qi.uninstall_product(productName)
+                self.qi.install_product(productName)
+            else:
+                self.qi.install_product(productName)
 
     def setupSecurityContext(self, ):
         self.logout()
@@ -89,40 +108,20 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         Check that the IPlacefulMarker is applied to the workflow tool by
         the install, and removed by the uninstall.
         """
-        try:
-            # GenericSetup 1.7.8 and higher
-            from Products.GenericSetup.tool import DEPENDENCY_STRATEGY_REAPPLY
-            DEPENDENCY_STRATEGY_REAPPLY  # pyflakes
-        except ImportError:
-            DEPENDENCY_STRATEGY_REAPPLY = None
-
         self.failUnless(IPlacefulMarker.providedBy(self.workflow))
         self.loginAsPortalOwner()
-        self.qi.uninstallProducts(['CMFPlacefulWorkflow'])
+        self.installation('CMFPlacefulWorkflow', uninstall=True)
         self.failIf(IPlacefulMarker.providedBy(self.workflow))
 
-        profile_id = 'Products.CMFPlacefulWorkflow:CMFPlacefulWorkflow'
-        if DEPENDENCY_STRATEGY_REAPPLY is None:
-            # Older GenericSetup.  Reapply is the default.  No alternative
-            # strategy can be given.
-            self.qi.installProduct('CMFPlacefulWorkflow')
-            # setup_tool.runAllImportStepsFromProfile('profile-%s' % profile_id)
-        else:
-            # Newer GenericSetup.  Upgrade is the default.  We want to
-            # reapply.
-            setup_tool = self.portal.portal_setup
-            setup_tool.runAllImportStepsFromProfile(
-                'profile-%s' % profile_id,
-                dependency_strategy=DEPENDENCY_STRATEGY_REAPPLY)
-
+        self.installation('CMFPlacefulWorkflow')
         self.failUnless(IPlacefulMarker.providedBy(self.workflow))
 
     def test_reinstall(self):
         """
         Test if upgrade is going the good way
         """
-        self.qi = self.portal.portal_quickinstaller
-        self.qi.installProduct('CMFPlacefulWorkflow', reinstall=True)
+        self.installation('CMFPlacefulWorkflow', reinstall=True)
+        self.assertTrue('portal_placeful_workflow' in self.portal.objectIds())
 
     def test_prefs_workflow_policy_mapping_set_PostOnly(self):
         """
