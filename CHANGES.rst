@@ -6,7 +6,7 @@ Changelog
 
 New:
 
-- *add item here*
+- Replaced ``placeful_marker`` import step with a ``post_handler``.  [maurits]
 
 Fixes:
 

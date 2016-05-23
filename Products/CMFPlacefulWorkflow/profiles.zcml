@@ -17,6 +17,7 @@
      directory="profiles/base"
      description="Add in Plone the capability to change workflow chains for types in every object. With no dependency on core Plone types."
      provides="Products.GenericSetup.interfaces.EXTENSION"
+     post_handler="Products.CMFPlacefulWorkflow.setuphandlers.installMarker"
      />
 
   <genericsetup:upgradeStep

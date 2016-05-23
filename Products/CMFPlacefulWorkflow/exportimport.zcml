@@ -41,12 +41,4 @@
      handler="Products.CMFPlacefulWorkflow.exportimport.exportWorkflowPolicies"
      />
 
-  <genericsetup:importStep
-     name="placeful_marker"
-     title="Placeful Workflow Tool Marker Interface"
-     description="Add placeful marker to default workflow tool"
-     handler="Products.CMFPlacefulWorkflow.setuphandlers.installMarker">
-    <depends name="workflow"/>
-  </genericsetup:importStep>
-
 </configure>
