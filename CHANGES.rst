@@ -6,6 +6,8 @@ Changelog
 
 New:
 
+- Removed ``actionicons.xml`` because this is handled in ``controlpanel.xml``.  [maurits]
+
 - Replaced ``placeful_marker`` import step with a ``post_handler``.  [maurits]
 
 Fixes:
