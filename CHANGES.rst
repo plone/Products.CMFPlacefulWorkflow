@@ -12,10 +12,6 @@ New:
 
 - Replaced ``placeful_marker`` import step with a ``post_handler``.  [maurits]
 
-Fixes:
-
-- *add item here*
-
 
 1.6.5 (2015-11-28)
 ------------------
