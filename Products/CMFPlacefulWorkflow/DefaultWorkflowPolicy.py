@@ -32,15 +32,14 @@ from Products.CMFPlacefulWorkflow.interfaces import IWorkflowPolicyDefinition
 from Products.CMFPlacefulWorkflow.permissions import ManageWorkflowPolicies
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from os.path import join as path_join
-from zope.interface import implements
+from zope.interface import implementer
 
 DEFAULT_CHAIN = '(Default)'
 _MARKER = '_MARKER'
 
 
+@implementer(IWorkflowPolicyDefinition)
 class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
-
-    implements(IWorkflowPolicyDefinition)
 
     meta_type = 'WorkflowPolicy'
     id = 'default_workflow_policy'
