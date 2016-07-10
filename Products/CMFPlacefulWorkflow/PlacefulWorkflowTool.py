@@ -35,7 +35,7 @@ from Products.CMFCore.utils import registerToolInterface
 from Products.CMFPlacefulWorkflow.permissions import ManageWorkflowPolicies
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from os.path import join as path_join
-from zope.interface import implements
+from zope.interface import implementer
 from Products.CMFPlacefulWorkflow.interfaces import IPlacefulWorkflowTool
 
 WorkflowPolicyConfig_id = ".wf_policy_config"
@@ -62,6 +62,7 @@ def addPlacefulWorkflowTool(self, REQUEST={}):
         return REQUEST.RESPONSE.redirect(self.absolute_url() + '/manage_main')
 
 
+@implementer(IPlacefulWorkflowTool)
 class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
     """
     PlacefulWorkflow Tool
@@ -69,8 +70,6 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
 
     id = 'portal_placeful_workflow'
     meta_type = 'Placeful Workflow Tool'
-
-    implements(IPlacefulWorkflowTool)
 
     _actions = []
 
