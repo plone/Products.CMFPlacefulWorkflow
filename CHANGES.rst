@@ -10,7 +10,7 @@ New:
 
 Fixes:
 
-- *add item here*
+- Fixed workflow tests for new ``comment_one_state_workflow``.  [maurits]
 
 
 1.5.13 (2016-01-08)
