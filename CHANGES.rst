@@ -14,7 +14,7 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Fixed workflow tests for new ``comment_one_state_workflow``.  [maurits]
 
 
 1.7.1 (2016-08-18)

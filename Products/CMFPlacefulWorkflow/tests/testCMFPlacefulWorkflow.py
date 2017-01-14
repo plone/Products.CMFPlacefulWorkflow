@@ -662,10 +662,15 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
 
         self.failUnlessEqual(
             sorted(tuple(keys)),
-            sorted(('folder_workflow',
-                    'plone_workflow', 'intranet_folder_workflow',
-                    'one_state_workflow', 'simple_publication_workflow',
-                    'intranet_workflow')))
+            sorted((
+                'comment_one_state_workflow',
+                'folder_workflow',
+                'intranet_folder_workflow',
+                'intranet_workflow',
+                'one_state_workflow',
+                'plone_workflow',
+                'simple_publication_workflow',
+            )))
         self.failUnlessEqual(tuple(self.portal.my_worklist()), (document, ))
 
         self.logout()
