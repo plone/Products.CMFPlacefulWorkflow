@@ -4,10 +4,6 @@ Changelog
 1.5.14 (unreleased)
 -------------------
 
-New:
-
-- *add item here*
-
 Fixes:
 
 - Fixed workflow tests for new ``comment_one_state_workflow``.  [maurits]
