@@ -4,14 +4,6 @@ Changelog
 1.7.2 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
 - Fixed workflow tests for new ``comment_one_state_workflow``.  [maurits]
