@@ -123,6 +123,20 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         """
         self.qi = self.portal.portal_quickinstaller
         self.qi.installProduct('CMFPlacefulWorkflow', reinstall=True)
+        self.assertTrue('portal_placeful_workflow' in self.portal)
+
+    def test_activation_reactivation(self):
+        """
+        Test if upgrade is going the good way
+        """
+        self.loginAsPortalOwner()
+        self.qi = self.portal.portal_quickinstaller
+        self.qi.uninstallProducts(['CMFPlacefulWorkflow'])
+        self.assertFalse('portal_placeful_workflow' in self.portal)
+        self.qi.installProduct('CMFPlacefulWorkflow')
+        self.assertTrue('portal_placeful_workflow' in self.portal)
+        self.qi.uninstallProducts(['CMFPlacefulWorkflow'])
+        self.assertFalse('portal_placeful_workflow' in self.portal)
 
     def test_prefs_workflow_policy_mapping_set_PostOnly(self):
         """

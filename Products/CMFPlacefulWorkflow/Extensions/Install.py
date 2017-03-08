@@ -46,4 +46,11 @@ def uninstall(self, reinstall=False, out=None):
     if IPlacefulMarker.providedBy(wf_tool):
         noLongerProvides(wf_tool, IPlacefulMarker)
 
+    # We need to tell portal_setup that the base profile
+    # has been unapplied, otherwise a reinstall will fail.
+    # See https://github.com/plone/Products.CMFPlone/issues/1959
+    portal_setup = getToolByName(self, 'portal_setup')
+    portal_setup.unsetLastVersionForProfile(
+        'profile-Products.CMFPlacefulWorkflow:base')
+
     return out.getvalue()
