@@ -14,7 +14,10 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Removed Plone 5.0 installer code from tests.
+  Test that multiple installs and uninstalls work.
+  See `issue 1959 <https://github.com/plone/Products.CMFPlone/issues/1959>`_.
+  [maurits]
 
 
 1.7.2 (2017-01-17)

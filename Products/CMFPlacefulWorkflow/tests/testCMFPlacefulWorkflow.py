@@ -23,6 +23,7 @@ from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
 from Products.CMFPlacefulWorkflow.interfaces import IPlacefulMarker
+from Products.CMFPlone.utils import get_installer
 from Testing import ZopeTestCase
 from zExceptions import Forbidden
 
@@ -41,29 +42,6 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
                 'username': id, 'email': email})
         return member
 
-    def installation(self, productName, uninstall=False, reinstall=False):
-        assert not (uninstall and reinstall)
-        try:
-            from Products.CMFPlone.utils import get_installer
-        except ImportError:
-            # Plone 5.0
-            self.qi = self.portal.portal_quickinstaller
-            if uninstall:
-                self.qi.uninstallProducts([productName])
-            elif reinstall:
-                self.qi.installProduct(productName, reinstall=True)
-            else:
-                self.qi.installProduct(productName)
-        else:
-            self.qi = get_installer(self.portal)
-            if uninstall:
-                self.qi.uninstall_product(productName)
-            elif reinstall:
-                self.qi.uninstall_product(productName)
-                self.qi.install_product(productName)
-            else:
-                self.qi.install_product(productName)
-
     def setupSecurityContext(self, ):
         self.logout()
         self.loginAsPortalOwner()
@@ -73,7 +51,8 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         self.user3 = self.createMember('user3', 'abcd4', 'abc@domain.tld')
 
         self.folder = self.portal.portal_membership.getHomeFolder('user1')
-        self.installation('CMFPlacefulWorkflow')
+        self.qi = get_installer(self.portal)
+        self.qi.install_product('CMFPlacefulWorkflow')
         self.logout()
 
     def afterSetUp(self, ):
@@ -110,18 +89,29 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         """
         self.failUnless(IPlacefulMarker.providedBy(self.workflow))
         self.loginAsPortalOwner()
-        self.installation('CMFPlacefulWorkflow', uninstall=True)
+        self.qi.uninstall_product('CMFPlacefulWorkflow')
         self.failIf(IPlacefulMarker.providedBy(self.workflow))
 
-        self.installation('CMFPlacefulWorkflow')
+        self.qi.install_product('CMFPlacefulWorkflow')
         self.failUnless(IPlacefulMarker.providedBy(self.workflow))
 
     def test_reinstall(self):
         """
         Test if upgrade is going the good way
         """
-        self.installation('CMFPlacefulWorkflow', reinstall=True)
+        self.qi.uninstall_product('CMFPlacefulWorkflow')
+        self.qi.install_product('CMFPlacefulWorkflow')
         self.assertTrue('portal_placeful_workflow' in self.portal.objectIds())
+
+    def test_activation_reactivation(self):
+        """Test multiple installs and uninstalls."""
+        self.loginAsPortalOwner()
+        self.qi.uninstall_product('CMFPlacefulWorkflow')
+        self.assertFalse('portal_placeful_workflow' in self.portal)
+        self.qi.install_product('CMFPlacefulWorkflow')
+        self.assertTrue('portal_placeful_workflow' in self.portal)
+        self.qi.uninstall_product('CMFPlacefulWorkflow')
+        self.assertFalse('portal_placeful_workflow' in self.portal)
 
     def test_prefs_workflow_policy_mapping_set_PostOnly(self):
         """
