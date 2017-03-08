@@ -14,7 +14,13 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Fixed reinstall.  Deactivating and then activating the add-on
+  led to a missing tool and control panel icon.  Another deactivation
+  would then fail.  Solution is to mark our base profile as uninstalled
+  in the uninstall method.
+  This requires ``Products.GenericSetup`` 1.8.1 or higher.
+  Fixes `issue 1959 <https://github.com/plone/Products.CMFPlone/issues/1959>`_.
+  [maurits]
 
 
 1.5.14 (2017-01-17)
