@@ -4,14 +4,6 @@ Changelog
 1.7.3 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
 - Removed Plone 5.0 installer code from tests.
