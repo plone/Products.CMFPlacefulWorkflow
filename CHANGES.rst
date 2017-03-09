@@ -4,14 +4,6 @@ Changelog
 1.6.7 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
 - Fixed reinstall.  Deactivating and then activating the add-on
