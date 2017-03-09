@@ -4,14 +4,6 @@ Changelog
 1.5.15 (unreleased)
 -------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
 - Fixed reinstall.  Deactivating and then activating the add-on
