@@ -19,19 +19,22 @@
 Workflow Policy config
 """
 
-from os.path import join as path_join
-
+from AccessControl import ClassSecurityInfo
+from Acquisition import aq_base
+from Acquisition import aq_inner
+from Acquisition import aq_parent
 from App.class_init import InitializeClass
 from OFS.SimpleItem import SimpleItem
-from AccessControl import ClassSecurityInfo
-from Acquisition import aq_base, aq_inner, aq_parent
-
-from Products.PageTemplates.PageTemplateFile import PageTemplateFile
-from Products.CMFCore.utils import getToolByName
+from os.path import join as path_join
 
 from PlacefulWorkflowTool import WorkflowPolicyConfig_id
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlacefulWorkflow.global_symbols import Log
 from Products.CMFPlacefulWorkflow.permissions import ManageWorkflowPolicies
+from Products.PageTemplates.PageTemplateFile import PageTemplateFile
+
+import six
+
 
 manage_addWorkflowPolicyConfigForm = PageTemplateFile(
     path_join('www', 'add_workflow_policy_config_form'), globals())
@@ -107,8 +110,8 @@ class WorkflowPolicyConfig(SimpleItem):
     security.declareProtected(ManageWorkflowPolicies, 'setPolicyIn')
 
     def setPolicyIn(self, policy, update_security=False):
-        if not isinstance(policy, basestring):
-            raise ValueError("Policy must be a basestring")
+        if not isinstance(policy, six.string_types):
+            raise ValueError("Policy must be a six.string_types")
         self.workflow_policy_in = policy
         if update_security:
             wtool = getToolByName(self, 'portal_workflow')
@@ -129,7 +132,7 @@ class WorkflowPolicyConfig(SimpleItem):
     security.declareProtected(ManageWorkflowPolicies, 'setPolicyBelow')
 
     def setPolicyBelow(self, policy, update_security=False):
-        if not isinstance(policy, basestring):
+        if not isinstance(policy, six.string_types):
             raise ValueError("Policy must be a string")
         self.workflow_policy_below = policy
         if update_security:
@@ -177,5 +180,6 @@ class WorkflowPolicyConfig(SimpleItem):
             Log.debug("portal_type and chain %s %s", portal_type, chain)
 
         return chain
+
 
 InitializeClass(WorkflowPolicyConfig)

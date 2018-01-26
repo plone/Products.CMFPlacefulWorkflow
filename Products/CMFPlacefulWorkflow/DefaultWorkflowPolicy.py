@@ -23,16 +23,19 @@ from AccessControl import ClassSecurityInfo
 from AccessControl.requestmethod import postonly
 from Acquisition import aq_base
 from App.class_init import InitializeClass
+from os.path import join as path_join
 from Persistence import PersistentMapping
-from Products.CMFCore.utils import SimpleItemWithProperties
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addWorkflowPolicyFactory
+from Products.CMFCore.utils import SimpleItemWithProperties
 from Products.CMFPlacefulWorkflow.global_symbols import Log
 from Products.CMFPlacefulWorkflow.interfaces import IWorkflowPolicyDefinition
 from Products.CMFPlacefulWorkflow.permissions import ManageWorkflowPolicies
+from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addWorkflowPolicyFactory
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
-from os.path import join as path_join
 from zope.interface import implementer
+
+import six
+
 
 DEFAULT_CHAIN = '(Default)'
 _MARKER = '_MARKER'
@@ -197,7 +200,7 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
         """
 
         cbt = self._chains_by_type
-        if isinstance(ob, basestring):
+        if isinstance(ob, six.string_types):
             pt = ob
         elif hasattr(aq_base(ob), '_getPortalTypeName'):
             pt = ob._getPortalTypeName()
@@ -212,7 +215,7 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
             chain = cbt.get(pt, _MARKER)
 
         # Backwards compatibility: before chain was a string, not a list
-        if chain is not _MARKER and isinstance(chain, basestring):
+        if chain is not _MARKER and isinstance(chain, six.string_types):
             chain = map(lambda x: x.strip(), chain.split(','))
 
         Log.debug('Chain founded in policy %s', chain)
@@ -236,7 +239,7 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
         """ Sets the default chain for this tool. """
         wftool = getToolByName(self, 'portal_workflow')
 
-        if isinstance(default_chain, basestring):
+        if isinstance(default_chain, six.string_types):
             default_chain = map(lambda x: x.strip(), default_chain.split(','))
         ids = []
         for wf_id in default_chain:
@@ -276,7 +279,7 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
         if portal_type not in [pt.id for pt in self._listTypeInfo()]:
             raise ValueError("'%s' is not a valid portal type." % portal_type)
 
-        if isinstance(chain, basestring):
+        if isinstance(chain, six.string_types):
             chain = map(lambda x: x.strip(), chain.split(','))
 
         wftool = getToolByName(self, 'portal_workflow')
