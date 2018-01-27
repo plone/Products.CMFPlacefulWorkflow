@@ -77,8 +77,8 @@ The export produces a file for the tool itself::
     ...     name='export',
     ...     fileobj=StringIO.StringIO(tarball))
 
-    >>> print archive.extractfile(
-    ...     'portal_placeful_workflow.xml').read()
+    >>> print(archive.extractfile(
+    ...     'portal_placeful_workflow.xml').read())
     <?xml version="1.0"?>
     <object name="portal_placeful_workflow" meta_type="Placeful Workflow Tool">
      <property name="title"></property>
@@ -93,7 +93,7 @@ The export produces a file for the tool itself::
 
 The export also produces a file for any policies::
 
-    >>> print archive.extractfile('portal_placeful_workflow/baz_policy.xml').read()
+    >>> print(archive.extractfile('portal_placeful_workflow/baz_policy.xml').read())
     <?xml version="1.0"?>
     <object name="baz_policy" meta_type="WorkflowPolicy">
      <property name="title">Baz Policy</property>
