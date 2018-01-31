@@ -10,7 +10,8 @@ Breaking changes:
 
 New features:
 
-- Add Python 2 / 3 compatibility [davilima6]
+- Prepare for Python 2 / 3 compatibility
+  [davilima6]
 
 Bug fixes:
 
