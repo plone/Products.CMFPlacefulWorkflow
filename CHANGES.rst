@@ -4,18 +4,10 @@ Changelog
 1.7.4 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
 New features:
 
 - Prepare for Python 2 / 3 compatibility
   [davilima6]
-
-Bug fixes:
-
-- *add item here*
 
 
 1.7.3 (2017-03-09)
