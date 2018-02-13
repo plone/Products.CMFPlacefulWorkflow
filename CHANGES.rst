@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Remove traces of ZopeTestCase.
+  [gforcada]
 
 
 1.7.4 (2018-02-05)
