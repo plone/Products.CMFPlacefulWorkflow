@@ -18,14 +18,14 @@
 """
 Initialization
 """
-
-from zope.i18nmessageid import MessageFactory
 from AccessControl import ModuleSecurityInfo
 from Products.CMFCore import DirectoryView
 from Products.CMFCore import utils
-import DefaultWorkflowPolicy
-import PlacefulWorkflowTool
-import WorkflowPolicyConfig
+from Products.CMFPlacefulWorkflow import DefaultWorkflowPolicy
+from Products.CMFPlacefulWorkflow import PlacefulWorkflowTool
+from Products.CMFPlacefulWorkflow import WorkflowPolicyConfig
+from zope.i18nmessageid import MessageFactory
+
 
 tools = (PlacefulWorkflowTool.PlacefulWorkflowTool, )
 

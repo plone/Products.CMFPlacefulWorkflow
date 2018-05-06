@@ -16,7 +16,5 @@
 # along with this program; see the file COPYING. If not, write to the
 # Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from workflow_policies import importWorkflowPolicies
-from workflow_policies import exportWorkflowPolicies
-
-importWorkflowPolicies, exportWorkflowPolicies  # pyflakes
+from Products.CMFPlacefulWorkflow.exportimport.workflow_policies import exportWorkflowPolicies  # noqa: E501,F401
+from Products.CMFPlacefulWorkflow.exportimport.workflow_policies import importWorkflowPolicies  # noqa: E501,F401

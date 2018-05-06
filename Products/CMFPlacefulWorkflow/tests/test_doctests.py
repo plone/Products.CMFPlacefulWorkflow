@@ -19,10 +19,12 @@
 Contributed by Jazkarta
 """
 
-from CMFPlacefulWorkflowTestCase import PWF_LAYER
 from plone.testing import layered
+from Products.CMFPlacefulWorkflow.tests.CMFPlacefulWorkflowTestCase import PWF_LAYER
+
 import doctest
 import unittest
+
 
 OPTIONFLAGS = (doctest.ELLIPSIS |
                doctest.NORMALIZE_WHITESPACE |
