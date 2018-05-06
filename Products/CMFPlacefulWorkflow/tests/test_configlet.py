@@ -19,10 +19,10 @@
 CMFPlacefulWorkflow Functional Test of the Through the Web Configuration
 """
 
-from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowFunctionalTestCase
-from Products.CMFCore.utils import getToolByName
 from plone.app import testing
 from plone.testing.z2 import Browser
+from Products.CMFCore.utils import getToolByName
+from Products.CMFPlacefulWorkflow.tests.CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowFunctionalTestCase  # noqa: E501
 from transaction import commit
 
 

@@ -19,12 +19,13 @@
 CMFPlacefulWorkflow Unittest
 """
 
-from CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
 from Products.CMFPlacefulWorkflow.interfaces import IPlacefulMarker
+from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id  # noqa: E501
+from Products.CMFPlacefulWorkflow.tests.CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase  # noqa: E501
 from Products.CMFPlone.utils import get_installer
 from zExceptions import Forbidden
+
 
 _edit_permissions = []
 _all_permissions = _edit_permissions

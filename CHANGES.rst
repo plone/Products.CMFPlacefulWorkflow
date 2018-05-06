@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- More for Python 2 / 3 compatibility
+  [ale-rt, davilima6]
 
 
 1.7.5 (2018-02-23)

@@ -26,11 +26,10 @@ from Acquisition import aq_parent
 from App.class_init import InitializeClass
 from OFS.SimpleItem import SimpleItem
 from os.path import join as path_join
-
-from PlacefulWorkflowTool import WorkflowPolicyConfig_id
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlacefulWorkflow.global_symbols import Log
 from Products.CMFPlacefulWorkflow.permissions import ManageWorkflowPolicies
+from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id  # noqa: E501
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 
 import six
