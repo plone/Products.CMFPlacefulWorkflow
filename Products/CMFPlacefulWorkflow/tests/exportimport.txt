@@ -79,7 +79,7 @@ The export produces a file for the tool itself::
 
     >>> print(archive.extractfile(
     ...     'portal_placeful_workflow.xml').read())
-    <?xml version="1.0"?>
+    <?xml version="1.0" encoding="utf-8"?>
     <object name="portal_placeful_workflow" meta_type="Placeful Workflow Tool">
      <property name="title"></property>
      <property name="max_chain_length" type="int">1</property>
@@ -94,7 +94,7 @@ The export produces a file for the tool itself::
 The export also produces a file for any policies::
 
     >>> print(archive.extractfile('portal_placeful_workflow/baz_policy.xml').read())
-    <?xml version="1.0"?>
+    <?xml version="1.0" encoding="utf-8"?>
     <object name="baz_policy" meta_type="WorkflowPolicy">
      <property name="title">Baz Policy</property>
      <bindings>
