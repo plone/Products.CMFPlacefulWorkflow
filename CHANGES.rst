@@ -1,12 +1,14 @@
 Changelog
 =========
 
-1.7.6 (unreleased)
-------------------
+1.8 (unreleased)
+----------------
 
 Breaking changes:
 
-- *add item here*
+- Adapt tests to `Products.GenericSetup >= 2.0` thus requiring at least that
+  version.
+  [icemac]
 
 New features:
 

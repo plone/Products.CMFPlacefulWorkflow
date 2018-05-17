@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '1.7.6.dev0'
+version = '1.8.dev0'
 
 setup(
     name='Products.CMFPlacefulWorkflow',
@@ -38,6 +38,6 @@ setup(
         'zope.i18nmessageid',
         'Products.CMFCore',
         'Products.CMFPlone',
-        'Products.GenericSetup>=1.8.3',
+        'Products.GenericSetup >= 2.0.dev0',
     ],
 )
