@@ -280,7 +280,7 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
             raise ValueError("'%s' is not a valid portal type." % portal_type)
 
         if isinstance(chain, six.string_types):
-            chain = map(lambda x: x.strip(), chain.split(','))
+            chain = [i.strip() for i in chain.split(',')]
 
         wftool = getToolByName(self, 'portal_workflow')
         cbt = self._chains_by_type

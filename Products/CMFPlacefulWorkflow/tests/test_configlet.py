@@ -19,37 +19,42 @@
 CMFPlacefulWorkflow Functional Test of the Through the Web Configuration
 """
 
-from plone.app import testing
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
+from plone.app.testing import SITE_OWNER_NAME
+from plone.app.testing import SITE_OWNER_PASSWORD
 from plone.testing.z2 import Browser
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlacefulWorkflow.tests.CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowFunctionalTestCase  # noqa: E501
+from Products.CMFPlacefulWorkflow.tests.CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase  # noqa: E501
 from transaction import commit
 
 
-class TestConfiglet(CMFPlacefulWorkflowFunctionalTestCase):
+class TestConfiglet(CMFPlacefulWorkflowTestCase):
 
-    def afterSetUp(self):
+    def setUp(self):
         """Init some shortcuts member variables."""
+        self.portal = self.layer['portal']
+        self.app = self.layer['app']
+        self.app.REQUEST['SESSION'] = self.Session()
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.ppw = getToolByName(self.portal, 'portal_placeful_workflow')
 
         self.createDummyPolicy()
 
     def getBrowser(self, logged_in=False):
         """ instantiate and return a testbrowser for convenience """
-        browser = Browser(self.layer['app'])
+        browser = Browser(self.app)
         if logged_in:
             # Add an authorization header using the given or default
             # credentials """
             browser.addHeader('Authorization', 'Basic %s:%s' % (
-                testing.SITE_OWNER_NAME,
-                testing.SITE_OWNER_PASSWORD))
+                SITE_OWNER_NAME,
+                SITE_OWNER_PASSWORD))
         return browser
 
     def createDummyPolicy(self):
         """Create a workflow policy named 'dummy_policy' for us to work with.
         """
-        self.logout()
-        self.loginAsPortalOwner()
         # Create a policy
         self.ppw.manage_addWorkflowPolicy(
             'dummy_policy', 'default_workflow_policy (Simple Policy)')
@@ -65,7 +70,7 @@ class TestConfiglet(CMFPlacefulWorkflowFunctionalTestCase):
         self.setLocalChainForPortalType('Document', 'folder_workflow')
         commit()
         browser = self.getBrowser(logged_in=True)
-
+        browser.handleErrors = False
         browser.open('http://nohost/plone/prefs_workflow_policy_mapping?'
                      'wfpid=dummy_policy')
         self.assertEqual(browser.getControl(name='wf.Document:record').value,

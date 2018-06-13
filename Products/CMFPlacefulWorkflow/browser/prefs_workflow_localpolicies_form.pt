@@ -1,28 +1,6 @@
-<tal:block replace="nothing">
--*- coding: utf-8 -*-
-## CMFPlacefulWorkflow
-## Copyright (C)2005 Ingeniweb
-
-## This program is free software; you can redistribute it and/or modify
-## it under the terms of the GNU General Public License as published by
-## the Free Software Foundation; either version 2 of the License, or
-## (at your option) any later version.
-
-## This program is distributed in the hope that it will be useful,
-## but WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-## GNU General Public License for more details.
-
-## You should have received a copy of the GNU General Public License
-## along with this program; see the file COPYING. If not, write to the
-## Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-CMFPlacefulWorkflow configuration panel
-
-</tal:block>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       lang="en"
-      metal:use-macro="here/prefs_main_template/macros/master"
+      metal:use-macro="context/prefs_main_template/macros/master"
       i18n:domain="cmfplacefulworkflow">
 
     <metal:block fill-slot="top_slot"/>
@@ -34,7 +12,7 @@ CMFPlacefulWorkflow configuration panel
         <span tal:define="dummy python:request.response.setHeader('pragma','no-cache')" />
 
         <div id="content"
-             tal:condition="python:checkPermission('Manage portal', here)">
+             tal:condition="python:checkPermission('Manage portal', context)">
 
             <h5 class="hiddenStructure">Views</h5>
 
@@ -73,8 +51,8 @@ CMFPlacefulWorkflow configuration panel
                 <form action=""
                       name=""
                       method="post"
-                      tal:attributes="action string:prefs_workflow_localpolicies_set"
-                      tal:define="wfp python:here.portal_placeful_workflow;">
+                      tal:attributes="action string:${context/absolute_url}/@@prefs_workflow_localpolicies_form"
+                      tal:define="wfp python:context.portal_placeful_workflow;">
 
                     <fieldset>
                         <legend i18n:translate="legend_workflow_policies">Existing Workflow Policies</legend>
@@ -118,7 +96,7 @@ CMFPlacefulWorkflow configuration panel
                         <legend i18n:translate="legend_add_workflow_policy">Add a workflow policy</legend>
                         <div class="field"
                              tal:define="error errors/policy_id | nothing;"
-                             tal:attributes="class python:test(error, 'field error', 'field')">
+                             tal:attributes="class python:'field error' if error else 'field'">
 
                             <label i18n:translate="label_new_policy_id">New policy Id</label>
                             <span class="fieldRequired" title="Required"
@@ -137,7 +115,7 @@ CMFPlacefulWorkflow configuration panel
                         </div>
                         <div class="field"
                              tal:define="error errors/policy_id | nothing;"
-                             tal:attributes="class python:test(error, 'field error', 'field')">
+                             tal:attributes="class python:'field error' if error else 'field'">
 
                             <label i18n:translate="label_duplicate_policy_id">Duplicate another policy</label>
                             <span class="fieldRequired" title="Required"
@@ -178,8 +156,8 @@ CMFPlacefulWorkflow configuration panel
         </div>
         <div id="content"
              class="documentEditable"
-             tal:condition="python:not checkPermission('Manage portal', here)">
-            <tal:block replace="here/raiseUnauthorized" />
+             tal:condition="python:not checkPermission('Manage portal', context)">
+            <tal:block replace="context/raiseUnauthorized" />
         </div>
 
     </div>

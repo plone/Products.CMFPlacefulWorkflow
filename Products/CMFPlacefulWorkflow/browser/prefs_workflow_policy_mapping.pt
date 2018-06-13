@@ -1,14 +1,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       lang="en"
-      metal:use-macro="here/prefs_main_template/macros/master"
+      metal:use-macro="context/prefs_main_template/macros/master"
       i18n:domain="cmfplacefulworkflow">
 
     <metal:block fill-slot="top_slot"/>
 
     <div metal:fill-slot="prefs_configlet_content"
-         tal:define="allowedContentTypes allowedSortedContentTypes|here/allowedContentTypes;
+         tal:define="allowedContentTypes allowedSortedContentTypes|context/allowedContentTypes;
                      wfpid python:request.get('wfpid');
-                     wf_policy python:here.portal_placeful_workflow.getWorkflowPolicyById(wfpid);
+                     wf_policy python:context.portal_placeful_workflow.getWorkflowPolicyById(wfpid);
                      wtool context/portal_workflow;
                      wf_list python: [{'id': obj.getId(), 'title': obj.title_or_id()} for obj in wtool.objectValues()];"
          class="configlet">
@@ -16,7 +16,7 @@
         <span tal:define="dummy python:request.response.setHeader('pragma','no-cache')" />
 
         <div id="content"
-             tal:condition="python:checkPermission('Manage portal', here)">
+             tal:condition="python:checkPermission('Manage portal', context)">
 
             <h5 class="hiddenStructure">Views</h5>
 
@@ -46,7 +46,7 @@
                     Custom workflow policy which maps content types to workflows.
                 </p>
                 <form name="prefs_workflow_policy_mapping_set"
-                      action="prefs_workflow_policy_mapping_set"
+                      action="${context/absolute_url}/@@prefs_workflow_policy_mapping"
                       method="post">
 
                     <fieldset>
@@ -120,7 +120,7 @@
 
                                 <option tal:repeat="wf wf_list"
                                         tal:attributes="value wf/id;
-                                                        selected python:test((wf['id'],)==wf_policy.getDefaultChain(here), 'selected', None)"
+                                                        selected python:'selected' if (wf['id'],)==wf_policy.getDefaultChain(context) else None"
                                         tal:content="wf/title"
                                         i18n:domain="plone"
                                         i18n:translate="">
@@ -157,18 +157,18 @@
                                             <select id="select_workflow" name="workflow_id"
                                                     tal:attributes="name string:wf.${ctype_id}:record;" >
                                                 <option value="acquisition"
-                                                        tal:attributes="selected python:test(chain is None, 'selected', None);"
+                                                        tal:attributes="selected python:'selected' if chain is None else None;"
                                                         i18n:translate="label_mapping_acquire_workflow">Acquire workflow from above</option>
                                                 <option value=""
-                                                        tal:attributes="selected python:test(chain == (), 'selected', None);"
+                                                        tal:attributes="selected python:'selected' if chain == () else None;"
                                                         i18n:translate="label_mapping_no_workflow">No workflow</option>
 
                                                 <option value="(Default)"
-                                                        tal:attributes="selected python:test(chain == '(Default)', 'selected', None);"
+                                                        tal:attributes="selected python:'selected' if chain == '(Default)' else None;"
                                                         i18n:translate="label_mapping_default_worflow">Default workflow for the policy</option>
                                                 <option tal:repeat="wf wf_list"
                                                         tal:attributes="value wf/id;
-                                                                        selected python:test((wf['id'],) == chain, 'selected', None)"
+                                                                        selected python:'selected' if (wf['id'],) == chain else None"
                                                         tal:content="wf/title"
                                                         i18n:domain="plone"
                                                         i18n:translate="">workflow_id</option>
