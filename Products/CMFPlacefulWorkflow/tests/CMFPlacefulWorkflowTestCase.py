@@ -18,58 +18,20 @@
 """
 CMFPlacefulWorkflow TestCase module
 """
+from Products.CMFPlacefulWorkflow.testing import PRODUCTS_CMFPLACEFULWORKFLOW_FUNCTIONAL_TESTING
 
-from Products.CMFCore.interfaces import ISiteRoot
-from Products.GenericSetup import EXTENSION
-from Products.GenericSetup import profile_registry
-from plone.app import testing
-from plone.app.testing.bbb import PloneTestCase
-from plone.app.testing.bbb import PloneTestCaseFixture
-from plone.testing import z2
+import unittest
 
 
-class PlacefulWorkflowLayer(PloneTestCaseFixture):
-
-    def setUpZope(self, app, configurationContext):
-        super(PlacefulWorkflowLayer, self).setUpZope(app, configurationContext)
-        profile_registry.registerProfile(
-            name='exportimport', title='Test Placeful Workflow Profile',
-            description=(
-                "Tests the placeful workflow policy handler."),
-            path='profiles/exportimport',
-            product='Products.CMFPlacefulWorkflow.tests',
-            profile_type=EXTENSION, for_=ISiteRoot)
-        z2.installProduct(app, 'Products.CMFPlacefulWorkflow')
-
-    def setUpPloneSite(self, portal):
-        super(PlacefulWorkflowLayer, self).setUpPloneSite(portal)
-        # install sunburst theme
-        testing.applyProfile(
-            portal, 'Products.CMFPlacefulWorkflow:CMFPlacefulWorkflow')
-
-    def tearDownZope(self, app):
-        super(PlacefulWorkflowLayer, self).tearDownZope(app)
-        z2.uninstallProduct(app, 'Products.CMFPlacefulWorkflow')
-
-PWF_FIXTURE = PlacefulWorkflowLayer()
-PWF_LAYER = testing.FunctionalTesting(bases=(PWF_FIXTURE, ),
-                                      name='PlacefulWorkflowTestCase:Functional')
+class CMFPlacefulWorkflowTestCase(unittest.TestCase):
 
 
-class CMFPlacefulWorkflowTestCase(PloneTestCase):
-
-    layer = PWF_LAYER
+    layer = PRODUCTS_CMFPLACEFULWORKFLOW_FUNCTIONAL_TESTING
 
     class Session(dict):
         def set(self, key, value):
             self[key] = value
 
-    def _setup(self):
-        PloneTestCase.PloneTestCase._setup(self)
-        self.app.REQUEST['SESSION'] = self.Session()
-
     def getPermissionsOfRole(self, role):
         perms = self.portal.permissionsOfRole(role)
         return [p['name'] for p in perms if p['selected']]
-
-CMFPlacefulWorkflowFunctionalTestCase = CMFPlacefulWorkflowTestCase

@@ -1,35 +1,13 @@
-<tal:block replace="nothing">
--*- coding: utf-8 -*-
-## CMFPlacefulWorkflow
-## Copyright (C)2005-2008 Ingeniweb
-
-## This program is free software; you can redistribute it and/or modify
-## it under the terms of the GNU General Public License as published by
-## the Free Software Foundation; either version 2 of the License, or
-## (at your option) any later version.
-
-## This program is distributed in the hope that it will be useful,
-## but WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-## GNU General Public License for more details.
-
-## You should have received a copy of the GNU General Public License
-## along with this program; see the file COPYING. If not, write to the
-## Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-Workflow policy configuration template
-
-</tal:block>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       lang="en"
-      metal:use-macro="here/main_template/macros/master"
+      metal:use-macro="context/main_template/macros/master"
       i18n:domain="cmfplacefulworkflow">
 
     <div metal:fill-slot="main"
-         tal:define="wf_list here/portal_workflow/objectIds;
-                     pwtool here/portal_placeful_workflow;
-                     config python: pwtool.getWorkflowPolicyConfig(here);
-                     siteroot python: pwtool.isSiteRoot(here);">
+         tal:define="wf_list context/portal_workflow/objectIds;
+                     pwtool context/portal_placeful_workflow;
+                     config python: pwtool.getWorkflowPolicyConfig(context);
+                     siteroot python: pwtool.isSiteRoot(context);">
 
         <h1 i18n:translate="heading_workflow_policies">
             Workflow policies' local configuration management
@@ -50,11 +28,11 @@ Workflow policy configuration template
 
         <tal:nosite tal:condition="not:siteroot">
 
-          <p tal:condition="python:not config and here.isPrincipiaFolderish">
-            <form action="placeful_workflow_configuration_add" method="POST">
+          <p tal:condition="python:not config and context.isPrincipiaFolderish">
+            <form action="placeful_workflow_configuration" method="POST">
                 <button type="submit" name="add_wp_for_type" i18n:translate="description_add_workflow_policy_for_type">
                   Add a workflow policy's local configuration in the
-                  <span tal:replace="python:here.translate(here.portal_type)"
+                  <span tal:replace="python:context.translate(context.portal_type)"
                         i18n:name="portal_type">
                       portal type
                   </span>
@@ -62,9 +40,8 @@ Workflow policy configuration template
             </form>
           </p>
 
-          <p tal:condition="python:not here.isPrincipiaFolderish and here is not container">
-              <form action="placeful_workflow_configuration_add" method="POST"
-                    tal:attributes="action python:container.absolute_url()+'/placeful_workflow_configuration_add'">
+          <p tal:condition="python:not context.isPrincipiaFolderish and context is not container">
+              <form action="placeful_workflow_configuration" method="POST">
                 <button type="submit" name="add_wp_local_config" i18n:translate="description_add_workflow_policy">
                   Add Workflow policy's local configuration
                 </button>
@@ -73,8 +50,8 @@ Workflow policy configuration template
 
           <form id="edit_form"
                 name="edit_form"
-                method="post"
-                action="placeful_workflow_configuration_set"
+                method="POST"
+                action="${context/absolute_url}/@@placeful_workflow_configuration"
                 tal:condition="config">
 
               <fieldset tal:define="policies pwtool/getWorkflowPolicyInfos;
@@ -202,7 +179,7 @@ Workflow policy configuration template
                   <div class="field">
 
                     <input type="checkbox" checked="checked" class="noborder"
-                           name="update_security" value="" id="cb_update_security" />
+                           name="update_security" value="update_security" id="cb_update_security" />
 
                     <label for="cb_update_security"
                            i18n:domain="cmfplacefulworkflow"

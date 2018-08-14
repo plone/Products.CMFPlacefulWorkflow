@@ -20,8 +20,7 @@ Contributed by Jazkarta
 """
 
 from plone.testing import layered
-from Products.CMFPlacefulWorkflow.tests.CMFPlacefulWorkflowTestCase import PWF_LAYER
-
+from Products.CMFPlacefulWorkflow.testing import PRODUCTS_CMFPLACEFULWORKFLOW_FUNCTIONAL_TESTING
 import doctest
 import unittest
 
@@ -37,5 +36,5 @@ def test_suite():
     for testfile in ['exportimport.txt', 'policy_form.txt']:
         suite.addTest(layered(doctest.DocFileSuite(testfile,
                                                    optionflags=OPTIONFLAGS),
-                              layer=PWF_LAYER))
+                              layer=PRODUCTS_CMFPLACEFULWORKFLOW_FUNCTIONAL_TESTING))
     return suite

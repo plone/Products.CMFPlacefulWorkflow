@@ -6,17 +6,22 @@ Changelog
 
 Breaking changes:
 
+- Replace all skin-templates with browser-views
+  [pbauer]
+
 - Adapt tests to `Products.GenericSetup >= 2.0` thus requiring at least that
   version.
   [icemac]
 
 New features:
 
-- *add item here*
 
 Bug fixes:
 
-- More for Python 2 / 3 compatibility
+- Fix all tests for python 3 and no longer use PloneTestCase
+  [pbauer]
+
+- More Python 2 / 3 compatibility
   [ale-rt, davilima6]
 
 
