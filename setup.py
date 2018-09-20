@@ -10,10 +10,12 @@ setup(
                       open("CHANGES.rst").read()),
     classifiers=[
         "Framework :: Plone",
-        "Framework :: Plone :: 5.1",
+        "Framework :: Plone :: 5.2",
         "License :: OSI Approved :: GNU General Public License (GPL)",
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
     ],
     keywords='CMF Plone Zope2 workflow',
     author='Encolpe DEGOUTE',
