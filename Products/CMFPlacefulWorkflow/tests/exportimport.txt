@@ -24,10 +24,14 @@ policy::
 
     >>> ps = getToolByName(portal, 'portal_setup')
     >>> specific_context = 'profile-Products.CMFPlacefulWorkflow.tests:exportimport'
-    >>> ps.runImportStepFromProfile(specific_context, 'portal_placeful_workflow')
-    {'messages': {'portal_placeful_workflow': 'placeful_workflow: Folder
-    imported.\nplaceful_workflow: Workflow tool imported.', u'workflow': ''},
-    'steps': [u'workflow', 'portal_placeful_workflow']}
+    >>> ps.runImportStepFromProfile(specific_context, 'portal_placeful_workflow') == {
+    ...     'messages': {
+    ...         'portal_placeful_workflow': 'placeful_workflow: Folder imported.\nplaceful_workflow: Workflow tool imported.',
+    ...         u'workflow': ''
+    ...     },
+    ...     'steps': [u'workflow', 'portal_placeful_workflow']
+    ... }
+    True
 
     >>> ppw.getWorkflowPolicyIds()
     ('intranet', 'old-plone', 'one-state', 'simple-publication', 'baz_policy')
@@ -72,13 +76,13 @@ Export the portal_placeful_workflow step::
 The export produces a file for the tool itself::
 
     >>> import tarfile
-    >>> from six import StringIO
+    >>> from io import BytesIO
     >>> archive = tarfile.open(
     ...     name='export',
-    ...     fileobj=StringIO(tarball))
+    ...     fileobj=BytesIO(tarball))
 
     >>> print(archive.extractfile(
-    ...     'portal_placeful_workflow.xml').read())
+    ...     'portal_placeful_workflow.xml').read().decode())
     <?xml version="1.0" encoding="utf-8"?>
     <object name="portal_placeful_workflow" meta_type="Placeful Workflow Tool">
      <property name="title"></property>
@@ -93,7 +97,7 @@ The export produces a file for the tool itself::
 
 The export also produces a file for any policies::
 
-    >>> print(archive.extractfile('portal_placeful_workflow/baz_policy.xml').read())
+    >>> print(archive.extractfile('portal_placeful_workflow/baz_policy.xml').read().decode())
     <?xml version="1.0" encoding="utf-8"?>
     <object name="baz_policy" meta_type="WorkflowPolicy">
      <property name="title">Baz Policy</property>
