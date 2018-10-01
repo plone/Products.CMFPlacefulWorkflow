@@ -20,7 +20,7 @@ setup(
     keywords='CMF Plone Zope2 workflow',
     author='Encolpe DEGOUTE',
     author_email='plone-developers@lists.sourceforge.net',
-    url='https://pypi.python.org/pypi/Products.CMFPlacefulWorkflow',
+    url='https://pypi.org/project/Products.CMFPlacefulWorkflow',
     license='GPL',
     packages=find_packages(exclude=['ez_setup']),
     namespace_packages=['Products'],
