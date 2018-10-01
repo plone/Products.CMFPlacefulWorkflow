@@ -1,28 +1,12 @@
 Changelog
 =========
 
-1.8 (unreleased)
-----------------
+.. You should *NOT* be adding new change log entries to this file.
+   You should create a file in the news directory instead.
+   For helpful instructions, please see:
+   https://github.com/plone/plone.releaser/blob/master/ADD-A-NEWS-ITEM.rst
 
-Breaking changes:
-
-- Replace all skin-templates with browser-views
-  [pbauer]
-
-- Adapt tests to `Products.GenericSetup >= 2.0` thus requiring at least that
-  version.
-  [icemac]
-
-New features:
-
-
-Bug fixes:
-
-- Fix all tests for python 3 and no longer use PloneTestCase
-  [pbauer]
-
-- More Python 2 / 3 compatibility
-  [ale-rt, davilima6]
+.. towncrier release notes start
 
 
 1.7.5 (2018-02-23)

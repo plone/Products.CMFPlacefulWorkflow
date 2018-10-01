@@ -1,0 +1,4 @@
+Fix all tests for python 3 and no longer use PloneTestCase.
+
+[pbauer]
+
