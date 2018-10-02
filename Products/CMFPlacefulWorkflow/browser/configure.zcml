@@ -8,7 +8,7 @@
         name="placeful_workflow_configuration"
         class=".views.PlacefulWorkflowConfiguration"
         template="placeful_workflow_configuration.pt"
-        permission="zope2.View"
+        permission="CMFPlacefulWorkflow.ManageWorkflowPolicies"
         />
 
     <browser:page
@@ -16,7 +16,7 @@
         name="prefs_workflow_policy_mapping"
         class=".views.WorkflowPolicyMapping"
         template="prefs_workflow_policy_mapping.pt"
-        permission="zope2.View"
+        permission="CMFPlacefulWorkflow.ManageWorkflowPolicies"
         />
 
     <browser:page
@@ -24,8 +24,7 @@
         name="prefs_workflow_localpolicies_form"
         class=".views.WorkflowPoliciesForm"
         template="prefs_workflow_localpolicies_form.pt"
-        permission="zope2.View"
+        permission="CMFPlacefulWorkflow.ManageWorkflowPolicies"
         />
 
 </configure>
-
