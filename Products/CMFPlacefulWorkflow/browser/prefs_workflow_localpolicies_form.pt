@@ -11,8 +11,7 @@
 
         <span tal:define="dummy python:request.response.setHeader('pragma','no-cache')" />
 
-        <div id="content"
-             tal:condition="python:checkPermission('Manage portal', context)">
+        <div id="content">
 
             <h5 class="hiddenStructure">Views</h5>
 
@@ -154,13 +153,6 @@
 
             </div>
         </div>
-        <div id="content"
-             class="documentEditable"
-             tal:condition="python:not checkPermission('Manage portal', context)">
-            <tal:block replace="context/raiseUnauthorized" />
-        </div>
 
     </div>
 </html>
-
-
