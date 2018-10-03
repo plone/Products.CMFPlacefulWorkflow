@@ -5,10 +5,12 @@ from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PloneSandboxLayer
-from Products.GenericSetup import profile_registry
+from plone.app.testing import SITE_OWNER_NAME
+from plone.app.testing import SITE_OWNER_PASSWORD
+from plone.testing import z2
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.GenericSetup import EXTENSION
-from plone.testing import z2
+from Products.GenericSetup import profile_registry
 
 import Products.CMFPlacefulWorkflow
 
@@ -32,6 +34,8 @@ class ProductsCmfplacefulworkflowLayer(PloneSandboxLayer):
         z2.installProduct(app, 'Products.CMFPlacefulWorkflow')
 
     def setUpPloneSite(self, portal):
+        portal.acl_users.userFolderAddUser(
+            SITE_OWNER_NAME, SITE_OWNER_PASSWORD, ['Manager'], [])
         applyProfile(portal, 'Products.CMFPlacefulWorkflow:CMFPlacefulWorkflow')
 
 
