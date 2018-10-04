@@ -623,6 +623,6 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
                 'plone_workflow',
                 'simple_publication_workflow',
             )))
-        self.assertEqual(tuple(self.portal.my_worklist()), (document, ))
+        self.assertEqual(tuple(wf_tool.getWorklistsResults()), (document, ))
 
         logout()
