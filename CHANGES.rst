@@ -8,6 +8,33 @@ Changelog
 
 .. towncrier release notes start
 
+2.0.0 (2018-11-05)
+------------------
+
+Breaking changes:
+
+
+- Adapt tests to Products.GenericSetup >= 2.0, thus requiring at least that
+  version. [icemac] (#22)
+- Replace all skin-templates with browser-views. [bauer] (#23)
+
+
+New features:
+
+
+- Replaced usages of my_worklist.py skin script. (#28)
+
+
+Bug fixes:
+
+
+- Fix all tests for python 3 and no longer use PloneTestCase. [pbauer] (#23)
+- More Python 2 / 3 compatibility. [ale-rt, davilima6] (#24)
+- Do the permission checks in zcml. This means we can stop using the
+  ``raiseUnauthorized`` skin script. Also check for the 'CMFPlacefulWorkflow:
+  Manage workflow policies' permission instead of the 'Manage portal'
+  permission. [maurits] (#25)
+
 
 2.0.0 (unreleased)
 ------------------

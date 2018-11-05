@@ -1,5 +1,0 @@
-Do the permission checks in zcml.
-
-This means we can stop using the ``raiseUnauthorized`` skin script.
-Also check for the 'CMFPlacefulWorkflow: Manage workflow policies' permission instead of the 'Manage portal' permission.
-[maurits]
