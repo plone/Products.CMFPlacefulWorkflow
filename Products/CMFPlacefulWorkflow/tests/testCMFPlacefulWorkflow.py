@@ -608,13 +608,8 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         wf_tool.doActionFor(document, 'submit', comment="unittest transition")
 
         keys = list(wf_tool.getWorklists().keys())
-        if 'comment_review_workflow' in keys:
-            # This test needs to work on both 4.0 and 4.1
-            keys.remove('comment_review_workflow')
 
-        self.assertEqual(
-            sorted(tuple(keys)),
-            sorted((
+        default_workflows = sorted((
                 'comment_one_state_workflow',
                 'folder_workflow',
                 'intranet_folder_workflow',
@@ -622,7 +617,10 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
                 'one_state_workflow',
                 'plone_workflow',
                 'simple_publication_workflow',
-            )))
+        ))
+        # default workflows are present
+        self.assertTrue(all(el in tuple(keys) for el in default_workflows))
+
         self.assertEqual(tuple(wf_tool.getWorklistsResults()), (document, ))
 
         logout()
