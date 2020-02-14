@@ -23,7 +23,7 @@ from AccessControl import ClassSecurityInfo
 from AccessControl import Unauthorized
 from AccessControl.requestmethod import postonly
 from Acquisition import aq_parent
-from App.class_init import InitializeClass
+from AccessControl.class_init import InitializeClass
 from OFS.Folder import Folder
 from OFS.ObjectManager import IFAwareObjectManager
 from Products.CMFCore.interfaces import ISiteRoot

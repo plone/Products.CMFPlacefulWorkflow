@@ -22,7 +22,7 @@ A simple workflow policy.
 from AccessControl import ClassSecurityInfo
 from AccessControl.requestmethod import postonly
 from Acquisition import aq_base
-from App.class_init import InitializeClass
+from AccessControl.class_init import InitializeClass
 from os.path import join as path_join
 from Persistence import PersistentMapping
 from Products.CMFCore.utils import getToolByName

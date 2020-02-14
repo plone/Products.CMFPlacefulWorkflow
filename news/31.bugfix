@@ -1,0 +1,2 @@
+Fixed ModuleNotFoundError: No module named 'App.class_init' in Zope 5.
+[maurits]
