@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+2.0.1 (2020-03-09)
+------------------
+
+Bug fixes:
+
+
+- Fixed ModuleNotFoundError: No module named 'App.class_init' in Zope 5.
+  [maurits] (#31)
+
+
 2.0.0 (2018-11-05)
 ------------------
 
