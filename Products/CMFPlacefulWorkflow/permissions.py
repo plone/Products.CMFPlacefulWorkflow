@@ -2,7 +2,8 @@
 """ Zope 2 permissions
 """
 
-from Products.CMFCore.permissions import setDefaultRoles
+from AccessControl.Permission import addPermission
+
 
 ManageWorkflowPolicies = 'CMFPlacefulWorkflow: Manage workflow policies'
-setDefaultRoles(ManageWorkflowPolicies, ('Manager', 'Site Administrator'))
+addPermission(ManageWorkflowPolicies, ('Manager', 'Site Administrator'))
