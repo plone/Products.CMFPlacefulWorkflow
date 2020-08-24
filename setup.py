@@ -2,12 +2,13 @@ from setuptools import setup, find_packages
 
 version = '2.0.3.dev0'
 
+
 setup(
     name='Products.CMFPlacefulWorkflow',
     version=version,
     description="Workflow policies for Plone",
-    long_description=(open("README.rst").read() + "\n" +
-                      open("CHANGES.rst").read()),
+    # Note: long_description is in setup.cfg
+    # to avoid needing workarounds for UnicodeDecodeErrors.
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Framework :: Plone",
