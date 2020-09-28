@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+2.0.3 (2020-09-28)
+------------------
+
+Bug fixes:
+
+
+- Fix deprecation warning at startup for setDefaultRoles.
+  [maurits] (#34)
+
+
 2.0.2 (2020-04-23)
 ------------------
 
