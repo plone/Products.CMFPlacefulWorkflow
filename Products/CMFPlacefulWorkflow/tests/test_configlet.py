@@ -35,7 +35,6 @@ class TestConfiglet(CMFPlacefulWorkflowTestCase):
         """Init some shortcuts member variables."""
         self.portal = self.layer['portal']
         self.app = self.layer['app']
-        self.app.REQUEST['SESSION'] = self.Session()
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.ppw = getToolByName(self.portal, 'portal_placeful_workflow')
 

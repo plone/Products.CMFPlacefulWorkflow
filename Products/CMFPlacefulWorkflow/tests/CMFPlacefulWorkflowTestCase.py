@@ -28,10 +28,6 @@ class CMFPlacefulWorkflowTestCase(unittest.TestCase):
 
     layer = PRODUCTS_CMFPLACEFULWORKFLOW_FUNCTIONAL_TESTING
 
-    class Session(dict):
-        def set(self, key, value):
-            self[key] = value
-
     def getPermissionsOfRole(self, role):
         perms = self.portal.permissionsOfRole(role)
         return [p['name'] for p in perms if p['selected']]

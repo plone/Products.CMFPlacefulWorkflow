@@ -57,7 +57,6 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
     def setUp(self, ):
         self.portal = self.layer['portal']
         self.app = self.layer['app']
-        self.app.REQUEST['SESSION'] = self.Session()
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.catalog = getToolByName(self.portal, 'portal_catalog')
         self.workflow = getToolByName(self.portal, 'portal_workflow')
