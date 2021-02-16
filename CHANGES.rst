@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+2.0.4 (2021-02-16)
+------------------
+
+Bug fixes:
+
+
+- Removed unused mock request.SESSION from tests.
+  [maurits] (#1)
+
+
 2.0.3 (2020-09-28)
 ------------------
 
