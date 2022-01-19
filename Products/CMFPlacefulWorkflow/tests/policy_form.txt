@@ -55,25 +55,25 @@ Open the policy form for the front-page and for the folder.
 
 The policy form also works for pages that aren't the default page.
 
-    >>> page = folder[folder.invokeFactory(type_name='Document', id='foo')]
+    >>> page = folder[folder.invokeFactory(type_name='Document', id='doc1')]
     >>> commit()
     >>> browser.open(page.absolute_url())
     >>> browser.getLink('Policy').click()
     >>> browser.url
-    'http://nohost/plone/f1/foo/placeful_workflow_configuration'
+    'http://nohost/plone/f1/doc1/placeful_workflow_configuration'
     >>> print(browser.contents)
     <...
     <h1>...Workflow policies' local configuration management...</h1>
     ...
 
-Without a local policy document 'foo', contained inside '/f1' is in review state visible:
+Without a local policy document 'doc1', contained inside '/f1' is in review state visible:
 
     >>> browser.open(folder.absolute_url())
     >>> browser.url
     'http://nohost/plone/f1'
 
-    >>> foo_link = browser.getLink('foo')
-    >>> 'state-private' in foo_link.attrs['class']
+    >>> doc1_link = browser.getLink('doc1')
+    >>> 'state-private' in doc1_link.attrs['class']
     True
 
 Now we will add a local policy on the user folder. Old Plone Publication for the folder, Intranet below it:
@@ -115,8 +115,8 @@ We validate policy settings were saved:
 And mappings were not updated:
 
     >>> browser.open(folder.absolute_url())
-    >>> foo_link = browser.getLink('foo')
-    >>> 'state-private' in foo_link.attrs['class']
+    >>> doc1_link = browser.getLink('doc1')
+    >>> 'state-private' in doc1_link.attrs['class']
     True
 
 If we are sure, or willing to wait, it is possible to update role mappings:
@@ -127,10 +127,10 @@ If we are sure, or willing to wait, it is possible to update role mappings:
     >>> 'Changed policies' in browser.contents
     True
 
-Foo document review state must be 'Internal Draft' in the portlet:
+doc1 document review state must be 'Internal Draft' in the portlet:
 
     >>> browser.open(folder.absolute_url())
-    >>> foo_link = browser.getLink('foo')
-    >>> 'state-internal' in foo_link.attrs['class']
+    >>> doc1_link = browser.getLink('doc1')
+    >>> 'state-internal' in doc1_link.attrs['class']
     True
 
