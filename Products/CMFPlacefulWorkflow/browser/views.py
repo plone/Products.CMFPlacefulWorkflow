@@ -77,17 +77,17 @@ class WorkflowPoliciesForm(BrowserView):
                 if policy_id in pwtool.objectIds():
                     pwtool.manage_delObjects([policy_id, ])
             plone_utils.addPortalMessage(_(u'Deleted Local Workflow Policy.'), 'info')
-            return request.response.redirect('prefs_workflow_localpolicies_form')
+            return request.response.redirect('@@prefs_workflow_localpolicies_form')
 
         elif add:
             if policy_id:
                 pwtool.manage_addWorkflowPolicy(id=policy_id, duplicate_id=policy_duplicate_id)
                 plone_utils.addPortalMessage(_(u'Local Workflow Policy added.'), 'info')
-                return request.response.redirect('prefs_workflow_policy_mapping?wfpid=' + policy_id)
+                return request.response.redirect('@@prefs_workflow_policy_mapping?wfpid=' + policy_id)
 
             else:
                 plone_utils.addPortalMessage(_(u'The policy Id is required.'), 'error')
-                return request.response.redirect('prefs_workflow_localpolicies_form')
+                return request.response.redirect('@@prefs_workflow_localpolicies_form')
 
         return self.index()
 
@@ -96,20 +96,24 @@ class WorkflowPolicyMapping(BrowserView):
     """
 
     def __call__(self):
+        # First check that we have a policy id and that it exists.
+        # If we don't, return to the overview form.
         request = self.request
-        if not request.get('submit', None):
-            return self.index()
-
         context = self.context
         plone_utils = getToolByName(context, 'plone_utils')
-
         wfpid = request.get('wfpid', None)
-        if not wfpid:
+        policy = None
+        if wfpid:
+            tool = getToolByName(context, 'portal_placeful_workflow')
+            policy = tool.getWorkflowPolicyById(wfpid)
+        if policy is None:
+            portal_url = getToolByName(context, 'portal_url')()
             plone_utils.addPortalMessage(_(u'No Policy selected.'), 'error')
             return request.response.redirect(portal_url + '/@@prefs_workflow_localpolicies_form')
 
-        tool = getToolByName(context, 'portal_placeful_workflow')
-        policy = tool.getWorkflowPolicyById(wfpid)
+        if not request.get('submit', None):
+            return self.index()
+
         title = request.get('title', None)
         description = request.get('description', None)
         default_workflow_id = request.get('default_workflow_id', None)
@@ -141,4 +145,4 @@ class WorkflowPolicyMapping(BrowserView):
         wf_tool.updateRoleMappings()
 
         plone_utils.addPortalMessage(_(u'Changes to criteria saved.'))
-        return request.response.redirect('prefs_workflow_policy_mapping?wfpid=%s' % wfpid)
+        return request.response.redirect('@@prefs_workflow_policy_mapping?wfpid=%s' % wfpid)

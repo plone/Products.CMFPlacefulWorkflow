@@ -1,0 +1,3 @@
+Fixed undefined name ``portal_url``.
+Fixed traceback on the policy mapping form when the workflow policy id is missing or wrong.
+[maurits]

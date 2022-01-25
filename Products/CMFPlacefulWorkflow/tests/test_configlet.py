@@ -70,7 +70,20 @@ class TestConfiglet(CMFPlacefulWorkflowTestCase):
         commit()
         browser = self.getBrowser(logged_in=True)
         browser.handleErrors = False
-        browser.open('http://nohost/plone/prefs_workflow_policy_mapping?'
+
+        # Check that we get no errors when we do not pass the policy id
+        portal_url = self.portal.absolute_url()
+        central_form = f'{portal_url}/@@prefs_workflow_localpolicies_form'
+        browser.open(f'{portal_url}/@@prefs_workflow_policy_mapping')
+        self.assertEqual(browser.url, central_form)
+
+        # Try a wrong id.
+        browser.open(f'{portal_url}/@@prefs_workflow_policy_mapping?'
+                     'wfpid=no_such_policy')
+        self.assertEqual(browser.url, central_form)
+
+        # Now with a proper policy id.
+        browser.open(f'{portal_url}/@@prefs_workflow_policy_mapping?'
                      'wfpid=dummy_policy')
         self.assertEqual(browser.getControl(name='wf.Document:record').value,
                          ['folder_workflow', ])
@@ -78,5 +91,7 @@ class TestConfiglet(CMFPlacefulWorkflowTestCase):
         browser.getControl(name='wf.Document:record').value = ['acquisition', ]
         browser.getControl(name='submit').click()
 
+        self.assertEqual(browser.url, f'{portal_url}/@@prefs_workflow_policy_mapping?'
+                        'wfpid=dummy_policy')
         self.assertEqual(browser.getControl(name='wf.Document:record').value,
                          ['acquisition', ])
