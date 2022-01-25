@@ -8,6 +8,27 @@ Changelog
 
 .. towncrier release notes start
 
+3.0.0a1 (2022-01-25)
+--------------------
+
+Breaking changes:
+
+
+- Use ``toolbar-action/workflow`` as icon.  Only works in Plone 6.
+  Removed the ``CMFPlacefulWorkflow`` skin layer.
+  Removed ancient upgrade step, added new one for the above.
+  [maurits] (#33)
+
+
+Bug fixes:
+
+
+- Fix a test that picks up the footer-portlets link instead of a document. (#36)
+- Fixed undefined name ``portal_url``.
+  Fixed traceback on the policy mapping form when the workflow policy id is missing or wrong.
+  [maurits] (#39)
+
+
 2.0.4 (2021-02-16)
 ------------------
 

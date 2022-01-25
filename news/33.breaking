@@ -1,4 +1,0 @@
-Use ``toolbar-action/workflow`` as icon.  Only works in Plone 6.
-Removed the ``CMFPlacefulWorkflow`` skin layer.
-Removed ancient upgrade step, added new one for the above.
-[maurits]
