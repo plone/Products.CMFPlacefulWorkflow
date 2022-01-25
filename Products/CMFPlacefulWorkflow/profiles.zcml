@@ -28,12 +28,20 @@
      pre_handler="Products.CMFPlacefulWorkflow.setuphandlers.uninstall"
      />
 
-  <genericsetup:upgradeStep
-    title="Apply full profile"
-    description="Meant mostly for upgrades from ancient versions that had no profile yet."
-    source="*"
-    destination="1.4.1"
-    handler=".upgrades.apply_full_profile"
-    profile="Products.CMFPlacefulWorkflow:CMFPlacefulWorkflow" />
+  <genericsetup:upgradeSteps
+    source="1.4.1"
+    destination="1000"
+    profile="Products.CMFPlacefulWorkflow:CMFPlacefulWorkflow">
+    <genericsetup:upgradeDepends
+      title="Update controlpanel logo"
+      import_profile="Products.CMFPlacefulWorkflow:base"
+      import_steps="controlpanel"
+      />
+    <genericsetup:upgradeDepends
+      title="Remove skin layer"
+      import_profile="Products.CMFPlacefulWorkflow:uninstall"
+      import_steps="skins"
+      />
+  </genericsetup:upgradeSteps>
 
 </configure>

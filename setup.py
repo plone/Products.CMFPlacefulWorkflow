@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '2.0.5.dev0'
+version = '3.0.0a1.dev0'
 
 
 setup(
@@ -12,14 +12,13 @@ setup(
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Framework :: Plone",
-        "Framework :: Plone :: 5.2",
+        "Framework :: Plone :: 6.0",
         "Framework :: Plone :: Core",
         "License :: OSI Approved :: GNU General Public License (GPL)",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
     ],
     keywords='CMF Plone Zope2 workflow',
     author='Encolpe DEGOUTE',
@@ -44,6 +43,6 @@ setup(
         'zope.i18nmessageid',
         'Products.CMFCore',
         'Products.CMFPlone',
-        'Products.GenericSetup >= 2.0.dev0',
+        'Products.GenericSetup >= 2.0',
     ],
 )

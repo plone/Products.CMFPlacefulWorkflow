@@ -1,5 +1,5 @@
 <metadata>
-  <version>1.4.1</version>
+  <version>1000</version>
   <dependencies>
     <dependency>profile-Products.CMFPlacefulWorkflow:base</dependency>
   </dependencies>

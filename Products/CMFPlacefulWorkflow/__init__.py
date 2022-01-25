@@ -19,7 +19,6 @@
 Initialization
 """
 from AccessControl import ModuleSecurityInfo
-from Products.CMFCore import DirectoryView
 from Products.CMFCore import utils
 from Products.CMFPlacefulWorkflow import DefaultWorkflowPolicy
 from Products.CMFPlacefulWorkflow import PlacefulWorkflowTool
@@ -28,8 +27,6 @@ from zope.i18nmessageid import MessageFactory
 
 
 tools = (PlacefulWorkflowTool.PlacefulWorkflowTool, )
-
-DirectoryView.registerDirectory('skins', globals())
 
 
 # Initialization method
