@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <object name="portal_skins">
-
+  <!-- Note: the skin layer is no longer added, since version 3.0.0a1.
+       But we keep this uninstall code for older versions and use it as upgrade step. -->
   <object name="CMFPlacefulWorkflow" remove="true" />
 
   <skin-path name="*">
