@@ -13,7 +13,7 @@
                      config python: pwtool.getWorkflowPolicyConfig(context);
                      siteroot python: pwtool.isSiteRoot(context);">
       <header>
-        <h1 class="documentFirstHeading" i18n:translate="heading_workflow_policies">
+        <h1 i18n:translate="heading_workflow_policies">
           Workflow policies' local configuration management
         </h1>
   
@@ -58,11 +58,13 @@
         name="edit_form"
         method="POST"
         action="${context/absolute_url}/@@placeful_workflow_configuration"
-        tal:condition="config"
-        tal:define="
-          policies pwtool/getWorkflowPolicyInfos;
-          policy_in_id config/getPolicyInId;
-          policy_below_id config/getPolicyBelowId;">
+        tal:condition="config">
+
+        <tal:defines 
+          tal:define="
+            policies pwtool/getWorkflowPolicyInfos;
+            policy_in_id config/getPolicyInId;
+            policy_below_id config/getPolicyBelowId;">
 
         <h3 i18n:translate="legend_publishing_details">Workflow policies</h3>
 
@@ -192,6 +194,8 @@
             value="Cancel"
             i18n:attributes="value label_cancel;" />
         </div>
+        
+      </tal:defines>
       </form>
       
       </tal:nosite>
