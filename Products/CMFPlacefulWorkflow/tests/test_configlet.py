@@ -20,78 +20,99 @@ CMFPlacefulWorkflow Functional Test of the Through the Web Configuration
 """
 
 from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
 from plone.app.testing import SITE_OWNER_NAME
 from plone.app.testing import SITE_OWNER_PASSWORD
+from plone.app.testing import TEST_USER_ID
 from plone.testing.z2 import Browser
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlacefulWorkflow.tests.CMFPlacefulWorkflowTestCase import CMFPlacefulWorkflowTestCase  # noqa: E501
+from Products.CMFPlacefulWorkflow.tests.CMFPlacefulWorkflowTestCase import (  # noqa: E501
+    CMFPlacefulWorkflowTestCase,
+)
 from transaction import commit
 
 
 class TestConfiglet(CMFPlacefulWorkflowTestCase):
-
     def setUp(self):
         """Init some shortcuts member variables."""
-        self.portal = self.layer['portal']
-        self.app = self.layer['app']
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        self.ppw = getToolByName(self.portal, 'portal_placeful_workflow')
+        self.portal = self.layer["portal"]
+        self.app = self.layer["app"]
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        self.ppw = getToolByName(self.portal, "portal_placeful_workflow")
 
         self.createDummyPolicy()
 
     def getBrowser(self, logged_in=False):
-        """ instantiate and return a testbrowser for convenience """
+        """instantiate and return a testbrowser for convenience"""
         browser = Browser(self.app)
         if logged_in:
             # Add an authorization header using the given or default
             # credentials """
-            browser.addHeader('Authorization', 'Basic %s:%s' % (
-                SITE_OWNER_NAME,
-                SITE_OWNER_PASSWORD))
+            browser.addHeader(
+                "Authorization", "Basic %s:%s" % (SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
+            )
         return browser
 
     def createDummyPolicy(self):
-        """Create a workflow policy named 'dummy_policy' for us to work with.
-        """
+        """Create a workflow policy named 'dummy_policy' for us to work with."""
         # Create a policy
         self.ppw.manage_addWorkflowPolicy(
-            'dummy_policy', 'default_workflow_policy (Simple Policy)')
-        self.ppw.dummy_policy.title = 'Dummy Policy'
+            "dummy_policy", "default_workflow_policy (Simple Policy)"
+        )
+        self.ppw.dummy_policy.title = "Dummy Policy"
 
     def setLocalChainForPortalType(self, pt, chain):
-        gp = self.ppw.getWorkflowPolicyById('dummy_policy')
-        gp.setChainForPortalTypes([pt, ], [chain, ])
+        gp = self.ppw.getWorkflowPolicyById("dummy_policy")
+        gp.setChainForPortalTypes(
+            [
+                pt,
+            ],
+            [
+                chain,
+            ],
+        )
 
     def test_local_mapping_select_acquisition_chain(self):
-        """Test setting a local mapping to the special value 'acquisition'
-        """
-        self.setLocalChainForPortalType('Document', 'folder_workflow')
+        """Test setting a local mapping to the special value 'acquisition'"""
+        self.setLocalChainForPortalType("Document", "folder_workflow")
         commit()
         browser = self.getBrowser(logged_in=True)
         browser.handleErrors = False
 
         # Check that we get no errors when we do not pass the policy id
         portal_url = self.portal.absolute_url()
-        central_form = f'{portal_url}/@@prefs_workflow_localpolicies_form'
-        browser.open(f'{portal_url}/@@prefs_workflow_policy_mapping')
+        central_form = f"{portal_url}/@@prefs_workflow_localpolicies_form"
+        browser.open(f"{portal_url}/@@prefs_workflow_policy_mapping")
         self.assertEqual(browser.url, central_form)
 
         # Try a wrong id.
-        browser.open(f'{portal_url}/@@prefs_workflow_policy_mapping?'
-                     'wfpid=no_such_policy')
+        browser.open(
+            f"{portal_url}/@@prefs_workflow_policy_mapping?" "wfpid=no_such_policy"
+        )
         self.assertEqual(browser.url, central_form)
 
         # Now with a proper policy id.
-        browser.open(f'{portal_url}/@@prefs_workflow_policy_mapping?'
-                     'wfpid=dummy_policy')
-        self.assertEqual(browser.getControl(name='wf.Document:record').value,
-                         ['folder_workflow', ])
+        browser.open(
+            f"{portal_url}/@@prefs_workflow_policy_mapping?" "wfpid=dummy_policy"
+        )
+        self.assertEqual(
+            browser.getControl(name="wf.Document:record").value,
+            [
+                "folder_workflow",
+            ],
+        )
 
-        browser.getControl(name='wf.Document:record').value = ['acquisition', ]
-        browser.getControl(name='submit').click()
+        browser.getControl(name="wf.Document:record").value = [
+            "acquisition",
+        ]
+        browser.getControl(name="submit").click()
 
-        self.assertEqual(browser.url, f'{portal_url}/@@prefs_workflow_policy_mapping?'
-                        'wfpid=dummy_policy')
-        self.assertEqual(browser.getControl(name='wf.Document:record').value,
-                         ['acquisition', ])
+        self.assertEqual(
+            browser.url,
+            f"{portal_url}/@@prefs_workflow_policy_mapping?" "wfpid=dummy_policy",
+        )
+        self.assertEqual(
+            browser.getControl(name="wf.Document:record").value,
+            [
+                "acquisition",
+            ],
+        )

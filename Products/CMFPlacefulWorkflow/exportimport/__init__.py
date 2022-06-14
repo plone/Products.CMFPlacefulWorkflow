@@ -16,5 +16,9 @@
 # along with this program; see the file COPYING. If not, write to the
 # Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from Products.CMFPlacefulWorkflow.exportimport.workflow_policies import exportWorkflowPolicies  # noqa: E501,F401
-from Products.CMFPlacefulWorkflow.exportimport.workflow_policies import importWorkflowPolicies  # noqa: E501,F401
+from Products.CMFPlacefulWorkflow.exportimport.workflow_policies import (  # noqa: E501,F401
+    exportWorkflowPolicies,
+)
+from Products.CMFPlacefulWorkflow.exportimport.workflow_policies import (  # noqa: E501,F401
+    importWorkflowPolicies,
+)

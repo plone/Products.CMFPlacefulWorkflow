@@ -20,21 +20,29 @@ Contributed by Jazkarta
 """
 
 from plone.testing import layered
-from Products.CMFPlacefulWorkflow.testing import PRODUCTS_CMFPLACEFULWORKFLOW_FUNCTIONAL_TESTING
+from Products.CMFPlacefulWorkflow.testing import (
+    PRODUCTS_CMFPLACEFULWORKFLOW_FUNCTIONAL_TESTING,
+)
+
 import doctest
 import unittest
 
 
-OPTIONFLAGS = (doctest.ELLIPSIS |
-               doctest.NORMALIZE_WHITESPACE |
-               doctest.REPORT_UDIFF |
-               doctest.REPORT_ONLY_FIRST_FAILURE)
+OPTIONFLAGS = (
+    doctest.ELLIPSIS
+    | doctest.NORMALIZE_WHITESPACE
+    | doctest.REPORT_UDIFF
+    | doctest.REPORT_ONLY_FIRST_FAILURE
+)
 
 
 def test_suite():
     suite = unittest.TestSuite()
-    for testfile in ['exportimport.txt', 'policy_form.txt']:
-        suite.addTest(layered(doctest.DocFileSuite(testfile,
-                                                   optionflags=OPTIONFLAGS),
-                              layer=PRODUCTS_CMFPLACEFULWORKFLOW_FUNCTIONAL_TESTING))
+    for testfile in ["exportimport.txt", "policy_form.txt"]:
+        suite.addTest(
+            layered(
+                doctest.DocFileSuite(testfile, optionflags=OPTIONFLAGS),
+                layer=PRODUCTS_CMFPLACEFULWORKFLOW_FUNCTIONAL_TESTING,
+            )
+        )
     return suite

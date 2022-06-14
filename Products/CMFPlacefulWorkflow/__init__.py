@@ -26,34 +26,41 @@ from Products.CMFPlacefulWorkflow import WorkflowPolicyConfig
 from zope.i18nmessageid import MessageFactory
 
 
-tools = (PlacefulWorkflowTool.PlacefulWorkflowTool, )
+tools = (PlacefulWorkflowTool.PlacefulWorkflowTool,)
 
 
 # Initialization method
 def initialize(context):
     utils.registerIcon(
         DefaultWorkflowPolicy.DefaultWorkflowPolicyDefinition,
-        'images/workflow_policy.gif',
-        globals())
+        "images/workflow_policy.gif",
+        globals(),
+    )
 
     context.registerClass(
         PlacefulWorkflowTool.PlacefulWorkflowTool,
         meta_type="Placeful Workflow Tool",
-        constructors=(PlacefulWorkflowTool.addPlacefulWorkflowTool, ),
-        icon='tool.gif')
+        constructors=(PlacefulWorkflowTool.addPlacefulWorkflowTool,),
+        icon="tool.gif",
+    )
 
     context.registerClass(
         WorkflowPolicyConfig.WorkflowPolicyConfig,
-        permission='Add Workflow Policy',
-        constructors=(WorkflowPolicyConfig.manage_addWorkflowPolicyConfigForm,
-                      WorkflowPolicyConfig.manage_addWorkflowPolicyConfig),
-        icon='www/WorkflowPolicyConfig_icon.gif',
+        permission="Add Workflow Policy",
+        constructors=(
+            WorkflowPolicyConfig.manage_addWorkflowPolicyConfigForm,
+            WorkflowPolicyConfig.manage_addWorkflowPolicyConfig,
+        ),
+        icon="www/WorkflowPolicyConfig_icon.gif",
     )
 
-    utils.ToolInit('CMF Placeful Workflow Tool', tools=tools, icon='tool.gif'
-                   ).initialize(context)
+    utils.ToolInit(
+        "CMF Placeful Workflow Tool", tools=tools, icon="tool.gif"
+    ).initialize(context)
 
-ModuleSecurityInfo('Products.CMFPlacefulWorkflow').declarePublic(
-    'CMFPlacefulWorkflowMessageFactory')
 
-CMFPlacefulWorkflowMessageFactory = MessageFactory('cmfplacefulworkflow')
+ModuleSecurityInfo("Products.CMFPlacefulWorkflow").declarePublic(
+    "CMFPlacefulWorkflowMessageFactory"
+)
+
+CMFPlacefulWorkflowMessageFactory = MessageFactory("cmfplacefulworkflow")

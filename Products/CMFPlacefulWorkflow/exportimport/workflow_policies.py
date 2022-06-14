@@ -24,24 +24,24 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFPlacefulWorkflow.DefaultWorkflowPolicy import DEFAULT_CHAIN
 from Products.CMFPlacefulWorkflow.global_symbols import Log
 from Products.GenericSetup.OFSP.exportimport import FolderXMLAdapter
-from Products.GenericSetup.utils import XMLAdapterBase
 from Products.GenericSetup.utils import exportObjects
 from Products.GenericSetup.utils import importObjects
+from Products.GenericSetup.utils import XMLAdapterBase
+
 
 _marker = []
 
 
 class PlacefulWorkflowXMLAdapter(FolderXMLAdapter):
 
-    _LOGGER_ID = 'placeful_workflow'
+    _LOGGER_ID = "placeful_workflow"
 
-    body = property(XMLAdapterBase._exportBody,
-                    XMLAdapterBase._importBody)
+    body = property(XMLAdapterBase._exportBody, XMLAdapterBase._importBody)
 
 
 class WorkflowPoliciesXMLAdapter(WorkflowToolXMLAdapter):
 
-    _LOGGER_ID = 'placeful_workflow'
+    _LOGGER_ID = "placeful_workflow"
 
     @property
     def name(self):
@@ -50,44 +50,43 @@ class WorkflowPoliciesXMLAdapter(WorkflowToolXMLAdapter):
 
     def _extractChains(self):
         fragment = self._doc.createDocumentFragment()
-        node = self._doc.createElement('bindings')
-        child = self._doc.createElement('default')
+        node = self._doc.createElement("bindings")
+        child = self._doc.createElement("default")
         for workflow_id in self.context._default_chain or ():
-            sub = self._doc.createElement('bound-workflow')
-            sub.setAttribute('workflow_id', workflow_id)
+            sub = self._doc.createElement("bound-workflow")
+            sub.setAttribute("workflow_id", workflow_id)
             child.appendChild(sub)
         node.appendChild(child)
         if self.context._chains_by_type:
-            typestool = getToolByName(self.context, 'portal_types')
-            typeinfos = sorted(typestool.listTypeInfo(),
-                               key=lambda type: type.getId())
+            typestool = getToolByName(self.context, "portal_types")
+            typeinfos = sorted(typestool.listTypeInfo(), key=lambda type: type.getId())
             for ti in typeinfos:
                 type_id = ti.getId()
                 chain = self.context._chains_by_type.get(type_id, _marker)
-                child = self._doc.createElement('type')
+                child = self._doc.createElement("type")
                 if chain is _marker:
                     # If no chain is defined chain is acquired
                     continue
 
-                if chain == (DEFAULT_CHAIN, ):
+                if chain == (DEFAULT_CHAIN,):
                     # If the type is using the default chain there's no chain
                     # to wait after the attribute
-                    child.setAttribute('type_id', type_id)
-                    child.setAttribute('default_chain', "true")
+                    child.setAttribute("type_id", type_id)
+                    child.setAttribute("default_chain", "true")
                     node.appendChild(child)
                     continue
 
-                child.setAttribute('type_id', type_id)
+                child.setAttribute("type_id", type_id)
                 for workflow_id in chain:
-                    sub = self._doc.createElement('bound-workflow')
-                    sub.setAttribute('workflow_id', workflow_id)
+                    sub = self._doc.createElement("bound-workflow")
+                    sub.setAttribute("workflow_id", workflow_id)
                     child.appendChild(sub)
                 node.appendChild(child)
         fragment.appendChild(node)
         return fragment
 
     def _initChains(self, node):
-        """ Import policies from XML
+        """Import policies from XML
 
         Types specified are in two cases:
 
@@ -101,33 +100,35 @@ class WorkflowPoliciesXMLAdapter(WorkflowToolXMLAdapter):
         """
         seen = set()
         for child in node.childNodes:
-            if child.nodeName != 'bindings':
+            if child.nodeName != "bindings":
                 continue
             for sub in child.childNodes:
-                if sub.nodeName == 'default':
+                if sub.nodeName == "default":
                     self.context.setDefaultChain(self._getChain(sub))
-                if sub.nodeName == 'type':
-                    type_id = str(sub.getAttribute('type_id'))
+                if sub.nodeName == "type":
+                    type_id = str(sub.getAttribute("type_id"))
                     assert type_id not in seen, (
-                        'Type %s listed more than once' % type_id)
+                        "Type %s listed more than once" % type_id
+                    )
                     seen.add(type_id)
 
-                    default = sub.getAttribute('default_chain')
+                    default = sub.getAttribute("default_chain")
                     chain = self._getChain(sub)
                     Log.debug(default, chain)
                     assert not (default and chain), (
-                        'Type %s is marked to use default but also '
-                        'included a chain: %s' % (type_id, chain))
+                        "Type %s is marked to use default but also "
+                        "included a chain: %s" % (type_id, chain)
+                    )
                     if default:
                         # omit from the policy to acquire
                         try:
-                            self.context.setChain(type_id, (DEFAULT_CHAIN, ))
-                        except:
-                            if type_id == 'Collection':
+                            self.context.setChain(type_id, (DEFAULT_CHAIN,))
+                        except Exception:
+                            if type_id == "Collection":
                                 # this is really just a plone.app.upgrade?
                                 # test fix but it should be fine if we retry
                                 # with Topic instead of Collection
-                                self.context.setChain('Topic', chain)
+                                self.context.setChain("Topic", chain)
                             else:
                                 raise
 
@@ -135,36 +136,33 @@ class WorkflowPoliciesXMLAdapter(WorkflowToolXMLAdapter):
                         try:
                             self.context.setChain(type_id, chain)
                         except ValueError:
-                            if type_id == 'Collection':
-                                self.context.setChain('Topic', chain)
+                            if type_id == "Collection":
+                                self.context.setChain("Topic", chain)
                             else:
                                 raise
 
     def _getChain(self, node):
-        result = super(WorkflowPoliciesXMLAdapter,
-                       self)._getChain(node)
-        if result == '':
+        result = super(WorkflowPoliciesXMLAdapter, self)._getChain(node)
+        if result == "":
             return []
-        return result.split(',')
+        return result.split(",")
 
 
 def importWorkflowPolicies(context):
-    """Import workflow policies from the XML file.
-    """
+    """Import workflow policies from the XML file."""
     site = context.getSite()
-    tool = getToolByName(site, 'portal_placeful_workflow', None)
+    tool = getToolByName(site, "portal_placeful_workflow", None)
     if tool is not None:
-        importObjects(tool, '', context)
+        importObjects(tool, "", context)
 
 
 def exportWorkflowPolicies(context):
-    """Export workflow policies as an XML file.
-    """
+    """Export workflow policies as an XML file."""
     site = context.getSite()
-    tool = getToolByName(site, 'portal_placeful_workflow', None)
+    tool = getToolByName(site, "portal_placeful_workflow", None)
     if tool is None:
-        logger = context.getLogger('workflow_policies')
-        logger.info('Nothing to export.')
+        logger = context.getLogger("workflow_policies")
+        logger.info("Nothing to export.")
         return
 
-    exportObjects(tool, '', context)
+    exportObjects(tool, "", context)

@@ -24,9 +24,9 @@ from zope.interface import Interface
 
 
 class IPlacefulWorkflowTool(Interface):
-    '''
-    '''
-    id = Attribute('id', 'Must be set to "portal_workflow_policy"')
+    """ """
+
+    id = Attribute("id", 'Must be set to "portal_workflow_policy"')
 
     # security.declarePublic('getMaxChainLength')
     def getMaxChainLength(self):
@@ -43,6 +43,6 @@ class IPlacefulMarker(Interface):
 
 
 class IWorkflowPolicyDefinition(Interface):
-    '''
-    '''
+    """ """
+
     pass
