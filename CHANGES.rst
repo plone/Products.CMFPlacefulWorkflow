@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+3.0.0a2 (2022-05-14)
+--------------------
+
+Bug fixes:
+
+
+- Really remove the old icon from the skin layer, emptying it.
+  [maurits] (#33)
+
+
 3.0.0a1 (2022-01-25)
 --------------------
 
