@@ -1,10 +1,12 @@
-from setuptools import setup, find_packages
+from setuptools import find_packages
+from setuptools import setup
 
-version = '3.0.0a3.dev0'
+
+version = "3.0.0a3.dev0"
 
 
 setup(
-    name='Products.CMFPlacefulWorkflow',
+    name="Products.CMFPlacefulWorkflow",
     version=version,
     description="Workflow policies for Plone",
     # Note: long_description is in setup.cfg
@@ -20,29 +22,26 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
     ],
-    keywords='CMF Plone Zope2 workflow',
-    author='Encolpe DEGOUTE',
-    author_email='plone-developers@lists.sourceforge.net',
-    url='https://pypi.org/project/Products.CMFPlacefulWorkflow',
-    license='GPL',
+    keywords="CMF Plone Zope2 workflow",
+    author="Encolpe DEGOUTE",
+    author_email="plone-developers@lists.sourceforge.net",
+    url="https://pypi.org/project/Products.CMFPlacefulWorkflow",
+    license="GPL",
     packages=find_packages(),
-    namespace_packages=['Products'],
+    namespace_packages=["Products"],
     include_package_data=True,
     zip_safe=False,
     extras_require=dict(
-        test=[
-            'plone.app.testing',
-            'zope.testing',
-        ],
+        test=["plone.app.testing", "zope.testing", "plone.app.robotframework"],
     ),
     install_requires=[
-        'setuptools',
-        'six',
-        'zope.component',
-        'zope.interface',
-        'zope.i18nmessageid',
-        'Products.CMFCore',
-        'Products.CMFPlone',
-        'Products.GenericSetup >= 2.0',
+        "setuptools",
+        "six",
+        "zope.component",
+        "zope.interface",
+        "zope.i18nmessageid",
+        "Products.CMFCore",
+        "Products.CMFPlone",
+        "Products.GenericSetup >= 2.0",
     ],
 )
