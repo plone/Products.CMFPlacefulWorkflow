@@ -32,7 +32,7 @@
                 <form action=""
                       name=""
                       method="post"
-                      tal:attributes="action string:${context/absolute_url}/@@prefs_workflow_localpolicies_form"
+                      tal:attributes="action string:${context/absolute_url}/@@workflow-policies-controlpanel"
                       tal:define="wfp python:context.portal_placeful_workflow;">
 
                     <fieldset class="mb-3">
@@ -48,8 +48,8 @@
 
                             <label for="policy_id"
                                    tal:attributes="for wfpid">
-                                <a href="prefs_workflow_policy_mapping"
-                                   tal:attributes="href python:'prefs_workflow_policy_mapping?wfpid='+wfpid"
+                                <a href="prefs-workflow-policy-mapping"
+                                   tal:attributes="href python:'prefs-workflow-policy-mapping?wfpid='+wfpid"
                                    tal:content="python:wfp.getTitle() or wfp.getId()"
                                    i18n:translate="">
                                     Title of the policy mapping

@@ -5,7 +5,7 @@
 
     <browser:page
         for="*"
-        name="placeful_workflow_configuration"
+        name="workflow-policies-controlpanel"
         class=".views.PlacefulWorkflowConfiguration"
         template="placeful_workflow_configuration.pt"
         permission="CMFPlacefulWorkflow.ManageWorkflowPolicies"
@@ -13,7 +13,7 @@
 
     <browser:page
         for="*"
-        name="prefs_workflow_policy_mapping"
+        name="prefs-workflow-policy-mapping"
         class=".views.WorkflowPolicyMapping"
         template="prefs_workflow_policy_mapping.pt"
         permission="CMFPlacefulWorkflow.ManageWorkflowPolicies"
@@ -21,7 +21,7 @@
 
     <browser:page
         for="*"
-        name="prefs_workflow_localpolicies_form"
+        name="prefs-workflow-localpolicies-form"
         class=".views.WorkflowPoliciesForm"
         template="prefs_workflow_localpolicies_form.pt"
         permission="CMFPlacefulWorkflow.ManageWorkflowPolicies"

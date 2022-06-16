@@ -8,7 +8,7 @@
   title="Workflow Policies" action_id="placefulworkflow"
   appId="CMFPlacefulWorkflow" category="Products" condition_expr=""
   icon_expr="string:toolbar-action/workflow"
-  url_expr="string:$portal_url/prefs_workflow_localpolicies_form" visible="True"
+  url_expr="string:$portal_url/workflow-policies-controlpanel" visible="True"
   i18n:attributes="title">
   <permission>Manage portal</permission>
  </configlet>

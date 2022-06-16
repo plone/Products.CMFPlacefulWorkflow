@@ -32,7 +32,7 @@
 
           <a href=""
             class="link-parent"
-            tal:attributes="href string:$portal_url/prefs_workflow_localpolicies_form"
+            tal:attributes="href string:$portal_url/workflow-policies-controlpanel"
             i18n:translate="label_up_to_placeful_workflow">
             Up to Placeful Workflow
           </a>
@@ -40,8 +40,8 @@
         </header>
 
         <div id="content-core">
-          <form name="prefs_workflow_policy_mapping_set"
-                action="${context/absolute_url}/@@prefs_workflow_policy_mapping"
+          <form name="prefs-workflow-policy-mapping_set"
+                action="${context/absolute_url}/@@prefs-workflow-policy-mapping"
                 method="post">
 
               <fieldset>

@@ -36,7 +36,7 @@
 
         <form
           tal:condition="python:not config and context.isPrincipiaFolderish"
-          action="placeful_workflow_configuration" method="POST">
+          action="workflow-policies-controlpanel" method="POST">
           <button type="submit" name="add_wp_for_type" class="btn btn-primary"
             i18n:translate="description_add_workflow_policy_for_type">
             Add a workflow policy's local configuration in the
@@ -47,7 +47,7 @@
 
         <form
           tal:condition="python:not context.isPrincipiaFolderish and context is not container"
-          action="placeful_workflow_configuration" method="POST">
+          action="workflow-policies-controlpanel" method="POST">
           <button type="submit" name="add_wp_local_config" class="btn btn-primary"
             i18n:translate="description_add_workflow_policy">
             Add Workflow policy's local configuration
@@ -57,7 +57,7 @@
         <form id="edit_form"
           name="edit_form"
           method="POST"
-          action="${context/absolute_url}/@@placeful_workflow_configuration"
+          action="${context/absolute_url}/@@workflow-policies-controlpanel"
           tal:condition="config">
 
           <tal:defines
