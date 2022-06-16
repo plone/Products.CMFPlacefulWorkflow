@@ -7,7 +7,7 @@
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="cmfplacefulworkflow">
 
-    <div metal:fill-slot="main"
+    <metal:main metal:fill-slot="main"
          tal:define="wf_list context/portal_workflow/objectIds;
                      pwtool context/portal_placeful_workflow;
                      config python: pwtool.getWorkflowPolicyConfig(context);
@@ -16,188 +16,190 @@
         <h1 i18n:translate="heading_workflow_policies">
           Workflow policies' local configuration management
         </h1>
-  
+
         <p class="lead" i18n:translate="description_workflow_policies">
           Set your workflow policies' local configuration for this folder and below.
         </p>
       </header>
-      
 
-      <tal:site tal:condition="siteroot">
+      <div id="content-core">
+        <tal:site tal:condition="siteroot">
 
-      <div class="alert alert-warning mb-5" i18n:translate="">
-        You are viewing the root of your site. Local workflow
-        configuration is only available in subfolders of your site.
+        <div class="alert alert-warning mb-5" i18n:translate="">
+          You are viewing the root of your site. Local workflow
+          configuration is only available in subfolders of your site.
+        </div>
+
+        </tal:site>
+
+        <tal:nosite tal:condition="not:siteroot">
+
+        <form
+          tal:condition="python:not config and context.isPrincipiaFolderish"
+          action="placeful_workflow_configuration" method="POST">
+          <button type="submit" name="add_wp_for_type" class="btn btn-primary"
+            i18n:translate="description_add_workflow_policy_for_type">
+            Add a workflow policy's local configuration in the
+            <span tal:replace="python:context.translate(context.portal_type)"
+              i18n:name="portal_type">portal type</span>
+          </button>
+        </form>
+
+        <form
+          tal:condition="python:not context.isPrincipiaFolderish and context is not container"
+          action="placeful_workflow_configuration" method="POST">
+          <button type="submit" name="add_wp_local_config" class="btn btn-primary"
+            i18n:translate="description_add_workflow_policy">
+            Add Workflow policy's local configuration
+          </button>
+        </form>
+
+        <form id="edit_form"
+          name="edit_form"
+          method="POST"
+          action="${context/absolute_url}/@@placeful_workflow_configuration"
+          tal:condition="config">
+
+          <tal:defines
+            tal:define="
+              policies pwtool/getWorkflowPolicyInfos;
+              policy_in_id config/getPolicyInId;
+              policy_below_id config/getPolicyBelowId;">
+
+          <h3 i18n:translate="legend_publishing_details">Workflow policies</h3>
+
+          <strong i18n:translate="label_in_this_folder">For this Folder</strong>
+
+          <div class="mb-3 form-text"
+            i18n:translate="description_in_this_folder">
+            Modify the workflows of this folder and below. If you don't want
+            to modify the workflow of this Folder use 'Below this Folder' section.
+          </div>
+
+          <div class="mb-3 form-check" tal:repeat="policy policies">
+
+            <input type="radio" class="form-check-input" name="policy_in"
+              value="policy" id="cb_policy"
+              tal:attributes="
+                id python: 'cb_policy_' + policy['id'];
+                value policy/id;
+                checked python: policy['id'] == policy_in_id" />
+
+            <label class="form-check-label" for="cb_policy"
+              tal:attributes="for python: 'cb_policy_' + policy['id']"
+              tal:content="policy/title"
+              i18n:domain="cmfplacefulworkflow"
+              i18n:translate="">Policy Label</label>
+
+            <div class="form-text" tal:condition="policy/description"
+              tal:content="policy/description">Workflow policy description</div>
+
+          </div>
+
+          <div class="mb-3 form-check">
+
+            <input type="radio" class="form-check-input" name="policy_in"
+              id="cb_default_policy" title="" checked="checked"
+              tal:attributes="value python:''; checked not:config/getPolicyIn" />
+
+            <label for="cb_default_policy" class="form-check-label" i18n:translate="label_default_policy">Default Policy</label>
+
+            <div class="form-text"
+              i18n:translate="help_default_workflow_policy">
+              The default workflow policy.
+            </div>
+
+          </div>
+
+          <strong i18n:translate="label_below_this_folder">Below this Folder</strong>
+
+          <div class="mb-3 form-text"
+            i18n:translate="description_below_this_folder">
+            Modify the workflows only below this Folder. If you want to
+            modify the workflow of this Folder use 'For this Folder' section.
+          </div>
+
+          <div class="mb-3 form-check" tal:repeat="policy policies">
+
+            <input type="radio" class="form-check-input" name="policy_below"
+              value="policy" id="cb_policy"
+              tal:attributes="
+                id python: 'cb_policy_below_' + policy['id'];
+                value policy/id;
+                checked python: policy['id'] == policy_below_id" />
+
+            <label for="cb_policy" class="form-check-label"
+              tal:attributes="for python: 'cb_policy_below_' + policy['id']"
+              tal:content="policy/title"
+              i18n:domain="cmfplacefulworkflow"
+              i18n:translate="">Policy Label</label>
+
+            <div class="form-text" tal:content="policy/description">
+              Workflow policy description
+            </div>
+
+          </div>
+
+          <div class="mb-3 form-check">
+
+            <input type="radio"
+              class="form-check-input"
+              name="policy_below"
+              id="cb_default_policy_below"
+              title=""
+              checked="1"
+              tal:attributes="value python:'';
+                checked not: config/getPolicyBelow" />
+
+            <label for="cb_default_policy_below" class="form-check-label"
+              i18n:translate="label_default_policy">Default Policy</label>
+
+            <div class="form-text" i18n:translate="help_default_workflow_policy">
+              The default workflow policy.
+            </div>
+
+          </div>
+
+          <strong i18n:translate="label_update_security">Update security</strong>
+
+          <div class="mb-3 form-text"
+            i18n:translate="description_update_security">
+            Update catalog security (update role mappings). Note that updating catalog
+            security might be a very long operation if there are a lot of brains to be
+            re-indexed. This operation can be done afterwards as a separate upgrade step.
+          </div>
+
+          <div class="mb-3 form-check">
+
+            <input type="checkbox" checked="checked" class="form-check-input"
+              name="update_security" value="update_security" id="cb_update_security" />
+
+            <label for="cb_update_security" class="form-check-label"
+              i18n:domain="cmfplacefulworkflow"
+              i18n:translate="">Update catalog role mappings</label>
+
+          </div>
+
+          <div class="mb-3" i18n:domain="plone">
+
+            <input class="btn btn-primary"
+              type="submit"
+              name="submit"
+              value="Save"
+              i18n:attributes="value label_save;" />
+
+            <input class="btn btn-secondary"
+              type="submit"
+              name="submit"
+              value="Cancel"
+              i18n:attributes="value label_cancel;" />
+          </div>
+
+        </tal:defines>
+        </form>
+
+        </tal:nosite>
       </div>
 
-      </tal:site>
-
-      <tal:nosite tal:condition="not:siteroot">
-      
-      <form
-        tal:condition="python:not config and context.isPrincipiaFolderish"
-        action="placeful_workflow_configuration" method="POST">
-        <button type="submit" name="add_wp_for_type" class="btn btn-primary"
-          i18n:translate="description_add_workflow_policy_for_type">
-          Add a workflow policy's local configuration in the
-          <span tal:replace="python:context.translate(context.portal_type)"
-            i18n:name="portal_type">portal type</span>
-        </button>
-      </form>
-      
-      <form
-        tal:condition="python:not context.isPrincipiaFolderish and context is not container"
-        action="placeful_workflow_configuration" method="POST">
-        <button type="submit" name="add_wp_local_config" class="btn btn-primary"
-          i18n:translate="description_add_workflow_policy">
-          Add Workflow policy's local configuration
-        </button>
-      </form>
-      
-      <form id="edit_form"
-        name="edit_form"
-        method="POST"
-        action="${context/absolute_url}/@@placeful_workflow_configuration"
-        tal:condition="config">
-
-        <tal:defines 
-          tal:define="
-            policies pwtool/getWorkflowPolicyInfos;
-            policy_in_id config/getPolicyInId;
-            policy_below_id config/getPolicyBelowId;">
-
-        <h3 i18n:translate="legend_publishing_details">Workflow policies</h3>
-
-        <strong i18n:translate="label_in_this_folder">For this Folder</strong>
-                  
-        <div class="mb-3 form-text"
-          i18n:translate="description_in_this_folder">
-          Modify the workflows of this folder and below. If you don't want
-          to modify the workflow of this Folder use 'Below this Folder' section.
-        </div>
-                  
-        <div class="mb-3 form-check" tal:repeat="policy policies">                    
-              
-          <input type="radio" class="form-check-input" name="policy_in"
-            value="policy" id="cb_policy"
-            tal:attributes="
-              id python: 'cb_policy_' + policy['id'];
-              value policy/id;
-              checked python: policy['id'] == policy_in_id" />
-              
-          <label class="form-check-label" for="cb_policy"
-            tal:attributes="for python: 'cb_policy_' + policy['id']"
-            tal:content="policy/title"
-            i18n:domain="cmfplacefulworkflow"
-            i18n:translate="">Policy Label</label>
-              
-          <div class="form-text" tal:condition="policy/description"
-            tal:content="policy/description">Workflow policy description</div>
-            
-        </div>
-
-        <div class="mb-3 form-check">
-              
-          <input type="radio" class="form-check-input" name="policy_in"
-            id="cb_default_policy" title="" checked="checked"
-            tal:attributes="value python:''; checked not:config/getPolicyIn" />
-              
-          <label for="cb_default_policy" class="form-check-label" i18n:translate="label_default_policy">Default Policy</label>
-              
-          <div class="form-text"
-            i18n:translate="help_default_workflow_policy">
-            The default workflow policy.
-          </div>                  
-        
-        </div>
-
-        <strong i18n:translate="label_below_this_folder">Below this Folder</strong>
-                  
-        <div class="mb-3 form-text"
-          i18n:translate="description_below_this_folder">
-          Modify the workflows only below this Folder. If you want to
-          modify the workflow of this Folder use 'For this Folder' section.
-        </div>
-            
-        <div class="mb-3 form-check" tal:repeat="policy policies">
-           
-          <input type="radio" class="form-check-input" name="policy_below"
-            value="policy" id="cb_policy"
-            tal:attributes="
-              id python: 'cb_policy_below_' + policy['id'];
-              value policy/id;
-              checked python: policy['id'] == policy_below_id" />
-
-          <label for="cb_policy" class="form-check-label" 
-            tal:attributes="for python: 'cb_policy_below_' + policy['id']"
-            tal:content="policy/title"
-            i18n:domain="cmfplacefulworkflow"
-            i18n:translate="">Policy Label</label>
-
-          <div class="form-text" tal:content="policy/description">
-            Workflow policy description
-          </div>
-        
-        </div>
-            
-        <div class="mb-3 form-check">
-              
-          <input type="radio"
-            class="form-check-input"
-            name="policy_below"
-            id="cb_default_policy_below"
-            title=""
-            checked="1"
-            tal:attributes="value python:'';
-              checked not: config/getPolicyBelow" />
-                    
-          <label for="cb_default_policy_below" class="form-check-label"
-            i18n:translate="label_default_policy">Default Policy</label>
-                    
-          <div class="form-text" i18n:translate="help_default_workflow_policy">
-            The default workflow policy.
-          </div>
-                  
-        </div>
-
-        <strong i18n:translate="label_update_security">Update security</strong>
-            
-        <div class="mb-3 form-text"
-          i18n:translate="description_update_security">
-          Update catalog security (update role mappings). Note that updating catalog
-          security might be a very long operation if there are a lot of brains to be
-          re-indexed. This operation can be done afterwards as a separate upgrade step.
-        </div>
-
-        <div class="mb-3 form-check">
-              
-          <input type="checkbox" checked="checked" class="form-check-input"
-            name="update_security" value="update_security" id="cb_update_security" />
-
-          <label for="cb_update_security" class="form-check-label"
-            i18n:domain="cmfplacefulworkflow"
-            i18n:translate="">Update catalog role mappings</label>
-            
-        </div>
-
-        <div class="mb-3" i18n:domain="plone">
-        
-          <input class="btn btn-primary"
-            type="submit"
-            name="submit"
-            value="Save"
-            i18n:attributes="value label_save;" />
-          
-          <input class="btn btn-secondary"
-            type="submit"
-            name="submit"
-            value="Cancel"
-            i18n:attributes="value label_cancel;" />
-        </div>
-        
-      </tal:defines>
-      </form>
-      
-      </tal:nosite>
-    </div>
+    </metal:main>
 </html>

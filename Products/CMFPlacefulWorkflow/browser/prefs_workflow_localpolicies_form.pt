@@ -1,4 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
@@ -7,49 +7,27 @@
       metal:use-macro="context/prefs_main_template/macros/master"
       i18n:domain="cmfplacefulworkflow">
 
-    <metal:block fill-slot="top_slot"/>
-
-    <div metal:fill-slot="prefs_configlet_content"
-         tal:define="errors python:request.get('errors', {});"
-         class="configlet">
+    <metal:main metal:fill-slot="prefs_configlet_main"
+         tal:define="errors python:request.get('errors', {});">
 
         <span tal:define="dummy python:request.response.setHeader('pragma','no-cache')" />
 
+
+        <header>
+            <h1 i18n:translate="title_workflow_policy_setup">
+                Workflow Policies Setup
+            </h1>
+            <p i18n:translate="description_workflow_policy_setup">
+                Here you can create and configure your workflow policies.
+                A policy modifies workflows for any items in or below
+                a specific folder. To apply a policy you have to add a
+                local workflow policy configuration to the desired
+                folder using the 'policy' item in the 'state' drop-down
+                menu.
+            </p>
+        </header>
+
         <div id="content">
-
-            <h5 class="hiddenStructure">Views</h5>
-
-            <div class="documentContent" id="region-content">
-
-                <a name="documentContent"></a>
-
-                <h1 i18n:translate="heading_placeful_workflow">
-                    Workflow Policies
-                </h1>
-
-                <a id="setup-link" class="link-parent"
-                   tal:attributes="href string:$portal_url/@@overview-controlpanel"
-                   i18n:domain="plone"
-                   i18n:translate="label_up_to_plone_setup">
-                    Up to Plone Setup
-                </a>
-
-                <div metal:use-macro="context/global_statusmessage/macros/portal_message">
-                  Portal status message
-                </div>
-
-                <h3 i18n:translate="title_workflow_policy_setup">
-                    Workflow Policies Setup
-                </h3>
-
-                <p i18n:translate="description_workflow_policy_setup">
-                    Here you can create and configure your workflow policies.
-                    A policy modifies workflows for any items in or below
-                    a specific folder. To apply a policy you have to add a
-                    local workflow policy configuration to the desired
-                    folder using the 'policy' item in the 'state' drop-down
-                    menu.
-                </p>
 
                 <form action=""
                       name=""
@@ -123,8 +101,8 @@
                              tal:define="error errors/policy_id | nothing;"
                              tal:attributes="class python:'field error mb-3' if error else 'field mb-3'">
 
-                            <label >
-                              <span tal:omit-tag="" i18n:translate="label_duplicate_policy_id">Duplicate another policy</span>                            
+                            <label class="form-label">
+                              <span tal:omit-tag="" i18n:translate="label_duplicate_policy_id">Duplicate another policy</span>
                               <span class="fieldRequired" title="Required"
                                 i18n:domain="plone"
                                 i18n:attributes="title title_required;"
@@ -142,7 +120,7 @@
                                       tal:attributes="value wfpid"
                                       tal:content="python:wfp.getWorkflowPolicyById(wfpid).getTitle()">WF policy id</option>
                             </select>
-                            
+
                             <div class="form-text" id=""
                                  i18n:translate="description_duplicate_policy_id">
                                 Choose a policy to copy when creating the new policy.
@@ -150,7 +128,7 @@
                             </div>
 
                             <div tal:content="error">Validation error output</div>
-                            
+
                         </div>
 
                         <div class="formControls">
@@ -163,8 +141,7 @@
                     </fieldset>
                 </form>
 
-            </div>
         </div>
 
-    </div>
+    </metal:main>
 </html>
