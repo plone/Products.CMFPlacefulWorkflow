@@ -32,7 +32,7 @@
                 <form action=""
                       name=""
                       method="post"
-                      tal:attributes="action string:${context/absolute_url}/@@placeful-workflow-configuration"
+                      tal:attributes="action string:${context/absolute_url}/@@workflow-policies-controlpanel"
                       tal:define="wfp python:context.portal_placeful_workflow;">
 
                     <fieldset class="mb-3">
