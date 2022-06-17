@@ -50,7 +50,7 @@ def PlacefulWorkflowChain(ob, tool):
         # portal_workflow
         return ToolWorkflowChain(ob, tool)
 
-    elif hasattr(aq_base(ob), 'getPortalTypeName'):
+    elif hasattr(aq_base(ob), "getPortalTypeName"):
         portal_type = ob.getPortalTypeName()
     else:
         portal_type = None
@@ -67,12 +67,13 @@ def PlacefulWorkflowChain(ob, tool):
     # start_here is used to check 'In policy': We check it only in the
     # first folder
     start_here = True
-    portal = aq_base(getToolByName(tool, 'portal_url').getPortalObject())
+    portal = aq_base(getToolByName(tool, "portal_url").getPortalObject())
     while chain is None and current_ob is not None:
         if base_hasattr(current_ob, WorkflowPolicyConfig_id):
             wfpolicyconfig = getattr(current_ob, WorkflowPolicyConfig_id)
-            chain = wfpolicyconfig.getPlacefulChainFor(portal_type,
-                                                       start_here=start_here)
+            chain = wfpolicyconfig.getPlacefulChainFor(
+                portal_type, start_here=start_here
+            )
             if chain is not None:
                 return chain
 

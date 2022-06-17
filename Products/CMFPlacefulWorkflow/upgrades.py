@@ -1,4 +1,4 @@
-PROFILE_ID = 'profile-Products.CMFPlacefulWorkflow:CMFPlacefulWorkflow'
+PROFILE_ID = "profile-Products.CMFPlacefulWorkflow:CMFPlacefulWorkflow"
 
 
 def apply_full_profile(context):

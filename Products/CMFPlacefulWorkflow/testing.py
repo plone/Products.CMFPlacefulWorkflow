@@ -25,18 +25,21 @@ class ProductsCmfplacefulworkflowLayer(PloneSandboxLayer):
         # layer.
         self.loadZCML(package=Products.CMFPlacefulWorkflow)
         profile_registry.registerProfile(
-            name='exportimport', title='Test Placeful Workflow Profile',
-            description=(
-                "Tests the placeful workflow policy handler."),
-            path='profiles/exportimport',
-            product='Products.CMFPlacefulWorkflow.tests',
-            profile_type=EXTENSION, for_=ISiteRoot)
-        z2.installProduct(app, 'Products.CMFPlacefulWorkflow')
+            name="exportimport",
+            title="Test Placeful Workflow Profile",
+            description=("Tests the placeful workflow policy handler."),
+            path="profiles/exportimport",
+            product="Products.CMFPlacefulWorkflow.tests",
+            profile_type=EXTENSION,
+            for_=ISiteRoot,
+        )
+        z2.installProduct(app, "Products.CMFPlacefulWorkflow")
 
     def setUpPloneSite(self, portal):
         portal.acl_users.userFolderAddUser(
-            SITE_OWNER_NAME, SITE_OWNER_PASSWORD, ['Manager'], [])
-        applyProfile(portal, 'Products.CMFPlacefulWorkflow:CMFPlacefulWorkflow')
+            SITE_OWNER_NAME, SITE_OWNER_PASSWORD, ["Manager"], []
+        )
+        applyProfile(portal, "Products.CMFPlacefulWorkflow:CMFPlacefulWorkflow")
 
 
 PRODUCTS_CMFPLACEFULWORKFLOW_FIXTURE = ProductsCmfplacefulworkflowLayer()
@@ -44,13 +47,13 @@ PRODUCTS_CMFPLACEFULWORKFLOW_FIXTURE = ProductsCmfplacefulworkflowLayer()
 
 PRODUCTS_CMFPLACEFULWORKFLOW_INTEGRATION_TESTING = IntegrationTesting(
     bases=(PRODUCTS_CMFPLACEFULWORKFLOW_FIXTURE,),
-    name='ProductsCmfplacefulworkflowLayer:IntegrationTesting',
+    name="ProductsCmfplacefulworkflowLayer:IntegrationTesting",
 )
 
 
 PRODUCTS_CMFPLACEFULWORKFLOW_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(PRODUCTS_CMFPLACEFULWORKFLOW_FIXTURE,),
-    name='ProductsCmfplacefulworkflowLayer:FunctionalTesting',
+    name="ProductsCmfplacefulworkflowLayer:FunctionalTesting",
 )
 
 
@@ -60,5 +63,5 @@ PRODUCTS_CMFPLACEFULWORKFLOW_ACCEPTANCE_TESTING = FunctionalTesting(
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
         z2.ZSERVER_FIXTURE,
     ),
-    name='ProductsCmfplacefulworkflowLayer:AcceptanceTesting',
+    name="ProductsCmfplacefulworkflowLayer:AcceptanceTesting",
 )

@@ -20,9 +20,9 @@ A simple workflow policy.
 """
 
 from AccessControl import ClassSecurityInfo
+from AccessControl.class_init import InitializeClass
 from AccessControl.requestmethod import postonly
 from Acquisition import aq_base
-from AccessControl.class_init import InitializeClass
 from os.path import join as path_join
 from Persistence import PersistentMapping
 from Products.CMFCore.utils import getToolByName
@@ -37,15 +37,15 @@ from zope.interface import implementer
 import six
 
 
-DEFAULT_CHAIN = '(Default)'
-_MARKER = '_MARKER'
+DEFAULT_CHAIN = "(Default)"
+_MARKER = "_MARKER"
 
 
 @implementer(IWorkflowPolicyDefinition)
 class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
 
-    meta_type = 'WorkflowPolicy'
-    id = 'default_workflow_policy'
+    meta_type = "WorkflowPolicy"
+    id = "default_workflow_policy"
     _isAWorkflowPolicy = 1
 
     _chains_by_type = None  # PersistentMapping
@@ -53,64 +53,59 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
 
     security = ClassSecurityInfo()
 
-    manage_options = (
-        {'label': 'Workflows', 'action': 'manage_main'},
-    )
+    manage_options = ({"label": "Workflows", "action": "manage_main"},)
     #
     #   ZMI methods
     #
 
-    security.declareProtected(ManageWorkflowPolicies, '_manage_workflows')
-    _manage_workflows = PageTemplateFile(path_join('www', 'define_local_workflow_policy'),
-                                         globals(),
-                                         __name__='manage_main')
+    security.declareProtected(ManageWorkflowPolicies, "_manage_workflows")
+    _manage_workflows = PageTemplateFile(
+        path_join("www", "define_local_workflow_policy"),
+        globals(),
+        __name__="manage_main",
+    )
 
     def __init__(self, id):
         self.id = id
-        self.title = ''
-        self.description = ''
+        self.title = ""
+        self.description = ""
 
-    security.declareProtected(ManageWorkflowPolicies, 'getId')
+    security.declareProtected(ManageWorkflowPolicies, "getId")
 
     def getId(self):
-        """ Return the id
-        """
+        """Return the id"""
         return self.id
 
-    security.declareProtected(ManageWorkflowPolicies, 'getTitle')
+    security.declareProtected(ManageWorkflowPolicies, "getTitle")
 
     def getTitle(self):
-        """ Return the title
-        """
-        title = getattr(self, 'title', '')
+        """Return the title"""
+        title = getattr(self, "title", "")
         return title
 
-    security.declareProtected(ManageWorkflowPolicies, 'getDescription')
+    security.declareProtected(ManageWorkflowPolicies, "getDescription")
 
     def getDescription(self):
-        """ Return the description
-        """
-        description = getattr(self, 'description', '')
+        """Return the description"""
+        description = getattr(self, "description", "")
         return description
 
-    security.declareProtected(ManageWorkflowPolicies, 'setTitle')
+    security.declareProtected(ManageWorkflowPolicies, "setTitle")
 
     def setTitle(self, title):
-        """ Set the title
-        """
+        """Set the title"""
         self.title = title
 
-    security.declareProtected(ManageWorkflowPolicies, 'setDescription')
+    security.declareProtected(ManageWorkflowPolicies, "setDescription")
 
     def setDescription(self, description):
-        """ Set the description
-        """
+        """Set the description"""
         self.description = description
 
-    security.declareProtected(ManageWorkflowPolicies, 'manage_main')
+    security.declareProtected(ManageWorkflowPolicies, "manage_main")
 
     def manage_main(self, REQUEST, manage_tabs_message=None):
-        """ Show a management screen for changing type to workflow connections
+        """Show a management screen for changing type to workflow connections
 
         Display 'None' if there's no chain for a type.
         """
@@ -124,28 +119,32 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
                 title = None
 
             if cbt is not None and id in cbt:
-                chain = ', '.join(cbt[id])
+                chain = ", ".join(cbt[id])
             else:
-                chain = 'None'
+                chain = "None"
 
-            types_info.append({
-                'id': id,
-                'title': title,
-                'chain': chain,
-                # 'cbt': repr(cbt.get(id)),  # for debug purpose
-            })
+            types_info.append(
+                {
+                    "id": id,
+                    "title": title,
+                    "chain": chain,
+                    # 'cbt': repr(cbt.get(id)),  # for debug purpose
+                }
+            )
         return self._manage_workflows(
             REQUEST,
-            default_chain=', '.join(self._default_chain or ()),
+            default_chain=", ".join(self._default_chain or ()),
             types_info=types_info,
-            management_view='Workflows',
-            manage_tabs_message=manage_tabs_message)
+            management_view="Workflows",
+            manage_tabs_message=manage_tabs_message,
+        )
 
-    security.declareProtected(ManageWorkflowPolicies, 'manage_changeWorkflows')
+    security.declareProtected(ManageWorkflowPolicies, "manage_changeWorkflows")
 
     def manage_changeWorkflows(
-            self, title, description, default_chain, props=None, REQUEST=None):
-        """ Changes which workflows apply to objects of which type
+        self, title, description, default_chain, props=None, REQUEST=None
+    ):
+        """Changes which workflows apply to objects of which type
 
         A chain equal to 'None' is empty we remove the entry.
         """
@@ -161,10 +160,10 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
         # Set up the chains by type.
         for t in ti:
             id = t.getId()
-            field_name = 'chain_%s' % id
+            field_name = "chain_%s" % id
             chain = props.get(field_name, DEFAULT_CHAIN).strip()
 
-            if chain == 'None':
+            if chain == "None":
                 if cbt.get(id, _MARKER) is not _MARKER:
                     self.delChain(id)
                 continue
@@ -174,19 +173,20 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
         # Set up the default chain.
         self.setDefaultChain(default_chain)
         if REQUEST is not None:
-            return self.manage_main(REQUEST, manage_tabs_message='Changed.')
+            return self.manage_main(REQUEST, manage_tabs_message="Changed.")
+
     manage_changeWorkflows = postonly(manage_changeWorkflows)
 
-    security.declareProtected(ManageWorkflowPolicies, 'setChainForPortalTypes')
+    security.declareProtected(ManageWorkflowPolicies, "setChainForPortalTypes")
 
     def setChainForPortalTypes(self, pt_names, chain, REQUEST=None):
-        """ Set a chain for portal types.
-        """
+        """Set a chain for portal types."""
         for portal_type in pt_names:
             self.setChain(portal_type, chain)
+
     setChainForPortalTypes = postonly(setChainForPortalTypes)
 
-    security.declareProtected(ManageWorkflowPolicies, 'getChainFor')
+    security.declareProtected(ManageWorkflowPolicies, "getChainFor")
 
     def getChainFor(self, ob, managescreen=False):
         """Returns the chain that applies to the object.
@@ -202,7 +202,7 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
         cbt = self._chains_by_type
         if isinstance(ob, six.string_types):
             pt = ob
-        elif hasattr(aq_base(ob), '_getPortalTypeName'):
+        elif hasattr(aq_base(ob), "_getPortalTypeName"):
             pt = ob._getPortalTypeName()
         else:
             pt = None
@@ -216,9 +216,9 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
 
         # Backwards compatibility: before chain was a string, not a list
         if chain is not _MARKER and isinstance(chain, six.string_types):
-            chain = map(lambda x: x.strip(), chain.split(','))
+            chain = map(lambda x: x.strip(), chain.split(","))
 
-        Log.debug('Chain founded in policy %s', chain)
+        Log.debug("Chain founded in policy %s", chain)
         if chain is _MARKER or chain is None:
             return None
         elif len(chain) == 1 and chain[0] == DEFAULT_CHAIN:
@@ -233,56 +233,59 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
 
         return chain
 
-    security.declareProtected(ManageWorkflowPolicies, 'setDefaultChain')
+    security.declareProtected(ManageWorkflowPolicies, "setDefaultChain")
 
     def setDefaultChain(self, default_chain, REQUEST=None):
-        """ Sets the default chain for this tool. """
-        wftool = getToolByName(self, 'portal_workflow')
+        """Sets the default chain for this tool."""
+        wftool = getToolByName(self, "portal_workflow")
 
         if isinstance(default_chain, six.string_types):
-            default_chain = map(lambda x: x.strip(), default_chain.split(','))
+            default_chain = map(lambda x: x.strip(), default_chain.split(","))
         ids = []
         for wf_id in default_chain:
             if wf_id:
                 if not wftool.getWorkflowById(wf_id):
-                    raise ValueError("'%s' is not a workflow ID.\nchain: %s" % (
-                        wf_id, repr(default_chain)))
+                    raise ValueError(
+                        "'%s' is not a workflow ID.\nchain: %s"
+                        % (wf_id, repr(default_chain))
+                    )
                 ids.append(wf_id)
 
         self._default_chain = tuple(ids)
+
     setDefaultChain = postonly(setDefaultChain)
 
-    security.declareProtected(ManageWorkflowPolicies, 'getDefaultChain')
+    security.declareProtected(ManageWorkflowPolicies, "getDefaultChain")
 
     def getDefaultChain(self, ob):
-        """ Returns the default chain."""
+        """Returns the default chain."""
         if self._default_chain is None:
-            wf_tool = getToolByName(self, 'portal_workflow')
+            wf_tool = getToolByName(self, "portal_workflow")
             return wf_tool.getDefaultChainFor(ob)
         else:
             return self._default_chain
 
-    security.declareProtected(ManageWorkflowPolicies, 'setChain')
+    security.declareProtected(ManageWorkflowPolicies, "setChain")
 
     def setChain(self, portal_type, chain, REQUEST=None):
         """Set the chain for a portal type.
 
-           @type chain: tuple of strings or None
-           @param chain: A tuple of workflow ids to be set for the portal type.
-                         A few special values exsist:
-                           - C{None}: Acquire chain from a policy above,
-                                      ultimatly from the portal workflow settings.
-                           - C{()} (empty tuple): No workflow for this type.
-                           - C{('default',)}: Use the configured default workflow.
+        @type chain: tuple of strings or None
+        @param chain: A tuple of workflow ids to be set for the portal type.
+                      A few special values exsist:
+                        - C{None}: Acquire chain from a policy above,
+                                   ultimatly from the portal workflow settings.
+                        - C{()} (empty tuple): No workflow for this type.
+                        - C{('default',)}: Use the configured default workflow.
         """
         # Verify input data
         if portal_type not in [pt.id for pt in self._listTypeInfo()]:
             raise ValueError("'%s' is not a valid portal type." % portal_type)
 
         if isinstance(chain, six.string_types):
-            chain = [i.strip() for i in chain.split(',')]
+            chain = [i.strip() for i in chain.split(",")]
 
-        wftool = getToolByName(self, 'portal_workflow')
+        wftool = getToolByName(self, "portal_workflow")
         cbt = self._chains_by_type
         if cbt is None:
             self._chains_by_type = cbt = PersistentMapping()
@@ -295,36 +298,37 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
             cbt[portal_type] = chain
         else:
             for wf_id in chain:
-                if wf_id != '' and not wftool.getWorkflowById(wf_id):
-                    raise ValueError("'%s' is not a workflow ID.\nchain: %s" % (
-                        wf_id, repr(chain)))
+                if wf_id != "" and not wftool.getWorkflowById(wf_id):
+                    raise ValueError(
+                        "'%s' is not a workflow ID.\nchain: %s" % (wf_id, repr(chain))
+                    )
             cbt[portal_type] = tuple(chain)
+
     setChain = postonly(setChain)
 
-    security.declareProtected(ManageWorkflowPolicies, 'delChain')
+    security.declareProtected(ManageWorkflowPolicies, "delChain")
 
     def delChain(self, portal_type, REQUEST=None):
         """Delete the chain for a portal type."""
         if portal_type in self._chains_by_type:
             del self._chains_by_type[portal_type]
+
     delChain = postonly(delChain)
 
     #
     #   Helper methods
     #
-    security.declarePrivate('_listTypeInfo')
+    security.declarePrivate("_listTypeInfo")
 
     def _listTypeInfo(self):
-        """ List the portal types which are available.
-        """
-        pt = getToolByName(self, 'portal_types', None)
+        """List the portal types which are available."""
+        pt = getToolByName(self, "portal_types", None)
         if pt is None:
             return ()
         else:
             return pt.listTypeInfo()
 
+
 InitializeClass(DefaultWorkflowPolicyDefinition)
 
-addWorkflowPolicyFactory(
-    DefaultWorkflowPolicyDefinition,
-    title='Simple Policy')
+addWorkflowPolicyFactory(DefaultWorkflowPolicyDefinition, title="Simple Policy")

@@ -1,0 +1,147 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xml:lang="en"
+      lang="en"
+      metal:use-macro="context/prefs_main_template/macros/master"
+      i18n:domain="cmfplacefulworkflow">
+
+    <metal:main metal:fill-slot="prefs_configlet_main"
+         tal:define="errors python:request.get('errors', {});">
+
+        <span tal:define="dummy python:request.response.setHeader('pragma','no-cache')" />
+
+
+        <header>
+            <h1 i18n:translate="title_workflow_policy_setup">
+                Workflow Policies Setup
+            </h1>
+            <p i18n:translate="description_workflow_policy_setup">
+                Here you can create and configure your workflow policies.
+                A policy modifies workflows for any items in or below
+                a specific folder. To apply a policy you have to add a
+                local workflow policy configuration to the desired
+                folder using the 'policy' item in the 'state' drop-down
+                menu.
+            </p>
+        </header>
+
+        <div id="content">
+
+                <form action=""
+                      name=""
+                      method="post"
+                      tal:attributes="action string:${context/absolute_url}/@@workflow-policies-controlpanel"
+                      tal:define="wfp python:context.portal_placeful_workflow;">
+
+                    <fieldset class="mb-3">
+                        <legend i18n:translate="legend_workflow_policies">Existing Workflow Policies</legend>
+
+                        <div tal:repeat="wfpid python:wfp.getWorkflowPolicyIds()"
+                             class="form-check">
+
+                            <tal:wfp tal:define="wfp python:wfp.getWorkflowPolicyById(wfpid)">
+
+                            <input type="checkbox" class="form-check-input" id="policy_id" name="policy_ids:list"
+                                   tal:attributes="id wfpid; value wfpid" />
+
+                            <label for="policy_id"
+                                   tal:attributes="for wfpid">
+                                <a href="@@placeful-workflow-policy-mapping"
+                                   tal:attributes="href python:'@@placeful-workflow-policy-mapping?wfpid='+wfpid"
+                                   tal:content="python:wfp.getTitle() or wfp.getId()"
+                                   i18n:translate="">
+                                    Title of the policy mapping
+                                </a>
+                            </label>
+
+                            <div class="form-text"
+                                 tal:content="python:wfp.getDescription()">
+                                Description of the policy mapping
+                            </div>
+
+                            </tal:wfp>
+
+                        </div>
+
+                        <div class="formControls"
+                             tal:condition="python:wfp.getWorkflowPolicyIds()">
+                            <input class="btn btn-danger" type="submit" name="delete" value="Remove selected"
+                                   i18n:attributes="value label_remove_selected;"
+                                   />
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="mb-3">
+                        <legend i18n:translate="legend_add_workflow_policy">Add a workflow policy</legend>
+                        <div class="mb-3"
+                             tal:define="error errors/policy_id | nothing;"
+                             tal:attributes="class python:'field error mb-3' if error else 'mb-3'">
+
+                            <label class="form-label">
+                              <span tal:omit-tag="" i18n:translate="label_new_policy_id">New policy Id</span>
+                              <span class="fieldRequired" title="Required"
+                                    i18n:domain="plone"
+                                    i18n:attributes="title title_required;"
+                                    i18n:translate="label_required">(Required)</span>
+                            </label>
+
+                            <input name="policy_id" class="form-control" value="" size="30" />
+
+                            <div class="form-text" id=""
+                                 i18n:translate="description_new_policy_id">
+                                Enter an id for the new workflow policy
+                            </div>
+
+                            <div tal:content="error">Validation error output</div>
+
+                        </div>
+                        <div class="mb-3"
+                             tal:define="error errors/policy_id | nothing;"
+                             tal:attributes="class python:'field error mb-3' if error else 'field mb-3'">
+
+                            <label class="form-label">
+                              <span tal:omit-tag="" i18n:translate="label_duplicate_policy_id">Duplicate another policy</span>
+                              <span class="fieldRequired" title="Required"
+                                i18n:domain="plone"
+                                i18n:attributes="title title_required;"
+                                i18n:translate="label_required">(Required)</span>
+                            </label>
+
+                            <select name="policy_duplicate_id" class="form-select">
+                              <option value="empty"
+                                      i18n:translate="label_no_policy_duplicated">
+                                  No policy duplicated
+                              </option>
+                              <option value="portal_workflow"
+                                      i18n:translate="label_duplicate_portal_workflow">Global workflow</option>
+                              <option tal:repeat="wfpid python:wfp.getWorkflowPolicyIds()"
+                                      tal:attributes="value wfpid"
+                                      tal:content="python:wfp.getWorkflowPolicyById(wfpid).getTitle()">WF policy id</option>
+                            </select>
+
+                            <div class="form-text" id=""
+                                 i18n:translate="description_duplicate_policy_id">
+                                Choose a policy to copy when creating the new policy.
+                                You also can choose to start with an empty policy.
+                            </div>
+
+                            <div tal:content="error">Validation error output</div>
+
+                        </div>
+
+                        <div class="formControls">
+                            <input type="submit" class="btn btn-primary" name="add" value="Add"
+                                   i18n:attributes="value label_add;"
+                                   />
+                        </div>
+
+                        <input type="hidden" name="form_submitted" value="1" tal:attributes="value template/id" />
+                    </fieldset>
+                </form>
+
+        </div>
+
+    </metal:main>
+</html>

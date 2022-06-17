@@ -39,15 +39,15 @@ Open the policy form for the front-page and for the folder.
     >>> browser.open(portal.absolute_url())
     >>> browser.getLink(id='workflow-transition-policy').click()
     >>> browser.url
-    'http://nohost/plone/front-page/placeful_workflow_configuration'
+    'http://nohost/plone/front-page/@@placeful-workflow-configuration'
     >>> print(browser.contents)
     <...
     <h1>...Workflow policies' local configuration management...</h1>
     ...
 
-    >>> browser.open(portal.absolute_url()+'/placeful_workflow_configuration')
+    >>> browser.open(portal.absolute_url()+'/@@placeful-workflow-configuration')
     >>> browser.url
-    'http://nohost/plone/placeful_workflow_configuration'
+    'http://nohost/plone/@@placeful-workflow-configuration'
     >>> print(browser.contents)
     <...
     <h1>...Workflow policies' local configuration management...</h1>
@@ -60,7 +60,7 @@ The policy form also works for pages that aren't the default page.
     >>> browser.open(page.absolute_url())
     >>> browser.getLink('Policy').click()
     >>> browser.url
-    'http://nohost/plone/f1/doc1/placeful_workflow_configuration'
+    'http://nohost/plone/f1/doc1/@@placeful-workflow-configuration'
     >>> print(browser.contents)
     <...
     <h1>...Workflow policies' local configuration management...</h1>
@@ -81,7 +81,7 @@ Now we will add a local policy on the user folder. Old Plone Publication for the
     >>> browser.open(folder.absolute_url())
     >>> browser.getLink('Policy').click()
     >>> browser.url
-    'http://nohost/plone/f1/placeful_workflow_configuration'
+    'http://nohost/plone/f1/@@placeful-workflow-configuration'
     >>> browser.getControl(name="add_wp_for_type").click()
     >>> 'Update catalog role mappings' in browser.contents
     True

@@ -21,29 +21,30 @@ PlacefulWorkflowTool main class
 
 from AccessControl import ClassSecurityInfo
 from AccessControl import Unauthorized
+from AccessControl.class_init import InitializeClass
 from AccessControl.requestmethod import postonly
 from Acquisition import aq_parent
-from AccessControl.class_init import InitializeClass
 from OFS.Folder import Folder
 from OFS.ObjectManager import IFAwareObjectManager
+from os.path import join as path_join
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFCore.permissions import View
-from Products.CMFCore.utils import ImmutableId
 from Products.CMFCore.utils import _checkPermission
 from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.utils import ImmutableId
 from Products.CMFCore.utils import registerToolInterface
+from Products.CMFPlacefulWorkflow.interfaces import IPlacefulWorkflowTool
 from Products.CMFPlacefulWorkflow.permissions import ManageWorkflowPolicies
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
-from os.path import join as path_join
 from zope.interface import implementer
-from Products.CMFPlacefulWorkflow.interfaces import IPlacefulWorkflowTool
+
 
 WorkflowPolicyConfig_id = ".wf_policy_config"
 _MARKER = object()
 
 
-def safeEditProperty(obj, key, value, data_type='string'):
-    """ An add or edit function, surprisingly useful :) """
+def safeEditProperty(obj, key, value, data_type="string"):
+    """An add or edit function, surprisingly useful :)"""
     if obj.hasProperty(key):
         obj._updateProperty(key, value)
     else:
@@ -54,12 +55,12 @@ def addPlacefulWorkflowTool(self, REQUEST={}):
     """
     Factory method for the Placeful Workflow Tool
     """
-    id = 'portal_placeful_workflow'
+    id = "portal_placeful_workflow"
     pwt = PlacefulWorkflowTool()
     self._setObject(id, pwt, set_owner=0)
     getattr(self, id)._post_init()
     if REQUEST:
-        return REQUEST.RESPONSE.redirect(self.absolute_url() + '/manage_main')
+        return REQUEST.RESPONSE.redirect(self.absolute_url() + "/manage_main")
 
 
 @implementer(IPlacefulWorkflowTool)
@@ -68,8 +69,8 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
     PlacefulWorkflow Tool
     """
 
-    id = 'portal_placeful_workflow'
-    meta_type = 'Placeful Workflow Tool'
+    id = "portal_placeful_workflow"
+    meta_type = "Placeful Workflow Tool"
 
     _actions = []
 
@@ -79,63 +80,57 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
 
     def __init__(self):
         # Properties to be edited by site manager
-        safeEditProperty(self, 'max_chain_length', 1, data_type='int')
+        safeEditProperty(self, "max_chain_length", 1, data_type="int")
 
     _manage_addWorkflowPolicyForm = PageTemplateFile(
-        path_join('www', 'add_workflow_policy'), globals())
+        path_join("www", "add_workflow_policy"), globals()
+    )
 
-    security.declareProtected(
-        ManageWorkflowPolicies,
-        'manage_addWorkflowPolicyForm')
+    security.declareProtected(ManageWorkflowPolicies, "manage_addWorkflowPolicyForm")
 
     def manage_addWorkflowPolicyForm(self, REQUEST):
-        """ Form for adding workflow policies.
-        """
+        """Form for adding workflow policies."""
         wfpt = []
         for key in _workflow_policy_factories.keys():
             wfpt.append(key)
         wfpt.sort()
-        return self._manage_addWorkflowPolicyForm(
-            REQUEST, workflow_policy_types=wfpt)
+        return self._manage_addWorkflowPolicyForm(REQUEST, workflow_policy_types=wfpt)
 
-    security.declareProtected(
-        ManageWorkflowPolicies,
-        'manage_addWorkflowPolicy')
+    security.declareProtected(ManageWorkflowPolicies, "manage_addWorkflowPolicy")
 
-    def manage_addWorkflowPolicy(self, id,
-                                 workflow_policy_type='default_workflow_policy (Simple Policy)',
-                                 duplicate_id='empty',
-                                 RESPONSE=None,
-                                 REQUEST=None):
-        """ Adds a workflow policies from the registered types.
-        """
-        if id in ('empty', 'portal_workflow'):
-            raise ValueError(
-                "'%s' is reserved. Please choose another id." %
-                id)
+    def manage_addWorkflowPolicy(
+        self,
+        id,
+        workflow_policy_type="default_workflow_policy (Simple Policy)",
+        duplicate_id="empty",
+        RESPONSE=None,
+        REQUEST=None,
+    ):
+        """Adds a workflow policies from the registered types."""
+        if id in ("empty", "portal_workflow"):
+            raise ValueError("'%s' is reserved. Please choose another id." % id)
 
         factory = _workflow_policy_factories[workflow_policy_type]
         ob = factory(id)
         self._setObject(id, ob)
 
-        if duplicate_id and duplicate_id != 'empty':
-            types_tool = getToolByName(self, 'portal_types')
+        if duplicate_id and duplicate_id != "empty":
+            types_tool = getToolByName(self, "portal_types")
             new_wp = self.getWorkflowPolicyById(id)
 
-            if duplicate_id == 'portal_workflow':
-                wf_tool = getToolByName(self, 'portal_workflow')
+            if duplicate_id == "portal_workflow":
+                wf_tool = getToolByName(self, "portal_workflow")
 
                 new_wp.setDefaultChain(wf_tool._default_chain)
 
                 for ptype in types_tool.objectIds():
-                    chain = wf_tool.getChainForPortalType(
-                        ptype, managescreen=True)
+                    chain = wf_tool.getChainForPortalType(ptype, managescreen=True)
                     if chain:
                         new_wp.setChain(ptype, chain)
 
             else:
                 orig_wp = self.getWorkflowPolicyById(duplicate_id)
-                new_wp.setDefaultChain(orig_wp.getDefaultChain('Document'))
+                new_wp.setDefaultChain(orig_wp.getDefaultChain("Document"))
 
                 for ptype in types_tool.objectIds():
                     chain = orig_wp.getChainFor(ptype, managescreen=True)
@@ -143,91 +138,97 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
                         new_wp.setChain(ptype, chain)
 
         if RESPONSE is not None:
-            RESPONSE.redirect(self.absolute_url() +
-                              '/manage_main?management_view=Contents')
+            RESPONSE.redirect(
+                self.absolute_url() + "/manage_main?management_view=Contents"
+            )
+
     manage_addWorkflowPolicy = postonly(manage_addWorkflowPolicy)
 
     def all_meta_types(self):
         return (
-            {'name': 'WorkflowPolicy',
-             'action': 'manage_addWorkflowPolicyForm',
-             'permission': ManageWorkflowPolicies}, )
+            {
+                "name": "WorkflowPolicy",
+                "action": "manage_addWorkflowPolicyForm",
+                "permission": ManageWorkflowPolicies,
+            },
+        )
 
-    security.declareProtected(ManageWorkflowPolicies, 'getWorkflowPolicyById')
+    security.declareProtected(ManageWorkflowPolicies, "getWorkflowPolicyById")
 
     def getWorkflowPolicyById(self, wfp_id):
-        """ Retrieve a given workflow policy.
-        """
+        """Retrieve a given workflow policy."""
         if wfp_id is None:
             return None
         policy = getattr(self.aq_explicit, wfp_id, _MARKER)
         if policy is not _MARKER:
-            if getattr(policy, '_isAWorkflowPolicy', 0):
+            if getattr(policy, "_isAWorkflowPolicy", 0):
                 return policy
         return None
 
-    security.declarePublic('isValidPolicyName')
+    security.declarePublic("isValidPolicyName")
 
     def isValidPolicyName(self, policy_id):
-        """ Return True if a policy exist
-        """
+        """Return True if a policy exist"""
         return self.getWorkflowPolicyById(policy_id) is not None
 
-    security.declareProtected(ManageWorkflowPolicies, 'getWorkflowPolicies')
+    security.declareProtected(ManageWorkflowPolicies, "getWorkflowPolicies")
 
     def getWorkflowPolicies(self):
-        """ Return the list of workflow policies.
-        """
+        """Return the list of workflow policies."""
         wfps = []
         for obj_name, obj in self.objectItems():
-            if getattr(obj, '_isAWorkflowPolicy', 0):
+            if getattr(obj, "_isAWorkflowPolicy", 0):
                 wfps.append(obj)
         return tuple(wfps)
 
-    security.declarePublic('getWorkflowPolicyIds')
+    security.declarePublic("getWorkflowPolicyIds")
 
     def getWorkflowPolicyIds(self):
-        """ Return the list of workflow policy ids.
-        """
+        """Return the list of workflow policy ids."""
         wfp_ids = []
 
         for obj_id, obj in self.objectItems():
-            if getattr(obj, '_isAWorkflowPolicy', 0):
+            if getattr(obj, "_isAWorkflowPolicy", 0):
                 wfp_ids.append(obj_id)
 
         return tuple(wfp_ids)
 
-    security.declarePublic('getWorkflowPolicyInfos')
+    security.declarePublic("getWorkflowPolicyInfos")
 
     def getWorkflowPolicyInfos(self):
-        """ Return the list of workflow policy ids.
-        """
+        """Return the list of workflow policy ids."""
         wfp_ids = []
         for obj_id, obj in self.objectItems():
-            if getattr(obj, '_isAWorkflowPolicy', 0):
-                wfp_ids.append({'id': obj_id, 'title': obj.title_or_id(),
-                                'description': obj.description})
+            if getattr(obj, "_isAWorkflowPolicy", 0):
+                wfp_ids.append(
+                    {
+                        "id": obj_id,
+                        "title": obj.title_or_id(),
+                        "description": obj.description,
+                    }
+                )
 
         return tuple(wfp_ids)
 
-    security.declareProtected(View, 'getWorkflowPolicyConfig')
+    security.declareProtected(View, "getWorkflowPolicyConfig")
 
     def getWorkflowPolicyConfig(self, ob):
-        """ Return a local workflow configuration if it exist
-        """
+        """Return a local workflow configuration if it exist"""
         if self.isSiteRoot(ob):
             # Site root use portal_workflow tool as local policy
             return None
         if not _checkPermission(ManageWorkflowPolicies, ob):
-            raise Unauthorized("You need %s permission on %s" % (
-                ManageWorkflowPolicies, '/'.join(ob.getPhysicalPath())))
+            raise Unauthorized(
+                "You need %s permission on %s"
+                % (ManageWorkflowPolicies, "/".join(ob.getPhysicalPath()))
+            )
 
         return getattr(ob.aq_explicit, WorkflowPolicyConfig_id, None)
 
-    security.declareProtected(View, 'isSiteRoot')
+    security.declareProtected(View, "isSiteRoot")
 
     def isSiteRoot(self, ob):
-        """ Returns a boolean value indicating if the object is an ISiteRoot
+        """Returns a boolean value indicating if the object is an ISiteRoot
         or the default page of an ISiteRoot.
         """
         siteroot = ISiteRoot.providedBy(ob)
@@ -235,8 +236,7 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
             return True
         parent = aq_parent(ob)
         if ISiteRoot.providedBy(parent):
-            if (getattr(ob, 'isPrincipiaFolderish', False) and
-                    ob.isPrincipiaFolderish):
+            if getattr(ob, "isPrincipiaFolderish", False) and ob.isPrincipiaFolderish:
                 # We are looking at a folder in the root
                 return False
             # We are at a non-folderish item in the root
@@ -248,22 +248,20 @@ class PlacefulWorkflowTool(ImmutableId, Folder, IFAwareObjectManager):
         _post_init(self) => called from manage_add method, acquired within ZODB (__init__ is not)
         """
         pass
+
     #
     #   portal_workflow_policy implementation.
     #
 
     def getMaxChainLength(self):
         """Return the max workflow chain length"""
-        max_chain_length = self.getProperty('max_chain_length')
+        max_chain_length = self.getProperty("max_chain_length")
         return max_chain_length
 
     def setMaxChainLength(self, max_chain_length):
         """Set the max workflow chain length"""
-        safeEditProperty(
-            self,
-            'max_chain_length',
-            max_chain_length,
-            data_type='int')
+        safeEditProperty(self, "max_chain_length", max_chain_length, data_type="int")
+
 
 _workflow_policy_factories = {}
 
@@ -271,12 +269,12 @@ _workflow_policy_factories = {}
 def _makeWorkflowPolicyFactoryKey(factory, id=None, title=None):
     # The factory should take one argument, id.
     if id is None:
-        id = getattr(factory, 'id', '') or getattr(factory, 'meta_type', '')
+        id = getattr(factory, "id", "") or getattr(factory, "meta_type", "")
     if title is None:
-        title = getattr(factory, 'title', '')
+        title = getattr(factory, "title", "")
     key = id
     if title:
-        key = key + ' (%s)' % title
+        key = key + " (%s)" % title
     return key
 
 
@@ -286,12 +284,13 @@ def addWorkflowPolicyFactory(factory, id=None, title=None):
 
 
 def _removeWorkflowPolicyFactory(factory, id=None, title=None):
-    """ Make teardown in unitcase cleaner. """
+    """Make teardown in unitcase cleaner."""
     key = _makeWorkflowPolicyFactoryKey(factory, id, title)
     try:
         del _workflow_policy_factories[key]
     except KeyError:
         pass
 
+
 InitializeClass(PlacefulWorkflowTool)
-registerToolInterface('portal_placeful_workflow', IPlacefulWorkflowTool)
+registerToolInterface("portal_placeful_workflow", IPlacefulWorkflowTool)

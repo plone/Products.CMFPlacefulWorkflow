@@ -18,16 +18,17 @@
 """
 CMFPlacefulWorkflow TestCase module
 """
-from Products.CMFPlacefulWorkflow.testing import PRODUCTS_CMFPLACEFULWORKFLOW_FUNCTIONAL_TESTING
+from Products.CMFPlacefulWorkflow.testing import (
+    PRODUCTS_CMFPLACEFULWORKFLOW_FUNCTIONAL_TESTING,
+)
 
 import unittest
 
 
 class CMFPlacefulWorkflowTestCase(unittest.TestCase):
 
-
     layer = PRODUCTS_CMFPLACEFULWORKFLOW_FUNCTIONAL_TESTING
 
     def getPermissionsOfRole(self, role):
         perms = self.portal.permissionsOfRole(role)
-        return [p['name'] for p in perms if p['selected']]
+        return [p["name"] for p in perms if p["selected"]]

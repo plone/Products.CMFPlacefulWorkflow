@@ -23,4 +23,4 @@ To run all tests type 'python runalltests.py' or bin/zopectl test Products/CMFPl
 __version__ = "$Revision: 36863 $"
 # $Source: /cvsroot/ingeniweb/CMFPlacefulWorkflow/tests/__init__.py,v $
 # $Id: __init__.py 36863 2007-02-05 21:30:44Z encolpe $
-__docformat__ = 'restructuredtext'
+__docformat__ = "restructuredtext"

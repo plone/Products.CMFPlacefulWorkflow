@@ -19,16 +19,17 @@
 CMFPlacefulWorkflow product
 """
 
-from Products.CMFPlacefulWorkflow.permissions import ManageWorkflowPolicies
 from logging import getLogger
+from Products.CMFPlacefulWorkflow.permissions import ManageWorkflowPolicies
 
-Log = getLogger('CMFPlacefulWorkflow')
+
+Log = getLogger("CMFPlacefulWorkflow")
 placeful_prefs_configlet = {
-    'id': 'placefulworkflow',
-    'appId': "Placeful Workflow",
-    'name': 'Placeful Workflow',
-    'action': 'string:$portal_url/prefs_workflow_localpolicies_form',
-    'category': 'Products',
-    'permission': (ManageWorkflowPolicies, ),
-    'imageUrl': 'placefulworkflow_icon.png',
+    "id": "placefulworkflow",
+    "appId": "Placeful Workflow",
+    "name": "Placeful Workflow",
+    "action": "string:$portal_url/workflow-policies-controlpanel",
+    "category": "Products",
+    "permission": (ManageWorkflowPolicies,),
+    "imageUrl": "placefulworkflow_icon.png",
 }
