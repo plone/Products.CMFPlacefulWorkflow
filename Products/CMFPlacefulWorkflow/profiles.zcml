@@ -49,7 +49,7 @@
     destination="1001"
     profile="Products.CMFPlacefulWorkflow:CMFPlacefulWorkflow">
     <genericsetup:upgradeDepends
-      title="Update controlpanel logo"
+      title="Update controlpanel url expression"
       import_profile="Products.CMFPlacefulWorkflow:base"
       import_steps="controlpanel"
       />
