@@ -26,7 +26,7 @@ class PlacefulWorkflowConfiguration(BrowserView):
             context.plone_utils.addPortalMessage(
                 _("Workflow policy configuration added.")
             )
-            return request.response.redirect("workflow-policies-controlpanel")
+            return request.response.redirect("@@placeful-workflow-configuration")
 
         # This script is used for both the save and cancel button
         cancel = False
@@ -56,7 +56,7 @@ class PlacefulWorkflowConfiguration(BrowserView):
                 message = _("Changed policies.")
 
         context.plone_utils.addPortalMessage(message)
-        return request.response.redirect("workflow-policies-controlpanel")
+        return request.response.redirect("@@placeful-workflow-configuration")
 
 
 class WorkflowPoliciesForm(BrowserView):
@@ -82,7 +82,7 @@ class WorkflowPoliciesForm(BrowserView):
                         ]
                     )
             plone_utils.addPortalMessage(_("Deleted Local Workflow Policy."), "info")
-            return request.response.redirect("@@workflow-policies-controlpanel")
+            return request.response.redirect("@@placeful-workflow-configuration")
 
         elif add:
             if policy_id:
@@ -91,12 +91,12 @@ class WorkflowPoliciesForm(BrowserView):
                 )
                 plone_utils.addPortalMessage(_("Local Workflow Policy added."), "info")
                 return request.response.redirect(
-                    "@@prefs-workflow-policy-mapping?wfpid=" + policy_id
+                    "@@placeful-workflow-policy-mapping?wfpid=" + policy_id
                 )
 
             else:
                 plone_utils.addPortalMessage(_("The policy Id is required."), "error")
-                return request.response.redirect("@@workflow-policies-controlpanel")
+                return request.response.redirect("@@placeful-workflow-configuration")
 
         return self.index()
 
@@ -119,7 +119,7 @@ class WorkflowPolicyMapping(BrowserView):
             portal_url = getToolByName(context, "portal_url")()
             plone_utils.addPortalMessage(_("No Policy selected."), "error")
             return request.response.redirect(
-                portal_url + "/@@workflow-policies-controlpanel"
+                portal_url + "/@@placeful-workflow-configuration"
             )
 
         if not request.get("submit", None):
@@ -136,7 +136,7 @@ class WorkflowPolicyMapping(BrowserView):
         else:
             plone_utils.addPortalMessage(_("Title is required."), "error")
             return request.response.redirect(
-                "@@prefs-workflow-policy-mapping?wfpid=%s" % wfpid
+                "@@placeful-workflow-policy-mapping?wfpid=%s" % wfpid
             )
 
         policy.setDescription(description)
@@ -157,5 +157,5 @@ class WorkflowPolicyMapping(BrowserView):
 
         plone_utils.addPortalMessage(_("Changes to criteria saved."))
         return request.response.redirect(
-            "@@prefs-workflow-policy-mapping?wfpid=%s" % wfpid
+            "@@placeful-workflow-policy-mapping?wfpid=%s" % wfpid
         )

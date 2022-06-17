@@ -3,27 +3,30 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:browser="http://namespaces.zope.org/browser">
 
+    <!-- Policy Config View on Context -->
     <browser:page
         for="*"
-        name="workflow-policies-controlpanel"
+        name="placeful-workflow-configuration"
         class=".views.PlacefulWorkflowConfiguration"
         template="placeful_workflow_configuration.pt"
         permission="CMFPlacefulWorkflow.ManageWorkflowPolicies"
         />
-
+    
+    <!-- Mapping Config View CT to to Workflows -->
     <browser:page
         for="*"
-        name="prefs-workflow-policy-mapping"
+        name="placeful-workflow-policy-mapping"
         class=".views.WorkflowPolicyMapping"
-        template="prefs_workflow_policy_mapping.pt"
+        template="placeful_workflow_policy_mapping.pt"
         permission="CMFPlacefulWorkflow.ManageWorkflowPolicies"
         />
-
+    
+    <!-- Controlpanel View -->
     <browser:page
         for="*"
-        name="prefs-workflow-localpolicies-form"
+        name="workflow-policies-controlpanel"
         class=".views.WorkflowPoliciesForm"
-        template="prefs_workflow_localpolicies_form.pt"
+        template="workflow_policies_controlpanel.pt"
         permission="CMFPlacefulWorkflow.ManageWorkflowPolicies"
         />
 
