@@ -73,18 +73,18 @@ class TestConfiglet(CMFPlacefulWorkflowTestCase):
 
         # Check that we get no errors when we do not pass the policy id
         portal_url = self.portal.absolute_url()
-        central_form = f"{portal_url}/@@workflow-policies-controlpanel"
-        browser.open(f"{portal_url}/@@prefs-workflow-policy-mapping")
+        central_form = f"{portal_url}/@@placeful-workflow-configuration"
+        browser.open(f"{portal_url}/@@placeful-workflow-policy-mapping")
         self.assertEqual(browser.url, central_form)
 
         # Try a wrong id.
         browser.open(
-            f"{portal_url}/@@prefs-workflow-policy-mapping?wfpid=no_such_policy"
+            f"{portal_url}/@@placeful-workflow-policy-mapping?wfpid=no_such_policy"
         )
         self.assertEqual(browser.url, central_form)
 
         # Now with a proper policy id.
-        browser.open(f"{portal_url}/@@prefs-workflow-policy-mapping?wfpid=dummy_policy")
+        browser.open(f"{portal_url}/@@placeful-workflow-policy-mapping?wfpid=dummy_policy")
         self.assertEqual(
             browser.getControl(name="wf.Document:record").value,
             [
@@ -99,7 +99,7 @@ class TestConfiglet(CMFPlacefulWorkflowTestCase):
 
         self.assertEqual(
             browser.url,
-            f"{portal_url}/@@prefs-workflow-policy-mapping?wfpid=dummy_policy",
+            f"{portal_url}/@@placeful-workflow-policy-mapping?wfpid=dummy_policy",
         )
         self.assertEqual(
             browser.getControl(name="wf.Document:record").value,
