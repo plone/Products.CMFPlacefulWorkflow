@@ -11,7 +11,7 @@
         template="placeful_workflow_configuration.pt"
         permission="CMFPlacefulWorkflow.ManageWorkflowPolicies"
         />
-    
+
     <!-- Mapping Config View CT to to Workflows -->
     <browser:page
         for="*"
@@ -20,7 +20,7 @@
         template="placeful_workflow_policy_mapping.pt"
         permission="CMFPlacefulWorkflow.ManageWorkflowPolicies"
         />
-    
+
     <!-- Controlpanel View -->
     <browser:page
         for="*"

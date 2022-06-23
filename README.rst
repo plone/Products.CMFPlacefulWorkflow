@@ -43,7 +43,7 @@ Now, let's define a new workflow policy:
 2. Enter the name "my_policy" in the "New policy" field, and click on "add".
 
 3. Now you have a new policy. Enter the title "Example policy" and the
-   description "This is an example policy". 
+   description "This is an example policy".
 
 4. Change the workflow for the content type "Folder" from "folder_workflow" to
    plone_workflow", and click on "Save". Now all your content types should use
@@ -55,7 +55,7 @@ Let's test the new workflow policy for "Folders" at the root of our site:
    drop-down menu.
 
 2. Select "Example policy" for "In this Folder" and "Below this Folder" and
-   click "Save". 
+   click "Save".
 
 3. Then, let's add a Folder to see whether the new workflow policy is active.
    Go to the root of your site and select "Folder" from the "Add new item"
