@@ -8,6 +8,17 @@ Changelog
 
 .. towncrier release notes start
 
+3.0.0b1 (2022-06-23)
+--------------------
+
+Bug fixes:
+
+
+- Update Markup in Page Templates, made it ready for Plone 6 with Bootstrap 5
+  Rename Browserviews, make the names it more consistent
+  [1letter] (#41)
+
+
 3.0.0a2 (2022-05-14)
 --------------------
 
