@@ -22,6 +22,7 @@ CMFPlacefulWorkflow Unittest
 from plone.app.testing import logout
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from plone.app.testing import TEST_USER_PASSWORD
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlacefulWorkflow.interfaces import IPlacefulMarker
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import (  # noqa: E501
@@ -51,9 +52,9 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         self,
     ):
         # Create a few members
-        self.user1 = self.createMember("user1", "abcd4", "abc@domain.tld")
-        self.user2 = self.createMember("user2", "abcd4", "abc@domain.tld")
-        self.user3 = self.createMember("user3", "abcd4", "abc@domain.tld")
+        self.user1 = self.createMember("user1", TEST_USER_PASSWORD, "abc@domain.tld")
+        self.user2 = self.createMember("user2", TEST_USER_PASSWORD, "abc@domain.tld")
+        self.user3 = self.createMember("user3", TEST_USER_PASSWORD, "abc@domain.tld")
 
         self.folder = self.portal.portal_membership.getHomeFolder("user1")
         self.qi = get_installer(self.portal)
