@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # CMFPlacefulWorflow
 # Copyright (C)2006 Ingeniweb
 

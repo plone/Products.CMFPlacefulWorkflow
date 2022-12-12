@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # CMFPlacefulWorflow
 # Copyright (C)2006 Ingeniweb
 
@@ -142,7 +141,7 @@ class WorkflowPoliciesXMLAdapter(WorkflowToolXMLAdapter):
                                 raise
 
     def _getChain(self, node):
-        result = super(WorkflowPoliciesXMLAdapter, self)._getChain(node)
+        result = super()._getChain(node)
         if result == "":
             return []
         return result.split(",")

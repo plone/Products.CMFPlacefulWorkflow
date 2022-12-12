@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2008 Ingeniweb
 
 # This program is free software; you can redistribute it and/or modify
@@ -28,8 +27,6 @@ from zope.component import adapter
 from zope.interface import implementer
 from zope.interface import Interface
 
-import six
-
 
 @adapter(Interface, IPlacefulMarker)
 @implementer(IWorkflowChain)
@@ -45,7 +42,7 @@ def PlacefulWorkflowChain(ob, tool):
     4. if the parent is the portal object or None we stop and ask
        portal_workflow
     """
-    if isinstance(ob, six.string_types):
+    if isinstance(ob, str):
         # We are not in an object, then we can only get default from
         # portal_workflow
         return ToolWorkflowChain(ob, tool)

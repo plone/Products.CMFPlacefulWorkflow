@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # CMFPlacefulWorkflow
 # Copyright (C)2005 Ingeniweb
 
@@ -33,8 +32,6 @@ from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import (  # noqa: E501
     WorkflowPolicyConfig_id,
 )
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
-
-import six
 
 
 manage_addWorkflowPolicyConfigForm = PageTemplateFile(
@@ -118,8 +115,8 @@ class WorkflowPolicyConfig(SimpleItem):
     security.declareProtected(ManageWorkflowPolicies, "setPolicyIn")
 
     def setPolicyIn(self, policy, update_security=False):
-        if not isinstance(policy, six.string_types):
-            raise ValueError("Policy must be a six.string_types")
+        if not isinstance(policy, str):
+            raise ValueError("Policy must be a string")
         self.workflow_policy_in = policy
         if update_security:
             wtool = getToolByName(self, "portal_workflow")
@@ -140,7 +137,7 @@ class WorkflowPolicyConfig(SimpleItem):
     security.declareProtected(ManageWorkflowPolicies, "setPolicyBelow")
 
     def setPolicyBelow(self, policy, update_security=False):
-        if not isinstance(policy, six.string_types):
+        if not isinstance(policy, str):
             raise ValueError("Policy must be a string")
         self.workflow_policy_below = policy
         if update_security:
