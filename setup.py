@@ -36,12 +36,13 @@ setup(
         test=["plone.app.testing", "zope.testing", "plone.app.robotframework"],
     ),
     install_requires=[
-        "setuptools",
-        "zope.component",
-        "zope.interface",
-        "zope.i18nmessageid",
+        "plone.base",
         "Products.CMFCore",
         "Products.CMFPlone",
         "Products.GenericSetup >= 2.0",
+        "setuptools",
+        "zope.component",
+        "zope.i18nmessageid",
+        "zope.interface",
     ],
 )
