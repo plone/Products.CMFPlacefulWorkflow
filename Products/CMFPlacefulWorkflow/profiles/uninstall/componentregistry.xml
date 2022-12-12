@@ -1,10 +1,10 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <componentregistry>
-  <adapters/>
+  <adapters />
   <utilities>
-    <utility
-        remove="true"
-        interface="Products.CMFPlacefulWorkflow.interfaces.IPlacefulWorkflowTool"
-        object="portal_placeful_workflow"/>
+    <utility interface="Products.CMFPlacefulWorkflow.interfaces.IPlacefulWorkflowTool"
+             object="portal_placeful_workflow"
+             remove="true"
+    />
   </utilities>
 </componentregistry>

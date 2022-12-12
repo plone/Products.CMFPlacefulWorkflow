@@ -1,15 +1,19 @@
-<?xml version="1.0"?>
-<object
-    name="portal_controlpanel"
-    meta_type="Plone Control Panel Tool"
-    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-    i18n:domain="plone">
- <configlet
-  title="Workflow Policies" action_id="placefulworkflow"
-  appId="CMFPlacefulWorkflow" category="Products" condition_expr=""
-  icon_expr="string:toolbar-action/workflow"
-  url_expr="string:$portal_url/@@workflow-policies-controlpanel" visible="True"
-  i18n:attributes="title">
-  <permission>Manage portal</permission>
- </configlet>
+<?xml version="1.0" encoding="utf-8"?>
+<object xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        meta_type="Plone Control Panel Tool"
+        name="portal_controlpanel"
+        i18n:domain="plone"
+>
+  <configlet action_id="placefulworkflow"
+             appId="CMFPlacefulWorkflow"
+             category="Products"
+             condition_expr=""
+             icon_expr="string:toolbar-action/workflow"
+             title="Workflow Policies"
+             url_expr="string:$portal_url/@@workflow-policies-controlpanel"
+             visible="True"
+             i18n:attributes="title"
+  >
+    <permission>Manage portal</permission>
+  </configlet>
 </object>
