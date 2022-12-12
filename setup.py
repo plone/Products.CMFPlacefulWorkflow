@@ -33,7 +33,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     extras_require=dict(
-        test=["plone.app.testing", "zope.testing", "plone.app.robotframework"],
+        test=["plone.app.testing", "zope.testing"],
     ),
     install_requires=[
         "plone.base",
