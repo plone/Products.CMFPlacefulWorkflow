@@ -33,16 +33,11 @@ setup(
     include_package_data=True,
     zip_safe=False,
     extras_require=dict(
-        test=["plone.app.testing", "zope.testing", "plone.app.robotframework"],
+        test=["plone.app.testing", "zope.testing"],
     ),
     install_requires=[
-        "setuptools",
-        "six",
-        "zope.component",
-        "zope.interface",
-        "zope.i18nmessageid",
-        "Products.CMFCore",
+        "plone.base",
         "Products.CMFPlone",
-        "Products.GenericSetup >= 2.0",
+        "setuptools",
     ],
 )

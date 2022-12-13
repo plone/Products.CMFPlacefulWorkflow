@@ -1,33 +1,34 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:zcml="http://namespaces.zope.org/zcml"
-    xmlns:browser="http://namespaces.zope.org/browser">
+    >
 
-    <!-- Policy Config View on Context -->
-    <browser:page
-        for="*"
-        name="placeful-workflow-configuration"
-        class=".views.PlacefulWorkflowConfiguration"
-        template="placeful_workflow_configuration.pt"
-        permission="CMFPlacefulWorkflow.ManageWorkflowPolicies"
-        />
+  <!-- Policy Config View on Context -->
+  <browser:page
+      name="placeful-workflow-configuration"
+      for="*"
+      class=".views.PlacefulWorkflowConfiguration"
+      template="placeful_workflow_configuration.pt"
+      permission="CMFPlacefulWorkflow.ManageWorkflowPolicies"
+      />
 
-    <!-- Mapping Config View CT to to Workflows -->
-    <browser:page
-        for="*"
-        name="placeful-workflow-policy-mapping"
-        class=".views.WorkflowPolicyMapping"
-        template="placeful_workflow_policy_mapping.pt"
-        permission="CMFPlacefulWorkflow.ManageWorkflowPolicies"
-        />
+  <!-- Mapping Config View CT to to Workflows -->
+  <browser:page
+      name="placeful-workflow-policy-mapping"
+      for="*"
+      class=".views.WorkflowPolicyMapping"
+      template="placeful_workflow_policy_mapping.pt"
+      permission="CMFPlacefulWorkflow.ManageWorkflowPolicies"
+      />
 
-    <!-- Controlpanel View -->
-    <browser:page
-        for="*"
-        name="workflow-policies-controlpanel"
-        class=".views.WorkflowPoliciesForm"
-        template="workflow_policies_controlpanel.pt"
-        permission="CMFPlacefulWorkflow.ManageWorkflowPolicies"
-        />
+  <!-- Controlpanel View -->
+  <browser:page
+      name="workflow-policies-controlpanel"
+      for="*"
+      class=".views.WorkflowPoliciesForm"
+      template="workflow_policies_controlpanel.pt"
+      permission="CMFPlacefulWorkflow.ManageWorkflowPolicies"
+      />
 
 </configure>

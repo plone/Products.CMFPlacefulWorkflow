@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """ Zope 2 permissions
 """
 

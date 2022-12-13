@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # CMFPlacefulWorkflow
 # Copyright (C)2005 Ingeniweb
 
@@ -48,7 +47,8 @@ class TestConfiglet(CMFPlacefulWorkflowTestCase):
             # Add an authorization header using the given or default
             # credentials """
             browser.addHeader(
-                "Authorization", "Basic %s:%s" % (SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
+                "Authorization",
+                "Basic {}:{}".format(SITE_OWNER_NAME, SITE_OWNER_PASSWORD),
             )
         return browser
 
@@ -84,7 +84,9 @@ class TestConfiglet(CMFPlacefulWorkflowTestCase):
         self.assertEqual(browser.url, central_form)
 
         # Now with a proper policy id.
-        browser.open(f"{portal_url}/@@placeful-workflow-policy-mapping?wfpid=dummy_policy")
+        browser.open(
+            f"{portal_url}/@@placeful-workflow-policy-mapping?wfpid=dummy_policy"
+        )
         self.assertEqual(
             browser.getControl(name="wf.Document:record").value,
             [

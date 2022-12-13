@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # CFMPlacefulWorkflow
 # Copyright (C)2007 Ingeniweb
 

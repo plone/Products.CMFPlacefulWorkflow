@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlacefulWorkflow import CMFPlacefulWorkflowMessageFactory as _
 from Products.Five import BrowserView

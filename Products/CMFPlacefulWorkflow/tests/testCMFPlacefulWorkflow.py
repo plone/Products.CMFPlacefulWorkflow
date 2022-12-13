@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # CMFPlacefulWorkflow
 # Copyright (C)2005 Ingeniweb
 
@@ -23,6 +22,7 @@ from plone.app.testing import logout
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_PASSWORD
+from plone.base.utils import get_installer
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlacefulWorkflow.interfaces import IPlacefulMarker
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import (  # noqa: E501
@@ -31,7 +31,6 @@ from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import (  # noqa: E501
 from Products.CMFPlacefulWorkflow.tests.CMFPlacefulWorkflowTestCase import (  # noqa: E501
     CMFPlacefulWorkflowTestCase,
 )
-from Products.CMFPlone.utils import get_installer
 
 
 _edit_permissions = []

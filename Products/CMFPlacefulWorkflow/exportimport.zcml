@@ -1,44 +1,46 @@
 <configure
-   xmlns="http://namespaces.zope.org/zope"
-   xmlns:five="http://namespaces.zope.org/five"
-   xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-   i18n_domain="cmfplacefulworkflow">
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="cmfplacefulworkflow"
+    >
 
   <adapter
-     factory=".exportimport.workflow_policies.PlacefulWorkflowXMLAdapter"
-     provides="Products.GenericSetup.interfaces.IBody"
-     for=".interfaces.IPlacefulWorkflowTool
-          Products.GenericSetup.interfaces.ISetupEnviron"
-     />
+      factory=".exportimport.workflow_policies.PlacefulWorkflowXMLAdapter"
+      provides="Products.GenericSetup.interfaces.IBody"
+      for=".interfaces.IPlacefulWorkflowTool
+           Products.GenericSetup.interfaces.ISetupEnviron"
+      />
 
   <adapter
-     factory=".exportimport.workflow_policies.WorkflowPoliciesXMLAdapter"
-     provides="Products.GenericSetup.interfaces.IBody"
-     for=".interfaces.IWorkflowPolicyDefinition
-          Products.GenericSetup.interfaces.ISetupEnviron"
-     />
+      factory=".exportimport.workflow_policies.WorkflowPoliciesXMLAdapter"
+      provides="Products.GenericSetup.interfaces.IBody"
+      for=".interfaces.IWorkflowPolicyDefinition
+           Products.GenericSetup.interfaces.ISetupEnviron"
+      />
 
   <include package="Products.CMFCore" />
   <five:registerClass
-     class=".DefaultWorkflowPolicy.DefaultWorkflowPolicyDefinition"
-     meta_type="WorkflowPolicy"
-     permission="cmf.ManagePortal"
-     />
+      class=".DefaultWorkflowPolicy.DefaultWorkflowPolicyDefinition"
+      permission="cmf.ManagePortal"
+      meta_type="WorkflowPolicy"
+      />
 
   <genericsetup:importStep
-     name="placeful_workflow"
-     title="Placeful Workflow Policies"
-     description="Import placeful workflow policies."
-     handler="Products.CMFPlacefulWorkflow.exportimport.importWorkflowPolicies">
-    <depends name="typeinfo"/>
-    <depends name="workflow"/>
+      name="placeful_workflow"
+      title="Placeful Workflow Policies"
+      description="Import placeful workflow policies."
+      handler="Products.CMFPlacefulWorkflow.exportimport.importWorkflowPolicies"
+      >
+    <depends name="typeinfo" />
+    <depends name="workflow" />
   </genericsetup:importStep>
 
   <genericsetup:exportStep
-     name="portal_placeful_workflow"
-     title="Placeful Workflow Policies"
-     description="Export placeful workflow policies."
-     handler="Products.CMFPlacefulWorkflow.exportimport.exportWorkflowPolicies"
-     />
+      name="portal_placeful_workflow"
+      title="Placeful Workflow Policies"
+      description="Export placeful workflow policies."
+      handler="Products.CMFPlacefulWorkflow.exportimport.exportWorkflowPolicies"
+      />
 
 </configure>

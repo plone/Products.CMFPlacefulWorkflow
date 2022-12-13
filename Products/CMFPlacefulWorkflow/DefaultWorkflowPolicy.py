@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # CMFPlacefulWorkflow
 # Copyright (C)2005 Ingeniweb
 
@@ -33,8 +32,6 @@ from Products.CMFPlacefulWorkflow.permissions import ManageWorkflowPolicies
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addWorkflowPolicyFactory
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from zope.interface import implementer
-
-import six
 
 
 DEFAULT_CHAIN = "(Default)"
@@ -200,7 +197,7 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
         """
 
         cbt = self._chains_by_type
-        if isinstance(ob, six.string_types):
+        if isinstance(ob, str):
             pt = ob
         elif hasattr(aq_base(ob), "_getPortalTypeName"):
             pt = ob._getPortalTypeName()
@@ -215,7 +212,7 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
             chain = cbt.get(pt, _MARKER)
 
         # Backwards compatibility: before chain was a string, not a list
-        if chain is not _MARKER and isinstance(chain, six.string_types):
+        if chain is not _MARKER and isinstance(chain, str):
             chain = map(lambda x: x.strip(), chain.split(","))
 
         Log.debug("Chain founded in policy %s", chain)
@@ -239,7 +236,7 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
         """Sets the default chain for this tool."""
         wftool = getToolByName(self, "portal_workflow")
 
-        if isinstance(default_chain, six.string_types):
+        if isinstance(default_chain, str):
             default_chain = map(lambda x: x.strip(), default_chain.split(","))
         ids = []
         for wf_id in default_chain:
@@ -282,7 +279,7 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
         if portal_type not in [pt.id for pt in self._listTypeInfo()]:
             raise ValueError("'%s' is not a valid portal type." % portal_type)
 
-        if isinstance(chain, six.string_types):
+        if isinstance(chain, str):
             chain = [i.strip() for i in chain.split(",")]
 
         wftool = getToolByName(self, "portal_workflow")
@@ -300,7 +297,9 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
             for wf_id in chain:
                 if wf_id != "" and not wftool.getWorkflowById(wf_id):
                     raise ValueError(
-                        "'%s' is not a workflow ID.\nchain: %s" % (wf_id, repr(chain))
+                        "'{}' is not a workflow ID.\nchain: {}".format(
+                            wf_id, repr(chain)
+                        )
                     )
             cbt[portal_type] = tuple(chain)
 

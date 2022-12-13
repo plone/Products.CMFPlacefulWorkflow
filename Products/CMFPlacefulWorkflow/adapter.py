@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2008 Ingeniweb
 
 # This program is free software; you can redistribute it and/or modify
@@ -18,17 +17,15 @@
 from Acquisition import aq_base
 from Acquisition import aq_inner
 from Acquisition import aq_parent
+from plone.base.interfaces import IWorkflowChain
+from plone.base.utils import base_hasattr
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlacefulWorkflow.interfaces import IPlacefulMarker
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
-from Products.CMFPlone.interfaces import IWorkflowChain
-from Products.CMFPlone.utils import base_hasattr
 from Products.CMFPlone.workflow import ToolWorkflowChain
 from zope.component import adapter
 from zope.interface import implementer
 from zope.interface import Interface
-
-import six
 
 
 @adapter(Interface, IPlacefulMarker)
@@ -45,7 +42,7 @@ def PlacefulWorkflowChain(ob, tool):
     4. if the parent is the portal object or None we stop and ask
        portal_workflow
     """
-    if isinstance(ob, six.string_types):
+    if isinstance(ob, str):
         # We are not in an object, then we can only get default from
         # portal_workflow
         return ToolWorkflowChain(ob, tool)

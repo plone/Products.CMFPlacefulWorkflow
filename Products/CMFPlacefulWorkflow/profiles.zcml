@@ -1,58 +1,61 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-    i18n_domain="cmfplacefulworkflow">
+    i18n_domain="cmfplacefulworkflow"
+    >
 
   <genericsetup:registerProfile
-     name="CMFPlacefulWorkflow"
-     title="Workflow Policy Support (CMFPlacefulWorkflow)"
-     directory="profiles/default"
-     description="Add in Plone the capability to change workflow chains for types in every object. Includes a dependency on core Plone types."
-     provides="Products.GenericSetup.interfaces.EXTENSION"
-     />
+      name="CMFPlacefulWorkflow"
+      title="Workflow Policy Support (CMFPlacefulWorkflow)"
+      description="Add in Plone the capability to change workflow chains for types in every object. Includes a dependency on core Plone types."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/default"
+      />
 
   <genericsetup:registerProfile
-     name="base"
-     title="Workflow Policy Support (CMFPlacefulWorkflow) - no core types dependency"
-     directory="profiles/base"
-     description="Add in Plone the capability to change workflow chains for types in every object. With no dependency on core Plone types."
-     provides="Products.GenericSetup.interfaces.EXTENSION"
-     post_handler="Products.CMFPlacefulWorkflow.setuphandlers.installMarker"
-     />
+      name="base"
+      title="Workflow Policy Support (CMFPlacefulWorkflow) - no core types dependency"
+      description="Add in Plone the capability to change workflow chains for types in every object. With no dependency on core Plone types."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/base"
+      post_handler="Products.CMFPlacefulWorkflow.setuphandlers.installMarker"
+      />
 
   <genericsetup:registerProfile
-     name="uninstall"
-     title="Workflow Policy Support (CMFPlacefulWorkflow) [uninstall]"
-     directory="profiles/uninstall"
-     provides="Products.GenericSetup.interfaces.EXTENSION"
-     pre_handler="Products.CMFPlacefulWorkflow.setuphandlers.uninstall"
-     />
+      name="uninstall"
+      title="Workflow Policy Support (CMFPlacefulWorkflow) [uninstall]"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/uninstall"
+      pre_handler="Products.CMFPlacefulWorkflow.setuphandlers.uninstall"
+      />
 
   <genericsetup:upgradeSteps
-    source="1.4.1"
-    destination="1000"
-    profile="Products.CMFPlacefulWorkflow:CMFPlacefulWorkflow">
+      profile="Products.CMFPlacefulWorkflow:CMFPlacefulWorkflow"
+      source="1.4.1"
+      destination="1000"
+      >
     <genericsetup:upgradeDepends
-      title="Update controlpanel logo"
-      import_profile="Products.CMFPlacefulWorkflow:base"
-      import_steps="controlpanel"
-      />
+        title="Update controlpanel logo"
+        import_profile="Products.CMFPlacefulWorkflow:base"
+        import_steps="controlpanel"
+        />
     <genericsetup:upgradeDepends
-      title="Remove skin layer"
-      import_profile="Products.CMFPlacefulWorkflow:uninstall"
-      import_steps="skins"
-      />
+        title="Remove skin layer"
+        import_profile="Products.CMFPlacefulWorkflow:uninstall"
+        import_steps="skins"
+        />
   </genericsetup:upgradeSteps>
 
   <genericsetup:upgradeSteps
-    source="1000"
-    destination="1001"
-    profile="Products.CMFPlacefulWorkflow:CMFPlacefulWorkflow">
+      profile="Products.CMFPlacefulWorkflow:CMFPlacefulWorkflow"
+      source="1000"
+      destination="1001"
+      >
     <genericsetup:upgradeDepends
-      title="Update controlpanel url expression"
-      import_profile="Products.CMFPlacefulWorkflow:base"
-      import_steps="controlpanel"
-      />
+        title="Update controlpanel url expression"
+        import_profile="Products.CMFPlacefulWorkflow:base"
+        import_steps="controlpanel"
+        />
   </genericsetup:upgradeSteps>
 
 </configure>
