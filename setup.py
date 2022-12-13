@@ -37,12 +37,7 @@ setup(
     ),
     install_requires=[
         "plone.base",
-        "Products.CMFCore",
         "Products.CMFPlone",
-        "Products.GenericSetup >= 2.0",
         "setuptools",
-        "zope.component",
-        "zope.i18nmessageid",
-        "zope.interface",
     ],
 )
