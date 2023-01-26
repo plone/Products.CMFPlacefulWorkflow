@@ -431,7 +431,7 @@ Fixes:
   Specifically, allow_any was set to False, which bit me.
   [maurits]
 
-- Made worflow policies translatable in prefs_workflow_localpolicies_form.
+- Made workflow policies translatable in prefs_workflow_localpolicies_form.
   [vincentfretin]
 
 1.4.2 - 2009-03-05
