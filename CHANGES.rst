@@ -8,6 +8,22 @@ Changelog
 
 .. towncrier release notes start
 
+3.0.1 (2023-01-26)
+------------------
+
+Bug fixes:
+
+
+- Cleanup: remove six, use plone.base, zpretty.  [maurits] (#44)
+
+
+Internal:
+
+
+- Update configuration files.
+  [plone meta] (#1)
+
+
 3.0.0 (2022-12-02)
 ------------------
 
