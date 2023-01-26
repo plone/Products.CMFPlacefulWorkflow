@@ -48,7 +48,7 @@ class TestConfiglet(CMFPlacefulWorkflowTestCase):
             # credentials """
             browser.addHeader(
                 "Authorization",
-                "Basic {}:{}".format(SITE_OWNER_NAME, SITE_OWNER_PASSWORD),
+                f"Basic {SITE_OWNER_NAME}:{SITE_OWNER_PASSWORD}",
             )
         return browser
 

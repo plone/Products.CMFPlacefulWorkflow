@@ -1,0 +1,14 @@
+# Generated from:
+# https://github.com/plone/meta/tree/master/config/default
+[meta]
+template = "default"
+commit-id = "14c035e5"
+
+[check-manifest]
+additional-ignores = [
+    "*.txt",
+    "*.cfg",
+    ]
+
+[setup.metadata]
+long_description = "file: README.rst, CHANGES.rst"
