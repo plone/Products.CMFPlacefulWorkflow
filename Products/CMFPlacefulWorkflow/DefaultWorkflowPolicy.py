@@ -191,7 +191,7 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
         If chain doesn't exist we return None to get a fallback from
         portal_workflow.
 
-        @parm managescreen: If True return the special tuple
+        @param managescreen: If True return the special tuple
                             ('default') instead of the actual default
                             chain (hack).
         """
@@ -269,9 +269,9 @@ class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
 
         @type chain: tuple of strings or None
         @param chain: A tuple of workflow ids to be set for the portal type.
-                      A few special values exsist:
+                      A few special values exist:
                         - C{None}: Acquire chain from a policy above,
-                                   ultimatly from the portal workflow settings.
+                                   ultimately from the portal workflow settings.
                         - C{()} (empty tuple): No workflow for this type.
                         - C{('default',)}: Use the configured default workflow.
         """
