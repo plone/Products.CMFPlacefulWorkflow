@@ -34,11 +34,25 @@ setup(
     zip_safe=False,
     python_requires=">=3.8",
     extras_require=dict(
-        test=["plone.app.testing", "zope.testing"],
+        test=[
+            "plone.app.contenttypes",
+            "plone.app.testing",
+            "plone.testing",
+            "transaction",
+        ],
     ),
     install_requires=[
+        "AccessControl",
+        "Acquisition",
         "plone.base",
+        "Persistence",
+        "Products.CMFCore",
         "Products.CMFPlone",
+        "Products.GenericSetup",
         "setuptools",
+        "Zope",
+        "zope.component",
+        "zope.i18nmessageid",
+        "zope.interface",
     ],
 )
