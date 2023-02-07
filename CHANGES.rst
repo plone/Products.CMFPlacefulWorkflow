@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+3.0.2 (2023-02-07)
+------------------
+
+Bug fixes:
+
+
+- Update package configuration.
+  [gforcada] (#1)
+
+
 3.0.1 (2023-01-26)
 ------------------
 
