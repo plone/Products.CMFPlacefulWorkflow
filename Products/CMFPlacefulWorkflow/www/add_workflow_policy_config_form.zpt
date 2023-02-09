@@ -1,19 +1,31 @@
 <h1 tal:replace="structure here/manage_page_header">Header</h1>
-<h2 tal:define="manage_tabs_message options/manage_tabs_message | nothing"
-    tal:replace="structure here/manage_tabs">Tabs</h2>
+<h2 tal:define="
+      manage_tabs_message options/manage_tabs_message | nothing;
+    "
+    tal:replace="structure here/manage_tabs"
+>Tabs</h2>
 
-<h3> Add Workflow Policy Configuration </h3>
+<h3>
+  Add Workflow Policy Configuration
+</h3>
 
 <p class="form-help">
-<form action="manage_addWorkflowPolicyConfig" method="post">
+  <form action="manage_addWorkflowPolicyConfig"
+        method="post"
+  >
   Workflow Policy Configurations for this object and below:&nbsp;&nbsp;&nbsp;
-  <input class="form-element" type="submit" name="submit" value=" Add" />
-</form>
+    <input class="form-element"
+           name="submit"
+           type="submit"
+           value=" Add"
+    />
+  </form>
 </p>
 
 <div style="color: red;font-size: 150%;"
-     tal:condition="python:len(here.objectIds('Workflow Policy Configuration')) > 0">
-  /!\ A Workflow Policy Configuration already exist in this object !<br/>
+     tal:condition="python:len(here.objectIds('Workflow Policy Configuration')) &gt; 0"
+>
+  /!\ A Workflow Policy Configuration already exist in this object !<br />
   Please remove it before adding a new one.
 </div>
 

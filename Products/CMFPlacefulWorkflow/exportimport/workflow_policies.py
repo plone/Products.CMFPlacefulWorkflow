@@ -32,14 +32,12 @@ _marker = []
 
 
 class PlacefulWorkflowXMLAdapter(FolderXMLAdapter):
-
     _LOGGER_ID = "placeful_workflow"
 
     body = property(XMLAdapterBase._exportBody, XMLAdapterBase._importBody)
 
 
 class WorkflowPoliciesXMLAdapter(WorkflowToolXMLAdapter):
-
     _LOGGER_ID = "placeful_workflow"
 
     @property

@@ -1,6 +1,6 @@
 ;-*-Doctest-*-
 =================================================
-GenericSetup Exmport/Import Handlers for Policies
+GenericSetup Export/Import Handlers for Policies
 =================================================
 
 Placeful workflow policies can be imported and exported through

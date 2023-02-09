@@ -40,7 +40,6 @@ _MARKER = "_MARKER"
 
 @implementer(IWorkflowPolicyDefinition)
 class DefaultWorkflowPolicyDefinition(SimpleItemWithProperties):
-
     meta_type = "WorkflowPolicy"
     id = "default_workflow_policy"
     _isAWorkflowPolicy = 1

@@ -25,7 +25,6 @@ import unittest
 
 
 class CMFPlacefulWorkflowTestCase(unittest.TestCase):
-
     layer = PRODUCTS_CMFPLACEFULWORKFLOW_FUNCTIONAL_TESTING
 
     def getPermissionsOfRole(self, role):
