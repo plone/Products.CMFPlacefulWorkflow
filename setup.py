@@ -35,7 +35,7 @@ setup(
     python_requires=">=3.8",
     extras_require=dict(
         test=[
-            "plone.app.contenttypes",
+            "plone.app.contenttypes[test]",
             "plone.app.testing",
             "plone.testing",
             "transaction",
