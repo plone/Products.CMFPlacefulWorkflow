@@ -170,19 +170,10 @@
 
             <tal:ctype tal:repeat="ctype allowedContentTypes">
               <div class="input-group mb-3"
-                   "=""
-                   ('backward=""
-                   chain=""
-                   compatibility',);"=""
-                   managescreen="True)"
-                   or=""
-                   python:wf_policy.getchainfor(ctype_id,=""
-                   tal:define="
-                     ctype_title ctype/Title;
-                     ctype_id ctype/getId;
-                     new-line-f63e4825-83f3-43f0-a1f2-3dbc9c6b95f0=;
-                   "
-              >
+                tal:define="ctype_title ctype/Title;
+                ctype_id ctype/getId;
+
+                chain python:wf_policy.getChainFor(ctype_id, managescreen=True) or ('backward compatibility',);">
                 <label class="input-group-text"
                        for="select_workflow"
                        tal:content="ctype_title"
