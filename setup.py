@@ -37,6 +37,9 @@ setup(
         test=[
             "plone.app.contenttypes[test]",
             "plone.app.testing",
+            # Next is not a real dependency, and should already be pulled in
+            # by plone.app.contenttypes[test], but that is not happening.
+            "plone.app.robotframework",
             "plone.testing",
             "transaction",
         ],

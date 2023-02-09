@@ -43,4 +43,5 @@ profile = "plone"
 target-version = ["py38"]
 
 [tool.dependencychecker]
+ignore-packages = ['plone.app.robotframework']
 Zope = ['Products.Five', 'Products.PageTemplates', 'OFS']
