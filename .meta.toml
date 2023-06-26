@@ -1,19 +1,21 @@
 # Generated from:
 # https://github.com/plone/meta/tree/master/config/default
+# See the inline comments on how to expand/tweak this configuration file
 [meta]
 template = "default"
-commit-id = "5bac025e"
+commit-id = "68cda6e4"
 
-[check-manifest]
-additional-ignores = [
+[pyproject]
+check_manifest_ignores = """
     "*.txt",
     "*.cfg",
-    ]
+"""
 
-[dependencies]
-mappings = [
-    "Zope = ['Products.Five', 'Products.PageTemplates', 'OFS']",
+[github]
+jobs = [
+    "qa",
+    "test",
+    "coverage",
+    "dependencies",
+    "release_ready",
     ]
-
-[setup.metadata]
-long_description = "file: README.rst, CHANGES.rst"
