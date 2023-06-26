@@ -5,7 +5,7 @@
     tal:replace="structure here/manage_tabs"
 >Tabs</h2>
 
-<h3>
+<h3 i18n:translate="">
   Add Workflow Policy Configuration
 </h3>
 
@@ -13,17 +13,21 @@
   <form action="manage_addWorkflowPolicyConfig"
         method="post"
   >
-  Workflow Policy Configurations for this object and below:&nbsp;&nbsp;&nbsp;
+    <span tal:ignore="true"
+          i18n:translate=""
+    >Workflow Policy Configurations for this object and below:&nbsp;&nbsp;&nbsp;</span>
     <input class="form-element"
            name="submit"
            type="submit"
            value=" Add"
+           i18n:attributes="value"
     />
   </form>
 </p>
 
 <div style="color: red;font-size: 150%;"
      tal:condition="python:len(here.objectIds('Workflow Policy Configuration')) &gt; 0"
+     i18n:translate=""
 >
   /!\ A Workflow Policy Configuration already exist in this object !<br />
   Please remove it before adding a new one.
