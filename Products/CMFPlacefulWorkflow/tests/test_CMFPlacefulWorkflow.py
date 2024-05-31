@@ -674,20 +674,22 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         if "comment_review_workflow" in keys:
             # This test needs to work on both 4.0 and 4.1
             keys.remove("comment_review_workflow")
-
+        expected = (
+            "folder_workflow",
+            "intranet_folder_workflow",
+            "intranet_workflow",
+            "one_state_workflow",
+            "plone_workflow",
+            "simple_publication_workflow",
+        )
+        installer = get_installer(self.portal)
+        if installer.is_product_installed("plone.app.discussion"):
+            expected += (
+                "comment_one_state_workflow",
+            )
         self.assertEqual(
             sorted(tuple(keys)),
-            sorted(
-                (
-                    "comment_one_state_workflow",
-                    "folder_workflow",
-                    "intranet_folder_workflow",
-                    "intranet_workflow",
-                    "one_state_workflow",
-                    "plone_workflow",
-                    "simple_publication_workflow",
-                )
-            ),
+            sorted(expected),
         )
         self.assertEqual(tuple(wf_tool.getWorklistsResults()), (document,))
 
