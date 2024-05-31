@@ -684,9 +684,7 @@ class TestPlacefulWorkflow(CMFPlacefulWorkflowTestCase):
         )
         installer = get_installer(self.portal)
         if installer.is_product_installed("plone.app.discussion"):
-            expected += (
-                "comment_one_state_workflow",
-            )
+            expected += ("comment_one_state_workflow",)
         self.assertEqual(
             sorted(tuple(keys)),
             sorted(expected),
