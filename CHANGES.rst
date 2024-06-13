@@ -8,6 +8,15 @@ Changelog
 
 .. towncrier release notes start
 
+3.0.4 (2024-06-13)
+------------------
+
+Tests
+
+
+- Prepare to work with plone.app.discussion as a core add-on. [@jensens] (#63)
+
+
 3.0.3 (2023-03-14)
 ------------------
 
