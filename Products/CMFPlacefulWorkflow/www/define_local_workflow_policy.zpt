@@ -6,7 +6,7 @@
 >Tabs</h2>
 
 
-<h3>Workflows by type</h3>
+<h3 i18n:translate="">Workflows by type</h3>
 
 <form action="manage_changeWorkflows"
       method="POST"
@@ -17,7 +17,9 @@
       <td align="left"
           valign="top"
       >
-        <div class="form-label">Workflow Policy Title</div>
+        <div class="form-label"
+             i18n:translate=""
+        >Workflow Policy Title</div>
       </td>
       <td align="left"
           valign="top"
@@ -36,7 +38,9 @@
       <td align="left"
           valign="top"
       >
-        <div class="form-label">Workflow Policy Description</div>
+        <div class="form-label"
+             i18n:translate=""
+        >Workflow Policy Description</div>
       </td>
       <td align="left"
           valign="top"
@@ -79,6 +83,7 @@
     <tr>
       <td class="form-label"
           align="left"
+          i18n:translate=""
       >(Default)</td>
       <td class="form-element">
         <input name="default_chain"
@@ -97,6 +102,7 @@
   <input name="submit"
          type="submit"
          value="Change"
+         i18n:attributes="value"
   />
 
 </form>
@@ -104,7 +110,7 @@
 <hr />
 
 <div>
-  <div>
+  <div i18n:translate="">
     Click the button below to update the security settings of all
     workflow-aware objects in this portal.
   </div>
@@ -118,6 +124,7 @@
     <input name="submit"
            type="submit"
            value="Update security settings"
+           i18n:attributes="value"
     />
   </form>
 </div>
