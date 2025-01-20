@@ -5,7 +5,7 @@ from plone.app.testing import IntegrationTesting
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import SITE_OWNER_NAME
 from plone.app.testing import SITE_OWNER_PASSWORD
-from plone.testing import z2
+from plone.testing import zope
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.GenericSetup import EXTENSION
 from Products.GenericSetup import profile_registry
@@ -30,7 +30,7 @@ class ProductsCmfplacefulworkflowLayer(PloneSandboxLayer):
             profile_type=EXTENSION,
             for_=ISiteRoot,
         )
-        z2.installProduct(app, "Products.CMFPlacefulWorkflow")
+        zope.installProduct(app, "Products.CMFPlacefulWorkflow")
 
     def setUpPloneSite(self, portal):
         portal.acl_users.userFolderAddUser(
