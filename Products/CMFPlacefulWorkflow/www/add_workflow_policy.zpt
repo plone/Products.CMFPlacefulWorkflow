@@ -1,74 +1,87 @@
-<form action="manage_addWorkflowPolicy"
-      method="POST"
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      lang="en"
+      xml:lang="en"
+      i18n:domain="cmfplacefulworkflow"
 >
 
-  <h3>Add Workflow policy</h3>
-
-  <table border="0"
-         cellpadding="2"
-         cellspacing="0"
+  <form action="manage_addWorkflowPolicy"
+        method="POST"
   >
-    <tr>
-      <td align="left"
-          valign="top"
-      >
-        <div class="form-label">
+
+    <h3 i18n:translate="">Add Workflow policy</h3>
+
+    <table border="0"
+           cellpadding="2"
+           cellspacing="0"
+    >
+      <tr>
+        <td align="left"
+            valign="top"
+        >
+          <div class="form-label"
+               i18n:translate=""
+          >
     Id
-        </div>
-      </td>
-      <td align="left"
-          valign="top"
-      >
-        <input name="id"
-               size="40"
-               type="text"
-        />
-      </td>
-    </tr>
-    <tr>
-      <td align="left"
-          valign="top"
-      >
-        <div class="form-label"><label>Type</label></div>
-      </td>
-      <td align="left"
-          valign="top"
-      >
-        <div tal:repeat="wptype options/workflow_policy_types">
-          <input id="id"
-                 name="workflow_policy_type"
-                 type="radio"
-                 value="id"
-                 tal:attributes="
-                   name wptype;
-                   id wptype;
-                 "
+          </div>
+        </td>
+        <td align="left"
+            valign="top"
+        >
+          <input name="id"
+                 size="40"
+                 type="text"
           />
-          <label for="ids"
-                 tal:content="wptype"
-                 tal:attributes="
-                   for wptype;
-                 "
-          >Id</label><br />
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td align="left"
-          valign="top"
-      >
-      </td>
-      <td align="left"
-          valign="top"
-      >
-        <div class="form-element">
-          <input class="form-element"
-                 name="submit"
-                 type="submit"
-                 value=" Add "
-          />
-        </div>
-      </td>
-    </tr>
-  </table>
-</form>
+        </td>
+      </tr>
+      <tr>
+        <td align="left"
+            valign="top"
+        >
+          <div class="form-label"><label i18n:translate="">Type</label></div>
+        </td>
+        <td align="left"
+            valign="top"
+        >
+          <div tal:repeat="wptype options/workflow_policy_types">
+            <input id="id"
+                   name="workflow_policy_type"
+                   type="radio"
+                   value="id"
+                   tal:attributes="
+                     name wptype;
+                     id wptype;
+                   "
+            />
+            <label for="ids"
+                   tal:content="wptype"
+                   tal:attributes="
+                     for wptype;
+                   "
+            >Id</label><br />
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td align="left"
+            valign="top"
+        >
+        </td>
+        <td align="left"
+            valign="top"
+        >
+          <div class="form-element">
+            <input class="form-element"
+                   name="submit"
+                   type="submit"
+                   value=" Add "
+                   i18n:attributes="value label_add"
+            />
+          </div>
+        </td>
+      </tr>
+    </table>
+  </form>
+
+</html>
