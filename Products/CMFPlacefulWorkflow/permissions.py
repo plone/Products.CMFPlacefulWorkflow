@@ -1,5 +1,4 @@
-""" Zope 2 permissions
-"""
+"""Zope 2 permissions"""
 
 from AccessControl.Permission import addPermission
 
