@@ -42,5 +42,8 @@ profile = "plone"
 [tool.black]
 target-version = ["py38"]
 
+[tool.codespell]
+ignore-words-list = "discreet,assertin,thet,"
+
 [tool.dependencychecker]
 Zope = ['Products.Five', 'Products.PageTemplates', 'OFS']
