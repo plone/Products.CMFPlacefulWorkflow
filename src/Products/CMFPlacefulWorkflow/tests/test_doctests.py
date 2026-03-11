@@ -26,7 +26,6 @@ from Products.CMFPlacefulWorkflow.testing import (
 import doctest
 import unittest
 
-
 OPTIONFLAGS = (
     doctest.ELLIPSIS
     | doctest.NORMALIZE_WHITESPACE

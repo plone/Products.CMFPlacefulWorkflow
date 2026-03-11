@@ -17,6 +17,7 @@
 """
 CMFPlacefulWorkflow TestCase module
 """
+
 from Products.CMFPlacefulWorkflow.testing import (
     PRODUCTS_CMFPLACEFULWORKFLOW_FUNCTIONAL_TESTING,
 )

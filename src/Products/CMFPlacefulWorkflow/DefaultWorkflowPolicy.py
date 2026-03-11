@@ -33,7 +33,6 @@ from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import addWorkflowPolicyF
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from zope.interface import implementer
 
-
 DEFAULT_CHAIN = "(Default)"
 _MARKER = "_MARKER"
 

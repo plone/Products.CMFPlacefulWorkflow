@@ -2,6 +2,5 @@
 
 from AccessControl.Permission import addPermission
 
-
 ManageWorkflowPolicies = "CMFPlacefulWorkflow: Manage workflow policies"
 addPermission(ManageWorkflowPolicies, ("Manager", "Site Administrator"))

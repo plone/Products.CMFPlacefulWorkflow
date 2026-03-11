@@ -21,7 +21,6 @@ CMFPlacefulWorkflow product
 from logging import getLogger
 from Products.CMFPlacefulWorkflow.permissions import ManageWorkflowPolicies
 
-
 Log = getLogger("CMFPlacefulWorkflow")
 placeful_prefs_configlet = {
     "id": "placefulworkflow",
