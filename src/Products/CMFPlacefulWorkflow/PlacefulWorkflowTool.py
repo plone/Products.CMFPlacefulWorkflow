@@ -37,7 +37,6 @@ from Products.CMFPlacefulWorkflow.permissions import ManageWorkflowPolicies
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from zope.interface import implementer
 
-
 WorkflowPolicyConfig_id = ".wf_policy_config"
 _MARKER = object()
 

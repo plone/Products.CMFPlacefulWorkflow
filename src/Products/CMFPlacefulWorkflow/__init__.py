@@ -24,7 +24,6 @@ from Products.CMFPlacefulWorkflow import PlacefulWorkflowTool
 from Products.CMFPlacefulWorkflow import WorkflowPolicyConfig
 from zope.i18nmessageid import MessageFactory
 
-
 tools = (PlacefulWorkflowTool.PlacefulWorkflowTool,)
 
 

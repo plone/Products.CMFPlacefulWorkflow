@@ -32,7 +32,6 @@ from Products.CMFPlacefulWorkflow.tests.CMFPlacefulWorkflowTestCase import (  # 
     CMFPlacefulWorkflowTestCase,
 )
 
-
 _edit_permissions = []
 _all_permissions = _edit_permissions
 

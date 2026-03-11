@@ -33,7 +33,6 @@ from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import (  # noqa: E501
 )
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 
-
 manage_addWorkflowPolicyConfigForm = PageTemplateFile(
     path_join("www", "add_workflow_policy_config_form"), globals()
 )

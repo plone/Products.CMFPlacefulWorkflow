@@ -24,7 +24,6 @@ from zope.interface import noLongerProvides
 
 import logging
 
-
 logger = logging.getLogger("Products.CMFPlacefulWorkflow")
 
 
