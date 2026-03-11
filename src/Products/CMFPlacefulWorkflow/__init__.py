@@ -17,6 +17,7 @@
 """
 Initialization
 """
+
 from AccessControl import ModuleSecurityInfo
 from Products.CMFCore import utils
 from Products.CMFPlacefulWorkflow import DefaultWorkflowPolicy
