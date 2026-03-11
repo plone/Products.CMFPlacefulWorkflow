@@ -3,10 +3,16 @@
 # See the inline comments on how to expand/tweak this configuration file
 [meta]
 template = "default"
-commit-id = "2.2.2"
+commit-id = "2.5.1"
 
 [tox]
 test_matrix = {"6.2" = ["*"]}
 
 [setup.metadata]
 long_description = "file: README.rst, CHANGES.rst"
+
+
+[pre_commit]
+i18ndude_extra_lines = """
+        pass_filenames: false
+"""
